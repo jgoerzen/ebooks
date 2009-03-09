@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE package PUBLIC "+//ISBN 0-9673008-1-9//DTD OEB 1.2 Package//EN" "http://openebook.org/dtds/oeb-1.2/oebpkg12.dtd">
+<package unique-identifier="my-jgoerzen-UUID">
+<metadata>
+ <dc-metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oebpackage="http://openebook.org/namespaces/oeb-package/1.0/">
+    <dc:Title>Free as in Freedom</dc:Title>
+    <dc:Language>en</dc:Language>
+    <dc:Identifier id="my-jgoerzen-UUID" scheme="ISBN">0596002874</dc:Identifier>
+    <dc:Creator role="aut">Sam Williams</dc:Creator>
+    <!-- 
+    <dc:Subject>Rome--History--Empire, 30 B.C.-476 A.D.</dc:Subject>
+    <dc:Subject>Byzantine Empire--History.</dc:Subject> -->
+    <dc:Description>Free as in Freedom interweaves biographical
+    snapshots of GNU project founder Richard Stallman with the
+    political, social and economic history of the free software
+    movement. It examines Stallman's unique personality and how that
+    personality has been at turns a driving force and a drawback in
+    terms of the movement's overall success.</dc:Description>
+
+    <dc:Source>http://oreilly.com/openbook/freedom/</dc:Source>
+    <dc:Rights>http://oreilly.com/openbook/freedom/appc.html</dc:Rights>
+ </dc-metadata>
+ <x-metadata>
+      <output encoding="utf-8" content-type="text/x-oeb1-document"/>
+ </x-metadata>
+</metadata>
+<manifest>
+<!-- Amazon's doc had media-type text/html here -->
+ <item id="toc" href="index.html" media-type="text/x-oeb1-document" />
+ <item id="preface" href="ch00.html" media-type="text/x-oeb1-document" />
+ <item id="ch01" href="ch01.html" media-type="text/x-oeb1-document" />
+ <item id="ch02" href="ch02.html" media-type="text/x-oeb1-document" />
+ <item id="ch03" href="ch03.html" media-type="text/x-oeb1-document" />
+ <item id="ch04" href="ch04.html" media-type="text/x-oeb1-document" />
+ <item id="ch05" href="ch05.html" media-type="text/x-oeb1-document" />
+ <item id="ch06" href="ch06.html" media-type="text/x-oeb1-document" />
+ <item id="ch07" href="ch07.html" media-type="text/x-oeb1-document" />
+ <item id="ch08" href="ch08.html" media-type="text/x-oeb1-document" />
+ <item id="ch09" href="ch09.html" media-type="text/x-oeb1-document" />
+ <item id="ch10" href="ch10.html" media-type="text/x-oeb1-document" />
+ <item id="ch11" href="ch11.html" media-type="text/x-oeb1-document" />
+ <item id="ch12" href="ch12.html" media-type="text/x-oeb1-document" />
+ <item id="ch13" href="ch13.html" media-type="text/x-oeb1-document" />
+ <item id="ch14" href="ch14.html" media-type="text/x-oeb1-document" />
+ <item id="appa" href="appa.html" media-type="text/x-oeb1-document" />
+ <item id="appb" href="appb.html" media-type="text/x-oeb1-document" />
+ <item id="appc" href="appc.html" media-type="text/x-oeb1-document" />
+ <item id="free_0201.png" href="figs/free_0201.png" media-type="image/png" />
+ <item id="free_0306.png" href="figs/free_0306.png" media-type="image/png" />
+ <item id="free_0801.png" href="figs/free_0801.png" media-type="image/png" />
+ <item id="free_ep10.png" href="figs/free_ep10.png" media-type="image/png" />
+</manifest>
+<spine>
+ <itemref idref="toc" />
+ <itemref idref="preface" />
+ <itemref idref="ch01" />
+ <itemref idref="ch02" />
+ <itemref idref="ch03" />
+ <itemref idref="ch04" />
+ <itemref idref="ch05" />
+ <itemref idref="ch06" />
+ <itemref idref="ch07" />
+ <itemref idref="ch08" />
+ <itemref idref="ch09" />
+ <itemref idref="ch10" />
+ <itemref idref="ch11" />
+ <itemref idref="ch12" />
+ <itemref idref="ch13" />
+ <itemref idref="ch14" />
+ <itemref idref="appa" />
+ <itemref idref="appb" />
+ <itemref idref="appc" />
+</spine>
+<guide>
+ <reference type="toc" title="Table of Contents" href="index.html" />
+ <reference type="text" title="Start of Text" href="ch00.html" />
+</guide>
+</package>
