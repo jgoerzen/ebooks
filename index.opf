@@ -7,9 +7,7 @@
     <dc:Language>en</dc:Language>
     <dc:Identifier id="my-jgoerzen-UUID" scheme="ISBN">0596002874</dc:Identifier>
     <dc:Creator role="aut">Sam Williams</dc:Creator>
-    <!-- 
-    <dc:Subject>Rome--History--Empire, 30 B.C.-476 A.D.</dc:Subject>
-    <dc:Subject>Byzantine Empire--History.</dc:Subject> -->
+    <dc:Subject>Open Source and Free Software</dc:Subject>
     <dc:Description>Free as in Freedom interweaves biographical
     snapshots of GNU project founder Richard Stallman with the
     political, social and economic history of the free software
