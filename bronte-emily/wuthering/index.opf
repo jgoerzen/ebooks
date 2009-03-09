@@ -34,7 +34,5 @@
 <guide>
  <reference type="toc" title="Table of Contents" href="index.html" />
  <reference type="text" title="Start of Text" href="768-h.html#ch1" />
- <!-- <reference type="title-page" title="Title Page" href="768-h.html#about" />
- -->
 </guide>
 </package>
