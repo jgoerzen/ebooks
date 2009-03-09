@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE package PUBLIC "+//ISBN 0-9673008-1-9//DTD OEB 1.2 Package//EN" "http://openebook.org/dtds/oeb-1.2/oebpkg12.dtd">
+<package unique-identifier="my-jgoerzen-UUID">
+<metadata>
+ <dc-metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oebpackage="http://openebook.org/namespaces/oeb-package/1.0/">
+    <dc:Title>Free as in Freedom</dc:Title>
+    <dc:Language>en</dc:Language>
+    <dc:Identifier id="my-jgoerzen-UUID" scheme="unknown">fake-wutheringheights-01</dc:Identifier>
+    <dc:Creator role="aut">Emily Brontë</dc:Creator>
+    <dc:Subject>England -- Social life and customs -- 19th century -- Fiction</dc:Subject>
+    <dc:Subject>Psychological fiction</dc:Subject>
+    <dc:Subject>Rejection (Psychology) -- Fiction</dc:Subject>
+    <dc:Subject>Love stories</dc:Subject>
+    <dc:Subject>Yorkshire (England) -- Fiction</dc:Subject>
+    <dc:Subject>Rural families -- Fiction</dc:Subject>
+    <dc:Subject>Heathcliff (Fictitious character) -- Fiction</dc:Subject>
+
+    <dc:Source>http://www.gutenberg.org/etext/768</dc:Source>
+    <dc:Rights>http://www.gutenberg.org/files/768/768-h/768-h.htm</dc:Rights>
+ </dc-metadata>
+ <x-metadata>
+      <output encoding="utf-8" content-type="text/x-oeb1-document"/>
+ </x-metadata>
+</metadata>
+<manifest>
+<!-- Amazon's doc had media-type text/html here -->
+ <item id="toc" href="index.html" media-type="text/x-oeb1-document" />
+ <item id="main" href="768-h.htm" media-type="text/x-oeb1-document" />
+</manifest>
+<spine>
+ <itemref idref="toc" />
+ <itemref idref="main" />
+</spine>
+<guide>
+ <reference type="toc" title="Table of Contents" href="index.html" />
+ <reference type="text" title="Start of Text" href="768-h.htm#ch1" />
+ <reference type="title-page" title="Title Page" href="768-h.htm#about" />
+</guide>
+</package>
