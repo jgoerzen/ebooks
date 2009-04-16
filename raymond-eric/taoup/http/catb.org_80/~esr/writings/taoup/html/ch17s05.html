@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Programming for Portability</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="portabilitychapter.html" title="Chapter 17. Portability"/><link rel="previous" href="ch17s04.html" title="Specifications as DNA, Code as RNA"/><link rel="next" href="ch17s06.html" title="Internationalization"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Programming for Portability</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch17s04.html">Prev</a> </td><th width="60%" align="center">Chapter 17. Portability</th><td width="20%" align="right"> <a accesskey="n" href="ch17s06.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3000262"/>Programming for Portability</h2></div></div><p>Software portability is usually thought of in quasi-spatial
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Programming for Portability</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="portabilitychapter.html" title="ChapterÂ 17.Â Portability"/><link rel="previous" href="ch17s04.html" title="Specifications as DNA, Code as RNA"/><link rel="next" href="ch17s06.html" title="Internationalization"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Programming for Portability</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch17s04.html">Prev</a>Â </td><th width="60%" align="center">ChapterÂ 17.Â Portability</th><td width="20%" align="right">Â <a accesskey="n" href="ch17s06.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3000262"/>Programming for Portability</h2></div></div><p>Software portability is usually thought of in quasi-spatial
 terms: can this code be moved sideways to existing hardware and
 software platforms other than the one it was built for?  But Unix
 experience over decades tells us that durability down through time is
@@ -17,7 +17,7 @@ or library APIs.  Your implementation language can matter; file-system
 layout and configuration differences between the source and target
 system can be a problem as well.  But Unix practice has evolved ways 
 to cope.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3000303"/>Portability and Choice of Language</h3></div></div><p>The first issue in programming for portability is your choice of
-implementation language.  All the major languages we surveyed in <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a> are highly portable
+implementation language.  All the major languages we surveyed in <a href="languageschapter.html" title="ChapterÂ 14.Â Languages">ChapterÂ 14</a> are highly portable
 in the sense that compatible implementations are available across all
 modern Unixes; for most, implementations under Windows and MacOS are
 available as well.  Portability problems tend to arise not in the core
@@ -37,14 +37,14 @@ thickets of preprocessor conditionals for portability, but those
 handle legacy pre-POSIX interfaces from older proprietary Unixes that 
 are obsolete or close to it in 2003.</p><p>C portability starts to be a more serious problem near IPC,
 threads, and GUI interfaces.  We discussed IPC and threads portability
-issues in <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a>. The real practical problem is GUI
+issues in <a href="multiprogramchapter.html" title="ChapterÂ 7.Â Multiprogramming">ChapterÂ 7</a>. The real practical problem is GUI
 toolkits.  A number of open-source GUI toolkits are universally
 portable across modern Unixes and to Windows and classic MacOS as well
 &#8212; Tk, wxWindows, GTK, and Qt are four well-known ones with source
 code and documentation readily discoverable by Web search.  But none
 of them is shipped with all platforms, and (for reasons more legal
 than technical) none of these offers the native-GUI look and feel on
-all platforms.  We gave some guidelines for coping in <a href="toolschapter.html" title="Chapter 15. Tools">Chapter 15</a>.</p><p>Volumes have been written on the subject of how to write 
+all platforms.  We gave some guidelines for coping in <a href="toolschapter.html" title="ChapterÂ 15.Â Tools">ChapterÂ 15</a>.</p><p>Volumes have been written on the subject of how to write 
 portable C code.  This book is not going to be one of them.   Instead,
 we recommend a careful reading of <i>Recommended C Style and 
 Coding Standards</i> [<a href="apb.html#Cannon" title="[Cannon]">Cannon</a>]
@@ -157,7 +157,7 @@ good practice to have your program poke around at runtime and see if
 it can automatically adapt itself to local conditions &#8212; say, by
 actually checking for the existence of <tt>/var/mail</tt> and <tt>/var/spool/mail</tt>.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3000984"/>Tools for Portability</h3></div></div><p>You can often use the open-source GNU
 autoconf(1)
-we surveyed in <a href="toolschapter.html" title="Chapter 15. Tools">Chapter 15</a> to
+we surveyed in <a href="toolschapter.html" title="ChapterÂ 15.Â Tools">ChapterÂ 15</a> to
 handle portability issues, do system-configuration probes, and tailor
 your makefiles.  People building from sources today expect to be able
 to type <b>configure; make; make install</b> and get a
@@ -172,4 +172,4 @@ tool associated with the X windowing system and the <i>Configure</i> tool built 
 the inventor of Perl<a id="id3001065" class="indexterm"/>) and adapted for many different
 projects.  All are at least as complicated as the autoconf suite, and
 no longer as often used.  They don't cover as wide a range of target
-systems.</p></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch17s04.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="portabilitychapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch17s06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Specifications as DNA, Code as RNA </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Internationalization</td></tr></table></div></body></html>
+systems.</p></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch17s04.html">Prev</a>Â </td><td width="20%" align="center"><a accesskey="u" href="portabilitychapter.html">Up</a></td><td width="40%" align="right">Â <a accesskey="n" href="ch17s06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Specifications as DNA, Code as RNAÂ </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">Â Internationalization</td></tr></table></div></body></html>

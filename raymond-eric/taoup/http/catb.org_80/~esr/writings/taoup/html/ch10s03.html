@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Run-Control Files</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="configurationchapter.html" title="Chapter 10. Configuration"/><link rel="previous" href="ch10s02.html" title="Where Configurations Live"/><link rel="next" href="ch10s04.html" title="Environment Variables"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Run-Control Files</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch10s02.html">Prev</a> </td><th width="60%" align="center">Chapter 10. Configuration</th><td width="20%" align="right"> <a accesskey="n" href="ch10s04.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2941824"/>Run-Control Files</h2></div></div><p>A run-control file is a file of declarations or commands
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Run-Control Files</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="configurationchapter.html" title="ChapterÂ 10.Â Configuration"/><link rel="previous" href="ch10s02.html" title="Where Configurations Live"/><link rel="next" href="ch10s04.html" title="Environment Variables"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Run-Control Files</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch10s02.html">Prev</a>Â </td><th width="60%" align="center">ChapterÂ 10.Â Configuration</th><td width="20%" align="right">Â <a accesskey="n" href="ch10s04.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2941824"/>Run-Control Files</h2></div></div><p>A run-control file is a file of declarations or commands
 associated with a program that it interprets on startup. If a program
 has site-specific configuration shared by all users at a site, it will
 often have a run-control file under the <tt>/etc</tt>
@@ -24,7 +24,7 @@ at <tt>.seekstuff</tt> in the user's home directory; but
 it would be unsurprising if the locations were
 <tt>/etc/seekstuffrc</tt> and
 <tt>.seekstuffrc</tt>, especially if seekstuff were a
-system utility of some sort.</p><p>In <a href="textualitychapter.html" title="Chapter 5. Textuality">Chapter 5</a> we
+system utility of some sort.</p><p>In <a href="textualitychapter.html" title="ChapterÂ 5.Â Textuality">ChapterÂ 5</a> we
 described a somewhat different set of design rules for textual data-file 
 formats, and discussed how to optimize for different weightings
 of interoperability,
@@ -100,7 +100,7 @@ users have to cope with.</p><p>Of these, probably the best established is the
 track host/password pairs for a user can usually get them from
 the <tt>.netrc</tt> file, if it exists.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2942210"/>Case Study: The <tt>.netrc</tt> File</h3></div></div><p>The <tt>.netrc</tt> file is a good example of the
 standard rules in action.  An example, with the passwords changed to
-protect the innocent, is in <a href="#netrc" title="Example 10.1. A .netrc example.">Example 10.1</a>.</p><div class="example"><a id="netrc"/><p class="title"><b>Example 10.1. A <tt>.netrc</tt> example.</b></p><pre class="programlisting">
+protect the innocent, is in <a href="#netrc" title="ExampleÂ 10.1.Â A .netrc example.">ExampleÂ 10.1</a>.</p><div class="example"><a id="netrc"/><p class="title"><b>ExampleÂ 10.1.Â A <tt>.netrc</tt> example.</b></p><pre class="programlisting">
 # FTP access to my Web host
 machine unix1.netaxs.com
         login esr
@@ -166,4 +166,4 @@ suffix goes back to Unix's grandparent,
 CTSS<a id="id2941907" class="indexterm"/>.  It had a
 command-script feature called &quot;runcom&quot;.  Early Unixes used
 &#8216;rc&#8217; for the name of the operating system's boot script,
-as a tribute to CTSS runcom.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch10s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="configurationchapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch10s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Where Configurations Live </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Environment Variables</td></tr></table></div></body></html>
+as a tribute to CTSS runcom.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch10s02.html">Prev</a>Â </td><td width="20%" align="center"><a accesskey="u" href="configurationchapter.html">Up</a></td><td width="40%" align="right">Â <a accesskey="n" href="ch10s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Where Configurations LiveÂ </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">Â Environment Variables</td></tr></table></div></body></html>

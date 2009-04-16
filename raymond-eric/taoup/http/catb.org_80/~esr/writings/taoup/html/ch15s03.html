@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Special-Purpose Code Generators</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="toolschapter.html" title="Chapter 15. Tools"/><link rel="previous" href="ch15s02.html" title="Choosing an Editor"/><link rel="next" href="ch15s04.html" title="make: Automating Your Recipes"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Special-Purpose Code Generators</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch15s02.html">Prev</a> </td><th width="60%" align="center">Chapter 15. Tools</th><td width="20%" align="right"> <a accesskey="n" href="ch15s04.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2979728"/>Special-Purpose Code Generators</h2></div></div><p>Unix has a long-standing tradition of hosting tools that are
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Special-Purpose Code Generators</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="toolschapter.html" title="ChapterÂ 15.Â Tools"/><link rel="previous" href="ch15s02.html" title="Choosing an Editor"/><link rel="next" href="ch15s04.html" title="make: Automating Your Recipes"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Special-Purpose Code Generators</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch15s02.html">Prev</a>Â </td><th width="60%" align="center">ChapterÂ 15.Â Tools</th><td width="20%" align="right">Â <a accesskey="n" href="ch15s04.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2979728"/>Special-Purpose Code Generators</h2></div></div><p>Unix has a long-standing tradition of hosting tools that are
 specifically designed to generate code for various special purposes.
 The venerable monuments of this tradition, which go back to Version 7
 and earlier days, and were actually used to write the original
@@ -16,7 +16,7 @@ toolkit and still heavily used today.  These programs have set an
 example that is carried forward in projects like GNOME's
 <i>Glade</i> interface builder.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2979797"/><i>yacc</i> and <i>lex</i></h3></div></div><p><i>yacc</i> and
 <i>lex</i> are tools for generating language
-parsers.  We observed in <a href="minilanguageschapter.html" title="Chapter 8. Minilanguages">Chapter 8</a> that your first minilanguage is all
+parsers.  We observed in <a href="minilanguageschapter.html" title="ChapterÂ 8.Â Minilanguages">ChapterÂ 8</a> that your first minilanguage is all
 too likely to be an accident rather than a design.  That accident is
 likely to have a hand-coded parser that costs you far too much
 maintenance and debugging time &#8212; especially if you have not
@@ -54,7 +54,7 @@ implementation was written in C's predecessor B.  The crude
 though effective algorithm <i>yacc</i>-generated
 parsers use to try to recover from parse errors (pop tokens until an
 explicit error production is matched) can also lead to
-problems, including memory leaks.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>If you are building parse trees, using malloc to make nodes, and
+problems, including memory leaks.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>If you are building parse trees, using malloc to make nodes, and
 you start popping things off the stack in error recovery, you don't
 get to recover (free) the storage.  In general, Yacc can't do it,
 since it doesn't know enough about what's on the stack.  If the yacc
@@ -62,10 +62,10 @@ parser were in C++, it could assume that the values were classes and
 &#8220;destruct&#8221; them.  In &#8220;real&#8221; compilers, parse
 tree nodes are generated using an arena-based allocator, so the nodes
 don't leak, but there is a logical leak anyway that needs to be
-thought about to make industrial-strength error recovery.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+thought about to make industrial-strength error recovery.</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Steve Johnson</span>
 <a id="id2979998" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p><i>lex</i> is a lexical analyzer generator.
+</span></td><td width="10%" valign="top">Â </td></tr></table></div><p><i>lex</i> is a lexical analyzer generator.
 It's a member of the same functional family as
 grep(1)
 and
@@ -82,15 +82,15 @@ takes a single regular expression and returns a list of matches in the
 incoming data stream, each call to a
 <i>lex</i>-generated tokenizer takes a list of
 regular expressions and indicates which expression occurs next in the
-datastream.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Splitting input analysis into tokenizing input and parsing
+datastream.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>Splitting input analysis into tokenizing input and parsing
 the token stream is a useful tactic even if you're not using Yacc and
 Lex and your &#8220;tokens&#8221; are nothing like the usual ones in
 a compiler.  More than once I've found that splitting input handling
 into two levels made the code much simpler and easier to understand,
-despite the complexity added by the split itself.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+despite the complexity added by the split itself.</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Henry Spencer</span>
 <a id="id2980118" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p><i>lex</i> was written to automate the task
+</span></td><td width="10%" valign="top">Â </td></tr></table></div><p><i>lex</i> was written to automate the task
 of generating lexical analyzers (tokenizers) for compilers.  It turned
 out to have a surprisingly wide range of uses for other kinds of
 pattern recognition, and has since been described as &#8220;the
@@ -98,14 +98,14 @@ Swiss-army knife of Unix programming&#8221;.<sup>[<a id="id2980161" href="#ftn.i
 state-machine problem in which all the possible input stimuli will fit
 in a byte, <i>lex</i> may enable you to generate
 code that will be more efficient and reliable than a hand-crafted
-state machine.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>John Jarvis at Holmdel [an AT&amp;T laboratory] used
+state machine.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>John Jarvis at Holmdel [an AT&amp;T laboratory] used
 <i>lex</i> to find faults in circuit boards, by
 scanning the board, using a chain-encoding technique to represent the
 edges of areas on the board, and then using Lex to define patterns
-that would catch common fabrication errors.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+that would catch common fabrication errors.</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Mike Lesk</span>
 <a id="id2980204" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Most importantly, the <i>lex</i>
+</span></td><td width="10%" valign="top">Â </td></tr></table></div><p>Most importantly, the <i>lex</i>
 specification minilanguage is much higher-level and more
 compact<a id="id2980242" class="indexterm"/> than
 equivalent handcrafted C.  Modules are available to use
@@ -140,7 +140,7 @@ do its own token-gathering, the grammar to specify that would be
 hugely bloated and the parser extremely slow.  For tokenizing input,
 you want <i>lex</i>.  Thus, these tools are
 symbiotic.</p><p>If you can implement your parser in a higher-level language than
-C (which we recommend you do; see <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a> for discussion), then look for equivalent
+C (which we recommend you do; see <a href="languageschapter.html" title="ChapterÂ 14.Â Languages">ChapterÂ 14</a> for discussion), then look for equivalent
 facilities like Python's PLY (which covers both
 <i>lex</i> and <i>yacc</i>)<sup>[<a id="id2985990" href="#ftn.id2985990">131</a>]</sup>
 or Perl's<a id="id2986006" class="indexterm"/> PY
@@ -188,7 +188,7 @@ not perform any <i>fetchmail</i> actions, just
 sets bits in a list of internal control blocks. After startup,
 <i>fetchmail</i>'s normal mode of operation is
 just to repeatedly walk that list, using each record to drive a
-retrieval session with a remote site.</p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2986324"/>Case Study: <i>Glade</i></h3></div></div><p>We looked at <i>Glade</i> in <a href="minilanguageschapter.html" title="Chapter 8. Minilanguages">Chapter 8</a> as a good example of a
+retrieval session with a remote site.</p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2986324"/>Case Study: <i>Glade</i></h3></div></div><p>We looked at <i>Glade</i> in <a href="minilanguageschapter.html" title="ChapterÂ 8.Â Minilanguages">ChapterÂ 8</a> as a good example of a
 declarative minilanguage. We also noted that its back end produces a
 result by generating code in any one of several languages.</p><p><i>Glade</i> is a good modern example of an
 application-code generator.  What makes it Unixy in spirit are the
@@ -207,4 +207,4 @@ could easily be added.  </p></li></ul></div><p>The design implies that it should
 replace the <i>Glade</i> GUI editor component,
 should that ever become desirable.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2980161" href="#id2980161">130</a>] </sup>The common latter-day description of Perl as a 
 &#8220;Swiss-army chainsaw&#8221; is derivative.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2985990" href="#id2985990">131</a>] </sup>PLY is 
-<a href="http://systems.cs.uchicago.edu/ply/" target="_top">downloadable</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2986024" href="#id2986024">132</a>] </sup>CUP is <a href="http://www.cs.princeton.edu/~appel/modern/java/CUP/" target="_top">downloadable</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2986040" href="#id2986040">133</a>] </sup>Jack is <a href="http://www.javaworld.com/javaworld/jw-12-1996/jw-12-jack.html" target="_top">downloadable</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2986056" href="#id2986056">134</a>] </sup>Yacc/M is <a href="http://david.tribble.com/yaccm.html" target="_top">downloadable</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2986209" href="#id2986209">135</a>] </sup><a href="http://cm.bell-labs.com/cm/cs/upe/" target="_top">http://cm.bell-labs.com/cm/cs/upe/</a></p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch15s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="toolschapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch15s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Choosing an Editor </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> make: Automating Your Recipes</td></tr></table></div></body></html>
+<a href="http://systems.cs.uchicago.edu/ply/" target="_top">downloadable</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2986024" href="#id2986024">132</a>] </sup>CUP is <a href="http://www.cs.princeton.edu/~appel/modern/java/CUP/" target="_top">downloadable</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2986040" href="#id2986040">133</a>] </sup>Jack is <a href="http://www.javaworld.com/javaworld/jw-12-1996/jw-12-jack.html" target="_top">downloadable</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2986056" href="#id2986056">134</a>] </sup>Yacc/M is <a href="http://david.tribble.com/yaccm.html" target="_top">downloadable</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2986209" href="#id2986209">135</a>] </sup><a href="http://cm.bell-labs.com/cm/cs/upe/" target="_top">http://cm.bell-labs.com/cm/cs/upe/</a></p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch15s02.html">Prev</a>Â </td><td width="20%" align="center"><a accesskey="u" href="toolschapter.html">Up</a></td><td width="40%" align="right">Â <a accesskey="n" href="ch15s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Choosing an EditorÂ </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">Â make: Automating Your Recipes</td></tr></table></div></body></html>

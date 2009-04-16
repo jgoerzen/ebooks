@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Libraries</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="modularitychapter.html" title="Chapter 4. Modularity"/><link rel="previous" href="ch04s03.html" title="Software Is a Many-Layered Thing"/><link rel="next" href="unix_and_oo.html" title="Unix and Object-Oriented Languages"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Libraries</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch04s03.html">Prev</a> </td><th width="60%" align="center">Chapter 4. Modularity</th><td width="20%" align="right"> <a accesskey="n" href="unix_and_oo.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2900219"/>Libraries</h2></div></div><p>One consequence of the emphasis that the Unix programming style
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Libraries</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="modularitychapter.html" title="ChapterÂ 4.Â Modularity"/><link rel="previous" href="ch04s03.html" title="Software Is a Many-Layered Thing"/><link rel="next" href="unix_and_oo.html" title="Unix and Object-Oriented Languages"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Libraries</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch04s03.html">Prev</a>Â </td><th width="60%" align="center">ChapterÂ 4.Â Modularity</th><td width="20%" align="right">Â <a accesskey="n" href="unix_and_oo.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2900219"/>Libraries</h2></div></div><p>One consequence of the emphasis that the Unix programming style
 put on modularity and well-defined APIs is a strong tendency to
 factor programs into bits of glue connecting collections of
 libraries, especially shared libraries (the equivalents of what are
@@ -14,7 +14,7 @@ network-protocol packets, or control blocks for a hardware interface.
 Some good general architectural advice from within the Unix tradition,
 particularly applicable to the resource-management challenges of this
 sort of library is collected in <i>The Discipline and Method
-Architecture for Reusable Libraries</i> [<a href="apb.html#Vo" title="[Vo]">Vo</a>].</p><p>Under Unix, it is normal practice to make this layering
+Architecture for Reusable Libraries</i>Â [<a href="apb.html#Vo" title="[Vo]">Vo</a>].</p><p>Under Unix, it is normal practice to make this layering
 explicit, with the service routines collected in a library that is
 separately documented.  In such programs, the front end gets to
 specialize in user-interface considerations and high-level protocol.
@@ -23,17 +23,17 @@ original front end and replace it with others adapted for different
 purposes.  Some other advantages should become evident from our case
 study.</p><p>There is a flip side to this. In the Unix world, libraries which
 are delivered <span class="emphasis"><em>as libraries</em></span> should come with
-exerciser programs.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>APIs should come with programs, and vice versa.  An API that you
+exerciser programs.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>APIs should come with programs, and vice versa.  An API that you
 must write C code to use, which cannot be invoked easily from the
 command line, is harder to learn and use.  And contrariwise, it's a
 royal pain to have interfaces whose <span class="emphasis"><em>only</em></span> open,
 documented form is a program, so you cannot invoke them easily from a
 C program &#8212; for example,
 route(1)
-in older Linuxes.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+in older Linuxes.</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Henry Spencer</span>
 <a id="id2900299" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Besides easing the learning curve, library exercisers often make
+</span></td><td width="10%" valign="top">Â </td></tr></table></div><p>Besides easing the learning curve, library exercisers often make
 excellent test frameworks.  Experienced Unix programmers therefore see
 them not just as a form of thoughtfulness to the library's users but
 as an indication that the code has probably been well tested.</p><p>An important form of library layering is the
@@ -52,7 +52,7 @@ but not about the GUI.</p><p>The library layer is documented (and, in fact shipp
 &#8220;libgimp&#8221; for use by other programs).  This means that C
 programs called &#8220;plugins&#8221; can be dynamically loaded by
 GIMP and call the library to do image manipulation, effectively taking
-over control at the same level as the GUI (see <a href="#libgimp" title="Figure 4.2. Caller/callee relationships in GIMP with a plugin loaded.">Figure 4.2</a>).</p><div class="figure"><a id="libgimp"/><p class="title"><b>Figure 4.2. Caller/callee relationships in GIMP with a plugin loaded.</b></p><div class="mediaobject"><img src="graphics/gimp-org.png" alt="Caller/callee relationships in GIMP with a plugin loaded."/></div></div><p>Plugins are used to perform lots of special-purpose
+over control at the same level as the GUI (see <a href="#libgimp" title="FigureÂ 4.2.Â Caller/callee relationships in GIMP with a plugin loaded.">FigureÂ 4.2</a>).</p><div class="figure"><a id="libgimp"/><p class="title"><b>FigureÂ 4.2.Â Caller/callee relationships in GIMP with a plugin loaded.</b></p><div class="mediaobject"><img src="graphics/gimp-org.png" alt="Caller/callee relationships in GIMP with a plugin loaded."/></div></div><p>Plugins are used to perform lots of special-purpose
 transformations such as colormap hacking, blurring and despeckling;
 also for reading and writing file formats not native to the GIMP core;
 for extensions like editing animations and window manager themes; and
@@ -62,5 +62,5 @@ GIMP plugins is available on the World Wide Web.</p><p>Though most GIMP plugins 
 C<a id="id2900491" class="indexterm"/> programs, it is
 also possible to write a plugin that exposes the library API to a
 scripting language<a id="id2900501" class="indexterm"/>; we'll discuss this possibility in
-<a href="interfacechapter.html" title="Chapter 11. Interfaces">Chapter 11</a> when we examine
-the &#8216;polyvalent program&#8217; pattern.</p></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch04s03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="modularitychapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="unix_and_oo.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Software Is a Many-Layered Thing </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Unix and Object-Oriented Languages</td></tr></table></div></body></html>
+<a href="interfacechapter.html" title="ChapterÂ 11.Â Interfaces">ChapterÂ 11</a> when we examine
+the &#8216;polyvalent program&#8217; pattern.</p></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch04s03.html">Prev</a>Â </td><td width="20%" align="center"><a accesskey="u" href="modularitychapter.html">Up</a></td><td width="40%" align="right">Â <a accesskey="n" href="unix_and_oo.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Software Is a Many-Layered ThingÂ </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">Â Unix and Object-Oriented Languages</td></tr></table></div></body></html>

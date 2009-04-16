@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Version-Control Systems</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="toolschapter.html" title="Chapter 15. Tools"/><link rel="previous" href="ch15s04.html" title="make: Automating Your Recipes"/><link rel="next" href="ch15s06.html" title="Runtime Debugging"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Version-Control Systems</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch15s04.html">Prev</a> </td><th width="60%" align="center">Chapter 15. Tools</th><td width="20%" align="right"> <a accesskey="n" href="ch15s06.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2988338"/>Version-Control Systems</h2></div></div><p>Code evolves. As a project moves from first-cut prototype to
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Version-Control Systems</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="toolschapter.html" title="ChapterÂ 15.Â Tools"/><link rel="previous" href="ch15s04.html" title="make: Automating Your Recipes"/><link rel="next" href="ch15s06.html" title="Runtime Debugging"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Version-Control Systems</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch15s04.html">Prev</a>Â </td><th width="60%" align="center">ChapterÂ 15.Â Tools</th><td width="20%" align="right">Â <a accesskey="n" href="ch15s06.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2988338"/>Version-Control Systems</h2></div></div><p>Code evolves. As a project moves from first-cut prototype to
 deliverable, it goes through multiple cycles in which you explore
 new ground, debug, and then stabilize what you've accomplished. And
 this evolution doesn't stop when you first deliver for production.
@@ -18,14 +18,14 @@ hours of painful work for yourself).</p><p>Almost as important is <span class="e
 know your code has changed; do you know why? It's easy to forget the
 reasons for changes and step on them later. If you have collaborators
 on a project, how do you know what they have changed while you weren't
-looking, and who was responsible for each change?</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Amazingly often, it is useful to ask what
+looking, and who was responsible for each change?</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>Amazingly often, it is useful to ask what
 <span class="emphasis"><em>you</em></span> have changed since the last known-good
 version, even if you have no collaborators.  This often uncovers
 unwanted changes, such as forgotten debugging code.  I now do this
-routinely before checking in a set of changes.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+routinely before checking in a set of changes.</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Henry Spencer</span>
 <a id="id2988414" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Another issue is <span class="emphasis"><em>bug tracking</em></span>. It's quite common
+</span></td><td width="10%" valign="top">Â </td></tr></table></div><p>Another issue is <span class="emphasis"><em>bug tracking</em></span>. It's quite common
 to get new bug reports for a particular version after the code has
 mutated away from it considerably. Sometimes you can recognize
 immediately that the bug has already been stomped, but often you
@@ -116,7 +116,7 @@ project releases under symbolic names.</p><p><i>RCS</i> is currently the most wi
 used version control system in the Unix world. Some other Unix
 version-control systems use it as a back end or underlayer. It is well
 suited for single-developer or small-group projects hosted at a single
-development shop.</p><p>The <i>RCS</i> sources are maintained and
+developmentÂ shop.</p><p>The <i>RCS</i> sources are maintained and
 distributed by the FSF<a id="id2988794" class="indexterm"/>. Free ports are available for
 Microsoft operating systems<a id="id2988804" class="indexterm"/> and VAX VMS<a id="id2988813" class="indexterm"/>.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id2988824"/>Concurrent Version System (CVS)</h4></div></div><p>CVS (Concurrent Version System) began life as a front end to
 <i>RCS</i> developed in the early 1990s, but the
@@ -190,4 +190,4 @@ explores some interesting design ideas related to change-sets and
 multiple distributed code repositories. Linus Torvalds uses Bitkeeper 
 for the Linux kernel sources.  Its non-open-source license
 is, however, controversial, and has significantly retarded the
-acceptance of the product.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch15s04.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="toolschapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch15s06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">make: Automating Your Recipes </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Runtime Debugging</td></tr></table></div></body></html>
+acceptance of the product.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch15s04.html">Prev</a>Â </td><td width="20%" align="center"><a accesskey="u" href="toolschapter.html">Up</a></td><td width="40%" align="right">Â <a accesskey="n" href="ch15s06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">make: Automating Your RecipesÂ </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">Â Runtime Debugging</td></tr></table></div></body></html>

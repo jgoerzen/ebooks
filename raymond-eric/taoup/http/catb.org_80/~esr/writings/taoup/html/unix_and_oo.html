@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Unix and Object-Oriented Languages</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="modularitychapter.html" title="Chapter 4. Modularity"/><link rel="previous" href="ch04s04.html" title="Libraries"/><link rel="next" href="ch04s06.html" title="Coding for Modularity"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Unix and Object-Oriented Languages</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch04s04.html">Prev</a> </td><th width="60%" align="center">Chapter 4. Modularity</th><td width="20%" align="right"> <a accesskey="n" href="ch04s06.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="unix_and_oo"/>Unix and Object-Oriented Languages</h2></div></div><a id="id2900532" class="indexterm"/><p>Since the mid-1980s most new language designs have included
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Unix and Object-Oriented Languages</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="modularitychapter.html" title="ChapterÂ 4.Â Modularity"/><link rel="previous" href="ch04s04.html" title="Libraries"/><link rel="next" href="ch04s06.html" title="Coding for Modularity"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Unix and Object-Oriented Languages</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch04s04.html">Prev</a>Â </td><th width="60%" align="center">ChapterÂ 4.Â Modularity</th><td width="20%" align="right">Â <a accesskey="n" href="ch04s06.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="unix_and_oo"/>Unix and Object-Oriented Languages</h2></div></div><a id="id2900532" class="indexterm"/><p>Since the mid-1980s most new language designs have included
 native support for <i>object-oriented programming</i>
 (OO).  Recall that in object-oriented programming, the functions that
 act on a particular data structure are encapsulated with the data in
@@ -18,7 +18,7 @@ because of the Rule of Diversity; OO has far too often been promoted
 as the One True Solution to the software-complexity problem.  But
 there is something else behind it as well, an issue which is worth
 exploring as background before we evaluate specific OO
-(object-oriented) languages in <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a>.  It will also help throw some
+(object-oriented) languages in <a href="languageschapter.html" title="ChapterÂ 14.Â Languages">ChapterÂ 14</a>.  It will also help throw some
 characteristics of the Unix style of non-OO programming into sharper
 relief.</p><p>We observed above that the Unix tradition of modularity is one
 of thin glue, a minimalist approach with few layers of abstraction
@@ -52,8 +52,8 @@ manipulating &#8212; it's just about being glue. (One sure sign of
 this is a proliferation of abstract subclasses or
 &#8216;mixins&#8217;.)</p><p>Another side effect of OO abstraction is that opportunities for
 optimization<a id="id2900675" class="indexterm"/>
-tend to disappear.  For example, <span class="emphasis"><em>a</em></span> + <span class="emphasis"><em>a</em></span> + <span class="emphasis"><em>a</em></span> + <span class="emphasis"><em>a</em></span> can become <span class="emphasis"><em>a</em></span> * 4 and even
-<span class="emphasis"><em>a</em></span> &lt;&lt; 2 if a is an integer.  But if one creates a class with
+tend to disappear.  For example, <span class="emphasis"><em>a</em></span>Â +Â <span class="emphasis"><em>a</em></span>Â +Â <span class="emphasis"><em>a</em></span>Â +Â <span class="emphasis"><em>a</em></span> can become <span class="emphasis"><em>a</em></span>Â *Â 4 and even
+<span class="emphasis"><em>a</em></span>Â &lt;&lt;Â 2 if a is an integer.  But if one creates a class with
 operators, there is nothing to indicate if they are commutative,
 distributive, or associative.  Since one isn't supposed to look inside
 the object, it's not possible to know which of two equivalent
@@ -87,4 +87,4 @@ to combine the virtue of detachment (simplifying and generalizing
 problems from their original context) with the virtue of thin glue and
 shallow, flat, transparent hierarchies of code and
 design<a id="id2900812" class="indexterm"/>.</p><p>We'll return to some of these points and apply them when we
-discuss object-oriented languages in <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a>.</p></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch04s04.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="modularitychapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch04s06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Libraries </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Coding for Modularity</td></tr></table></div></body></html>
+discuss object-oriented languages in <a href="languageschapter.html" title="ChapterÂ 14.Â Languages">ChapterÂ 14</a>.</p></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch04s04.html">Prev</a>Â </td><td width="20%" align="center"><a accesskey="u" href="modularitychapter.html">Up</a></td><td width="40%" align="right">Â <a accesskey="n" href="ch04s06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">LibrariesÂ </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">Â Coding for Modularity</td></tr></table></div></body></html>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Language Evaluations</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="languageschapter.html" title="Chapter 14. Languages"/><link rel="previous" href="ch14s03.html" title="Interpreted Languages and Mixed Strategies"/><link rel="next" href="ch14s05.html" title="Trends for the Future"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Language Evaluations</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch14s03.html">Prev</a> </td><th width="60%" align="center">Chapter 14. Languages</th><td width="20%" align="right"> <a accesskey="n" href="ch14s05.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2968458"/>Language Evaluations</h2></div></div><p>Mixing languages is a knowledge-intensive (rather than coding-intensive)
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Language Evaluations</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="languageschapter.html" title="ChapterÂ 14.Â Languages"/><link rel="previous" href="ch14s03.html" title="Interpreted Languages and Mixed Strategies"/><link rel="next" href="ch14s05.html" title="Trends for the Future"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Language Evaluations</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch14s03.html">Prev</a>Â </td><th width="60%" align="center">ChapterÂ 14.Â Languages</th><td width="20%" align="right">Â <a accesskey="n" href="ch14s05.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2968458"/>Language Evaluations</h2></div></div><p>Mixing languages is a knowledge-intensive (rather than coding-intensive)
 style of programming. To make it work, you have to have both
 working knowledge of a suitable variety of languages and expertise
 about what they're best at and how to fit them together. In this
@@ -21,7 +21,7 @@ under any of the other languages surveyed here and you will find a
 core implemented in pure, portable C. These languages inherit 
 many of the advantages of C.</p><p>Under modern conditions, it's perhaps best to think of C as a
 high-level assembler for the Unix virtual machine (recall the
-discussion of the success of C as a case study in <a href="modularitychapter.html" title="Chapter 4. Modularity">Chapter 4</a>).  C standards have exported many of the
+discussion of the success of C as a case study in <a href="modularitychapter.html" title="ChapterÂ 4.Â Modularity">ChapterÂ 4</a>).  C standards have exported many of the
 facilities of this virtual machine, such as the standard I/O library,
 to other operating systems.  C is where you go when you want to get as
 close as possible to the bare metal but stay portable.</p><p>One good reason to learn C, even if your programming needs are
@@ -31,7 +31,7 @@ on C for people who are already programmers is still <i>The C
 Programming Language</i> [<a href="apb.html#Kernighan-Ritchie" title="[Kernighan-Ritchie]">Kernighan-Ritchie</a>].</p><p>Porting C code between Unix variants is almost always possible
 and usually easy, but specific areas of variation (like
 signals and process control) can be tricky to get right.  We
-highlight some of these issues in <a href="portabilitychapter.html" title="Chapter 17. Portability">Chapter 17</a>.  Differing C bindings on other
+highlight some of these issues in <a href="portabilitychapter.html" title="ChapterÂ 17.Â Portability">ChapterÂ 17</a>.  Differing C bindings on other
 operating systems can of course cause C portability problems, although
 Windows NT at least theoretically supports an ANSI/POSIX-compliant C
 API.</p><p>High-quality C compilers are available as open-source software
@@ -102,7 +102,7 @@ Later, feature arms races between different compiler implementers,
 unconstrained by a weak and premature standardization effort, pushed
 C++ to become rather baroque and excessively complicated.</p><p>Another part of the fault must be laid to the failure of
 OO<a id="id2968949" class="indexterm"/> itself
-to live up to expectations.  We examined this problem in <a href="modularitychapter.html" title="Chapter 4. Modularity">Chapter 4</a>, observing the tendency of OO methods to
+to live up to expectations.  We examined this problem in <a href="modularitychapter.html" title="ChapterÂ 4.Â Modularity">ChapterÂ 4</a>, observing the tendency of OO methods to
 lead to thick glue layers and maintenance problems.  Today
 (2003), inspection of open-source archives (in which choice of
 language reflects developers' judgments rather than corporate
@@ -127,7 +127,7 @@ at runtime.)</p><p>Efficient compiled language; upward-compatible with C;
 object-oriented platform; vehicle for cutting-edge techniques like STL
 and generics &#8212; C++ tries to be all things to all people, but the cost
 is more complexity than the mind of any individual programmer can
-handle. As we noted in <a href="modularitychapter.html" title="Chapter 4. Modularity">Chapter 4</a>, the language's principal designer has
+handle. As we noted in <a href="modularitychapter.html" title="ChapterÂ 4.Â Modularity">ChapterÂ 4</a>, the language's principal designer has
 conceded that he doesn't expect any one programmer to grasp it
 all. Unix hackers do not react well to this; one anonymous but famous
 characterization is &#8220;C++: an octopus made by nailing extra legs
@@ -191,15 +191,15 @@ probably the C shell <i>csh</i>, which is
 notoriously<sup>[<a id="id2969353" href="#ftn.id2969353">126</a>]</sup> unsuitable for writing
 scripts.</p><p>Simple shell programs are extremely easy and natural to write.
 The Unix tradition of rapid prototyping in interpretive languages
-began with shell.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>I wrote the very first version of netnews as a 150-line
+began with shell.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>I wrote the very first version of netnews as a 150-line
 shellscript.  It had multiple newsgroups and cross-posting;
 newsgroups were directories and cross-posting was implemented
 as multiple links to the article.  It was far too slow to
 use for production, but the flexibility permitted endless
-experimentation with the protocol design.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+experimentation with the protocol design.</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Steven M. Bellovin</span>
 <a id="id2975302" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>As program size gets larger, however, they tend to become rather
+</span></td><td width="10%" valign="top">Â </td></tr></table></div><p>As program size gets larger, however, they tend to become rather
 ad-hoc. Some parts of shell syntax (notably its quoting and
 statement-syntax rules) can be very confusing. These drawbacks
 generally relate to compromises in the programming-language part of
@@ -237,7 +237,7 @@ shell on Linux<a id="id2975443" class="indexterm"/> and other leading-edge Unix 
 now <i>bash</i>.</p><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="xmlto"/>Case Study: <i>xmlto</i></h4></div></div><a id="id2975480" class="indexterm"/><p><i>xmlto</i> is a driver script
 that calls all the commands needed to render an XML-DocBook document
 as HTML, PostScript, plain text, or in any one of several other
-formats (we'll take a closer look at DocBook in <a href="documentationchapter.html" title="Chapter 18. Documentation">Chapter 18</a>).  It is written
+formats (we'll take a closer look at DocBook in <a href="documentationchapter.html" title="ChapterÂ 18.Â Documentation">ChapterÂ 18</a>).  It is written
 in bash.</p><p><i>xmlto</i> handles the details
 of calling an XSLT engine with appropriate stylesheet, then handing
 off the result to a postprocessor.  For HTML and XHTML the XSLT
@@ -560,7 +560,7 @@ C<a id="id2977050" class="indexterm"/> or C++<a id="id2977061" class="indexterm"
 larger and harder to read. Java would have solved the implicit
 memory-management problem, but is hardly more expressive than
 C or C++<a id="id2977073" class="indexterm"/> at text pattern matching.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id2977085"/>A Medium-Sized Python Case Study:
-<i>fetchmailconf</i></h4></div></div><p>In <a href="interfacechapter.html" title="Chapter 11. Interfaces">Chapter 11</a> we
+<i>fetchmailconf</i></h4></div></div><p>In <a href="interfacechapter.html" title="ChapterÂ 11.Â Interfaces">ChapterÂ 11</a> we
 examined the
 <i>fetchmail</i>/<i>fetchmailconf</i>
 pair as an example of one way to separate implementation from
@@ -706,7 +706,7 @@ impossible.<sup>[<a id="id2977747" href="#ftn.id2977747">127</a>]</sup>  Freenet
 following applications:</p><div class="itemizedlist"><ul type="disc"><li><p>Uncensorable dissemination of controversial information: Freenet
 protects freedom of speech by enabling anonymous and uncensorable
 publication of material ranging from grassroots alternative journalism
-to banned exposés.</p></li><li><p>Efficient distribution of high-bandwidth content: Freenet's
+to banned exposÃ©s.</p></li><li><p>Efficient distribution of high-bandwidth content: Freenet's
 adaptive caching and mirroring is being used to distribute Debian
 Linux software updates.</p></li><li><p>Universal personal publishing: Freenet enables anyone to have a
 website, without space restrictions or compulsory advertising, even if
@@ -740,7 +740,7 @@ have to do with providing a front-end for development tools such as
 the C compiler and linker,
 make(1),
 version-control systems, and symbolic debuggers; we'll discuss these
-in <a href="toolschapter.html" title="Chapter 15. Tools">Chapter 15</a>.</p><p>More generally, Emacs is to pattern-
+in <a href="toolschapter.html" title="ChapterÂ 15.Â Tools">ChapterÂ 15</a>.</p><p>More generally, Emacs is to pattern-
 or syntax-directed <span class="emphasis"><em>interactive</em></span> editing what
 Perl<a id="id2977953" class="indexterm"/> is to
 pattern-directed <span class="emphasis"><em>batch</em></span> editing. Any application
@@ -785,4 +785,4 @@ dating from 1998, was widely implemented but weak, especially in the
 area of libraries.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2969353" href="#id2969353">126</a>] </sup>See Tom Christiansen's essay <i>Csh
 Programming Considered Harmful</i>, which should be readily
 findable via Web search.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2977747" href="#id2977747">127</a>] </sup>There is a <a href="http://freenetproject.org/" target="_top">Freenet project
-website</a>.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch14s03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="languageschapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch14s05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Interpreted Languages and Mixed Strategies </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Trends for the Future</td></tr></table></div></body></html>
+website</a>.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch14s03.html">Prev</a>Â </td><td width="20%" align="center"><a accesskey="u" href="languageschapter.html">Up</a></td><td width="40%" align="right">Â <a accesskey="n" href="ch14s05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Interpreted Languages and Mixed StrategiesÂ </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">Â Trends for the Future</td></tr></table></div></body></html>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>make: Automating Your Recipes</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="toolschapter.html" title="Chapter 15. Tools"/><link rel="previous" href="ch15s03.html" title="Special-Purpose Code Generators"/><link rel="next" href="ch15s05.html" title="Version-Control Systems"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">make: Automating Your Recipes</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch15s03.html">Prev</a> </td><th width="60%" align="center">Chapter 15. Tools</th><td width="20%" align="right"> <a accesskey="n" href="ch15s05.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2986448"/><i>make</i>: Automating Your Recipes</h2></div></div><p>Program sources by themselves don't make an application. The way
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>make: Automating Your Recipes</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="toolschapter.html" title="ChapterÂ 15.Â Tools"/><link rel="previous" href="ch15s03.html" title="Special-Purpose Code Generators"/><link rel="next" href="ch15s05.html" title="Version-Control Systems"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">make: Automating Your Recipes</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch15s03.html">Prev</a>Â </td><th width="60%" align="center">ChapterÂ 15.Â Tools</th><td width="20%" align="right">Â <a accesskey="n" href="ch15s05.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2986448"/><i>make</i>: Automating Your Recipes</h2></div></div><p>Program sources by themselves don't make an application. The way
 you put them together and package them for distribution matters,
 too. Unix provides a tool for semi-automating these processes;
 make(1).
@@ -40,7 +40,7 @@ extensions.</p><p>For example: You might put in a makefile that the binary
 know without being told that each <tt>.o</tt> file depends
 on the corresponding <tt>.c</tt> file, and supply its own
 standard recipe for building a <tt>.o</tt> file from a <tt>.c</tt>
-file.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Make originated with a visit from Steve Johnson (author of
+file.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>Make originated with a visit from Steve Johnson (author of
 <i>yacc</i>, etc.), storming into my office, cursing
 the Fates that had caused him to waste a morning debugging a correct
 program (bug had been fixed, file hadn't been compiled, <b>cc
@@ -51,10 +51,10 @@ elaborate idea of a dependency analyzer, boiled down to something much
 simpler, and turned into Make that weekend.  Use of tools that were
 still wet was part of the culture. Makefiles were text files, not
 magically encoded binaries, because that was the Unix ethos:
-printable, debuggable, understandable stuff.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+printable, debuggable, understandable stuff.</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Stuart Feldman</span>
 <a id="id2986733" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>When you run <b>make</b> in a project directory, the
+</span></td><td width="10%" valign="top">Â </td></tr></table></div><p>When you run <b>make</b> in a project directory, the
 <i>make</i> program looks at all productions and
 timestamps and does the minimum amount of work necessary to make sure
 derived files are up to date.</p><p>You can read a good example of a moderately complex makefile in
@@ -72,31 +72,31 @@ would be complete without an acknowledgement that it includes one of
 the worst design botches in the history of Unix. The use of tab
 characters as a required leader for command lines associated with a
 production means that the interpretation of a makefile can change
-drastically on the basis of invisible differences in whitespace.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Why the tab in column 1? Yacc was new, Lex was brand new. I
+drastically on the basis of invisible differences in whitespace.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>Why the tab in column 1? Yacc was new, Lex was brand new. I
 hadn't tried either, so I figured this would be a good excuse to
 learn. After getting myself snarled up with my first stab at Lex, I
 just did something simple with the pattern newline-tab. It
 worked, it stayed. And then a few weeks later I had a user population
 of about a dozen, most of them friends, and I didn't want to screw up
-my embedded base. The rest, sadly, is history.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+my embedded base. The rest, sadly, is history.</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Stuart Feldman</span>
 <a id="id2986876" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2986902"/><i>make</i> in Non-C/C++
+</span></td><td width="10%" valign="top">Â </td></tr></table></div></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2986902"/><i>make</i> in Non-C/C++
 Development</h3></div></div><p><i>make</i> is not just useful for C/C++
 recipes, however.  Scripting languages like those we described in
-<a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a> may not require
+<a href="languageschapter.html" title="ChapterÂ 14.Â Languages">ChapterÂ 14</a> may not require
 conventional compilation and link steps, but there are often other
 kinds of dependencies that
 make(1)
 can help you with.</p><p>Suppose, for example, that you actually generate part of your
-code from a specification file, using one of the techniques from <a href="generationchapter.html" title="Chapter 9. Generation">Chapter 9</a>. You can use
+code from a specification file, using one of the techniques from <a href="generationchapter.html" title="ChapterÂ 9.Â Generation">ChapterÂ 9</a>. You can use
 <i>make</i> to tie the spec file and the generated
 source together. This will ensure that whenever you change the spec
 and remake, the generated code will automatically be rebuilt.</p><p>It's quite common to use makefile productions to express recipes
 for making documentation as well as code. You'll often see this
 approach used to automatically generate PostScript or other derived
 documentation from masters written in some markup language (like HTML
-or one of the Unix document-macro languages we'll survey in <a href="documentationchapter.html" title="Chapter 18. Documentation">Chapter 18</a>). In fact, this sort of use is so
+or one of the Unix document-macro languages we'll survey in <a href="documentationchapter.html" title="ChapterÂ 18.Â Documentation">ChapterÂ 18</a>). In fact, this sort of use is so
 common that it's worth illustrating with a case study.</p><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id2986982"/>Case Study: <i>make</i> for Document-File Translation</h4></div></div><p>In the
 fetchmail<a id="id2986998" class="indexterm"/> makefile,
 for example, you'll see three productions that relate files named
@@ -125,14 +125,14 @@ needed.</p></div></div><div class="sect2" lang="en"><div class="titlepage"><div>
 don't express file dependencies at all. They're ways to bundle up
 little procedures that a developer wants to mechanize, like making
 a distribution package or removing all object files in order to do
-a build from scratch.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Non-file productions were intentional and in there from day
+a build from scratch.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>Non-file productions were intentional and in there from day
 one. &#8216;Make all&#8217; and &#8216;clean&#8217; were my own
 conventions from earliest days.  One of the older Unix jokes is
 &#8220;Make love&#8221; which results in &#8220;Don't know how to
-make love&#8221;.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+make love&#8221;.</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Stuart Feldman</span>
 <a id="id2987177" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>There is a well-developed set of conventions about what utility
+</span></td><td width="10%" valign="top">Â </td></tr></table></div><p>There is a well-developed set of conventions about what utility
 productions should be present and how they should be named.
 Following these will make your makefile much easier to understand
 and use.</p><div class="variablelist"><dl><dt><span class="term"><tt>all</tt></span></dt><dd><p>Your <tt>all</tt> production should make every
@@ -166,7 +166,7 @@ as a production of its own anyway, to document what's going on. When
 it's different, it usually differs by throwing away local
 configuration files that aren't part of the normal <b>make
 all</b> build sequence (such as those generated by autoconf(1);
-we'll talk about autoconf(1) in <a href="portabilitychapter.html" title="Chapter 17. Portability">Chapter 17</a>).</p></dd><dt><span class="term"><tt>realclean</tt></span></dt><dd><p>Throw away everything you can rebuild using the makefile. This
+we'll talk about autoconf(1) in <a href="portabilitychapter.html" title="ChapterÂ 17.Â Portability">ChapterÂ 17</a>).</p></dd><dt><span class="term"><tt>realclean</tt></span></dt><dd><p>Throw away everything you can rebuild using the makefile. This
 may be the same as <b>make distclean</b>, but should be
 included as a production of its own anyway, to document what's going
 on. When it's different, it usually differs by throwing away files
@@ -294,7 +294,7 @@ makefile generators, and has been for some years. It has eclipsed
 competitor (<i>metaconfig</i>) out of use.</p><p>A reference, <i>GNU Autoconf, Automake and
 Libtool</i> is available [<a href="apb.html#Vaughan" title="[Vaughan]">Vaughan</a>]. We'll have
 more to say about <i>autoconf</i>, from a slightly
-different angle, in <a href="portabilitychapter.html" title="Chapter 17. Portability">Chapter 17</a>.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id2988205"/><i>automake</i></h4></div></div><p><i>automake</i> is an attempt to add
+different angle, in <a href="portabilitychapter.html" title="ChapterÂ 17.Â Portability">ChapterÂ 17</a>.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id2988205"/><i>automake</i></h4></div></div><p><i>automake</i> is an attempt to add
 <i>Imake</i>-like dependency derivation as a layer
 on top of
 autoconf(1). You
@@ -320,4 +320,4 @@ in which module releases aren't considered complete until they have
 attached test code. The term and the concept originated in the
 &#8220;Extreme Programming&#8221; methodology popularized by Kent
 Beck, but has gained wide acceptance among Unix programmers since
-about 2001.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch15s03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="toolschapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch15s05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Special-Purpose Code Generators </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Version-Control Systems</td></tr></table></div></body></html>
+about 2001.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch15s03.html">Prev</a>Â </td><td width="20%" align="center"><a accesskey="u" href="toolschapter.html">Up</a></td><td width="40%" align="right">Â <a accesskey="n" href="ch15s05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Special-Purpose Code GeneratorsÂ </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">Â Version-Control Systems</td></tr></table></div></body></html>

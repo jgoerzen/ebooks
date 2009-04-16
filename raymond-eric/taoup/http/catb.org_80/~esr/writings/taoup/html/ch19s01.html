@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Unix and Open Source</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="opensourcechapter.html" title="Chapter 19. Open Source"/><link rel="previous" href="opensourcechapter.html" title="Chapter 19. Open Source"/><link rel="next" href="ch19s02.html" title="Best Practices for Working with Open-Source Developers"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Unix and Open Source</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="opensourcechapter.html">Prev</a> </td><th width="60%" align="center">Chapter 19. Open Source</th><td width="20%" align="right"> <a accesskey="n" href="ch19s02.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3009499"/>Unix and Open Source</h2></div></div><p>Open-source development exploits the fact that characterizing
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Unix and Open Source</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="opensourcechapter.html" title="ChapterÂ 19.Â Open Source"/><link rel="previous" href="opensourcechapter.html" title="ChapterÂ 19.Â Open Source"/><link rel="next" href="ch19s02.html" title="Best Practices for Working with Open-Source Developers"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Unix and Open Source</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="opensourcechapter.html">Prev</a>Â </td><th width="60%" align="center">ChapterÂ 19.Â Open Source</th><td width="20%" align="right">Â <a accesskey="n" href="ch19s02.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3009499"/>Unix and Open Source</h2></div></div><p>Open-source development exploits the fact that characterizing
 and fixing bugs &#8212; unlike, say, implementing a particular
 algorithm &#8212; is a task that lends itself well to being split into
 multiple parallel subtasks.  Exploration of the neighborhood of
@@ -30,7 +30,7 @@ to the implications of our own behavior. Several people came very
 close to understanding the phenomenon; Richard Gabriel in his
 &#8220;Worse Is Better&#8221;<a id="id3009606" class="indexterm"/> paper from 1990 [<a href="apb.html#Gabriel" title="[Gabriel]">Gabriel</a>]
 is the best known, but one can find prefigurations in Brooks [<a href="apb.html#Brooks" title="[Brooks]">Brooks</a>] (1975) and as far back as Vyssotsky and
-Corbató's meditations on the Multics design (1965). I failed to
+CorbatÃ³'s meditations on the Multics design (1965). I failed to
 get it over more than twenty years of observing software development,
 before being awakened by Linux in the mid-1990s.  This experience
 should make any thoughtful and humble person wonder what other
@@ -56,7 +56,7 @@ difficult for other developers to contribute to, because they cannot
 easily determine if any change they made improved the program or not.</p></li><li><p><span class="emphasis"><em>Reward contribution with praise.</em></span> 
 If you can't give your co-developers material rewards, 
 give psychological ones.  Even if you can, remember that people will
-often work harder for reputation than they would for gold.</p></li></ol></div><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>A corollary of rule 2 is that individual releases should not be
+often work harder for reputation than they would for gold.</p></li></ol></div><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>A corollary of rule 2 is that individual releases should not be
 momentous events, with many promises attached and much preparation.
 It's important to ruthlessly streamline your release process, so that
 you <span class="emphasis"><em>can</em></span> do frequent releases painlessly.  A setup
@@ -65,10 +65,10 @@ terrible mistake.  (Notably, if you're using CVS or something similar,
 releases in preparation should be branches off the main line of
 development, so that they don't block main-line progress.)  To sum up,
 don't treat releases as big special events; make them part of normal
-routine.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+routine.</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Henry Spencer</span>
 <a id="id3007670" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Remember that the reason for frequent releases is to shorten and
+</span></td><td width="10%" valign="top">Â </td></tr></table></div><p>Remember that the reason for frequent releases is to shorten and
 speed the feedback loop connecting your user population to your
 developers.  Therefore, resist thinking of the next release as a
 polished jewel that cannot ship until everything is perfect.  Don't
@@ -90,7 +90,7 @@ automating wherever possible.  They use the
 patch(1)
 tool to pass around incremental changes.  Many projects (and all large
 ones) have network-accessible code repositories using version-control
-systems like CVS (recall the discussion in <a href="toolschapter.html" title="Chapter 15. Tools">Chapter 15</a>). Use of automated bug- and patch-tracking
+systems like CVS (recall the discussion in <a href="toolschapter.html" title="ChapterÂ 15.Â Tools">ChapterÂ 15</a>). Use of automated bug- and patch-tracking
 systems is also common.</p><p>In 1997, almost nobody outside the hacker culture understood
 that it was even possible to run a large project this way, let alone
 get high-quality results.  In 2003 this is no longer news;
@@ -101,4 +101,4 @@ transparency<a id="id3007790" class="indexterm"/> and peer review was
 the crucial step by which alchemy became chemistry.  In the same way,
 it is beginning to appear that open-source development may signal the
 long-awaited maturation of software development as a
-discipline.</p></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="opensourcechapter.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="opensourcechapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch19s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 19. Open Source </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Best Practices for Working with Open-Source Developers</td></tr></table></div></body></html>
+discipline.</p></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="opensourcechapter.html">Prev</a>Â </td><td width="20%" align="center"><a accesskey="u" href="opensourcechapter.html">Up</a></td><td width="40%" align="right">Â <a accesskey="n" href="ch19s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">ChapterÂ 19.Â Open SourceÂ </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">Â Best Practices for Working with Open-Source Developers</td></tr></table></div></body></html>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Studying Cases</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="transparencychapter.html" title="Chapter 6. Transparency"/><link rel="previous" href="transparencychapter.html" title="Chapter 6. Transparency"/><link rel="next" href="ch06s02.html" title="Designing for Transparency and Discoverability"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Studying Cases</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="transparencychapter.html">Prev</a> </td><th width="60%" align="center">Chapter 6. Transparency</th><td width="20%" align="right"> <a accesskey="n" href="ch06s02.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2911664"/>Studying Cases</h2></div></div><p>Normal practice in this book has been to intersperse case studies with
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Studying Cases</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="transparencychapter.html" title="ChapterÂ 6.Â Transparency"/><link rel="previous" href="transparencychapter.html" title="ChapterÂ 6.Â Transparency"/><link rel="next" href="ch06s02.html" title="Designing for Transparency and Discoverability"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Studying Cases</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="transparencychapter.html">Prev</a>Â </td><th width="60%" align="center">ChapterÂ 6.Â Transparency</th><td width="20%" align="right">Â <a accesskey="n" href="ch06s02.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2911664"/>Studying Cases</h2></div></div><p>Normal practice in this book has been to intersperse case studies with
 philosophy.  But in this chapter we'll begin by looking at several
 Unix designs that exhibit transparency and discoverability, and
 attempt to draw lessons from them only after all have been
@@ -14,7 +14,7 @@ samples. It supports multitrack editing and mixing.  The UI is
 superbly simple; the sound waveforms are shown in the
 <i>audacity</i> window. The image of the
 waveform can be cut and pasted; operations on that image are directly
-reflected in the audio sample as soon as they are performed.</p><div class="figure"><a id="id2909476"/><p class="title"><b>Figure 6.1. Screen shot of <i>audacity</i>.</b></p><div class="mediaobject"><img src="graphics/audacity.png" alt="Screen shot of audacity."/></div></div><p>Multitrack editing is supported in the simplest possible way;
+reflected in the audio sample as soon as they are performed.</p><div class="figure"><a id="id2909476"/><p class="title"><b>FigureÂ 6.1.Â Screen shot of <i>audacity</i>.</b></p><div class="mediaobject"><img src="graphics/audacity.png" alt="Screen shot of audacity."/></div></div><p>Multitrack editing is supported in the simplest possible way;
 the screen splits into multiple per-track displays in a spatial
 relationship that conveys their concurrency and makes it easy to 
 match features by inspection.  Tracks can be dragged right or
@@ -41,8 +41,8 @@ dumps each one of its POP, IMAP, and SMTP transactions to standard
 output as they happen.  A developer can actually see the code doing
 protocol with remote mailservers and the mail transport program it
 forwards to, in real time.  Users can send session transcripts with
-their bug reports. <a href="#fetchmail_session" title="Example 6.1. An example fetchmail -v transcript.">Example 6.1</a> shows a
-representative session transcript.</p><div class="example"><a id="fetchmail_session"/><p class="title"><b>Example 6.1. An example <i>fetchmail</i> <tt>-v</tt> transcript.</b></p><pre class="programlisting">
+their bug reports. <a href="#fetchmail_session" title="ExampleÂ 6.1.Â An example fetchmail -v transcript.">ExampleÂ 6.1</a> shows a
+representative session transcript.</p><div class="example"><a id="fetchmail_session"/><p class="title"><b>ExampleÂ 6.1.Â An example <i>fetchmail</i> <tt>-v</tt> transcript.</b></p><pre class="programlisting">
 
 fetchmail: 6.1.0 querying hurkle.thyrsus.com (protocol IMAP) 
               at Mon, 09 Dec 2002 08:41:37 -0500 (EST): poll started
@@ -154,11 +154,11 @@ gcc(1)
 driver, you can see not just the results after C preprocessing, after
 assembly generation, and after object code generation &#8212; but you
 can also monitor the results of many intermediate steps in parsing and
-code generation.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>This is exactly the structure of cc, the first (PDP-11) C
-compiler.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+code generation.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>This is exactly the structure of cc, the first (PDP-11) C
+compiler.</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Ken Thompson</span>
 <a id="id2909892" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>There are many benefits of this organization.  One that is
+</span></td><td width="10%" valign="top">Â </td></tr></table></div><p>There are many benefits of this organization.  One that is
 particularly important for GCC is regression
 testing.<sup>[<a id="id2909913" href="#ftn.id2909913">60</a>]</sup>  Because most
 of the various intermediate formats are textual, deviations from
@@ -189,9 +189,9 @@ small type over a steel-gray background clearly modeled on the
 Netscape/Mozilla status bar.  When you open a mailbox, for example,
 the status bar displays counts of total and unread messages.  The
 visual presentation is unobtrusive; it is easy to ignore the
-notifications, but also easy to focus on them if you want to.</p><div class="figure"><a id="id2910036"/><p class="title"><b>Figure 6.2. Screen shot of <i>kmail</i>.</b></p><div class="mediaobject"><img src="graphics/kmail.png" alt="Screen shot of kmail."/></div></div><p>The <i>kmail</i> GUI is good user-interface
+notifications, but also easy to focus on them if you want to.</p><div class="figure"><a id="id2910036"/><p class="title"><b>FigureÂ 6.2.Â Screen shot of <i>kmail</i>.</b></p><div class="mediaobject"><img src="graphics/kmail.png" alt="Screen shot of kmail."/></div></div><p>The <i>kmail</i> GUI is good user-interface
 design. It's informative, but not distracting; it gets around the
-reason we adduce in <a href="interfacechapter.html" title="Chapter 11. Interfaces">Chapter 11</a> that the best policy for Unix tools
+reason we adduce in <a href="interfacechapter.html" title="ChapterÂ 11.Â Interfaces">ChapterÂ 11</a> that the best policy for Unix tools
 operating normally is usually silence.  The authors showed excellent
 taste in borrowing the look and feel of the browser status bar.</p><p>But the extent of the <i>kmail</i>
 developers' tastefulness will not become clear until you have to
@@ -223,7 +223,7 @@ file, it recovers the equivalent PNG.  The transformation is 100%
 faithful and lossless in both directions.</p><p>In syntactic style, SNG resembles CSS (Cascading Style Sheets),
 another language for controlling presentation of graphics; this makes
 at least a gesture in the direction of the Rule of Least
-Surprise. Here is a test example:</p><div class="example"><a id="SNG_Example"/><p class="title"><b>Example 6.2. An SNG Example.</b></p><pre class="programlisting">
+Surprise. Here is a test example:</p><div class="example"><a id="SNG_Example"/><p class="title"><b>ExampleÂ 6.2.Â An SNG Example.</b></p><pre class="programlisting">
 
 #SNG: This is a synthetic SNG test file
 
@@ -310,7 +310,7 @@ of line or screen, or beginning and ending screen highlights such
 as reverse video, underline, or blink.</p><p>The terminfo database is primarily used by the
 curses(3)
 libraries.  These underlie the &#8220;roguelike&#8221; interface
-style we discuss in <a href="interfacechapter.html" title="Chapter 11. Interfaces">Chapter 11</a>, and some very widely used programs such
+style we discuss in <a href="interfacechapter.html" title="ChapterÂ 11.Â Interfaces">ChapterÂ 11</a>, and some very widely used programs such
 as
 mutt(1),
 lynx(1),
@@ -345,7 +345,7 @@ That file (or individual entries) can be compiled to binary form with
 the terminfo compiler
 tic(1);
 binary entries can be decompiled to the editable text format by
-infocmp(1).</p><p>The design superficially contradicts the advice we gave in <a href="textualitychapter.html" title="Chapter 5. Textuality">Chapter 5</a> against binary
+infocmp(1).</p><p>The design superficially contradicts the advice we gave in <a href="textualitychapter.html" title="ChapterÂ 5.Â Textuality">ChapterÂ 5</a> against binary
 caches, but this is actually the extreme case in which that's a good
 tactic.  Edits to the text masters are very rare &#8212; in fact,
 Unixes normally ship with the terminfo database precompiled and the
@@ -365,7 +365,7 @@ letter.  The goal of this organization was to avoid having to do a
 linear search of a very large directory; under more modern Unix
 file systems, which represent directories with B-trees or other
 structures optimized for fast lookup, the subdirectories won't be
-necessary.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>I found that even on a fairly modern Unix, splitting a big directory up
+necessary.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>I found that even on a fairly modern Unix, splitting a big directory up
 into subdirectories can improve performance substantially.  It was tens
 of thousands of files, an authorized-user database for a big educational
 institution, on a late-model DEC Alpha running DEC's Unix.  (Subdirectories
@@ -375,10 +375,10 @@ two letters wasn't nearly as good, because there were a lot of
 systematically-generated names which differed only toward the end.)
 This may just say that sophisticated directory indexing is still not as
 common as it should be... but even so, that makes an organization which
-works well without it more portable than one which requires it.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+works well without it more portable than one which requires it.</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Henry Spencer</span>
 <a id="id2910600" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Thus, the cost of opening a terminfo entry is two file system
+</span></td><td width="10%" valign="top">Â </td></tr></table></div><p>Thus, the cost of opening a terminfo entry is two file system
 lookups and a file open.  But since mining the same entry from one
 big database would have required a lookup and open for the database,
 the incremental cost for terminfo's organization is at most one
@@ -427,7 +427,7 @@ Good reasons not to do it are more likely to have to do with the
 database keys not naturally looking like filenames than they are with
 any performance problems.  In any case, it's the sort of good fast
 hack that can be very useful in prototyping.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2914115"/>Case Study: Freeciv Data Files</h3></div></div><p>Freeciv is an open-source strategy game inspired by Sid Meier's
-classic <i>Civilization II</i>.  In it, each player
+classic <i>CivilizationÂ II</i>.  In it, each player
 begins with a wandering band of neolithic nomads and builds a
 civilization. Player civilizations may explore and colonize the world,
 fight wars, engage in trade, and research technological advances.
@@ -436,7 +436,7 @@ against these can be challenging.  One wins either by conquering the
 world or by being the first player to reach a technology level sufficient
 to get a starship to Alpha Centauri.  Sources and documentation are
 available at the <a href="http://www.freeciv.org/" target="_top">project
-site</a>.</p><div class="figure"><a id="id2914147"/><p class="title"><b>Figure 6.3. Main window of a Freeciv game.</b></p><div class="mediaobject"><img src="graphics/freeciv.png" alt="Main window of a Freeciv game."/></div></div><p>In <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a>
+site</a>.</p><div class="figure"><a id="id2914147"/><p class="title"><b>FigureÂ 6.3.Â Main window of a Freeciv game.</b></p><div class="mediaobject"><img src="graphics/freeciv.png" alt="Main window of a Freeciv game."/></div></div><p>In <a href="multiprogramchapter.html" title="ChapterÂ 7.Â Multiprogramming">ChapterÂ 7</a>
 we'll exhibit the Freeciv strategy game as an example of client-server
 partitioning, with the server maintaining shared state and the client
 concentrating on GUI presentation.  But this game has another notable
@@ -492,4 +492,4 @@ such validator programs under Unix was
 the C compiler. Though GCC has absorbed its functions, old Unix hands
 are still apt to refer to the process of running a validator as
 &#8216;linting&#8217;, and the name survives in utilities such as
-<i>xmllint</i>.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="transparencychapter.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="transparencychapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch06s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 6. Transparency </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Designing for Transparency and Discoverability</td></tr></table></div></body></html>
+<i>xmllint</i>.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="transparencychapter.html">Prev</a>Â </td><td width="20%" align="center"><a accesskey="u" href="transparencychapter.html">Up</a></td><td width="40%" align="right">Â <a accesskey="n" href="ch06s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">ChapterÂ 6.Â TransparencyÂ </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">Â Designing for Transparency and Discoverability</td></tr></table></div></body></html>

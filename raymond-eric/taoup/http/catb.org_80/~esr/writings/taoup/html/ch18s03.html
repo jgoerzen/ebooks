@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>The Zoo of Unix Documentation Formats</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="documentationchapter.html" title="Chapter 18. Documentation"/><link rel="previous" href="ch18s02.html" title="The Unix Style"/><link rel="next" href="ch18s04.html" title="The Present Chaos and a Possible Way Out"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">The Zoo of Unix Documentation Formats</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch18s02.html">Prev</a> </td><th width="60%" align="center">Chapter 18. Documentation</th><td width="20%" align="right"> <a accesskey="n" href="ch18s04.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3001590"/>The Zoo of Unix Documentation Formats</h2></div></div><p>All the major Unix documentation formats except the very newest
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>The Zoo of Unix Documentation Formats</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="documentationchapter.html" title="ChapterÂ 18.Â Documentation"/><link rel="previous" href="ch18s02.html" title="The Unix Style"/><link rel="next" href="ch18s04.html" title="The Present Chaos and a Possible Way Out"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">The Zoo of Unix Documentation Formats</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch18s02.html">Prev</a>Â </td><th width="60%" align="center">ChapterÂ 18.Â Documentation</th><td width="20%" align="right">Â <a accesskey="n" href="ch18s04.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3001590"/>The Zoo of Unix Documentation Formats</h2></div></div><p>All the major Unix documentation formats except the very newest
 one are presentation-level markups assisted by macro packages.  We
 examine them here from oldest to newest.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3001604"/><i>troff</i> and the Documenter's
 Workbench Tools</h3></div></div><p>We discussed the Documenter's Workbench architecture and tools
-in <a href="minilanguageschapter.html" title="Chapter 8. Minilanguages">Chapter 8</a> as an
+in <a href="minilanguageschapter.html" title="ChapterÂ 8.Â Minilanguages">ChapterÂ 8</a> as an
 example of how to integrate a system of multiple minilanguages.  Now
 we return to these tools in their functional role as a typesetting
 system.</p><p>The <i>troff</i> formatter interprets a
@@ -11,9 +11,9 @@ presentation-level markup language.  Recent implementations like the
 GNU project's<a id="id3001643" class="indexterm"/>
 groff(1)
 emit PostScript by default, though it is possible to get other forms
-of output by selecting a suitable driver.  See <a href="#troffexample1" title="Example 18.1. groff1 markup example.">Example 18.1</a> for several of the
+of output by selecting a suitable driver.  See <a href="#troffexample1" title="ExampleÂ 18.1.Â groff1 markup example.">ExampleÂ 18.1</a> for several of the
 <i>troff</i> codes you might encounter in document
-sources.</p><div class="example"><a id="troffexample1"/><p class="title"><b>Example 18.1. groff(1) markup example.</b></p><pre class="programlisting">
+sources.</p><div class="example"><a id="troffexample1"/><p class="title"><b>ExampleÂ 18.1.Â groff(1) markup example.</b></p><pre class="programlisting">
 This is running text.
 .\&quot; Comments begin with a backslash and double quote.
 .ft B
@@ -43,7 +43,7 @@ directly.  Very few documents are written in bare
 half a dozen macro packages are in more or less general use.  Of
 these, the overwhelmingly most common is the
 man(7)
-macro package used to write Unix manual pages.  See <a href="#man_example" title="Example 18.2. man markup example.">Example 18.2</a> for a sample.</p><div class="example"><a id="man_example"/><p class="title"><b>Example 18.2. <i>man</i> markup example.</b></p><pre class="programlisting">
+macro package used to write Unix manual pages.  See <a href="#man_example" title="ExampleÂ 18.2.Â man markup example.">ExampleÂ 18.2</a> for a sample.</p><div class="example"><a id="man_example"/><p class="title"><b>ExampleÂ 18.2.Â <i>man</i> markup example.</b></p><pre class="programlisting">
 .SH SAMPLE SECTION
 The SH macro starts a section, boldfacing the section title.  
 .P
@@ -126,7 +126,7 @@ often generate <i>LaTeX</i> to be turned into PostScript, rather than
 attempting the much more difficult job of generating PostScript
 themselves.  The
 xmlto(1)
-front end that we discussed as a shell-programming case study in <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a> uses this tactic; so does the XML-DocBook
+front end that we discussed as a shell-programming case study in <a href="languageschapter.html" title="ChapterÂ 14.Â Languages">ChapterÂ 14</a> uses this tactic; so does the XML-DocBook
 toolchain we'll examine later in this chapter.</p><p><i>TeX</i> has a wider application range
 than
 troff(1)
@@ -172,11 +172,11 @@ HTML.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 clas
 large, complex technical documents.  It is alone among the markup
 formats used in the Unix community in being purely structural.  The
 xmlto(1)
-tool discussed in <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a> supports rendering to HTML, XHTML,
+tool discussed in <a href="languageschapter.html" title="ChapterÂ 14.Â Languages">ChapterÂ 14</a> supports rendering to HTML, XHTML,
 PostScript, PDF<a id="id3002339" class="indexterm"/>, Windows
 Help markup, and several less important formats.</p><p>Several major open-source projects (including the Linux
 Documentation Project, FreeBSD,
 Apache<a id="id3002354" class="indexterm"/>, Samba, GNOME,
 and KDE) already use DocBook as a master format.  This book was
 written in XML-DocBook.</p><p>DocBook is a large topic. We'll return to it after summing up
-the problems with the current state of Unix documentation.</p></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch18s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="documentationchapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch18s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">The Unix Style </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> The Present Chaos and a Possible Way Out</td></tr></table></div></body></html>
+the problems with the current state of Unix documentation.</p></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch18s02.html">Prev</a>Â </td><td width="20%" align="center"><a accesskey="u" href="documentationchapter.html">Up</a></td><td width="40%" align="right">Â <a accesskey="n" href="ch18s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">The Unix StyleÂ </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">Â The Present Chaos and a Possible Way Out</td></tr></table></div></body></html>

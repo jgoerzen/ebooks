@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Throughput vs. Latency</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="optimizationchapter.html" title="Chapter 12. Optimization"/><link rel="previous" href="ch12s03.html" title="Nonlocality Considered Harmful"/><link rel="next" href="complexitychapter.html" title="Chapter 13. Complexity"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Throughput vs. Latency</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch12s03.html">Prev</a> </td><th width="60%" align="center">Chapter 12. Optimization</th><td width="20%" align="right"> <a accesskey="n" href="complexitychapter.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2961183"/>Throughput vs. Latency</h2></div></div><p>Another effect of fast processors is that performance is 
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Throughput vs. Latency</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="optimizationchapter.html" title="ChapterÂ 12.Â Optimization"/><link rel="previous" href="ch12s03.html" title="Nonlocality Considered Harmful"/><link rel="next" href="complexitychapter.html" title="ChapterÂ 13.Â Complexity"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Throughput vs. Latency</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch12s03.html">Prev</a>Â </td><th width="60%" align="center">ChapterÂ 12.Â Optimization</th><td width="20%" align="right">Â <a accesskey="n" href="complexitychapter.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2961183"/>Throughput vs. Latency</h2></div></div><p>Another effect of fast processors is that performance is 
 usually bounded by the cost of I/O and &#8212; especially with 
 programs that use the Internet &#8212; network transactions.  It's
 therefore valuable to know how to design network protocols for
@@ -9,18 +9,18 @@ handshake turns any latency in the connection into a potentially
 serious slowdown.  Avoiding such handshakes is not specifically a
 Unix-tradition practice, but it's one that needs mention here because
 so many protocol designs lose huge amounts of performance to
-them.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>I cannot say enough about latency.  X11 went well beyond
+them.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>I cannot say enough about latency.  X11 went well beyond
 X10 in avoiding round trip requests: the Render extension goes even
 further.  X (and these days, HTTP/1.1) is a streaming protocol.  For
 example, on my laptop, I can execute over 4
-<span class="emphasis"><em>million</em></span> 1×1 rectangle requests (8 million no-op
+<span class="emphasis"><em>million</em></span> 1Ã—1 rectangle requests (8 million no-op
 requests) per second.  But round trips are hundreds or thousands of
 times more expensive. Anytime you can get a client to do something
 without having to contact the server, you have a tremendous
-win.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+win.</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Jim Gettys</span>
 <a id="id2961223" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>In fact, a good rule of thumb is to design for the lowest
+</span></td><td width="10%" valign="top">Â </td></tr></table></div><p>In fact, a good rule of thumb is to design for the lowest
 possible latency and ignore bandwidth costs until your profiling tells
 you otherwise.  Bandwidth problems can be solved later in development
 by tricks like compressing a protocol stream on the fly; but getting
@@ -71,7 +71,7 @@ of which may actually be blocking a user's Web page load.  One of the
 tactics that makes
 named(8)
 fast is that it replaces parses of expensive on-disk text files
-describing DNS zones with accesses to a cache held in memory.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2961372"/>Overlapping Operations</h3></div></div><p>In <a href="textualitychapter.html" title="Chapter 5. Textuality">Chapter 5</a> we
+describing DNS zones with accesses to a cache held in memory.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2961372"/>Overlapping Operations</h3></div></div><p>In <a href="textualitychapter.html" title="ChapterÂ 5.Â Textuality">ChapterÂ 5</a> we
 compared the POP3 and IMAP protocols for querying remote-mail
 servers.  We noted that IMAP requests (unlike POP3 requests) are
 tagged with a request identifier generated by the client; the server,
@@ -130,4 +130,4 @@ a bottleneck there &#8212; or even on tuning to improve the speed of
 the file system or the virtual-memory implementation.</p><p>When you think you are in a situation that demands caching, it
 is wise to look one level deeper and ask why the caching is necessary.
 It may well be no more difficult to solve that problem than it would
-be to get all the edge cases in the caching software right.</p></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch12s03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="optimizationchapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="complexitychapter.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Nonlocality Considered Harmful </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 13. Complexity</td></tr></table></div></body></html>
+be to get all the edge cases in the caching software right.</p></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch12s03.html">Prev</a>Â </td><td width="20%" align="center"><a accesskey="u" href="optimizationchapter.html">Up</a></td><td width="40%" align="right">Â <a accesskey="n" href="complexitychapter.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Nonlocality Considered HarmfulÂ </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">Â ChapterÂ 13.Â Complexity</td></tr></table></div></body></html>

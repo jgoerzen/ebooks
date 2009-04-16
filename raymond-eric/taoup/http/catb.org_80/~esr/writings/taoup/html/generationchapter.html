@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 9. Generation</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="design.html" title="Part II. Design"/><link rel="previous" href="ch08s03.html" title="Designing Minilanguages"/><link rel="next" href="ch09s01.html" title="Data-Driven Programming"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 9. Generation</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch08s03.html">Prev</a> </td><th width="60%" align="center">Part II. Design</th><td width="20%" align="right"> <a accesskey="n" href="ch09s01.html">Next</a></td></tr></table><hr/></div><div class="chapter" lang="en"><div class="titlepage"><div><h2 class="title"><a id="generationchapter"/>Chapter 9. Generation</h2></div><div><h3 class="subtitle"><i>Pushing the Specification Level Upwards</i></h3></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><a href="ch09s01.html">Data-Driven Programming</a></dt><dd><dl><dt><a href="ch09s01.html#id2939746">Case Study: ascii</a></dt><dt><a href="ch09s01.html#bayes_spam">Case Study: Statistical Spam Filtering</a></dt><dt><a href="ch09s01.html#fetchmailconf">Case Study: Metaclass Hacking in fetchmailconf</a></dt></dl></dd><dt><a href="ch09s02.html">Ad-hoc Code Generation</a></dt><dd><dl><dt><a href="ch09s02.html#id2938615">Case Study: Generating Code for the ascii Displays</a></dt><dt><a href="ch09s02.html#htmlgen">Case Study: Generating HTML Code for a Tabular List</a></dt></dl></dd></dl></div><div xmlns="" class="epigraph"><i><p xmlns="http://www.w3.org/1999/xhtml">The programmer at wit's end ... can often do best by
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>ChapterÂ 9.Â Generation</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="design.html" title="PartÂ II.Â Design"/><link rel="previous" href="ch08s03.html" title="Designing Minilanguages"/><link rel="next" href="ch09s01.html" title="Data-Driven Programming"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">ChapterÂ 9.Â Generation</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch08s03.html">Prev</a>Â </td><th width="60%" align="center">PartÂ II.Â Design</th><td width="20%" align="right">Â <a accesskey="n" href="ch09s01.html">Next</a></td></tr></table><hr/></div><div class="chapter" lang="en"><div class="titlepage"><div><h2 class="title"><a id="generationchapter"/>ChapterÂ 9.Â Generation</h2></div><div><h3 class="subtitle"><i>Pushing the Specification Level Upwards</i></h3></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><a href="ch09s01.html">Data-Driven Programming</a></dt><dd><dl><dt><a href="ch09s01.html#id2939746">Case Study: ascii</a></dt><dt><a href="ch09s01.html#bayes_spam">Case Study: Statistical Spam Filtering</a></dt><dt><a href="ch09s01.html#fetchmailconf">Case Study: Metaclass Hacking in fetchmailconf</a></dt></dl></dd><dt><a href="ch09s02.html">Ad-hoc Code Generation</a></dt><dd><dl><dt><a href="ch09s02.html#id2938615">Case Study: Generating Code for the ascii Displays</a></dt><dt><a href="ch09s02.html#htmlgen">Case Study: Generating HTML Code for a Tabular List</a></dt></dl></dd></dl></div><div xmlns="" class="epigraph"><i><p xmlns="http://www.w3.org/1999/xhtml">The programmer at wit's end ... can often do best by
 disentangling himself from his code, rearing back, and
 contemplating his data. Representation is the essence of
 programming.</p></i><span>--<i><span xmlns="http://www.w3.org/1999/xhtml" class="attribution">
 <span class="author">Fred Brooks</span>
-<i>The Mythical Man-Month, Anniversary Edition (1975-1995), p. 103</i>
+<i>The Mythical Man-Month, Anniversary Edition (1975-1995), p.Â 103</i>
 <a id="id2939500" class="indexterm"/>
-</span></i></span></div><p>In <a href="philosophychapter.html" title="Chapter 1. Philosophy">Chapter 1</a> we
+</span></i></span></div><p>In <a href="philosophychapter.html" title="ChapterÂ 1.Â Philosophy">ChapterÂ 1</a> we
 observed that human beings are better at visualizing data than they
 are at reasoning about control flow.  We recapitulate: To see this,
 compare the expressiveness and explanatory power of a diagram of a
@@ -22,15 +22,15 @@ in your design as possible away from procedural code and into
 data, and good practice to pick data representations that are
 convenient for humans to maintain and manipulate.  Translating
 those representations into forms that are convenient for machines
-to process is another job for machines, not for humans.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Another important advantage of higher-level, more declarative
+to process is another job for machines, not for humans.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>Another important advantage of higher-level, more declarative
 notations is that they lend themselves better to compile-time checking.
 Procedural notations inherently have complex runtime behavior which is
 difficult to analyze at compile time.  Declarative notations give the
 implementation much more leverage for finding mistakes, by permitting much
-more thorough understanding of the intended behavior.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+more thorough understanding of the intended behavior.</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Henry Spencer</span>
 <a id="id2939580" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>These insights ground in theory a set of practices that have
+</span></td><td width="10%" valign="top">Â </td></tr></table></div><p>These insights ground in theory a set of practices that have
 always been an important part of the Unix programmer's toolkit &#8212;
 very high-level languages, data-driven programming, code generators,
 and domain-specific minilanguages.  What unifies these is that they
@@ -38,11 +38,11 @@ are all ways of lifting the generation of code up some levels, so that
 specifications can be smaller. We've previously noted that defect
 densities tend to be nearly constant across programming languages; all
 these practices mean that whatever malign forces generate our bugs
-will get fewer lines to wreak their havoc on.</p><p>In <a href="minilanguageschapter.html" title="Chapter 8. Minilanguages">Chapter 8</a> we
-discussed the uses of domain-specific minilanguages. In <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a> we'll make the argument for
+will get fewer lines to wreak their havoc on.</p><p>In <a href="minilanguageschapter.html" title="ChapterÂ 8.Â Minilanguages">ChapterÂ 8</a> we
+discussed the uses of domain-specific minilanguages. In <a href="languageschapter.html" title="ChapterÂ 14.Â Languages">ChapterÂ 14</a> we'll make the argument for
 very-high-level languages<a id="id2939637" class="indexterm"/>.  In this chapter we'll look at some
 design studies in data-driven programming and a few examples of ad-hoc
-code generation; we'll look at some code-generation tools in <a href="toolschapter.html" title="Chapter 15. Tools">Chapter 15</a>.  As with minilanguages, these methods can
+code generation; we'll look at some code-generation tools in <a href="toolschapter.html" title="ChapterÂ 15.Â Tools">ChapterÂ 15</a>.  As with minilanguages, these methods can
 enable you to drastically cut the line count of your programs, and
 correspondingly lower debugging time and maintenance costs.</p><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2939543" href="#id2939543">97</a>] </sup>For further development of this point see
-[<a href="apb.html#Bentley" title="[Bentley]">Bentley</a>].</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch08s03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="design.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch09s01.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Designing Minilanguages </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Data-Driven Programming</td></tr></table></div></body></html>
+[<a href="apb.html#Bentley" title="[Bentley]">Bentley</a>].</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch08s03.html">Prev</a>Â </td><td width="20%" align="center"><a accesskey="u" href="design.html">Up</a></td><td width="40%" align="right">Â <a accesskey="n" href="ch09s01.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Designing MinilanguagesÂ </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">Â Data-Driven Programming</td></tr></table></div></body></html>

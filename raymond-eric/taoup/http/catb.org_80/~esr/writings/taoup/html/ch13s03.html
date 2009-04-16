@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>The Right Size for an Editor</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="complexitychapter.html" title="Chapter 13. Complexity"/><link rel="previous" href="ch13s02.html" title="A Tale of Five Editors"/><link rel="next" href="ch13s04.html" title="The Right Size of Software"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">The Right Size for an Editor</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch13s02.html">Prev</a> </td><th width="60%" align="center">Chapter 13. Complexity</th><td width="20%" align="right"> <a accesskey="n" href="ch13s04.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2967255"/>The Right Size for an Editor</h2></div></div><p>Now let us examine our case studies using the complexity
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>The Right Size for an Editor</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="complexitychapter.html" title="ChapterÂ 13.Â Complexity"/><link rel="previous" href="ch13s02.html" title="A Tale of Five Editors"/><link rel="next" href="ch13s04.html" title="The Right Size of Software"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">The Right Size for an Editor</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch13s02.html">Prev</a>Â </td><th width="60%" align="center">ChapterÂ 13.Â Complexity</th><td width="20%" align="right">Â <a accesskey="n" href="ch13s04.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2967255"/>The Right Size for an Editor</h2></div></div><p>Now let us examine our case studies using the complexity
 categories we developed at the beginning of this chapter.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2967267"/>Identifying the Complexity Problems</h3></div></div><p>Every text editor has a certain amount of essential complexity.
 At minimum, it has to maintain an internal buffer copy of the file or
 files the user is editing. Functions to import and export file data
@@ -48,7 +48,7 @@ duplicative. These are at best optional complexity, and perhaps
 accidental. At a guess, most users don't know more than 5% of the
 command set.  With the example of Sam
 before us, it's fair to wonder why the interface complexity of
-vi is so high.</p><p>In <a href="interfacechapter.html" title="Chapter 11. Interfaces">Chapter 11</a> we
+vi is so high.</p><p>In <a href="interfacechapter.html" title="ChapterÂ 11.Â Interfaces">ChapterÂ 11</a> we
 described the effect of the absence of standard arrow keys on early
 roguelike programs; vi was one of these.  When vi was built, its
 author knew that many of his users would need to be able to use the
@@ -60,7 +60,7 @@ bitmapped display with both arrow keys and a mouse, can be much
 cleaner.  And it is.</p><p>But the clutter of vi commands is a relatively superficial
 problem.  It's interface complexity, yes, but of a kind most users can
 and do ignore (the interface is semi-compact in the sense we developed
-in <a href="modularitychapter.html" title="Chapter 4. Modularity">Chapter 4</a>).  The deeper problem is an
+in <a href="modularitychapter.html" title="ChapterÂ 4.Â Modularity">ChapterÂ 4</a>).  The deeper problem is an
 adhocity trap. Over the years, vi has had progressively more and more
 special-purpose C code bolted onto it to perform tasks that Sam
 refuses to do and that Emacs would attack with Lisp code modules and
@@ -221,14 +221,14 @@ share context among all the text-oriented tools related to a task is
 valuable.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2967765"/>Is Emacs an Argument against the Unix Tradition?</h3></div></div><p>The traditional Unix view of the world, however, is so attached
 to minimalism that it isn't very good at distinguishing between the
 adhocity-trap problems of vi and the
-optional complexity of Emacs.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>The reason that vi and emacs never caught on among old-school
+optional complexity of Emacs.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>The reason that vi and emacs never caught on among old-school
 Unix programmers is that they are <span class="emphasis"><em>ugly</em></span>.
 This complaint may be &#8220;old Unix&#8221; speaking, but had it not
 been for the singular taste of old Unix, &#8220;new Unix&#8221; would
-not exist.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+not exist.</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Doug McIlroy</span>
 <a id="id2967793" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Attacks on Emacs by vi users &#8212; along with attacks on vi by
+</span></td><td width="10%" valign="top">Â </td></tr></table></div><p>Attacks on Emacs by vi users &#8212; along with attacks on vi by
 the hard-core old-school types still attached to ed &#8212; are
 episodes in a larger argument, a contest between the exuberance of
 wealth and the virtues of austerity.  This argument correlates with
@@ -237,13 +237,13 @@ Unix.</p><p>The &#8220;singular taste of old Unix&#8221; was partly a
 consequence of poverty in exactly the same way that Japanese
 minimalism was &#8212; one learns to do more with less most effectively
 when having more is not an option.  But Emacs (and new-school Unix,
-reinvented on powerful PCs and fast networks) is a child of wealth.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>As, in a different way, was old-school Unix.  Bell Labs had enough
+reinvented on powerful PCs and fast networks) is a child of wealth.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>As, in a different way, was old-school Unix.  Bell Labs had enough
 resources so that Ken was not confined by demands to have a
 product yesterday.  Recall Pascal's apology for writing a long
-letter because he didn't have enough time to write a short one.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+letter because he didn't have enough time to write a short one.</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Doug McIlroy</span>
 <a id="id2967862" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Ever since, Unix programmers have maintained a tradition that
+</span></td><td width="10%" valign="top">Â </td></tr></table></div><p>Ever since, Unix programmers have maintained a tradition that
 exalts the elegant over the excessive.</p><p>The vastness of Emacs, on the other
 hand, did not originate under Unix, but was invented by Richard
 M. Stallman<a id="id2967893" class="indexterm"/> within a very different culture that
@@ -295,4 +295,4 @@ and accept that Emacs is both useful
 and large &#8212; that it <span class="emphasis"><em>is</em></span> an argument against
 Unix minimalism.  What does our analysis of the kinds of complexity in
 it, and the motives for it, suggest beyond that?  And is there reason
-to believe that those lessons generalize?</p></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch13s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="complexitychapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch13s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">A Tale of Five Editors </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> The Right Size of Software</td></tr></table></div></body></html>
+to believe that those lessons generalize?</p></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch13s02.html">Prev</a>Â </td><td width="20%" align="center"><a accesskey="u" href="complexitychapter.html">Up</a></td><td width="40%" align="right">Â <a accesskey="n" href="ch13s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">A Tale of Five EditorsÂ </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">Â The Right Size of Software</td></tr></table></div></body></html>

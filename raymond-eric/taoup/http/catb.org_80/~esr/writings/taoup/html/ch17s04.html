@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Specifications as DNA, Code as RNA</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="portabilitychapter.html" title="Chapter 17. Portability"/><link rel="previous" href="ietf_process.html" title="IETF and the RFC Standards Process"/><link rel="next" href="ch17s05.html" title="Programming for Portability"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Specifications as DNA, Code as RNA</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ietf_process.html">Prev</a> </td><th width="60%" align="center">Chapter 17. Portability</th><td width="20%" align="right"> <a accesskey="n" href="ch17s05.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2999900"/>Specifications as DNA, Code as RNA</h2></div></div><p>Even in the paleolithic period of the PDP-7, Unix programmers
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Specifications as DNA, Code as RNA</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="portabilitychapter.html" title="ChapterÂ 17.Â Portability"/><link rel="previous" href="ietf_process.html" title="IETF and the RFC Standards Process"/><link rel="next" href="ch17s05.html" title="Programming for Portability"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Specifications as DNA, Code as RNA</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ietf_process.html">Prev</a>Â </td><th width="60%" align="center">ChapterÂ 17.Â Portability</th><td width="20%" align="right">Â <a accesskey="n" href="ch17s05.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2999900"/>Specifications as DNA, Code as RNA</h2></div></div><p>Even in the paleolithic period of the PDP-7, Unix programmers
 had always been more prone than their counterparts elsewhere to treat
 old code as disposable.  This was doubtless a product of the Unix
 tradition's emphasis on modularity, which makes it easier to discard
@@ -50,7 +50,7 @@ provisional and subject to revision through field experience in the
 way that Internet-Drafts and Proposed Standards are.  In best Unix
 practice, the documentation of the program is used as a specification
 subject to revision analogously to an Internet Proposed
-Standard.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Unlike other environments, in Unix development the documentation is often
+Standard.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>Unlike other environments, in Unix development the documentation is often
 written before the program, or at least in conjunction with it.  For X11, the
 core X standards were finished before the first release of X and have remained
 essentially unchanged since that date. Compatibility among different X systems
@@ -60,30 +60,30 @@ specification was translated into code to test the implementation, a
 few minor inconsistencies were uncovered in the specification during
 this process, but the result is a test suite that covers a significant
 fraction of the code paths within the sample X library and server, and
-all without referring to the source code of that implementation.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+all without referring to the source code of that implementation.</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Keith Packard</span>
 <a id="id3000041" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Semiautomation of the test-suite generation proved to be a
+</span></td><td width="10%" valign="top">Â </td></tr></table></div><p>Semiautomation of the test-suite generation proved to be a
 major advantage.  While field experience and advances in the state
 of the graphics art led many to criticize X on design grounds, and
 various portions of it (such as the security and user-resource models) came
 to seem clumsy and over-engineered, the X implementation achieved a
-remarkable level of stability and cross-vendor interoperation.</p><p>In <a href="generationchapter.html" title="Chapter 9. Generation">Chapter 9</a>
+remarkable level of stability and cross-vendor interoperation.</p><p>In <a href="generationchapter.html" title="ChapterÂ 9.Â Generation">ChapterÂ 9</a>
 we discussed the value of pushing coding up to the highest possible
 level to minimize the effects of constant defect density.  Implicit in
 Keith Packard's account is the idea that the X documentation
 constituted no mere wish-list but a form of high-level code.  Another
-key X developer confirms this:</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>In X, the specification has always ruled.  Sometimes specs have bugs that
+key X developer confirms this:</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>In X, the specification has always ruled.  Sometimes specs have bugs that
 need to be fixed too, but code is usually buggier than specs (for any
-spec worth its ink, anyway).</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+spec worth its ink, anyway).</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Jim Gettys</span>
 <a id="id3000120" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Jim goes on to observe that X's process is actually quite
+</span></td><td width="10%" valign="top">Â </td></tr></table></div><p>Jim goes on to observe that X's process is actually quite
 similar to the IETF's<a id="id3000142" class="indexterm"/>.
 Nor is its utility limited to constructing good test suites; it means
 that arguments about the system's behavior can be conducted at a
 functional level with respect to the specification, avoiding too much
-entanglement in implementation issues.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Having a well-considered specification driving development allows for
+entanglement in implementation issues.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>Having a well-considered specification driving development allows for
 little argument about bug vs. feature; a system which incorrectly implements the
 specification is broken and should be fixed.</p><p>I suspect this is so ingrained into most of us that we lose
 sight of its power.</p><p>A friend of mine who worked for a small software firm east of
@@ -98,10 +98,10 @@ interface was either broken or had discovered a bug.  He found this
 concept startling.</p><p>Discerning such bugs is a simple matter of verifying the
 implementation of the interface against the specification.  Of course,
 having source for the implementation makes that a bit easier.
-</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Keith Packard</span>
 <a id="id3000170" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>This standards-come-first attitude has benefits for end users as
+</span></td><td width="10%" valign="top">Â </td></tr></table></div><p>This standards-come-first attitude has benefits for end users as
 well.  While that no-longer-small company east of Bellevue has trouble
 keeping its office suite compatible with its own previous releases,
 GUI applications written for X11 in 1988 still run without change on
@@ -117,4 +117,4 @@ relationship between open standards and open source.   We'll address
 this at the end of the chapter &#8212; but before doing that, it's
 time to address the practical question of how Unix programmers 
 can actually <span class="emphasis"><em>use</em></span> the tremendous body of
-accumulated standards and lore to achieve software portability.</p></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ietf_process.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="portabilitychapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch17s05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">IETF and the RFC Standards Process </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Programming for Portability</td></tr></table></div></body></html>
+accumulated standards and lore to achieve software portability.</p></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ietf_process.html">Prev</a>Â </td><td width="20%" align="center"><a accesskey="u" href="portabilitychapter.html">Up</a></td><td width="40%" align="right">Â <a accesskey="n" href="ch17s05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">IETF and the RFC Standards ProcessÂ </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">Â Programming for Portability</td></tr></table></div></body></html>

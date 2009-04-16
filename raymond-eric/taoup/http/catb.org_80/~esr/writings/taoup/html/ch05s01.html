@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>The Importance of Being Textual</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="textualitychapter.html" title="Chapter 5. Textuality"/><link rel="previous" href="textualitychapter.html" title="Chapter 5. Textuality"/><link rel="next" href="ch05s02.html" title="Data File Metaformats"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">The Importance of Being Textual</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="textualitychapter.html">Prev</a> </td><th width="60%" align="center">Chapter 5. Textuality</th><td width="20%" align="right"> <a accesskey="n" href="ch05s02.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2906458"/>The Importance of Being Textual</h2></div></div><p>Pipes and sockets will pass binary data as well as text. But
-there are good reasons the examples we'll see in <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a> are textual: reasons that hark back
-to Doug McIlroy's<a id="id2906475" class="indexterm"/> advice quoted in <a href="philosophychapter.html" title="Chapter 1. Philosophy">Chapter 1</a>. Text streams are a valuable universal
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>The Importance of Being Textual</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="textualitychapter.html" title="ChapterÂ 5.Â Textuality"/><link rel="previous" href="textualitychapter.html" title="ChapterÂ 5.Â Textuality"/><link rel="next" href="ch05s02.html" title="Data File Metaformats"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">The Importance of Being Textual</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="textualitychapter.html">Prev</a>Â </td><th width="60%" align="center">ChapterÂ 5.Â Textuality</th><td width="20%" align="right">Â <a accesskey="n" href="ch05s02.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2906458"/>The Importance of Being Textual</h2></div></div><p>Pipes and sockets will pass binary data as well as text. But
+there are good reasons the examples we'll see in <a href="multiprogramchapter.html" title="ChapterÂ 7.Â Multiprogramming">ChapterÂ 7</a> are textual: reasons that hark back
+to Doug McIlroy's<a id="id2906475" class="indexterm"/> advice quoted in <a href="philosophychapter.html" title="ChapterÂ 1.Â Philosophy">ChapterÂ 1</a>. Text streams are a valuable universal
 format because they're easy for human beings to read, write, and edit
 without specialized tools.  These formats are (or can be designed to
 be) transparent.</p><p>Also, the very limitations of text streams help enforce
 encapsulation. By discouraging elaborate representations with rich,
 densely encoded structure, text streams also discourage programs from
 being promiscuous with each other about their internal states and help
-enforce encapsulation.  We'll return to this point at the end of <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a> when we discuss RPC.</p><p>When you feel the urge to design a complex binary file format,
+enforce encapsulation.  We'll return to this point at the end of <a href="multiprogramchapter.html" title="ChapterÂ 7.Â Multiprogramming">ChapterÂ 7</a> when we discuss RPC.</p><p>When you feel the urge to design a complex binary file format,
 or a complex binary application protocol, it is generally wise to
 lie down until the feeling passes. If performance is what you're
 worried about, implementing compression on the text protocol stream
 either at some level below or above the application protocol will
 give you a cleaner and perhaps better-performing design than a 
-binary protocol (text compresses well, and quickly).</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>A bad example of binary formats in Unix history was the way
+binary protocol (text compresses well, and quickly).</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>A bad example of binary formats in Unix history was the way
 device-independent <i>troff</i> read a binary file
 containing device information, supposedly for speed.  The initial
 implementation generated that binary file from a text description in a
@@ -22,10 +22,10 @@ somewhat unportable way.  Faced with a need to port
 <i>ditroff</i> <span class="emphasis"><em>quickly</em></span> to a new
 machine, rather than reinvent the binary goo, I ripped it out and just
 had <i>ditroff</i> read the text file.  With carefully
-crafted file-reading code, the speed penalty was negligible.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+crafted file-reading code, the speed penalty was negligible.</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Henry Spencer</span>
 <a id="id2901108" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Designing a textual protocol tends to future-proof your system.
+</span></td><td width="10%" valign="top">Â </td></tr></table></div><p>Designing a textual protocol tends to future-proof your system.
 One specific reason is that ranges on numeric fields aren't implied by
 the format itself. Binary formats usually specify the number of bits
 allocated to a given value, and extending them is difficult.  For
@@ -41,7 +41,7 @@ you're very concerned about the time or instruction budget required to
 interpret the data into an in-core structure.  Formats for large
 images and multimedia are sometimes an example of the former, and
 network protocols with hard latency requirements sometimes an 
-example of the latter.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>The reciprocal problem with SMTP or HTTP-like text protocols is
+example of the latter.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>The reciprocal problem with SMTP or HTTP-like text protocols is
 that they tend to be expensive in bandwidth and slow to parse.  The
 smallest X request is 4 bytes: the smallest HTTP request is about 100
 bytes.  X requests, including amortized overhead of transport, can be
@@ -52,10 +52,10 @@ graphics, bandwidth becomes everything on output; hardware is designed
 such that these days the graphics-card bus is <span class="emphasis"><em>the</em></span>
 bottleneck for small operations, so any protocol had better be very
 tight if it is not to be a worse bottleneck.  This is the extreme
-case.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+case.</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Jim Gettys</span>
 <a id="id2901209" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>These concerns are valid in other extreme cases as well as in X
+</span></td><td width="10%" valign="top">Â </td></tr></table></div><p>These concerns are valid in other extreme cases as well as in X
 &#8212; for example, in the design of graphics file formats intended
 to hold very large images. But they are usually just another case of
 premature-optimization<a id="id2901256" class="indexterm"/>
@@ -66,20 +66,20 @@ lose the first time you need to generate a test load, or to eyeball a
 program-generated example of your format and figure out what's in
 there.</p><p>In addition, the kind of thinking that goes into designing tight
 binary formats tends to fall down on making them cleanly extensible.
-The X designers experienced this:</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Against the current X framework is the fact we didn't design enough of
+The X designers experiencedÂ this:</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>Against the current X framework is the fact we didn't design enough of
 a structure to make it easier to ignore trivial extensions to the protocol;
 we can do this some of the time, but a bit better framework would have been
-good.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+good.</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Jim Gettys</span>
 <a id="id2901296" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>When you think you have an extreme case that justifies a binary
+</span></td><td width="10%" valign="top">Â </td></tr></table></div><p>When you think you have an extreme case that justifies a binary
 file format or protocol, you need to think very carefully about
 extensibility<a id="id2901321" class="indexterm"/>
 and leaving room in the design for growth.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2901332"/>Case Study: Unix Password File Format</h3></div></div><p>On many operating systems, the per-user data required to
 validate logins and start a user's session is an opaque binary
 database. Under Unix, by contrast, it's a text file with records one
-per line and colon-separated fields.</p><p><a href="#passwd" title="Example 5.1. Password file example.">Example 5.1</a> consists of some randomly-chosen
-example lines:</p><div class="example"><a id="passwd"/><p class="title"><b>Example 5.1. Password file example.</b></p><pre class="programlisting">
+per line and colon-separated fields.</p><p><a href="#passwd" title="ExampleÂ 5.1.Â Password file example.">ExampleÂ 5.1</a> consists of some randomly-chosen
+example lines:</p><div class="example"><a id="passwd"/><p class="title"><b>ExampleÂ 5.1.Â Password file example.</b></p><pre class="programlisting">
 games:*:12:100:games:/usr/games:
 gopher:*:13:30:gopher:/usr/lib/gopher-data:
 ftp:*:14:50:FTP User:/home/ftp:
@@ -126,7 +126,7 @@ transparency
 criterion<a id="id2901480" class="indexterm"/> leads was the right thing.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2901494"/>Case Study: <tt>.newsrc</tt> Format</h3></div></div><p>Usenet<a id="id2901510" class="indexterm"/> news is
 a worldwide distributed bulletin-board system that anticipated today's
 P2P networking by two decades.  It uses a message format very similar
-to that of RFC 822 electronic-mail messages, except that instead of
+to that of RFCÂ 822 electronic-mail messages, except that instead of
 being directed to personal recipients messages are sent to topic
 groups.  Articles posted at any participating site are broadcast to
 each site that it has registered as a neighbor, and eventually
@@ -135,8 +135,8 @@ flood-fill to all news sites.</p><p>Almost all Usenet news readers understand th
 have been seen by the calling user.  Though it is named like a
 run-control file, it is not only read at startup but typically updated
 at the end of the newsreader run.  The <tt>.newsrc</tt>
-format has been fixed since the first newsreaders around 1980. <a href="#newsrc" title="Example 5.2. A .newsrc example.">Example 5.2</a> is a representative section from a
-<tt>.newsrc</tt> file.</p><div class="example"><a id="newsrc"/><p class="title"><b>Example 5.2. A <tt>.newsrc</tt> example.</b></p><pre class="programlisting">
+format has been fixed since the first newsreaders around 1980. <a href="#newsrc" title="ExampleÂ 5.2.Â A .newsrc example.">ExampleÂ 5.2</a> is a representative section from a
+<tt>.newsrc</tt> file.</p><div class="example"><a id="newsrc"/><p class="title"><b>ExampleÂ 5.2.Â A <tt>.newsrc</tt> example.</b></p><pre class="programlisting">
 rec.arts.sf.misc! 1-14774,14786,14789
 rec.arts.sf.reviews! 1-2534
 rec.arts.sf.written: 1-876513
@@ -159,7 +159,7 @@ self-describing binary packets with internal length fields.  The main
 point of such a binary representation would be to express ranges with
 binary data in paired word-length fields, in order to avoid the
 overhead of parsing all the range expressions at startup.</p><p>Such a layout could be read and written faster than a textual
-format, but it would have other problems.  A naïve implementation
+format, but it would have other problems.  A naÃ¯ve implementation
 in fixed-length records would have placed artificial length limits on
 newsgroup names and (more seriously) on the maximum number of ranges
 of seen-article numbers.  A more sophisticated binary-packet format
@@ -211,4 +211,4 @@ ls(1)
 that must map from numeric user and group IDs to
 names.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2901736" href="#id2901736">53</a>] </sup>Confusingly, PNG supports a different kind
 of transparency &#8212; transparent pixels in the
-PNG image.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="textualitychapter.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="textualitychapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch05s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 5. Textuality </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Data File Metaformats</td></tr></table></div></body></html>
+PNG image.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="textualitychapter.html">Prev</a>Â </td><td width="20%" align="center"><a accesskey="u" href="textualitychapter.html">Up</a></td><td width="40%" align="right">Â <a accesskey="n" href="ch05s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">ChapterÂ 5.Â TextualityÂ </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">Â Data File Metaformats</td></tr></table></div></body></html>

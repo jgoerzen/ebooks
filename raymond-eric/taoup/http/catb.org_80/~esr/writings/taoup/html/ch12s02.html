@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Measure before Optimizing</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="optimizationchapter.html" title="Chapter 12. Optimization"/><link rel="previous" href="ch12s01.html" title="Don't Just Do Something, Stand There!"/><link rel="next" href="ch12s03.html" title="Nonlocality Considered Harmful"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Measure before Optimizing</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch12s01.html">Prev</a> </td><th width="60%" align="center">Chapter 12. Optimization</th><td width="20%" align="right"> <a accesskey="n" href="ch12s03.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2960884"/>Measure before Optimizing</h2></div></div><p>When you have real-world evidence that your application is too
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Measure before Optimizing</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="optimizationchapter.html" title="ChapterÂ 12.Â Optimization"/><link rel="previous" href="ch12s01.html" title="Don't Just Do Something, Stand There!"/><link rel="next" href="ch12s03.html" title="Nonlocality Considered Harmful"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Measure before Optimizing</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch12s01.html">Prev</a>Â </td><th width="60%" align="center">ChapterÂ 12.Â Optimization</th><td width="20%" align="right">Â <a accesskey="n" href="ch12s03.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2960884"/>Measure before Optimizing</h2></div></div><p>When you have real-world evidence that your application is too
 slow, then (and <span class="emphasis"><em>only</em></span> then) is the time to think
 about optimizing the code.  But before you do more than think about
-optimizing, measure.</p><p>Recall Rob Pike's six rules in <a href="philosophychapter.html" title="Chapter 1. Philosophy">Chapter 1</a>.  One of the lessons that the original
+optimizing, measure.</p><p>Recall Rob Pike's six rules in <a href="philosophychapter.html" title="ChapterÂ 1.Â Philosophy">ChapterÂ 1</a>.  One of the lessons that the original
 Unix programmers learned early is that intuition is a poor guide to
 where the bottlenecks are, even for one who knows the code in question
 intimately. Unixes, unlike most other operating systems, usually come with
@@ -49,7 +49,7 @@ charged to the calling function.</p><p>More importantly, many time-reporting too
 which time spent in subroutines is charged to the caller. (The
 gprof(1)
 profiler distributed with open-source Unixes has this trait.)
-Naïvely subtracting callee time from caller time won't give you a
+NaÃ¯vely subtracting callee time from caller time won't give you a
 useful result if the same routine can have more than one caller
 &#8212; the effect would be to artificially deflate both callers'
 times. Especially nasty is the common case of a utility function with
@@ -65,15 +65,15 @@ learn how performance varies as a function of interesting parameters
 (e.g., problem size, CPU speed, disc speed, memory size, compiler
 optimization, or whatever else is relevant).  Try fitting those
 numbers to a model, using open-source software like R or a good-quality
-proprietary tool like MATLAB.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>The natural smoothing of the data that results from model
+proprietary tool like MATLAB.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p>The natural smoothing of the data that results from model
 fitting tends to focus on the big effects and cover up the small,
 noisy ones.  For example, by fitting a cubic to the matrix inversion
-routine in MATLAB on random matrices from 10 × 10 to 1000 × 1000, it is
+routine in MATLAB on random matrices from 10 Ã— 10 to 1000 Ã— 1000, it is
 clear that we actually have three cubics, with clearly defined
 boundaries, that correspond roughly to &#8220;in cache&#8221;,
 &#8220;in memory but out of cache&#8221;, and &#8220;out of
 memory&#8221;.  The data shows us this effect even if weren't looking
-for it, just by looking at the deviations from the best fit.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+for it, just by looking at the deviations from the best fit.</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Steve Johnson</span>
 <a id="id2961055" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch12s01.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="optimizationchapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch12s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Don't Just Do Something, Stand There! </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Nonlocality Considered Harmful</td></tr></table></div></body></html>
+</span></td><td width="10%" valign="top">Â </td></tr></table></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch12s01.html">Prev</a>Â </td><td width="20%" align="center"><a accesskey="u" href="optimizationchapter.html">Up</a></td><td width="40%" align="right">Â <a accesskey="n" href="ch12s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Don't Just Do Something, Stand There!Â </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">Â Nonlocality Considered Harmful</td></tr></table></div></body></html>

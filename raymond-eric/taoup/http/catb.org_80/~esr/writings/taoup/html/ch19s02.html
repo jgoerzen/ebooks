@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Best Practices for Working with Open-Source Developers</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="opensourcechapter.html" title="Chapter 19. Open Source"/><link rel="previous" href="ch19s01.html" title="Unix and Open Source"/><link rel="next" href="ch19s03.html" title="The Logic of Licenses: How to Pick One"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Best Practices for Working with Open-Source Developers</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch19s01.html">Prev</a> </td><th width="60%" align="center">Chapter 19. Open Source</th><td width="20%" align="right"> <a accesskey="n" href="ch19s03.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3007808"/>Best Practices for Working with Open-Source Developers</h2></div></div><p>Much of what constitutes best practice in the open-source
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Best Practices for Working with Open-Source Developers</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="opensourcechapter.html" title="ChapterÂ 19.Â Open Source"/><link rel="previous" href="ch19s01.html" title="Unix and Open Source"/><link rel="next" href="ch19s03.html" title="The Logic of Licenses: How to Pick One"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Best Practices for Working with Open-Source Developers</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch19s01.html">Prev</a>Â </td><th width="60%" align="center">ChapterÂ 19.Â Open Source</th><td width="20%" align="right">Â <a accesskey="n" href="ch19s03.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3007808"/>Best Practices for Working with Open-Source Developers</h2></div></div><p>Much of what constitutes best practice in the open-source
 community is a natural adaptation to distributed development; you'll
 read a lot in the rest of this chapter about behaviors that maintain
 good communication with other developers.  Where Unix conventions are
@@ -290,14 +290,14 @@ separate files when the implementations diverge significantly (shared
 memory mapping on Unix vs. Windows), and leave portability code in a
 single file when the differences are minimal (for example, whether
 you're using <tt>gettimeofday</tt>, <tt>clock_gettime</tt>, <tt>ftime</tt> or <tt>time</tt> to
-find out the current time-of-day).</p><p>For anywhere outside a portability layer, heed this advice:</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p><tt>#ifdef</tt> and <tt>#if</tt> are last resorts, usually a sign of failure
+find out the current time-of-day).</p><p>For anywhere outside a portability layer, heed this advice:</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">Â </td><td width="80%" valign="top"><p><tt>#ifdef</tt> and <tt>#if</tt> are last resorts, usually a sign of failure
 of imagination, excessive product differentiation, gratuitous
 &#8220;optimization&#8221; or accumulated trash. In the middle of
 code they are anathema.  <tt>/usr/include/stdio.h</tt>
-from GNU is an archetypical horror.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+from GNU is an archetypical horror.</p></td><td width="10%" valign="top">Â </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Doug McIlroy</span>
 <a id="id3013564" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Use of <tt>#ifdef</tt> and <tt>#if</tt> is permissible (if well controlled) within a
+</span></td><td width="10%" valign="top">Â </td></tr></table></div><p>Use of <tt>#ifdef</tt> and <tt>#if</tt> is permissible (if well controlled) within a
 portability layer. Outside it, try hard to confine these to
 conditionalizing <tt>#includes</tt> based on feature
 symbols.</p><p>Never intrude on the namespace of any other part of the system,
@@ -319,10 +319,10 @@ directory directly <span class="emphasis"><em>beneath</em></span> the current on
 Conventionally, the name of the directory should be the same as the
 stem of the tarball's name.  So, for example, a tarball named
 <tt>foo-0.23.tar.gz</tt> is expected to unpack into
-a subdirectory named <tt>foo-0.23</tt>.</p><p><a href="#tar_trick" title="Example 19.1. tar archive maker production.">Example 19.1</a> shows a makefile trick that,
+a subdirectory named <tt>foo-0.23</tt>.</p><p><a href="#tar_trick" title="ExampleÂ 19.1.Â tar archive maker production.">ExampleÂ 19.1</a> shows a makefile trick that,
 assuming your distribution directory is named &#8220;foobar&#8221;
 and SRC contains a list of your distribution files, accomplishes
-this.</p><div class="example"><a id="tar_trick"/><p class="title"><b>Example 19.1. <i>tar</i> archive maker production.</b></p><pre class="programlisting">
+this.</p><div class="example"><a id="tar_trick"/><p class="title"><b>ExampleÂ 19.1.Â <i>tar</i> archive maker production.</b></p><pre class="programlisting">
 foobar-$(VERS).tar.gz:
 	@ls $(SRC) | sed s:^:foobar-$(VERS)/: &gt;MANIFEST
 	@(cd ..; ln -s foobar foobar-$(VERS))
@@ -432,7 +432,7 @@ not post to <tt>comp.lang.perl</tt>
 unless the program is also an instructive example of cutting-edge Perl
 techniques.</p><p>Your announcement should include the URL of a project website.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="website"/>Have a website.</h4></div></div><p>If you intend trying to build any substantial user or developer community
 around your project, it should have a website.  Standard things to have
-on the website include:</p><div class="itemizedlist"><ul type="disc"><li><p>The project charter (why it exists, who the audience is, etc.).</p></li><li><p>Download links for the project sources.</p></li><li><p>Instructions on how to join the project mailing list(s).</p></li><li><p>A FAQ (Frequently Asked Questions) list.</p></li><li><p>HTMLized versions of the project documentation.</p></li><li><p>Links to related and/or competing projects.</p></li></ul></div><p>Refer to the website examples in <a href="reusechapter.html" title="Chapter 16. Reuse">Chapter 16</a> for examples of what a well-educated project
+on the website include:</p><div class="itemizedlist"><ul type="disc"><li><p>The project charter (why it exists, who the audience is, etc.).</p></li><li><p>Download links for the project sources.</p></li><li><p>Instructions on how to join the project mailing list(s).</p></li><li><p>A FAQ (Frequently Asked Questions) list.</p></li><li><p>HTMLized versions of the project documentation.</p></li><li><p>Links to related and/or competing projects.</p></li></ul></div><p>Refer to the website examples in <a href="reusechapter.html" title="ChapterÂ 16.Â Reuse">ChapterÂ 16</a> for examples of what a well-educated project
 website looks like.</p><p>An easy way to have a website is to put your project on one of
 the sites that specializes in providing free hosting. In 2003
 the two most important of these are SourceForge (which is a
@@ -457,8 +457,8 @@ accommodate people who want to know when something important happens, but
 don't want to hear about day-to-day details.  Most such people will
 quickly unsubscribe if the list starts generating significant clutter in
 their mailboxes.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="archives"/>Release to major archives.</h4></div></div><p>See the section <i>Where Should I Look?</i> in
-<a href="reusechapter.html" title="Chapter 16. Reuse">Chapter 16</a> for specifics on
+<a href="reusechapter.html" title="ChapterÂ 16.Â Reuse">ChapterÂ 16</a> for specifics on
 the major open-source archive sites.  You should release your package
 to these.</p><p>Other important locations include:</p><div class="itemizedlist"><ul type="disc"><li><p>The <a href="http://www.python.org/" target="_top">Python Software Activity</a>
 site (for software written in Python).</p></li><li><p>The <a href="http://language.perl.com/CPAN" target="_top">CPAN</a>, the
-Comprehensive Perl Archive Network (for software written in Perl).</p></li></ul></div></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch19s01.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="opensourcechapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch19s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Unix and Open Source </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> The Logic of Licenses: How to Pick One</td></tr></table></div></body></html>
+Comprehensive Perl Archive Network (for software written in Perl).</p></li></ul></div></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch19s01.html">Prev</a>Â </td><td width="20%" align="center"><a accesskey="u" href="opensourcechapter.html">Up</a></td><td width="40%" align="right">Â <a accesskey="n" href="ch19s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Unix and Open SourceÂ </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">Â The Logic of Licenses: How to Pick One</td></tr></table></div></body></html>
