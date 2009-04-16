@@ -24,50 +24,317 @@
 </metadata>
 <manifest>
 <!-- Amazon's doc had media-type text/html here -->
- <item id="toc" href="index.html" media-type="text/x-oeb1-document" />
- <item id="preface" href="ch00.html" media-type="text/x-oeb1-document" />
- <item id="ch01" href="ch01.html" media-type="text/x-oeb1-document" />
- <item id="ch02" href="ch02.html" media-type="text/x-oeb1-document" />
- <item id="ch03" href="ch03.html" media-type="text/x-oeb1-document" />
- <item id="ch04" href="ch04.html" media-type="text/x-oeb1-document" />
- <item id="ch05" href="ch05.html" media-type="text/x-oeb1-document" />
- <item id="ch06" href="ch06.html" media-type="text/x-oeb1-document" />
- <item id="ch07" href="ch07.html" media-type="text/x-oeb1-document" />
- <item id="ch08" href="ch08.html" media-type="text/x-oeb1-document" />
- <item id="ch09" href="ch09.html" media-type="text/x-oeb1-document" />
- <item id="ch10" href="ch10.html" media-type="text/x-oeb1-document" />
- <item id="ch11" href="ch11.html" media-type="text/x-oeb1-document" />
- <item id="ch12" href="ch12.html" media-type="text/x-oeb1-document" />
- <item id="ch13" href="ch13.html" media-type="text/x-oeb1-document" />
- <item id="ch14" href="ch14.html" media-type="text/x-oeb1-document" />
- <item id="appa" href="appa.html" media-type="text/x-oeb1-document" />
- <item id="appb" href="appb.html" media-type="text/x-oeb1-document" />
- <item id="appc" href="appc.html" media-type="text/x-oeb1-document" />
- <item id="free_0201.png" href="figs/free_0201.png" media-type="image/png" />
- <item id="free_0306.png" href="figs/free_0306.png" media-type="image/png" />
- <item id="free_0801.png" href="figs/free_0801.png" media-type="image/png" />
- <item id="free_ep10.png" href="figs/free_ep10.png" media-type="image/png" />
+ <item id="s/apa.html" href="s/apa.html" media-type="text/x-oeb1-document" />
+ <item id="s/apb.html" href="s/apb.html" media-type="text/x-oeb1-document" />
+ <item id="s/apc.html" href="s/apc.html" media-type="text/x-oeb1-document" />
+ <item id="s/c_evolution.html" href="s/c_evolution.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch01s01.html" href="s/ch01s01.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch01s02.html" href="s/ch01s02.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch01s03.html" href="s/ch01s03.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch01s04.html" href="s/ch01s04.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch01s05.html" href="s/ch01s05.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch01s06.html" href="s/ch01s06.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch01s07.html" href="s/ch01s07.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch01s08.html" href="s/ch01s08.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch01s09.html" href="s/ch01s09.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch02s01.html" href="s/ch02s01.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch02s03.html" href="s/ch02s03.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch02s04.html" href="s/ch02s04.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch03s01.html" href="s/ch03s01.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch03s02.html" href="s/ch03s02.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch03s03.html" href="s/ch03s03.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch04s01.html" href="s/ch04s01.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch04s02.html" href="s/ch04s02.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch04s03.html" href="s/ch04s03.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch04s04.html" href="s/ch04s04.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch04s06.html" href="s/ch04s06.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch05s01.html" href="s/ch05s01.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch05s02.html" href="s/ch05s02.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch05s03.html" href="s/ch05s03.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch05s04.html" href="s/ch05s04.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch06s01.html" href="s/ch06s01.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch06s02.html" href="s/ch06s02.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch06s03.html" href="s/ch06s03.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch07s01.html" href="s/ch07s01.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch07s02.html" href="s/ch07s02.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch07s03.html" href="s/ch07s03.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch07s04.html" href="s/ch07s04.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch08s01.html" href="s/ch08s01.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch08s02.html" href="s/ch08s02.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch08s03.html" href="s/ch08s03.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch09s01.html" href="s/ch09s01.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch09s02.html" href="s/ch09s02.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch10s01.html" href="s/ch10s01.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch10s02.html" href="s/ch10s02.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch10s03.html" href="s/ch10s03.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch10s04.html" href="s/ch10s04.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch10s05.html" href="s/ch10s05.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch10s06.html" href="s/ch10s06.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch10s07.html" href="s/ch10s07.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch11s01.html" href="s/ch11s01.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch11s02.html" href="s/ch11s02.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch11s03.html" href="s/ch11s03.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch11s04.html" href="s/ch11s04.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch11s05.html" href="s/ch11s05.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch11s06.html" href="s/ch11s06.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch11s07.html" href="s/ch11s07.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch11s08.html" href="s/ch11s08.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch11s09.html" href="s/ch11s09.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch12s01.html" href="s/ch12s01.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch12s02.html" href="s/ch12s02.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch12s03.html" href="s/ch12s03.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch12s04.html" href="s/ch12s04.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch13s01.html" href="s/ch13s01.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch13s02.html" href="s/ch13s02.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch13s03.html" href="s/ch13s03.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch13s04.html" href="s/ch13s04.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch14s01.html" href="s/ch14s01.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch14s03.html" href="s/ch14s03.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch14s04.html" href="s/ch14s04.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch14s05.html" href="s/ch14s05.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch14s06.html" href="s/ch14s06.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch15s01.html" href="s/ch15s01.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch15s02.html" href="s/ch15s02.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch15s03.html" href="s/ch15s03.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch15s04.html" href="s/ch15s04.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch15s05.html" href="s/ch15s05.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch15s06.html" href="s/ch15s06.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch15s07.html" href="s/ch15s07.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch15s08.html" href="s/ch15s08.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch16s01.html" href="s/ch16s01.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch16s02.html" href="s/ch16s02.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch16s03.html" href="s/ch16s03.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch16s04.html" href="s/ch16s04.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch16s05.html" href="s/ch16s05.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch16s06.html" href="s/ch16s06.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch16s07.html" href="s/ch16s07.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch17s02.html" href="s/ch17s02.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch17s04.html" href="s/ch17s04.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch17s05.html" href="s/ch17s05.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch17s06.html" href="s/ch17s06.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch17s07.html" href="s/ch17s07.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch18s01.html" href="s/ch18s01.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch18s02.html" href="s/ch18s02.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch18s03.html" href="s/ch18s03.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch18s04.html" href="s/ch18s04.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch18s05.html" href="s/ch18s05.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch18s06.html" href="s/ch18s06.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch19s01.html" href="s/ch19s01.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch19s02.html" href="s/ch19s02.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch19s03.html" href="s/ch19s03.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch19s04.html" href="s/ch19s04.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch19s05.html" href="s/ch19s05.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch20s01.html" href="s/ch20s01.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch20s03.html" href="s/ch20s03.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch20s04.html" href="s/ch20s04.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch20s05.html" href="s/ch20s05.html" media-type="text/x-oeb1-document" />
+ <item id="s/ch20s06.html" href="s/ch20s06.html" media-type="text/x-oeb1-document" />
+ <item id="s/co01.html" href="s/co01.html" media-type="text/x-oeb1-document" />
+ <item id="s/community.html" href="s/community.html" media-type="text/x-oeb1-document" />
+ <item id="s/complexitychapter.html" href="s/complexitychapter.html" media-type="text/x-oeb1-document" />
+ <item id="s/configurationchapter.html" href="s/configurationchapter.html" media-type="text/x-oeb1-document" />
+ <item id="s/context.html" href="s/context.html" media-type="text/x-oeb1-document" />
+ <item id="s/contrastchapter.html" href="s/contrastchapter.html" media-type="text/x-oeb1-document" />
+ <item id="s/design.html" href="s/design.html" media-type="text/x-oeb1-document" />
+ <item id="s/documentationchapter.html" href="s/documentationchapter.html" media-type="text/x-oeb1-document" />
+ <item id="s/end-user.html" href="s/end-user.html" media-type="text/x-oeb1-document" />
+ <item id="s/futurechapter.html" href="s/futurechapter.html" media-type="text/x-oeb1-document" />
+ <item id="s/generationchapter.html" href="s/generationchapter.html" media-type="text/x-oeb1-document" />
+ <item id="s/gui-programmer.html" href="s/gui-programmer.html" media-type="text/x-oeb1-document" />
+ <item id="s/hackers.html" href="s/hackers.html" media-type="text/x-oeb1-document" />
+ <item id="s/historychapter.html" href="s/historychapter.html" media-type="text/x-oeb1-document" />
+ <item id="s/_._.html" href="s/_._.html" media-type="text/x-oeb1-document" />
+ <item id="s/ietf_process.html" href="s/ietf_process.html" media-type="text/x-oeb1-document" />
+ <item id="s/implementation.html" href="s/implementation.html" media-type="text/x-oeb1-document" />
+ <item id="s/index.html" href="s/index.html" media-type="text/x-oeb1-document" />
+ <item id="s/interfacechapter.html" href="s/interfacechapter.html" media-type="text/x-oeb1-document" />
+ <item id="s/introduction.html" href="s/introduction.html" media-type="text/x-oeb1-document" />
+ <item id="s/languageschapter.html" href="s/languageschapter.html" media-type="text/x-oeb1-document" />
+ <item id="s/methodology-consultant.html" href="s/methodology-consultant.html" media-type="text/x-oeb1-document" />
+ <item id="s/minilanguageschapter.html" href="s/minilanguageschapter.html" media-type="text/x-oeb1-document" />
+ <item id="s/modularitychapter.html" href="s/modularitychapter.html" media-type="text/x-oeb1-document" />
+ <item id="s/multiprogramchapter.html" href="s/multiprogramchapter.html" media-type="text/x-oeb1-document" />
+ <item id="s/opensourcechapter.html" href="s/opensourcechapter.html" media-type="text/x-oeb1-document" />
+ <item id="s/optimizationchapter.html" href="s/optimizationchapter.html" media-type="text/x-oeb1-document" />
+ <item id="s/philosophychapter.html" href="s/philosophychapter.html" media-type="text/x-oeb1-document" />
+ <item id="s/plan9.html" href="s/plan9.html" media-type="text/x-oeb1-document" />
+ <item id="s/portabilitychapter.html" href="s/portabilitychapter.html" media-type="text/x-oeb1-document" />
+ <item id="s/pr01s01.html" href="s/pr01s01.html" media-type="text/x-oeb1-document" />
+ <item id="s/pr01s02.html" href="s/pr01s02.html" media-type="text/x-oeb1-document" />
+ <item id="s/pr01s03.html" href="s/pr01s03.html" media-type="text/x-oeb1-document" />
+ <item id="s/pr01s04.html" href="s/pr01s04.html" media-type="text/x-oeb1-document" />
+ <item id="s/pr01s05.html" href="s/pr01s05.html" media-type="text/x-oeb1-document" />
+ <item id="s/pr01s06.html" href="s/pr01s06.html" media-type="text/x-oeb1-document" />
+ <item id="s/preface.html" href="s/preface.html" media-type="text/x-oeb1-document" />
+ <item id="s/reusechapter.html" href="s/reusechapter.html" media-type="text/x-oeb1-document" />
+ <item id="s/script-kiddie.html" href="s/script-kiddie.html" media-type="text/x-oeb1-document" />
+ <item id="s/ten-thousand.html" href="s/ten-thousand.html" media-type="text/x-oeb1-document" />
+ <item id="s/textualitychapter.html" href="s/textualitychapter.html" media-type="text/x-oeb1-document" />
+ <item id="s/toolschapter.html" href="s/toolschapter.html" media-type="text/x-oeb1-document" />
+ <item id="s/transparencychapter.html" href="s/transparencychapter.html" media-type="text/x-oeb1-document" />
+ <item id="s/two_paths.html" href="s/two_paths.html" media-type="text/x-oeb1-document" />
+ <item id="s/unix_and_oo.html" href="s/unix_and_oo.html" media-type="text/x-oeb1-document" />
+ <item id="s/unix_koans.html" href="s/unix_koans.html" media-type="text/x-oeb1-document" />
+ <item id="s/unix-nature.html" href="s/unix-nature.html" media-type="text/x-oeb1-document" />
+ <item id="s/why_not_c.html" href="s/why_not_c.html" media-type="text/x-oeb1-document" />
+ <item id="s/zealot.html" href="s/zealot.html" media-type="text/x-oeb1-document" />
+
 </manifest>
 <spine>
- <itemref idref="toc" />
- <itemref idref="preface" />
- <itemref idref="ch01" />
- <itemref idref="ch02" />
- <itemref idref="ch03" />
- <itemref idref="ch04" />
- <itemref idref="ch05" />
- <itemref idref="ch06" />
- <itemref idref="ch07" />
- <itemref idref="ch08" />
- <itemref idref="ch09" />
- <itemref idref="ch10" />
- <itemref idref="ch11" />
- <itemref idref="ch12" />
- <itemref idref="ch13" />
- <itemref idref="ch14" />
- <itemref idref="appa" />
- <itemref idref="appb" />
- <itemref idref="appc" />
+ <itemref idref="s/apa.html" />
+ <itemref idref="s/apb.html" />
+ <itemref idref="s/apc.html" />
+ <itemref idref="s/c_evolution.html" />
+ <itemref idref="s/ch01s01.html" />
+ <itemref idref="s/ch01s02.html" />
+ <itemref idref="s/ch01s03.html" />
+ <itemref idref="s/ch01s04.html" />
+ <itemref idref="s/ch01s05.html" />
+ <itemref idref="s/ch01s06.html" />
+ <itemref idref="s/ch01s07.html" />
+ <itemref idref="s/ch01s08.html" />
+ <itemref idref="s/ch01s09.html" />
+ <itemref idref="s/ch02s01.html" />
+ <itemref idref="s/ch02s03.html" />
+ <itemref idref="s/ch02s04.html" />
+ <itemref idref="s/ch03s01.html" />
+ <itemref idref="s/ch03s02.html" />
+ <itemref idref="s/ch03s03.html" />
+ <itemref idref="s/ch04s01.html" />
+ <itemref idref="s/ch04s02.html" />
+ <itemref idref="s/ch04s03.html" />
+ <itemref idref="s/ch04s04.html" />
+ <itemref idref="s/ch04s06.html" />
+ <itemref idref="s/ch05s01.html" />
+ <itemref idref="s/ch05s02.html" />
+ <itemref idref="s/ch05s03.html" />
+ <itemref idref="s/ch05s04.html" />
+ <itemref idref="s/ch06s01.html" />
+ <itemref idref="s/ch06s02.html" />
+ <itemref idref="s/ch06s03.html" />
+ <itemref idref="s/ch07s01.html" />
+ <itemref idref="s/ch07s02.html" />
+ <itemref idref="s/ch07s03.html" />
+ <itemref idref="s/ch07s04.html" />
+ <itemref idref="s/ch08s01.html" />
+ <itemref idref="s/ch08s02.html" />
+ <itemref idref="s/ch08s03.html" />
+ <itemref idref="s/ch09s01.html" />
+ <itemref idref="s/ch09s02.html" />
+ <itemref idref="s/ch10s01.html" />
+ <itemref idref="s/ch10s02.html" />
+ <itemref idref="s/ch10s03.html" />
+ <itemref idref="s/ch10s04.html" />
+ <itemref idref="s/ch10s05.html" />
+ <itemref idref="s/ch10s06.html" />
+ <itemref idref="s/ch10s07.html" />
+ <itemref idref="s/ch11s01.html" />
+ <itemref idref="s/ch11s02.html" />
+ <itemref idref="s/ch11s03.html" />
+ <itemref idref="s/ch11s04.html" />
+ <itemref idref="s/ch11s05.html" />
+ <itemref idref="s/ch11s06.html" />
+ <itemref idref="s/ch11s07.html" />
+ <itemref idref="s/ch11s08.html" />
+ <itemref idref="s/ch11s09.html" />
+ <itemref idref="s/ch12s01.html" />
+ <itemref idref="s/ch12s02.html" />
+ <itemref idref="s/ch12s03.html" />
+ <itemref idref="s/ch12s04.html" />
+ <itemref idref="s/ch13s01.html" />
+ <itemref idref="s/ch13s02.html" />
+ <itemref idref="s/ch13s03.html" />
+ <itemref idref="s/ch13s04.html" />
+ <itemref idref="s/ch14s01.html" />
+ <itemref idref="s/ch14s03.html" />
+ <itemref idref="s/ch14s04.html" />
+ <itemref idref="s/ch14s05.html" />
+ <itemref idref="s/ch14s06.html" />
+ <itemref idref="s/ch15s01.html" />
+ <itemref idref="s/ch15s02.html" />
+ <itemref idref="s/ch15s03.html" />
+ <itemref idref="s/ch15s04.html" />
+ <itemref idref="s/ch15s05.html" />
+ <itemref idref="s/ch15s06.html" />
+ <itemref idref="s/ch15s07.html" />
+ <itemref idref="s/ch15s08.html" />
+ <itemref idref="s/ch16s01.html" />
+ <itemref idref="s/ch16s02.html" />
+ <itemref idref="s/ch16s03.html" />
+ <itemref idref="s/ch16s04.html" />
+ <itemref idref="s/ch16s05.html" />
+ <itemref idref="s/ch16s06.html" />
+ <itemref idref="s/ch16s07.html" />
+ <itemref idref="s/ch17s02.html" />
+ <itemref idref="s/ch17s04.html" />
+ <itemref idref="s/ch17s05.html" />
+ <itemref idref="s/ch17s06.html" />
+ <itemref idref="s/ch17s07.html" />
+ <itemref idref="s/ch18s01.html" />
+ <itemref idref="s/ch18s02.html" />
+ <itemref idref="s/ch18s03.html" />
+ <itemref idref="s/ch18s04.html" />
+ <itemref idref="s/ch18s05.html" />
+ <itemref idref="s/ch18s06.html" />
+ <itemref idref="s/ch19s01.html" />
+ <itemref idref="s/ch19s02.html" />
+ <itemref idref="s/ch19s03.html" />
+ <itemref idref="s/ch19s04.html" />
+ <itemref idref="s/ch19s05.html" />
+ <itemref idref="s/ch20s01.html" />
+ <itemref idref="s/ch20s03.html" />
+ <itemref idref="s/ch20s04.html" />
+ <itemref idref="s/ch20s05.html" />
+ <itemref idref="s/ch20s06.html" />
+ <itemref idref="s/co01.html" />
+ <itemref idref="s/community.html" />
+ <itemref idref="s/complexitychapter.html" />
+ <itemref idref="s/configurationchapter.html" />
+ <itemref idref="s/context.html" />
+ <itemref idref="s/contrastchapter.html" />
+ <itemref idref="s/design.html" />
+ <itemref idref="s/documentationchapter.html" />
+ <itemref idref="s/end-user.html" />
+ <itemref idref="s/futurechapter.html" />
+ <itemref idref="s/generationchapter.html" />
+ <itemref idref="s/gui-programmer.html" />
+ <itemref idref="s/hackers.html" />
+ <itemref idref="s/historychapter.html" />
+ <itemref idref="s/_._.html" />
+ <itemref idref="s/ietf_process.html" />
+ <itemref idref="s/implementation.html" />
+ <itemref idref="s/index.html" />
+ <itemref idref="s/interfacechapter.html" />
+ <itemref idref="s/introduction.html" />
+ <itemref idref="s/languageschapter.html" />
+ <itemref idref="s/methodology-consultant.html" />
+ <itemref idref="s/minilanguageschapter.html" />
+ <itemref idref="s/modularitychapter.html" />
+ <itemref idref="s/multiprogramchapter.html" />
+ <itemref idref="s/opensourcechapter.html" />
+ <itemref idref="s/optimizationchapter.html" />
+ <itemref idref="s/philosophychapter.html" />
+ <itemref idref="s/plan9.html" />
+ <itemref idref="s/portabilitychapter.html" />
+ <itemref idref="s/pr01s01.html" />
+ <itemref idref="s/pr01s02.html" />
+ <itemref idref="s/pr01s03.html" />
+ <itemref idref="s/pr01s04.html" />
+ <itemref idref="s/pr01s05.html" />
+ <itemref idref="s/pr01s06.html" />
+ <itemref idref="s/preface.html" />
+ <itemref idref="s/reusechapter.html" />
+ <itemref idref="s/script-kiddie.html" />
+ <itemref idref="s/ten-thousand.html" />
+ <itemref idref="s/textualitychapter.html" />
+ <itemref idref="s/toolschapter.html" />
+ <itemref idref="s/transparencychapter.html" />
+ <itemref idref="s/two_paths.html" />
+ <itemref idref="s/unix_and_oo.html" />
+ <itemref idref="s/unix_koans.html" />
+ <itemref idref="s/unix-nature.html" />
+ <itemref idref="s/why_not_c.html" />
+ <itemref idref="s/zealot.html" />
 </spine>
 <guide>
  <reference type="toc" title="Table of Contents" href="index.html" />
