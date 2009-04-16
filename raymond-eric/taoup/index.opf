@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE package PUBLIC "+//ISBN 0-9673008-1-9//DTD OEB 1.2 Package//EN" "http://openebook.org/dtds/oeb-1.2/oebpkg12.dtd">
-<package unique-identifier="my-jgoerzen-UUID">
+<!DOCTYPE package PUBLIC "+//ISBN 0131429019//DTD OEB 1.2 Package//EN" "http://openebook.org/dtds/oeb-1.2/oebpkg12.dtd">
+<package unique-identifier="my-fake-UUID">
 <metadata>
  <dc-metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oebpackage="http://openebook.org/namespaces/oeb-package/1.0/">
-    <dc:Title>Free as in Freedom</dc:Title>
+    <dc:Title>The Art of Unix Programming</dc:Title>
     <dc:Language>en</dc:Language>
-    <dc:Identifier id="my-jgoerzen-UUID" scheme="ISBN">0596002874</dc:Identifier>
-    <dc:Creator role="aut">Sam Williams</dc:Creator>
+    <dc:Identifier id="my-fake-UUID" scheme="ISBN">0131429019</dc:Identifier>
+    <dc:Creator role="aut">Eric S. Raymond</dc:Creator>
     <dc:Subject>Open Source and Free Software</dc:Subject>
-    <dc:Description>Free as in Freedom interweaves biographical
-    snapshots of GNU project founder Richard Stallman with the
-    political, social and economic history of the free software
-    movement. It examines Stallman's unique personality and how that
-    personality has been at turns a driving force and a drawback in
-    terms of the movement's overall success.</dc:Description>
+    <dc:Description>
+The Art of UNIX Programming poses the belief that understanding the
+        unwritten UNIX engineering tradition and mastering its design
+        patterns will help programmers of all stripes to become better
+        programmers. This book attempts to capture the engineering
+        wisdom and design philosophy of the UNIX, Linux, and Open
+        Source software development community as it has evolved over
+        the past three decades, and as it is applied today by the most
+        experienced programmers. Eric Raymond offers the next
+        generation of "hackers" the unique opportunity to learn the
+        connection between UNIX philosophy and practice through
+        careful case studies of the very best UNIX/Linux programs.
+   </dc:Description>
 
-    <dc:Source>http://oreilly.com/openbook/freedom/</dc:Source>
-    <dc:Rights>http://oreilly.com/openbook/freedom/appc.html</dc:Rights>
+    <dc:Source>http://catb.org/~esr/writings/taoup/html/</dc:Source>
+    <dc:Rights>http://catb.org/~esr/writings/taoup/html/</dc:Rights>
  </dc-metadata>
  <x-metadata>
       <output encoding="utf-8" content-type="text/x-oeb1-document"/>
