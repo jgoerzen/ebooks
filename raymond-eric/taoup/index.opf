@@ -143,7 +143,6 @@
  <item id="s/gui-programmer.html" href="s/gui-programmer.html" media-type="text/x-oeb1-document" />
  <item id="s/hackers.html" href="s/hackers.html" media-type="text/x-oeb1-document" />
  <item id="s/historychapter.html" href="s/historychapter.html" media-type="text/x-oeb1-document" />
- <item id="s/_._.html" href="s/_._.html" media-type="text/x-oeb1-document" />
  <item id="s/ietf_process.html" href="s/ietf_process.html" media-type="text/x-oeb1-document" />
  <item id="s/implementation.html" href="s/implementation.html" media-type="text/x-oeb1-document" />
  <item id="s/index.html" href="s/index.html" media-type="text/x-oeb1-document" />
@@ -181,11 +180,22 @@
 
 </manifest>
 <spine>
- <itemref idref="s/apa.html" />
- <itemref idref="s/apb.html" />
- <itemref idref="s/apc.html" />
- <itemref idref="s/c_evolution.html" />
+ <itemref idref="s/index.html" />
+ <itemref idref="s/co01.html" />
+
+ <itemref idref="s/preface.html" />
+ <itemref idref="s/pr01s01.html" />
+ <itemref idref="s/pr01s02.html" />
+ <itemref idref="s/pr01s03.html" />
+ <itemref idref="s/pr01s04.html" />
+ <itemref idref="s/pr01s05.html" />
+ <itemref idref="s/pr01s06.html" />
+
+ <itemref idref="s/context.html" />  <!-- part heading -- omit? -->
+
+ <itemref idref="s/philosophychapter.html" />
  <itemref idref="s/ch01s01.html" />
+ <itemref idref="s/hackers.html" />
  <itemref idref="s/ch01s02.html" />
  <itemref idref="s/ch01s03.html" />
  <itemref idref="s/ch01s04.html" />
@@ -194,33 +204,54 @@
  <itemref idref="s/ch01s07.html" />
  <itemref idref="s/ch01s08.html" />
  <itemref idref="s/ch01s09.html" />
+
+ <itemref idref="s/historychapter.html" />
  <itemref idref="s/ch02s01.html" />
  <itemref idref="s/ch02s03.html" />
  <itemref idref="s/ch02s04.html" />
+
+ <itemref idref="s/contrastchapter.html" />
  <itemref idref="s/ch03s01.html" />
  <itemref idref="s/ch03s02.html" />
  <itemref idref="s/ch03s03.html" />
+
+ <itemref idref="s/design.html" /> <!-- part heading -->
+
+ <itemref idref="s/modularitychapter.html" />
  <itemref idref="s/ch04s01.html" />
  <itemref idref="s/ch04s02.html" />
  <itemref idref="s/ch04s03.html" />
  <itemref idref="s/ch04s04.html" />
+ <itemref idref="s/unix_and_oo.html" />
  <itemref idref="s/ch04s06.html" />
+
+ <itemref idref="s/textualitychapter.html" />
  <itemref idref="s/ch05s01.html" />
  <itemref idref="s/ch05s02.html" />
  <itemref idref="s/ch05s03.html" />
  <itemref idref="s/ch05s04.html" />
+
+ <itemref idref="s/transparencychapter.html" />
  <itemref idref="s/ch06s01.html" />
  <itemref idref="s/ch06s02.html" />
  <itemref idref="s/ch06s03.html" />
+
+ <itemref idref="s/multiprogramchapter.html" />
  <itemref idref="s/ch07s01.html" />
  <itemref idref="s/ch07s02.html" />
  <itemref idref="s/ch07s03.html" />
  <itemref idref="s/ch07s04.html" />
+
+ <itemref idref="s/minilanguageschapter.html" />
  <itemref idref="s/ch08s01.html" />
  <itemref idref="s/ch08s02.html" />
  <itemref idref="s/ch08s03.html" />
+
+ <itemref idref="s/generationchapter.html" />
  <itemref idref="s/ch09s01.html" />
  <itemref idref="s/ch09s02.html" />
+
+ <itemref idref="s/configurationchapter.html" />
  <itemref idref="s/ch10s01.html" />
  <itemref idref="s/ch10s02.html" />
  <itemref idref="s/ch10s03.html" />
@@ -228,6 +259,8 @@
  <itemref idref="s/ch10s05.html" />
  <itemref idref="s/ch10s06.html" />
  <itemref idref="s/ch10s07.html" />
+
+ <itemref idref="s/interfacechapter.html" />
  <itemref idref="s/ch11s01.html" />
  <itemref idref="s/ch11s02.html" />
  <itemref idref="s/ch11s03.html" />
@@ -237,19 +270,30 @@
  <itemref idref="s/ch11s07.html" />
  <itemref idref="s/ch11s08.html" />
  <itemref idref="s/ch11s09.html" />
+
+ <itemref idref="s/optimizationchapter.html" />
  <itemref idref="s/ch12s01.html" />
  <itemref idref="s/ch12s02.html" />
  <itemref idref="s/ch12s03.html" />
  <itemref idref="s/ch12s04.html" />
+
+ <itemref idref="s/complexitychapter.html" />
  <itemref idref="s/ch13s01.html" />
  <itemref idref="s/ch13s02.html" />
  <itemref idref="s/ch13s03.html" />
  <itemref idref="s/ch13s04.html" />
+
+ <itemref idref="s/implementation.html" /> <!-- part heading -->
+
+ <itemref idref="s/languageschapter.html" />
  <itemref idref="s/ch14s01.html" />
+ <itemref idref="s/why_not_c.html" />
  <itemref idref="s/ch14s03.html" />
  <itemref idref="s/ch14s04.html" />
  <itemref idref="s/ch14s05.html" />
  <itemref idref="s/ch14s06.html" />
+
+ <itemref idref="s/toolschapter.html" />
  <itemref idref="s/ch15s01.html" />
  <itemref idref="s/ch15s02.html" />
  <itemref idref="s/ch15s03.html" />
@@ -258,6 +302,8 @@
  <itemref idref="s/ch15s06.html" />
  <itemref idref="s/ch15s07.html" />
  <itemref idref="s/ch15s08.html" />
+
+ <itemref idref="s/reusechapter.html" />
  <itemref idref="s/ch16s01.html" />
  <itemref idref="s/ch16s02.html" />
  <itemref idref="s/ch16s03.html" />
@@ -265,76 +311,58 @@
  <itemref idref="s/ch16s05.html" />
  <itemref idref="s/ch16s06.html" />
  <itemref idref="s/ch16s07.html" />
+
+ <itemref idref="s/community.html" />  <!-- part heading -->
+
+ <itemref idref="s/portabilitychapter.html" />
+ <itemref idref="s/c_evolution.html" />
  <itemref idref="s/ch17s02.html" />
+ <itemref idref="s/ietf_process.html" />
  <itemref idref="s/ch17s04.html" />
  <itemref idref="s/ch17s05.html" />
  <itemref idref="s/ch17s06.html" />
  <itemref idref="s/ch17s07.html" />
+
+ <itemref idref="s/documentationchapter.html" />
  <itemref idref="s/ch18s01.html" />
  <itemref idref="s/ch18s02.html" />
  <itemref idref="s/ch18s03.html" />
  <itemref idref="s/ch18s04.html" />
  <itemref idref="s/ch18s05.html" />
  <itemref idref="s/ch18s06.html" />
+
+ <itemref idref="s/opensourcechapter.html" />
  <itemref idref="s/ch19s01.html" />
  <itemref idref="s/ch19s02.html" />
  <itemref idref="s/ch19s03.html" />
  <itemref idref="s/ch19s04.html" />
  <itemref idref="s/ch19s05.html" />
+
+ <itemref idref="s/futurechapter.html" />
  <itemref idref="s/ch20s01.html" />
+ <itemref idref="s/plan9.html" />
  <itemref idref="s/ch20s03.html" />
  <itemref idref="s/ch20s04.html" />
  <itemref idref="s/ch20s05.html" />
  <itemref idref="s/ch20s06.html" />
- <itemref idref="s/co01.html" />
- <itemref idref="s/community.html" />
- <itemref idref="s/complexitychapter.html" />
- <itemref idref="s/configurationchapter.html" />
- <itemref idref="s/context.html" />
- <itemref idref="s/contrastchapter.html" />
- <itemref idref="s/design.html" />
- <itemref idref="s/documentationchapter.html" />
- <itemref idref="s/end-user.html" />
- <itemref idref="s/futurechapter.html" />
- <itemref idref="s/generationchapter.html" />
- <itemref idref="s/gui-programmer.html" />
- <itemref idref="s/hackers.html" />
- <itemref idref="s/historychapter.html" />
- <itemref idref="s/_._.html" />
- <itemref idref="s/ietf_process.html" />
- <itemref idref="s/implementation.html" />
- <itemref idref="s/index.html" />
- <itemref idref="s/interfacechapter.html" />
- <itemref idref="s/introduction.html" />
- <itemref idref="s/languageschapter.html" />
- <itemref idref="s/methodology-consultant.html" />
- <itemref idref="s/minilanguageschapter.html" />
- <itemref idref="s/modularitychapter.html" />
- <itemref idref="s/multiprogramchapter.html" />
- <itemref idref="s/opensourcechapter.html" />
- <itemref idref="s/optimizationchapter.html" />
- <itemref idref="s/philosophychapter.html" />
- <itemref idref="s/plan9.html" />
- <itemref idref="s/portabilitychapter.html" />
- <itemref idref="s/pr01s01.html" />
- <itemref idref="s/pr01s02.html" />
- <itemref idref="s/pr01s03.html" />
- <itemref idref="s/pr01s04.html" />
- <itemref idref="s/pr01s05.html" />
- <itemref idref="s/pr01s06.html" />
- <itemref idref="s/preface.html" />
- <itemref idref="s/reusechapter.html" />
- <itemref idref="s/script-kiddie.html" />
- <itemref idref="s/ten-thousand.html" />
- <itemref idref="s/textualitychapter.html" />
- <itemref idref="s/toolschapter.html" />
- <itemref idref="s/transparencychapter.html" />
- <itemref idref="s/two_paths.html" />
- <itemref idref="s/unix_and_oo.html" />
+
+ <itemref idref="s/apa.html" />
+ <itemref idref="s/apb.html" />
+ <itemref idref="s/apc.html" />
+
  <itemref idref="s/unix_koans.html" />
- <itemref idref="s/unix-nature.html" />
- <itemref idref="s/why_not_c.html" />
+ <itemref idref="s/introduction.html" />
+ <itemref idref="s/ten-thousand.html" />
+ <itemref idref="s/script-kiddie.html" />
+ <itemref idref="s/two_paths.html" />
+ <itemref idref="s/methodology-consultant.html" />
+ <itemref idref="s/gui-programmer.html" />
  <itemref idref="s/zealot.html" />
+ <itemref idref="s/unix-nature.html" />
+ <itemref idref="s/end-user.html" />
+
+
+ <itemref idref="s/index.html" />
 </spine>
 <guide>
  <reference type="toc" title="Table of Contents" href="index.html" />
