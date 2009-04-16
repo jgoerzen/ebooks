@@ -178,6 +178,28 @@
  <item id="s/why_not_c.html" href="s/why_not_c.html" media-type="text/x-oeb1-document" />
  <item id="s/zealot.html" href="s/zealot.html" media-type="text/x-oeb1-document" />
 
+ <item id="s/graphics/audacity.png" href="s/graphics/audacity.png" media-type="image/png" />
+ <item id="s/graphics/complexity.png" href="s/graphics/complexity.png" media-type="image/png" />
+ <item id="s/graphics/docflow1.png" href="s/graphics/docflow1.png" media-type="image/png" />
+ <item id="s/graphics/docflow2.png" href="s/graphics/docflow2.png" media-type="image/png" />
+ <item id="s/graphics/docflow3.png" href="s/graphics/docflow3.png" media-type="image/png" />
+ <item id="s/graphics/freeciv.png" href="s/graphics/freeciv.png" media-type="image/png" />
+ <item id="s/graphics/gimp-org.png" href="s/graphics/gimp-org.png" media-type="image/png" />
+ <item id="s/graphics/hatton.png" href="s/graphics/hatton.png" media-type="image/png" />
+ <item id="s/graphics/kiss.png" href="s/graphics/kiss.png" media-type="image/png" />
+ <item id="s/graphics/kmail.png" href="s/graphics/kmail.png" media-type="image/png" />
+ <item id="s/graphics/os-history.png" href="s/graphics/os-history.png" media-type="image/png" />
+ <item id="s/graphics/polyvalent.png" href="s/graphics/polyvalent.png" media-type="image/png" />
+ <item id="s/graphics/rootlessroot.png" href="s/graphics/rootlessroot.png" media-type="image/png" />
+ <item id="s/graphics/taxonomy.png" href="s/graphics/taxonomy.png" media-type="image/png" />
+ <item id="s/graphics/xcalc.png" href="s/graphics/xcalc.png" media-type="image/png" />
+ <item id="s/graphics/xcdr-read.png" href="s/graphics/xcdr-read.png" media-type="image/png" />
+
+ <item id="s/graphics/kd14.jpg" href="s/graphics/kd14.jpg" media-type="image/jpeg" />
+ <item id="s/graphics/linen2d.jpg" href="s/graphics/linen2d.jpg" media-type="image/jpeg" />
+ <item id="s/graphics/pdp7.jpg" href="s/graphics/pdp7.jpg" media-type="image/jpeg" />
+
+
 </manifest>
 <spine>
  <itemref idref="s/index.html" />
