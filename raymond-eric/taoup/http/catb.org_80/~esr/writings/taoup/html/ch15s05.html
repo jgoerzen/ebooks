@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Version-Control Systems</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="toolschapter.html" title="Chapter 15. Tools"/><link rel="previous" href="ch15s04.html" title="make: Automating Your Recipes"/><link rel="next" href="ch15s06.html" title="Runtime Debugging"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Version-Control Systems</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch15s04.html">Prev</a> </td><th width="60%" align="center">Chapter 15. Tools</th><td width="20%" align="right"> <a accesskey="n" href="ch15s06.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2988338"/>Version-Control Systems</h2></div></div><p>Code evolves. As a project moves from first-cut prototype to
+deliverable, it goes through multiple cycles in which you explore
+new ground, debug, and then stabilize what you've accomplished. And
+this evolution doesn't stop when you first deliver for production.
+Most projects will need to be maintained and enhanced past the 1.0
+stage, and will be released multiple times.  Tracking all that 
+detail is just the sort of thing computers are good at and 
+humans are not.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2988357"/>Why Version Control?</h3></div></div><p>Code evolution raises several practical problems that can be
+major sources of friction and drudgery &#8212; thus a serious drain on
+productivity. Every moment spent on these problems is a moment not
+spent on getting the design and function of your project right.</p><p>Perhaps the most important problem is
+<span class="emphasis"><em>reversion</em></span>.  If you make a change, and discover
+it's not viable, how can you revert to a code version that is known
+good? If reversion is difficult or unreliable, it's hard to risk
+making changes at all (you could trash the whole project, or make many
+hours of painful work for yourself).</p><p>Almost as important is <span class="emphasis"><em>change tracking</em></span>. You
+know your code has changed; do you know why? It's easy to forget the
+reasons for changes and step on them later. If you have collaborators
+on a project, how do you know what they have changed while you weren't
+looking, and who was responsible for each change?</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Amazingly often, it is useful to ask what
+<span class="emphasis"><em>you</em></span> have changed since the last known-good
+version, even if you have no collaborators.  This often uncovers
+unwanted changes, such as forgotten debugging code.  I now do this
+routinely before checking in a set of changes.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Henry Spencer</span>
+<a id="id2988414" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Another issue is <span class="emphasis"><em>bug tracking</em></span>. It's quite common
+to get new bug reports for a particular version after the code has
+mutated away from it considerably. Sometimes you can recognize
+immediately that the bug has already been stomped, but often you
+can't. Suppose it doesn't reproduce under the new version. How do you
+get back the state of the code for the old version in order to
+reproduce and understand it?</p><p>To address these problems, you need procedures for keeping a
+history of your project, and annotating it with comments that
+explain the history. If your project has more than one developer,
+you also need mechanisms for making sure developers don't overwrite
+each others' versions.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2988464"/>Version Control by Hand</h3></div></div><p>The most primitive (but still very common) method is all
+hand-hacking. You snapshot the project periodically by manually
+copying everything in it to a backup. You include history comments
+in source files. You make verbal or email arrangements with other
+developers to keep their hands off certain files while you hack
+them.</p><p>The hidden costs of this hand-hacking method are high,
+especially when (as frequently happens) it breaks down. The
+procedures take time and concentration; they're prone to error, and
+tend to get slipped under pressure or when the project is in
+trouble &#8212; that is, exactly when they are most needed.</p><p>As with most hand-hacking, this method does not scale well.  It
+restricts the granularity of change tracking, and tends to lose
+metadata details such as the order of changes, who did them, and why.
+Reverting just a part of a large change can be tedious and time
+consuming, and often developers are forced to back up farther than
+they'd like after trying something that doesn't work.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2988503"/>Automated Version Control</h3></div></div><p>To avoid these problems, you can use a <span class="emphasis"><em>version-control
+system</em></span> (VCS), a suite of programs that automates away most of
+the drudgery involved in keeping an annotated history of your
+project and avoiding modification conflicts.</p><p>Most VCSs share the same basic logic. To use one, you start by
+<span class="emphasis"><em>registering</em></span> a collection of source files &#8212;
+that is, telling your VCS to start archive files describing their
+change histories. Thereafter, when you want to edit one of these
+files, you have to <span class="emphasis"><em>check out</em></span> the file &#8212;
+assert an exclusive lock on it. When you're done, you <span class="emphasis"><em>check
+in</em></span> the file, adding your changes to the archive, releasing
+the lock, and entering a change comment explaining what you
+did.</p><p>The history of the project is not necessarily linear. All VCSs
+in common use actually allow you to maintain a tree of variant
+versions (for ports to different machines, say) with tools for merging
+branches back into the main &#8220;trunk&#8221; version.  This
+feature becomes important as the size and dispersion of the 
+development group increases.  It needs to be used with care, 
+however; multiple active variants of the code base can be 
+very confusing (just associated bug reports to the right version
+are not necessarily easy), and automated merging of branches does
+not guaranteed that the combined code works.</p><p>Most of the rest of what a VCS does is convenience: labeling,
+and reporting features surrounding these basic operations, and tools
+which allow you to view differences between versions, or to group a
+given set of versions of files as a named <span class="emphasis"><em>release</em></span>
+that can be examined or reverted to at any time without losing later
+changes.</p><p>VCSs have their problems. The biggest one is that using a VCS
+involves extra steps every time you want to edit a file, steps
+that developers in a hurry tend to want to skip if they have to be
+done by hand. Near the end of this chapter we'll discuss a way to
+solve this problem.</p><p>Another problem is that some kinds of natural operations tend to
+confuse VCSs. Renaming files is a notorious trouble spot; it's not
+easy to automatically ensure that a file's version history will be
+carried along with it when it is renamed.  Renaming problems are
+particularly difficult to resolve when the VCS supports
+branching.</p><p>Despite these difficulties, VCSs are a huge boon to productivity
+and code quality in many ways, even for small single-developer
+projects. They automate away many procedures that are just tedious
+work. They help a lot in recovering from mistakes. Perhaps most
+importantly, they free programmers to experiment by guaranteeing
+that reversion to a known-good state will always be easy.</p><p>(VCSs, by the way, are not merely good for program code; the
+manuscript of this book was maintained as a collection of files
+under <i>RCS</i> while it was being written.)</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2988625"/>Unix Tools for Version Control</h3></div></div><p>Historically, three VCSs have been of major significance in the
+Unix world, and we'll survey them here. For an extended introduction
+and tutorial, consult <i>Applying RCS and SCCS</i> [<a href="apb.html#Bolinger-Bronson" title="[Bolinger-Bronson]">Bolinger-Bronson</a>].</p><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id2988648"/>Source Code Control System (SCCS)</h4></div></div><p>The first was <i>SCCS</i>, the original
+Source Code Control System developed by Bell Labs around 1980 and
+featured in System III<a id="id2988666" class="indexterm"/> Unix.  <i>SCCS</i>
+seems to have been the first serious attempt at a unified source-code
+management system; concepts that it pioneered are still found at some
+level in all later ones, including commercial Unix and Windows
+products such as ClearCase.</p><p><i>SCCS</i> itself is, however, now
+obsolete; it was proprietary Bell Labs software.  Superior open-source
+alternatives have since been developed, and most of the Unix world has
+converted to those. <i>SCCS</i> is still in use to
+manage old projects at some commercial vendors, but can no longer be
+recommended for new projects.</p><p>No complete open-source implementation of
+<i>SCCS</i> exists. A clone called CSSC
+(Compatibly Stupid Source Control) is in development under the
+sponsorship of the FSF<a id="id2988720" class="indexterm"/>.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id2988732"/>Revision Control System (RCS)</h4></div></div><p>The superior open-source alternatives began with RCS (Revision
+Control System), born at Purdue University a few years after
+<i>SCCS</i> and originally distributed with 4.3BSD
+Unix<a id="id2988750" class="indexterm"/>. It is
+logically similar to <i>SCCS</i> but has a cleaner
+command interface, and good facilities for grouping together entire
+project releases under symbolic names.</p><p><i>RCS</i> is currently the most widely
+used version control system in the Unix world. Some other Unix
+version-control systems use it as a back end or underlayer. It is well
+suited for single-developer or small-group projects hosted at a single
+development shop.</p><p>The <i>RCS</i> sources are maintained and
+distributed by the FSF<a id="id2988794" class="indexterm"/>. Free ports are available for
+Microsoft operating systems<a id="id2988804" class="indexterm"/> and VAX VMS<a id="id2988813" class="indexterm"/>.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id2988824"/>Concurrent Version System (CVS)</h4></div></div><p>CVS (Concurrent Version System) began life as a front end to
+<i>RCS</i> developed in the early 1990s, but the
+model of version control it uses was different enough that it
+immediately qualified as a new design. Modern implementations don't
+rely on <i>RCS</i>.</p><p>Unlike <i>RCS</i> and
+<i>SCCS</i>, <i>CVS</i>
+doesn't exclusively lock files when they're checked out. Instead, it
+tries to reconcile nonconflicting changes mechanically when they're
+checked back in, and requests human help on conflicts. The design
+works because patch conflicts are much less common than one might
+intuitively think.</p><p>The interface of <i>CVS</i> is significantly
+more complex than that of <i>RCS</i>, and it needs
+a lot more disk space. These properties make it a poor choice for small
+projects. On the other hand, <i>CVS</i> is well
+suited to large multideveloper efforts distributed across several
+development sites connected by the
+Internet. <i>CVS</i> tools on a client machine can
+easily be told to direct their operations to a repository located on a
+different host.</p><p>The open-source community makes heavy use of
+<i>CVS</i> for projects such as GNOME and
+Mozilla. Typically, such <i>CVS</i> repositories
+allow anyone to check out sources remotely. Anyone can, therefore,
+make a local copy of a project, modify it, and mail change patches to
+the project maintainers. Actual write access to the repository is more
+limited and has to be explicitly granted by the project maintainers. A
+developer who has such access can perform a commit option from his
+modified local copy, which will cause the local changes to get made
+directly to the remote repository.</p><p>You can see an example of a well-run
+<i>CVS</i> repository, accessible over the
+Internet, at the <a href="http://cvs.gnome.org/" target="_top">GNOME CVS
+site</a>. This site illustrates the use of
+<i>CVS</i>-aware browsing tools such as Bonsai,
+which are useful in helping a large and decentralized group of
+developers coordinate their work.</p><p>The social machinery and philosophy accompanying the use of
+<i>CVS</i> is as important as the details of the
+tools. The assumption is that projects <span class="emphasis"><em>will</em></span> be
+open and decentralized, with code subject to peer review and
+inspection even by developers who are not officially members of the
+project group.</p><p>Just as importantly, <i>CVS</i>'s
+nonlocking philosophy means that projects can't be blocked by a lock
+if a programmer disappears in the middle of making some changes.
+<i>CVS</i> thus allows developers to avoid the
+&#8220;single person point of failure&#8221; problem; in turn, this
+means that project boundaries can be fluid, casual contributions are
+relatively easy, and projects are not required to have an elaborate
+hierarchy of control.</p><p>The <i>CVS</i> sources are maintained and
+distributed by the FSF<a id="id2989037" class="indexterm"/>.</p><p><i>CVS</i> has significant problems. Some
+are merely implementation bugs, but one basic problem is that your
+project's file namespace is not versioned in the same way changes to
+files themselves are. Thus, <i>CVS</i> is easily
+confused by file renamings, deletions, and additions.  Also,
+<i>CVS</i> records changes on a per-file basis,
+rather than as <span class="emphasis"><em>sets</em></span> of changes made to files.  This
+makes it harder to back out to specific versions, and harder to handle
+partial check-ins.  Fortunately, none of these problems are intrinsic
+to the nonlocking style, and they have been successfully addressed by
+newer version-control systems.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id2989087"/>Other Version-Control Systems</h4></div></div><p><i>CVS</i>'s design problems are sufficient
+to have created demand for a better open-source VCS. Several such
+efforts are under way as of 2003. The most notable of these are
+<i>Aegis</i> and
+<i>Subversion</i>.</p><p><a href="http://www.pcug.org.au/~millerp/aegis/aegis.html" target="_top">Aegis</a>
+has the longest history of any of these alternatives, has hosted
+its own development since 1991, and is a mature production system.
+It features a heavy emphasis on regression-testing and
+validation.</p><p><a href="http://subversion.tigris.org/" target="_top">Subversion</a> is
+positioned as &#8220;CVS done right&#8221;, with the known design
+problems fully addressed, and in 2003 probably has the best
+near-term prospect of replacing <i>CVS</i>.</p><p>The <a href="http://www.bitkeeper.com/" target="_top">BitKeeper</a> project
+explores some interesting design ideas related to change-sets and
+multiple distributed code repositories. Linus Torvalds uses Bitkeeper 
+for the Linux kernel sources.  Its non-open-source license
+is, however, controversial, and has significantly retarded the
+acceptance of the product.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch15s04.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="toolschapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch15s06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">make: Automating Your Recipes </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Runtime Debugging</td></tr></table></div></body></html>

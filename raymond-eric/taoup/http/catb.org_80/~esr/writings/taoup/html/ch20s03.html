@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Problems in the Design of Unix</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="futurechapter.html" title="Chapter 20. Futures"/><link rel="previous" href="plan9.html" title="Plan 9: The Way the Future Was"/><link rel="next" href="ch20s04.html" title="Problems in the Environment of Unix"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Problems in the Design of Unix</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="plan9.html">Prev</a> </td><th width="60%" align="center">Chapter 20. Futures</th><td width="20%" align="right"> <a accesskey="n" href="ch20s04.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3015510"/>Problems in the Design of Unix</h2></div></div><p>Plan 9 cleans up Unix, but only really adds one new concept
+(private namespaces) to its basic set of design ideas.  But are there
+serious problems with those basic design ideas? In <a href="philosophychapter.html" title="Chapter 1. Philosophy">Chapter 1</a> we touched on
+several issues that Unix arguably got wrong.  Now that the open-source
+movement has put the design future of Unix back in the hands of
+programmers and technical people, these are no longer decisions we
+have to live with forever.  We'll reexamine them in order to get a
+better handle on how Unix might evolve in the future.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3015538"/>A Unix File Is Just a Big Bag of Bytes</h3></div></div><p>A Unix file is just a big bag of bytes, with no other 
+attributes.  In particular, there is no capability to store
+information about the file type or a pointer to an associated
+application program outside the file's actual data.</p><p>More generally, everything is a byte stream<a id="id3015556" class="indexterm"/>; even hardware devices are byte streams.
+This metaphor was a tremendous success of early Unix, and a real
+advance over a world in which (for example) compiled programs could
+not produce output that could be fed back to the compiler.
+Pipes<a id="id3015569" class="indexterm"/> and shell
+programming<a id="id3015577" class="indexterm"/>
+sprang from this metaphor.</p><p>But Unix's byte-stream metaphor is <span class="emphasis"><em>so</em></span>
+central that Unix has trouble integrating software objects with
+operations that don't fit neatly into the byte stream or file
+repertoire of operations (create, open, read, write, delete). This is
+especially a problem for GUI objects such as icons, windows, and
+&#8216;live&#8217; documents.  Within a classical Unix model of the
+world, the only way to extend the everything-is-a-byte-stream metaphor
+is through <tt>ioctl</tt> calls, a notoriously ugly
+collection of back doors into kernel space.</p><p>Fans of the Macintosh<a id="id3015618" class="indexterm"/> family of operating systems tend to be
+vociferous about this.  They advocate a model in which a single
+filename may have both data and resource &#8216;forks&#8217;, the data
+fork corresponding to the Unix byte stream and the resource fork being
+a collection of name/value pairs. Unix partisans prefer approaches
+that make file data self-describing so that effectively the same sort
+of metadata is stored within the file.</p><p>The problem with the Unix approach is that every program
+that writes the file has to know about it.  Thus, for example, if we
+want the file to carry type information inside it, every tool that
+touches it has to take care to either preserve the type field
+unaltered or interpret and then rewrite it.  While this would be
+theoretically possible to arrange, in practice it would be far too
+fragile.</p><p>On the other hand, supporting file attributes raises awkward
+questions about which file operations should preserve them.  It's
+clear that a copy of a named file to another name should copy
+the source file's attributes as well as its data &#8212; but suppose
+we
+cat(1)
+the file, redirecting the output of
+cat(1)
+to a new name?</p><p>The answer to this question depends on whether the attributes
+are actually properties of filenames or are in some magical way
+bundled with the file's data as a sort of invisible preamble or
+postamble.  Then the question becomes: Which operations make the
+properties visible?</p><p>Xerox PARC<a id="id3015686" class="indexterm"/>
+file-system designs grappled with this problem as far back as the
+1970s. They had an &#8216;open serialized&#8217; call that returned a
+byte stream containing both attributes and content.  If applied to a
+directory, it returned a serialization of the directory's attributes
+plus the serialization of all the files in it.  It is not clear that
+this approach has ever been bettered.</p><p>Linux 2.5<a id="id3015706" class="indexterm"/> already supports attaching arbitrary
+name/value pairs as properties of a filename, but at time of writing
+ this capability is not yet much used by
+applications.  Recent versions of Solaris have a roughly equivalent
+feature.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3015724"/>Unix Support for GUIs Is Weak</h3></div></div><p>The Unix experience proves that using a handful of metaphors as
+the basis for a framework is a powerful strategy (recall the
+discussion of frameworks and shared context in <a href="complexitychapter.html" title="Chapter 13. Complexity">Chapter 13</a>).  The visual metaphor at the heart of
+modern GUIs (files represented by icons, and opened by clicking which
+invokes some designated handler program, typically able to create and
+edit these files) has proven both successful and long-lived, exerting
+a strong hold on users and interface designers ever since Xerox
+PARC<a id="id3015747" class="indexterm"/> pioneered it
+in the 1970s.</p><p>Despite considerable recent effort, in 2003 Unix still
+supports this metaphor only poorly and grudgingly &#8212; there are
+lots of layers, few conventions, and only weak construction utilities.
+A typical reaction from a Unix old hand is to suspect that this
+reflects deeper problems with the GUI metaphor itself.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>I think part of the problem is that we still don't have the
+metaphor right.  For example, on the Mac I drag a file to the
+trashcan to delete it, but when I drag it to a disc it gets copied,
+and can't drag it to a printer icon to print it because that's done
+through the menus.  I could go on and on.  It's like files were in
+OS/360, before Unix came along with its simple (but not too simple),
+file idea.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Steve Johnson</span>
+<a id="id3015781" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>We quoted Brian Kernighan and Mike Lesk to similar effect in
+<a href="interfacechapter.html" title="Chapter 11. Interfaces">Chapter 11</a>.  But the inquiry can't stop with
+indicting the GUI, because with all its flaws there is tremendous
+demand for GUIs from end users.  Supposing we could get the metaphor
+right at the level of the design of user interactions, would Unix be
+capable of supporting it gracefully?</p><p>The answer is: probably not.  We touched on this problem in
+considering whether the bag-of-bytes model is adequate.
+Macintosh-style file attributes may help provide the mechanism for
+richer support of GUIs, but it seems very unlikely that they are the
+whole answer.  Unix's object model doesn't include the right
+fundamental constructs.  We need to think through what a really strong
+framework for GUIs would be like &#8212; and, just as importantly,
+how it can be integrated with the existing frameworks of Unix.  This
+is a hard problem, demanding fundamental insights that have yet to
+emerge from the noise and confusion of ordinary software engineering
+or academic research.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3015838"/>File Deletion Is Forever</h3></div></div><p>People with VMS<a id="id3015847" class="indexterm"/> experience, or who remember
+TOPS-20<a id="id3015856" class="indexterm"/> often
+miss these systems' file-versioning facilities. Opening an existing file
+for write or deleting it actually renamed it in a predictable way
+including a version number; only an explicit removal operation on a
+version file actually erased data.</p><p>Unix does without this, at a not inconsiderable cost in user
+irritation when the wrong files get deleted through a typo or
+unexpected effects of shell wildcarding.</p><p>There does not seem to be any foreseeable prospect that this will
+change at the operating system level.  Unix developers like clear, simple
+operations that do what the user tells them to do, even if the user's
+instructions could amount to commanding &#8220;shoot me in the
+foot&#8221;.  Their instinct is to say that protecting the user
+from himself should be done at the GUI or application level, not
+in the operating system.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3015895"/>Unix Assumes a Static File System</h3></div></div><p>Unix has, in one sense, a very static model of the world.
+Programs are implicitly assumed to run only briefly, so the
+background of files and directories can be assumed static during their
+execution.  There is no standard, well-established way to ask the
+system to notify an application if and when a specified file or
+directory changes.  This becomes a significant issue when writing
+long-lived user-interface software which wants to know about changes
+to the background.</p><p>Linux has file- and directory-change notification
+features,<sup>[<a id="id3015918" href="#ftn.id3015918">156</a>]</sup> and some versions of BSD have copied them, but
+these are not yet portable to other Unixes.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3015943"/>The Design of Job Control Was Badly Botched</h3></div></div><p>Apart from the ability to suspend processes (in itself a
+trivial addition to the scheduler which could be made fairly
+inoffensive) what job control is about is switching a
+terminal among multiple processes.  Unfortunately, it does the easiest
+part &#8212; deciding where keystrokes go &#8212; and punts all the
+hard parts, like saving and restoring the state of the screen, to the
+application.</p><p>A really good implementation of such a facility would be
+completely invisible to user processes: no dedicated signals, no need
+to save and restore terminal modes, no need for the applications to
+redraw the screen at random times.  The model ought to be a virtual
+keyboard that is sometimes connected to the real one (and blocks you
+if you ask for input when it isn't connected) and a virtual screen
+which is sometimes visible on the real one (and might or might not
+block on output when it's not), with the system doing the multiplexing
+in the same way it multiplexes access to the disk, the processor,
+etc... and no impact on user programs at all.<sup>[<a id="id3015976" href="#ftn.id3015976">157</a>]</sup></p><p>Doing it right would have required the Unix tty driver to track
+the entire current screen state rather than just maintaining a line
+buffer, and to know about terminal types at kernel level (possibly
+with help from a daemon process) so it could do restores properly when
+a suspended process is foregrounded again.  A consequence of doing it
+wrong is that the Unix kernel can't detach a session, such as an
+<i>xterm</i> or <i>Emacs</i>
+job, from one terminal and re-attach it to another (which could be of
+a different type).</p><p>As Unix usage has shifted to X displays and terminal emulators,
+job control has become relatively less important, and this issue does
+not have quite the force it once did.  It is still annoying that there
+is no suspend/attach/detach, however; this feature could be useful for
+saving the state of terminal sessions between logins.</p><p>A common open-source program called
+screen(1)
+solves several of these problems.<sup>[<a id="id3016047" href="#ftn.id3016047">158</a>]</sup>
+However, since it has to be called explicitly by the user, its
+facilities are not guaranteed to be present in every terminal session;
+also, the kernel-level code that overlaps with it in function has not been
+removed.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3016077"/>The Unix API Doesn't Use Exceptions</h3></div></div><p>C lacks a facility for throwing named exceptions with attached
+data.<sup>[<a id="id3016087" href="#ftn.id3016087">159</a>]</sup>  Thus, the C functions in the Unix API
+indicate errors by returning a distinguished value (usually &#8722;1 or a
+NULL character pointer) and setting a global errno variable.</p><p>In retrospect, this is the source of many subtle errors.
+Programmers in a hurry often neglect to check return values.  Because
+no exception is thrown, the Rule of Repair is violated; program flow
+continues until the error condition manifests as some kind of failure
+or data corruption later in execution.</p><p>The absence of exceptions also means that some tasks which ought 
+to be simple idioms &#8212; like aborting from a signal handler on a
+version with Berkeley-style signals &#8212; have to be performed with
+code that is complex, subject to portability glitches, and bug-prone.</p><p>This problem can be (and normally is) hidden by bindings of the
+Unix API in languages such as Python or Java that have exceptions.</p><p>The lack of exceptions is actually an indicator of a problem
+with larger immediate implications; C's weak type ontology
+makes communication between higher-level languages implemented in
+it problematic.  Most of the more modern languages, for example, have 
+lists and dictionaries as primary data types &#8212; but, because
+these don't have any canonical representation in the universe of C, 
+attempting to pass lists between (say) Perl and Python is an unnatural
+act requiring a lot of glue.</p><p>There are technologies that address the larger problem, such as CORBA,
+but they tend to involve a lot of runtime translation and be
+unpleasantly heavyweight.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3016155"/>ioctl(2) and fcntl(2) Are an Embarrassment</h3></div></div><p>The ioctl(2) and fcntl(2) mechanisms provide a way to write
+hooks into a device driver.  The original, historical use of ioctl(2)
+was to set parameters like baud rate and number of framing bits in a
+serial-communications driver, thus the name (for &#8216;I/O
+control&#8217;).  Later, ioctl calls were added for other driver
+functions, and fcntl(2) was added as a hook into the
+file system.</p><p>Over the years, <tt>ioctl</tt> and
+<tt>fcntl</tt> calls have proliferated.  They are
+often poorly documented, and often a source of portability problems as
+well.  With each one comes a grubby pile of macro definitions
+describing operation types and special argument values.</p><p>The underlying problem is the same as &#8216;big bag of
+bytes&#8217;; Unix's object model is weak, leaving no natural places
+to put many auxiliary operations.  Designers have an untidy choice
+among unsatisfactory alternatives; <tt>fcntl</tt>/<tt>ioctl</tt> going
+through devices in <tt>/dev</tt>, new
+special-purpose system calls, or hooks through special-purpose virtual
+file systems that hook into the kernel (e.g. <tt>/proc</tt> under Linux and elsewhere).</p><p>It is not clear whether or how Unix's object model will be
+enriched in the future.  If MacOS-like file attributes become a common
+feature of Unix, tweaking magic named attributes on device drivers may
+take over the role <tt>ioctl</tt>/<tt>fcntl</tt> now have (this would at least have the
+merit of not requiring piles of macro definitions before the interface
+could be used).  We've already seen that Plan 9, which uses the named
+file server or file system as its basic object, rather than the
+file/bytestream, presents another possible path.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3019078"/>The Unix Security Model May Be Too Primitive</h3></div></div><p>Perhaps root is too powerful, and Unix should have finer-grained
+capabilities or ACLs (Access Control Lists) for system-administration
+functions, rather than one superuser that can do anything.  People who
+take this position argue that too many system programs have permanent
+root privileges through the set-user-ID mechanism; if even one can be
+compromised, intrusions everywhere will follow.</p><p>This argument is weak, however.  Modern Unixes allow any given
+user account to belong to multiple security groups.  Through use of
+the execute-permission and set-group-ID bits on program executables,
+each group can in effect function as an ACL for files or programs.</p><p>This theoretical possibility is very little used, however,
+suggesting that the demand for ACLs is much less in practice than it
+is in theory.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3019113"/>Unix Has Too Many Different Kinds of Names</h3></div></div><p>Unix unified files and local devices &#8212; they're all just
+byte streams.  But network devices accessed through sockets have
+different semantics in a different namespace.  Plan 9
+<a id="id3019125" class="indexterm"/> demonstrates that
+files can be smoothly unified with both local and remote (network)
+devices, and all of these things can be managed through a namespace
+that is dynamically adjustable per-user and even per-program.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3019140"/>File Systems Might Be Considered Harmful</h3></div></div><p>Was having a file system at all the wrong thing? Since the late
+1970s there has been an intriguing history of research into persistent
+object stores and operating systems that don't have a shared global
+file system at all, but rather treat disk storage as a huge swap area
+and do everything through virtualized object pointers.</p><p>Modern efforts in this line (such as
+EROS<a id="id3019160" class="indexterm"/><sup>[<a id="id3019167" href="#ftn.id3019167">160</a>]</sup>) hint that such designs can offer large benefits including
+both provable conformance to a security policy and higher
+performance.  It must be noted, however, that if this is a failure of Unix,
+it is equally a failure of all of its competitors; no major
+production operating system has yet followed EROS's
+lead.<sup>[<a id="id3019184" href="#ftn.id3019184">161</a>]</sup></p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3019193"/>Towards a Global Internet Address Space</h3></div></div><p>Perhaps URLs don't go far enough.  We'll leave the last word
+on possible future directions of Unix to Unix's inventor:</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>My ideal for the future is to develop a file system remote interface
+(a la Plan 9) and then have it implemented across the Internet as the
+standard rather than HTML.  That would be ultimate cool.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Ken Thompson</span>
+<a id="id3019220" class="indexterm"/></span></td><td width="10%" valign="top"> </td></tr></table></div></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id3015918" href="#id3015918">156</a>] </sup>Look for <tt>F_NOTIFY</tt> under
+fcntl(2).
+</p></div><div class="footnote"><p><sup>[<a id="ftn.id3015976" href="#id3015976">157</a>] </sup> This
+paragraph is based on a 1984 analysis by Henry Spencer.  He went on to
+note that job control was necessary and appropriate for POSIX.1 and
+later Unix standards to consider precisely
+<span class="emphasis"><em>because</em></span> it oozes its way into every program, and
+hence has to be thought about in any application-to-system interface.
+Hence, POSIX's endorsement of a mis-design, while proper solutions were
+&#8220;out of scope&#8221; and hence were not even
+considered.</p></div><div class="footnote"><p><sup>[<a id="ftn.id3016047" href="#id3016047">158</a>] </sup>There is a
+project site for
+screen(1)
+at <a href="http://www.math.fu-berlin.de/~guckes/screen/" target="_top">http://www.math.fu-berlin.de/~guckes/screen/</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id3016087" href="#id3016087">159</a>] </sup>For nonprogrammers, <i>throwing an
+exception</i> is a way for a program to bail out in the middle
+of a procedure. It's not quite an exit because the throw can be
+intercepted by catcher code in an enclosing procedure.  Exceptions are
+normally used to signal errors or unexpected conditions that mean it
+would be pointless to try to continue normal
+processing.</p></div><div class="footnote"><p><sup>[<a id="ftn.id3019167" href="#id3019167">160</a>] </sup><a href="http://www.eros-os.org/" target="_top">http://www.eros-os.org/</a></p></div><div class="footnote"><p><sup>[<a id="ftn.id3019184" href="#id3019184">161</a>] </sup>The operating systems of the Apple Newton, the
+AS/400 minicomputer and the Palm handheld could be considered
+exceptions.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="plan9.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="futurechapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch20s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Plan 9: The Way the Future Was </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Problems in the Environment of Unix</td></tr></table></div></body></html>

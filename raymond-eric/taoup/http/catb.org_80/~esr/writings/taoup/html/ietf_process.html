@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>IETF and the RFC Standards Process</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="portabilitychapter.html" title="Chapter 17. Portability"/><link rel="previous" href="ch17s02.html" title="Unix Standards"/><link rel="next" href="ch17s04.html" title="Specifications as DNA, Code as RNA"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">IETF and the RFC Standards Process</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch17s02.html">Prev</a> </td><th width="60%" align="center">Chapter 17. Portability</th><td width="20%" align="right"> <a accesskey="n" href="ch17s04.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="ietf_process"/>IETF and the RFC Standards Process</h2></div></div><a id="id2999550" class="indexterm"/><p>When the Unix community merged with the culture of Internet
+engineers, it also inherited a mindset formed by the RFC standards
+process of the Internet Engineering Task Force (IETF).  In IETF tradition,
+standards have to arise from experience with a working prototype
+implementation &#8212; but once they <span class="emphasis"><em>become</em></span>
+standards, code that does not conform to them is considered broken and
+mercilessly scrapped.</p><p>This is not, sadly, the way standards are normally developed.  The
+history of computing is full of instances in which technical standards
+were derived by a process that combined the worst features of
+philosophical axe-grinding with murky back-room politics &#8212;
+producing specifications that failed to resemble anything ever
+implemented. Worse, many were either so demanding that they could
+not be practically implemented or so underspecified that they caused
+more confusion than they resolved.  Then they were promulgated
+to vendors who ignored them wherever they were inconvenient.</p><p>One of the more notorious examples of standards nonsense was the
+Open Systems Interconnect networking protocols that briefly contended
+with TCP/IP<a id="id2999597" class="indexterm"/> in the
+1980s &#8212; its 7-layer model looked elegant from a distance but
+proved overcomplicated and unimplementable in
+practice.<sup>[<a id="id2999607" href="#ftn.id2999607">147</a>]</sup>  The
+ANSI X3.64 standard for video-display terminal capabilities is another
+famous horror story; bedeviled by subtle incompatibilities between
+legally conformant implementations.  Even after character-cell
+terminals have been largely displaced by bitmapped displays these
+continue to cause problems (in particular, this is why the function
+and special keys in your
+xterm(1)
+will occasionally break).  The RS232 standard for serial
+communications was so underspecified that it sometimes seemed that no
+two serial cables were alike.  Standards horror stories of similar
+kind could fill a book the size of this one.</p><p>The IETF's philosophy has been famously summarized as &#8220;We
+reject kings, presidents, and voting.  We believe in rough consensus
+and running code&#8221;.<sup>[<a id="id2999646" href="#ftn.id2999646">148</a>]</sup> That demand for a working implementation
+first has saved it from the worst category of blunders.  In fact its
+criterion is stronger:</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>[A] candidate specification must be implemented
+and tested for correct operation and interoperability by multiple
+independent parties and utilized in increasingly demanding
+environments, before it can be adopted as an Internet
+Standard.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<i>The Internet Standards Process &#8212; Revision 3 (RFC 2026)</i>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>All IETF standards pass through a stage as RFCs (Requests for
+Comment).  The submission process for RFCs is deliberately informal.
+RFCs may propose standards, survey results, suggest philosophical
+bases for subsequent RFCs, or even make jokes.  The appearance of the
+annual April 1st RFC is the closest equivalent of a high holy day
+observance among Internet
+hackers<a id="id2999690" class="indexterm"/>, and has
+produced such gems as <i>A Standard for the Transmission of IP
+Datagrams on Avian Carriers (RFC 1149)</i><sup>[<a id="id2999703" href="#ftn.id2999703">149</a>]</sup>
+the <i>The Hyper Text Coffee Pot Control Protocol (RFC
+2324)</i>,<sup>[<a id="id2999728" href="#ftn.id2999728">150</a>]</sup> and <i>The Security Flag in
+the IPv4 Header (RFC 3514)</i>.<sup>[<a id="id2999745" href="#ftn.id2999745">151</a>]</sup></p><p>But joke RFCs are about the <span class="emphasis"><em>only</em></span> sort of
+submission that instantly becomes an RFC.  Serious proposals actually
+start as &#8220;Internet-Drafts&#8221; floated for public comment via
+IETF directories on several well-known hosts.  Individual Internet-Drafts
+have no formal status and can be changed or dropped by their
+originators at any time.  If they are neither withdrawn nor promoted to
+RFC status, they are removed after six months.</p><p>Internet-Drafts are not specifications, and software
+implementers and vendors are specifically barred from claiming
+compliance with them as if they were specifications. Internet-Drafts
+are focal points for discussion, usually in a working group connected
+through an electronic mailing list.  When the working group leadership
+deems fit, the Internet-Draft is submitted to the RFC editor for
+assignment of an RFC number.</p><p>Once an Internet-Draft has been published with an RFC number,
+it is a specification to which implementers may claim conformance. It
+is expected that the authors of the RFC and the community at large 
+will begin correcting the specification with field experience.</p><p>Some RFCs go no further.  A specification that fails to attract
+use and survive field testing can be quietly forgotten, and eventually
+marked &#8220;Not recommended&#8221; or &#8220;Superseded&#8221; by
+the RFC editor.  Failed proposals are accepted as one of the overheads
+of the process, and no stigma is attached to being associated
+with one.</p><p>The steering committee of the IETF (IESG, or Internet
+Engineering Steering Group) is responsible for putting successful RFCs
+on the standards track.  They do this by designating the RFC a
+&#8216;Proposed Standard&#8217;. For the RFC to qualify, the
+specification must be stable, peer-reviewed, and have attracted
+significant interest from the Internet community.  Implementation
+experience is not absolutely required before an RFC is given Proposed
+Standard designation, but it is considered highly desirable, and the IESG
+may require it if the RFC touches the Internet core protocols or
+might be otherwise destabilizing.</p><p>Proposed Standards are still subject to revision, and may even
+be withdrawn if the IESG and IETF identify a better solution. They
+are not recommended for use in &#8220;disruption-sensitive
+environments&#8221;&#8212;don't put them in your
+air-traffic-control systems or on intensive-care equipment.</p><p>When there are at least two working, complete, independently
+originated, and interoperable implementations of a Proposed Standard,
+the IESG may elevate it to Draft Standard status.  RFC 2026 says: 
+&#8220;Elevation to Draft Standard is a major advance in status, indicating
+a strong belief that the specification is mature and will be
+useful&#8221;.</p><p>Once an RFC has reached Draft Standard status, it will be
+changed only to address bugs in the logic of the specification. Draft
+Standards are expected to be ready for deployment in
+disruption-sensitive environments.</p><p>When a Draft Standard has passed the test of widespread
+implementation and reached general acceptance, it may be blessed as an
+Internet Standard.  Internet Standards keep their RFC numbers, but also
+get a number in the STD series.  At time of writing there are over
+3000 RFCs but only 60 STDs.</p><p>RFCs not on standards track may be labeled Experimental,
+Informational (the joke RFCs get this label), or Historic.  The
+Historic label is applied to obsolete standards. RFC 2026 notes:
+&#8220;(Purists have suggested that the word should be
+&#8216;Historical&#8217;; however, at this point, the use of
+&#8216;Historic&#8217; is historical.)&#8221;</p><p>The IETF standards process is designed to encourage
+standardization driven by practice rather than theory, and to 
+ensure that standard protocols have undergone rigorous peer
+review and testing.  The success of this model is evident in its 
+results &#8212; the worldwide Internet.</p><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2999607" href="#id2999607">147</a>] </sup>A Web search is likely to turn up a popular
+page comparing the OSI 7-layer model with the Taco Bell 7-layer
+burrito &#8212; unfavorably to the former.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2999646" href="#id2999646">148</a>] </sup>This line was first uttered
+by senior IETF cadre Dave Clark at the tumultuous 1992 meeting during
+which the IETF rejected the Open Systems Interconnect
+protocol.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2999703" href="#id2999703">149</a>] </sup><a href="http://www.ietf.org/rfc/rfc1149.txt" target="_top">RFC
+1149 is available on the Web</a>. Not only that, it has been
+<a href="http://www.blug.linux.no/rfc1149/writeup.html" target="_top">implemented</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2999728" href="#id2999728">150</a>] </sup><a href="http://www.ietf.org/rfc/rfc2324.txt" target="_top">RFC 2324 is available on the
+Web</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2999745" href="#id2999745">151</a>] </sup><a href="http://www.ietf.org/rfc/rfc3514.txt" target="_top">RFC 3514 is available on the
+Web</a>.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch17s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="portabilitychapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch17s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Unix Standards </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Specifications as DNA, Code as RNA</td></tr></table></div></body></html>

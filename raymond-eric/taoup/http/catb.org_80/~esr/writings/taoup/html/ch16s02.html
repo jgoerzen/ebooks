@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Transparency as the Key to Reuse</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="reusechapter.html" title="Chapter 16. Reuse"/><link rel="previous" href="ch16s01.html" title="The Tale of J. Random Newbie"/><link rel="next" href="ch16s03.html" title="From Reuse to Open Source"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Transparency as the Key to Reuse</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch16s01.html">Prev</a> </td><th width="60%" align="center">Chapter 16. Reuse</th><td width="20%" align="right"> <a accesskey="n" href="ch16s03.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2990071"/>Transparency as the Key to Reuse</h2></div></div><p>We field-tested the tale of J. Random Newbie on a number of
+experienced programmers.  If you the reader are one yourself, we
+expect you responded to it much as they did: with groans of
+recognition.  If you are not a programmer but you manage programmers,
+we sincerely hope you found it enlightening.  The tale is intended to
+illustrate the ways in which different levels of pressure against reuse
+reinforce each other to create a magnitude of problem not linearly
+predictable from any individual cause.</p><p>So accustomed are most of us to the background assumptions of
+the software industry that it can take considerable mental effort
+before the primary causes of this problem can be separated from the
+accidents of narrative.  But they are not, in the end, very
+complex.</p><p>At the bottom of most of J. Random Newbie's troubles (and the
+large-scale quality problems they imply) is
+transparency<a id="id2990105" class="indexterm"/>
+&#8212; or, rather, the lack of it.  You can't fix what you can't see
+inside.  In fact, for any software with a nontrivial API, you can't
+even properly <span class="emphasis"><em>use</em></span> what you can't see inside.
+Documentation is inadequate not merely in practice but in principle;
+it cannot convey all the nuances that the code embodies.</p><p>In <a href="transparencychapter.html" title="Chapter 6. Transparency">Chapter 6</a>, we
+observed how central transparency is to good software.
+Object-code-only components destroy the transparency of a software
+system, On the other hand, the frustrations of code reuse are far less
+likely to bite when the code you are attempting to reuse is available
+for reading and modification. Well-commented source code is its own
+documentation. Bugs in source code can be fixed. Source can be
+instrumented and compiled for debugging to make probing its behavior
+in obscure cases easier. And if you need to change its behavior, you
+can do that.</p><p>There is another vital reason to demand source code.  A lesson
+Unix programmers have learned through decades of constant change is
+that source code lasts, object code doesn't.  Hardware platforms
+change, service components like support libraries change, the
+operating system grows new APIs and deprecates old ones.  Everything
+changes &#8212; but opaque binary executables cannot adapt to change.
+They are brittle, cannot be reliably forward-ported, and have to be
+supported with increasingly thick and error-prone layers of emulation
+code.  They lock users into the assumptions of the people who built
+them.  You need source because, even if you have neither the
+intention nor the need to change the software, you will have to
+rebuild it in new environments to keep it running.</p><p>The importance of transparency and the code-legacy problem are
+reasons that you should require the code you reuse to be open to
+inspection and modification.<sup>[<a id="id2990172" href="#ftn.id2990172">140</a>]</sup>  It is not a complete argument for what
+is now called &#8216;open source&#8217;; because &#8216;open
+source&#8217; has rather stronger implications than simply requiring
+code to be transparent and visible.</p><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2990172" href="#id2990172">140</a>] </sup>NASA, which consciously
+builds software intended to have a service life of decades, has learned
+to insist on source-code availability for all space avionics
+software.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch16s01.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reusechapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch16s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">The Tale of J. Random Newbie </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> From Reuse to Open Source</td></tr></table></div></body></html>

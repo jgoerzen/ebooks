@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>The Tale of J. Random Newbie</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="reusechapter.html" title="Chapter 16. Reuse"/><link rel="previous" href="reusechapter.html" title="Chapter 16. Reuse"/><link rel="next" href="ch16s02.html" title="Transparency as the Key to Reuse"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">The Tale of J. Random Newbie</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="reusechapter.html">Prev</a> </td><th width="60%" align="center">Chapter 16. Reuse</th><td width="20%" align="right"> <a accesskey="n" href="ch16s02.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2992752"/>The Tale of J. Random Newbie</h2></div></div><p>Why do programmers reinvent wheels?  There are many reasons,
+reaching all the way from the narrowly technical to the psychology of
+programmers and the economics of the software production system.  The
+damage from the endemic waste of programming time reaches all these
+levels as well.</p><p>Consider the first, formative job experience of J. Random
+Newbie, a programmer fresh out of college.  Let us assume that he (or
+she) has been taught the value of code reuse and is brimming with
+youthful zeal to apply it.</p><p>Newbie's first project puts him on a team building some large
+application.  Let's say for the sake of example that it's a GUI
+intended to help end users intelligently construct queries for and
+navigate through a large database.  The project managers have
+assembled what they deem to be a suitable collection of tools and
+components, including not merely a development language but many
+libraries as well.</p><p>The libraries are crucial to the project.  They package many
+services &#8212; from windowing widgets and network connections on up
+to entire subsystems like interactive help &#8212; that would
+otherwise require immense quantities of additional coding, with a
+severe impact on the project's budget and its ship date.</p><p>Newbie is a little worried about that ship date.  He may lack
+experience, but he's read <i>Dilbert</i> and heard a
+few war stories from experienced programmers.  He knows management has
+a tendency to what one might euphemistically call
+&#8220;aggressive&#8221; schedules.  Perhaps he has read Ed Yourdon's
+<i>Death March</i> [<a href="apb.html#Yourdon" title="[Yourdon]">Yourdon</a>], which as long ago as 1996 noted
+that a majority of projects are on a time and resource budget at least
+50% too tight, and that the trend is for that squeeze to get worse.</p><p>But Newbie is bright and energetic.  He figures his best chance
+of succeeding is to learn to use the tools and libraries that have
+been handed to him as intelligently as possible.  He limbers up his
+typing fingers, hurls himself at the challenge...and enters hell.</p><p>Everything takes longer and is more painful than he expects.
+Beneath the surface gloss of their demo applications, the components
+he is re-using seem to have edge cases in which they behave
+unpredictably or destructively &#8212; edge cases his code tickles
+daily.  He often finds himself wondering what the library programmers
+were thinking.  He can't tell, because the components are inadequately
+documented &#8212; often by technical writers who aren't programmers
+and don't think like programmers.  And he can't read the source code
+to learn what it is actually doing, because the libraries are opaque
+blocks of object code under proprietary licenses.</p><p>Newbie has to code increasingly elaborate workarounds for
+component problems, to the point where the net gain from using the
+libraries starts to look marginal.  The workarounds make his code
+progressively grubbier.  He probably hits a few places where a library
+simply cannot be made to do something crucially important that is
+theoretically within its specifications.  Sometimes he is sure there
+is some way to actually make the black box perform, but he can't
+figure out what it is.</p><p>Newbie finds that as he puts more strain on the libraries, his
+debugging time rises exponentially.  His code is bedeviled with
+crashes and memory leaks that have trace paths leading into the
+libraries, into code he can't see or modify.  He knows most of those
+trace paths probably lead back out to his code, but without source it
+is very difficult to trace through the bits he didn't write.</p><p>Newbie is growing horribly frustrated.  He had heard in college
+that in industry, a hundred lines of finished code a week is
+considered good performance. He had laughed then, because he was many
+times more productive than that on his class projects and the code he
+wrote for fun.  Now it's not funny any more.  He is wrestling not
+merely with his own inexperience but with a cascade of problems
+created by the carelessness or incompetence of others &#8212; problems
+he can't fix, but can only work around.</p><p>The project schedule is slipping.  Newbie, who dreamed of being
+an architect, finds himself a bricklayer trying to build with bricks
+that won't stack properly and that crumble under load-bearing
+pressure.  But his managers don't want to hear excuses from a novice
+programmer; complaining too loudly about the poor quality of the
+components is likely to get him in political trouble with the senior
+people and managers who selected them.  And even if he could win that
+battle, changing components would be a complicated proposition
+involving batteries of lawyers peering narrowly at licensing
+terms.</p><p>Unless Newbie is very, very lucky, he is not going to be able to
+get library bugs fixed within the lifetime of his project.  In his
+saner moments, he may realize that the working code in the libraries 
+doesn't draw his attention the way the bugs and omissions do. He'd love
+to sit down for a clarifying chat with the component developers; he
+suspects they can't be the idiots their code sometimes suggests, just
+programmers like him working within a system that frustrates their
+attempts to do the right thing.  But he can't even find out who they are
+&#8212; and if he could, the software vendor they work for probably
+wouldn't let them talk to him.</p><p>In desperation, Newbie starts making his own bricks &#8212;
+simulating less stable library services with more stable ones and
+writing his own implementations from scratch.  His replacement code,
+because he has a complete mental model of it that he can refresh by
+rereading, tends to work relatively well and be easier to debug than
+the combination of opaque components and workarounds it
+replaces.</p><p>Newbie is learning a lesson; the less he relies on other
+peoples' code, the more lines of code he can get written.  This lesson
+feeds his ego.  Like all young programmers, deep down he thinks he is
+smarter than anyone else.  His experience seems, superficially, to be
+confirming this.  He begins building his own personal toolkit, one
+better fitted to his hand.</p><p>Unfortunately, the roll-your-own reflexes Newbie is acquiring
+are a short-term local optimization that will cause long-term
+problems.  He may get more lines of code written, but the actual value
+of what he produces is likely to drop substantially relative to what
+it would have been if he were doing successful reuse.  More code does
+not equal better code, not when it's written at a lower level and
+largely devoted to reinventing wheels.</p><p>Newbie has at least one more demoralizing experience in store,
+when he changes jobs.  He is likely to discover that he can't take his
+toolkit with him.  If he walks out of the building with code he wrote
+on company time, his old employers could well regard this as
+intellectual-property theft.  His new employers, knowing this, are not
+likely to react well if he admits to reusing any of his old
+code.</p><p>Newbie could well find his toolkit is useless even if he can
+sneak it into the building at his new job.  His new employers may use
+a different set of proprietary tools, languages, and libraries. It is
+likely he will have to learn a somewhat new set of techniques and
+reinvent a new set of wheels each time he changes projects.</p><p>Thus do programmers have reuse (and other good practices that
+go with it, like modularity and transparency) systematically
+conditioned out of them by a combination of technical problems,
+intellectual-property barriers, politics, and personal ego needs.
+Multiply J. Random Newbie by a hundred thousand, age him by decades,
+and have him grow more cynical and more used to the system year by
+year.  There you have the state of much of the software industry, a
+recipe for enormous waste of time and capital and human skill &#8212;
+even <span class="emphasis"><em>before</em></span> you factor in vendors' market-control
+tactics, incompetent management, impossible deadlines, and all the
+other pressures that make doing good work difficult.</p><p>The professional culture that springs from J. Random Newbie's
+experiences will reflect them in the large.  Programming shops will
+have a ferocious Not Invented Here complex.  They will be poisonously
+ambivalent about code reuse, pushing inadequate but heavily marketed
+vendor components on their programmers in order to meet schedule
+crunches, while simultaneously rejecting reuse of the programmers' own
+tested code.  They will churn out huge volumes of ad-hoc, duplicative
+software produced by programmers who know the results will be garbage but
+are glumly resigned to never being able to fix anything but their own
+individual pieces.</p><p>The closest equivalent of code reuse to emerge in such a
+culture will be a dogma that code once paid for can never be thrown
+away, but must instead be patched and kluged even when all parties
+know that it would be better to scrap and start anew.  The
+products of this culture will become progressively more bloated and
+buggy over time even when every individual involved is trying his or
+her hardest to do good work.</p></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="reusechapter.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reusechapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch16s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 16. Reuse </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Transparency as the Key to Reuse</td></tr></table></div></body></html>

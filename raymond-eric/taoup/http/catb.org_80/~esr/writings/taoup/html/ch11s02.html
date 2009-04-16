@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>History of Interface Design on Unix</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="interfacechapter.html" title="Chapter 11. Interfaces"/><link rel="previous" href="ch11s01.html" title="Applying the Rule of Least Surprise"/><link rel="next" href="ch11s03.html" title="Evaluating Interface Designs"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">History of Interface Design on Unix</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch11s01.html">Prev</a> </td><th width="60%" align="center">Chapter 11. Interfaces</th><td width="20%" align="right"> <a accesskey="n" href="ch11s03.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2950836"/>History of Interface Design on Unix</h2></div></div><p>Unix predates the modern graphics-intensive style of software
+interface design. For over a decade after the first Unix in 1969,
+command-line interfaces (CLIs) on teletypes and dumb text-mode
+terminals were the norm. Most of the basic Unix toolset (programs like
+ls(1),
+cat(1),
+and
+grep(1))
+still reflect this heritage.</p><p>Gradually, after 1980, Unix evolved support for screen-painting
+on character-cell terminals. Programs began to mix command-line and
+visual interfaces, with common commands often bound to keystrokes that
+would not be echoed to the screen. Some of the early programs written
+in this style (often called &#8216;curses&#8217; programs, after the
+screen-painting cursor-control library normally used to implement
+them, or &#8216;roguelike&#8217; after the first application to use
+curses) are still used today; notable examples include the
+dungeon-crawling game
+rogue(1),
+the
+vi(1)<a id="id2950906" class="indexterm"/>
+text editor, and (from a few years later) the
+elm(1)
+mailer and its modern descendant
+mutt(1)<a id="id2950931" class="indexterm"/>.</p><p>A few years later in the mid-1980s, the computing world as a
+whole began to assimilate the results of the pioneering work on
+graphical user interfaces (GUIs) that had been going on at Xerox's
+Palo Alto Research Center since the early 1970s. On personal
+computers, the Xerox PARC<a id="id2950949" class="indexterm"/> work inspired the Apple Macintosh interface
+and through that the design of Microsoft
+Windows<a id="id2950959" class="indexterm"/>. Unix's adaptation of these ideas took a
+rather more complicated path.</p><p>Around 1987 the X windowing system<a id="id2950974" class="indexterm"/> outcompeted several early contenders and
+prototype efforts to become the standard graphical-interface facility
+for Unix. Whether this was a good or a bad thing has remained a topic
+of debate ever since; some of the other contenders (notably Sun's
+Network Window System or NeWS)<a id="id2950987" class="indexterm"/> were arguably rather more powerful
+and elegant. X, however, had one overriding virtue; it was open
+source. The code had been developed at MIT by a research group more
+interested in exploring the problem space than in creating a product,
+and it remained freely redistributable and modifiable. It was thus
+able to attract support from a wide range of developers and sponsoring
+corporations who would have been reluctant to line up behind a single
+vendor's closed product. (This, of course, prefigured an important
+theme in the breakout of the Linux operating
+system<a id="id2951007" class="indexterm"/> ten years later.)</p><p>The designers of X decided early on that X would support
+&#8220;mechanism, not policy&#8221;. Their objective was to make X as
+flexible and portable across platforms as possible, while putting as
+few constraints on the look and feel of X programs as they could
+manage. Look and feel, they decided, would be handled by
+&#8216;toolkits&#8217; &#8212; libraries calling X services linked to
+user programs. X would also be designed to support multiple window
+managers,<sup>[<a id="id2951032" href="#ftn.id2951032">106</a>]</sup> and would not require a
+window manager to have any special privileges or uniquely close
+integration with X's machinery.</p><p>This approach was the polar opposite of that taken by the
+Macintosh and Windows commercial products, which enforced
+particular look-and-feel policies by designing them right into the
+system. The difference in approach ensured that X would have a
+long-run evolutionary advantage by remaining adaptable as new
+discoveries were made about the human factors in interface design
+&#8212; but it also ensured that the X world would be divided by
+multiple toolkits, a profusion of window managers, and many
+experiments in look and feel.</p><p>Since the mid-1990s X has become ubiquitous even on the
+lowest-end personal Unix machines. Use of Unix from text-mode
+terminals, as opposed to graphics-capable computer consoles, has
+sharply declined and seems headed for extinction. Accordingly, the
+use of curses-style interfaces for new applications is also in
+decline; most new applications that would formerly have been
+designed in that style now use an X toolkit. It is instructive to
+note that Unix's older CLI design tradition is still
+quite vigorous and successfully competes with X in many areas.</p><p>It is also instructive to note that there are a few
+specific application areas in which curses-style (or
+&#8216;roguelike&#8217;) character-cell interfaces remain the norm
+&#8212; especially text editors and interactive communications
+programs such as mailers, newsreaders, and chat clients.</p><p>For historical reasons, then, there is a wide range of
+interface styles in Unix programs. Line-oriented, character-cell
+screen-oriented, and X-based &#8212; with the X-based world somewhat
+balkanized by the competition between multiple X toolkits and
+window managers (though this is less an issue in 2003 than
+was the case five or even three years ago).</p><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2951032" href="#id2951032">106</a>] </sup>A window manager handles associations between
+windows on the screen and running tasks. Window managers handle
+behaviors like title bars, placement, minimizing, maximizing, moving,
+resizing, and shading windows.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch11s01.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="interfacechapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch11s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Applying the Rule of Least Surprise </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Evaluating Interface Designs</td></tr></table></div></body></html>

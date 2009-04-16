@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Problems in the Culture of Unix</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="futurechapter.html" title="Chapter 20. Futures"/><link rel="previous" href="ch20s04.html" title="Problems in the Environment of Unix"/><link rel="next" href="ch20s06.html" title="Reasons to Believe"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Problems in the Culture of Unix</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch20s04.html">Prev</a> </td><th width="60%" align="center">Chapter 20. Futures</th><td width="20%" align="right"> <a accesskey="n" href="ch20s06.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3019476"/>Problems in the Culture of Unix</h2></div></div><p>Just as important as the technical problems with Unix itself and
+the challenges consequent on its success are the cultural problems of
+the community around it.  There are at least two serious ones: a
+lesser challenge of internal transition, and a greater one of
+overcoming our historical elitism.</p><p>The lesser challenge is that of friction between the old-school
+Unix gurus and the new-school open-source crowd.  The success of
+Linux<a id="id3019497" class="indexterm"/>, in particular, is not an
+entirely comfortable phenomenon for a lot of older Unix programmers.
+This is partly a generational problem.  The raucous energy,
+naïvete and gleeful zealotry of the Linux kids sometimes grates
+on elders who have been around since the 1970s and (often rightly)
+consider themselves wiser.  It's only exacerbated by the fact that the
+kids are succeeding where the elders failed.</p><p>The greater problem of psychology only became clear to me
+after spending three days at a Macintosh developer conference in 2000.
+It was a very enlightening experience to be immersed in a programming
+culture with assumptions diametrically opposed to those of the Unix
+world.</p><p>Macintosh programmers are all about the user experience.
+They're architects and decorators.  They design from the outside in,
+asking first &#8220;What kind of interaction do we want to
+support?&#8221; and then building the application logic behind it to
+meet the demands of the user-interface design.  This leads to programs
+that are very pretty and infrastructure that is weak and rickety.  In
+one notorious example, as late as Release 9 the MacOS memory manager
+sometimes required the user to manually deallocate memory by manually
+chucking out exited but still-resident programs.  Unix people are
+viscerally revolted by this kind of mal-design; they don't understand
+how Macintosh people could live with it.</p><p>By contrast, Unix people are all about infrastructure.  We are
+plumbers and stonemasons.  We design from the inside out, building
+mighty engines to solve abstractly defined problems (like &#8220;How
+do we get reliable packet-stream delivery from point A to point B over
+unreliable hardware and links?&#8221;).  We then wrap thin and often
+profoundly ugly interfaces around the engines.  The commands
+date(1),
+find(1),
+and
+ed(1)
+are notorious examples, but there are hundreds of others.  Macintosh
+people are viscerally revolted by this kind of mal-design; they don't
+understand how Unix people can live with it.</p><p>Both design philosophies have some validity, but the two camps
+have a great deal of difficulty seeing each other's points. The
+typical Unix developer's reflex is to dismiss Macintosh software as
+gaudy fluff, eye-candy for the ignorant, and to continue
+building software that appeals to other Unix developers. If end-users
+don't like it, so much the worse for the end users; they will come
+around when they get a clue.</p><p>In many ways this kind of parochialism has served us well.  We
+are the keepers of the Internet and the World Wide Web.  Our software
+and our traditions dominate serious computing, the applications where
+24/7 reliability and minimal downtime is a must.  We really are
+extremely good at building solid infrastructure; not perfect by any
+means, but there is no other software technical culture that has
+anywhere close to our track record, and it is one to be proud
+of.</p><p>The problem is that we increasingly face challenges that demand
+a more inclusive view.  Most of the computers in the world don't live
+in server rooms, but rather in the hands of those end users.  In early
+Unix days, before personal computers, our culture defined itself
+partly as a revolt against the priesthood of the mainframes, the
+keepers of the big iron.  Later, we absorbed the power-to-the-people
+idealism of the early microcomputer enthusiasts.  But today
+<span class="emphasis"><em>we</em></span> are the priesthood; <span class="emphasis"><em>we</em></span>
+are the people who run the networks and the big iron.  And our
+implicit demand is that if you want to use our software, you must
+learn to think like us.</p><p>In 2003, there is a deep ambivalence in our attitude &#8212; a
+tension between elitism and missionary populism.  We want to reach and
+convert the 92% of the world for whom computing means games and
+multimedia and glossy GUI interfaces and (at their most technical)
+light email and word processing and spreadsheets.  We are spending
+major effort on projects like GNOME and KDE designed to give Unix a
+pretty face.  But we are still elitists at heart, deeply reluctant and
+in many cases unable to identify with or listen to the needs of the
+Aunt Tillies of the world.</p><p>To non-technical end users, the software we build tends to be
+either bewildering and incomprehensible, or clumsy and condescending,
+or both at the same time.  Even when we try to do the
+user-friendliness thing as earnestly as possible, we're woefully
+inconsistent at it.  Many of the attitudes and reflexes we've
+inherited from old-school Unix are just wrong for the job.  Even when
+we want to listen to and help Aunt Tillie, we don't know how &#8212;
+we project our categories and our concerns onto her and give her
+&#8216;solutions&#8217; that she finds as daunting as her
+problems.</p><p>Our greatest challenge as a culture is whether we can outgrow
+the assumptions that have served us so well &#8212; whether we can
+acknowledge, not merely intellectually but in the sinew of daily
+practice, that the Macintosh people have a point.  Their point is made
+in more general, less Mac-specific way in <i>The Inmates Are
+Running the Asylum</i> [<a href="apb.html#Cooper" title="[Cooper]">Cooper</a>], an insightful and argumentative
+book about what its author calls <i>interaction
+design</i> that (despite occasional crotchets) contains a good
+deal of hard truth that every Unix programmer ought to know.</p><p>We can turn aside from this; we can remain a priesthood
+appealing to a select minority of the best and brightest, a geek
+meritocracy focused on our historical role as the keepers of the
+software infrastructure and the networks.  But if we do this, we will
+very likely go into decline and eventually lose the dynamism that has
+sustained us through decades.  Someone else will serve the people;
+someone else will put themselves where the power and the money are, and
+own the future of 92% of all software. The odds are, whether that
+someone else is
+Microsoft<a id="id3019713" class="indexterm"/> or not,
+that they will do it using practices and software we don't much
+like.</p><p>Or we can truly accept the challenge.  The open-source movement
+is trying hard to do so.  But the kind of sustained work and
+intelligence we have brought to other problems in the past will not
+alone suffice.  Our attitudes must change in a fundamental and
+difficult way.</p><p>In <a href="modularitychapter.html" title="Chapter 4. Modularity">Chapter 4</a> we
+discussed the importance of throwing away limiting assumptions and
+discarding the past in solving technical problems, suggesting a
+parallel with the Zen ideas of detachment and &#8216;beginner's
+mind&#8217;.  We have a larger kind of detachment to work on now.  We
+must learn humility before Aunt Tillie, and relinquish some of the
+long-held prejudices that have made us so successful in the
+past.</p><p>Tellingly, the Macintosh culture has begun to converge with ours
+&#8212; MacOS X has Unix underneath, and in 2003 Mac developers
+are (albeit with a struggle in some cases) making the mental 
+adjustment to learn the infrastructure-focused virtues of Unix.
+Our challenge will be, reciprocally, to embrace the user-centered
+virtues of the Macintosh.</p><p>There are other signs that the Unix culture is shedding its
+insularity as well.  One is the convergence that seems to be going on
+between the Unix/open-source community and the movement called
+&#8220;agile programming&#8221;.<sup>[<a id="id3019774" href="#ftn.id3019774">164</a>]</sup>  We noted in <a href="modularitychapter.html" title="Chapter 4. Modularity">Chapter 4</a> that Unix programmers have seized happily
+on the concept of refactoring, one of the preoccupations of the
+agile-programming thinkers.  Refactoring, and other agile concepts
+like unit-testing and design around stories, seem to articulate and
+sharpen practices that have heretofore been widespread but only
+implicit in the Unix tradition. The Unix tradition, on the other hand,
+can bring groundedness and the lessons of long experience to the
+agile-programming party.  As open-source software gains market share
+it is even conceivable that these cultures will fuse, much as the
+old-time Internet and early Unix cultures did after 1980.</p><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id3019774" href="#id3019774">164</a>] </sup>For an introduction
+to agile programming, see the <a href="http://agilemanifesto.org/" target="_top">Agile
+Manifesto</a></p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch20s04.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="futurechapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch20s06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Problems in the Environment of Unix </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Reasons to Believe</td></tr></table></div></body></html>

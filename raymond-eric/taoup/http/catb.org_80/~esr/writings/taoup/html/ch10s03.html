@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Run-Control Files</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="configurationchapter.html" title="Chapter 10. Configuration"/><link rel="previous" href="ch10s02.html" title="Where Configurations Live"/><link rel="next" href="ch10s04.html" title="Environment Variables"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Run-Control Files</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch10s02.html">Prev</a> </td><th width="60%" align="center">Chapter 10. Configuration</th><td width="20%" align="right"> <a accesskey="n" href="ch10s04.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2941824"/>Run-Control Files</h2></div></div><p>A run-control file is a file of declarations or commands
+associated with a program that it interprets on startup. If a program
+has site-specific configuration shared by all users at a site, it will
+often have a run-control file under the <tt>/etc</tt>
+directory. (Some Unixes have an <tt>/etc/conf</tt>
+subdirectory that collects such data.)  </p><p>User-specific configuration information is often carried in a
+hidden run-control file in the user's home directory. Such files are
+often called &#8216;dotfiles&#8217; because they exploit the Unix
+convention that a filename beginning with a dot is normally invisible
+to directory-listing tools.<sup>[<a id="id2941866" href="#ftn.id2941866">100</a>]</sup></p><p>Programs can also have run-control or dot directories. These
+group together several configuration files that are related to the
+program, but that are most conveniently treated separately (perhaps
+because they relate to different subsystems of the program, or have
+differing syntaxes).</p><p>Whether file or directory, convention now dictates that the
+location of the run-control information has the same basename as the
+executable that reads it. An older convention still common among
+system programs uses the executable's name with the suffix
+&#8216;rc&#8217; for &#8216;run control&#8217;.<sup>[<a id="id2941902" href="#ftn.id2941902">101</a>]</sup> Thus, if you write a
+program called &#8216;seekstuff&#8217; that has both site-wide and
+user-specific configuration, an experienced Unix user would expect to
+find the former at <tt>/etc/seekstuff</tt> and the latter
+at <tt>.seekstuff</tt> in the user's home directory; but
+it would be unsurprising if the locations were
+<tt>/etc/seekstuffrc</tt> and
+<tt>.seekstuffrc</tt>, especially if seekstuff were a
+system utility of some sort.</p><p>In <a href="textualitychapter.html" title="Chapter 5. Textuality">Chapter 5</a> we
+described a somewhat different set of design rules for textual data-file 
+formats, and discussed how to optimize for different weightings
+of interoperability,
+transparency<a id="id2941968" class="indexterm"/> and transaction economy.
+Run-control files are typically only read once at program startup and
+not written; economy is therefore usually not a major concern.
+Interoperability and transparency both push us toward textual formats
+designed to be read by human beings and modified with an ordinary text
+editor.</p><p>While the semantics of run-control files are of course
+completely program dependent, there are some design rules about
+run-control syntax that are widely observed. We'll describe
+those next; but first we'll describe an important exception.</p><p>If the program is an interpreter for a language, then it is
+expected to be simply a file of commands in the syntax of that
+language, to be executed at startup. This is an important rule,
+because Unix tradition strongly encourages the design of all kinds of
+programs as special-purpose languages and minilanguages. Well-known
+examples with dotfiles of this kind include the various Unix command
+shells and the <i>Emacs</i> programmable editor.</p><p>(One reason for this design rule is the belief that special
+cases are bad news &#8212; thus, that any switch that changes the
+behavior of a language should be settable from within the language.
+If as a language designer you find that you
+<span class="emphasis"><em>cannot</em></span> express all the startup settings of a
+language in the the language itself, a Unix programmer would say you
+have a design problem &#8212; which is what you should be fixing,
+rather than devising a special-case run-control syntax.)</p><p>This exception aside, here are the normal style rules for 
+run-control syntaxes. Historically, they are patterned on the syntax of
+Unix shells:</p><div class="orderedlist"><ol type="1"><li><p><span class="emphasis"><em>Support explanatory comments, and lead them with
+<tt>#</tt>.</em></span> The syntax should also ignore whitespace before <tt>#</tt>, so
+that comments on the same line as configuration directives are
+supported.</p></li><li><p><span class="emphasis"><em>Don't make insidious whitespace
+distinctions.</em></span> That is, treat runs of spaces and tabs,
+syntactically the same as a single space.  If your directive format is
+line-oriented, it is good form to ignore trailing spaces and tabs on
+lines.  The metarule is that the interpretation of the file should
+not depend on distinctions a human eye can't
+see.</p></li><li><p><span class="emphasis"><em>Treat multiple blank lines and comment lines
+as a single blank line</em></span>.  If the input format uses blank
+lines as separators between records, you probably want to ensure that
+a comment line does not end a record.</p></li><li><p><span class="emphasis"><em>Lexically treat the file as a simple
+sequence of whitespace-separated tokens, or lines of tokens.</em></span>
+Complicated lexical rules are hard to learn, hard to remember, and
+hard for humans to parse.  Avoid them.</p></li><li><p><span class="emphasis"><em>But, support a string syntax for tokens with
+embedded whitespace.</em></span> Use single quote or double quote as
+balanced delimiters. If you support both, beware of giving them different
+semantics as they have in shell; this is a well-known source
+of confusion.</p></li><li><p><span class="emphasis"><em>Support a backslash syntax for embedding
+unprintable and special characters in strings</em></span>. The standard
+pattern for this is the backslash-escape syntax supported by C
+compilers.  Thus, for example, it would be quite surprising if the
+string <tt>&quot;a\tb&quot;</tt> were not interpreted as a character
+&#8216;a&#8217;, followed by a tab, followed by the character
+&#8216;b&#8217;.</p></li></ol></div><p>Some aspects of shell syntax, on the other hand, should
+<span class="emphasis"><em>not</em></span> be emulated in run-control syntaxes &#8212;
+at least not without a good and specific reason. The shell's baroque
+quoting and bracketing rules, and its special metacharacters for
+wildcards and variable substitution, both fall into this
+category.</p><p>It bears repeating that the point of these conventions is to
+reduce the amount of novelty that users have to cope with when they
+read and edit the run-control file for a program they have never seen
+before. Therefore, if you have to break the conventions, try to do so
+in a way that makes it visually obvious that you have done so,
+document your syntax with particular care, and (most importantly)
+design it so it's easy to pick up by example.</p><p>These standard style rules only describe conventions about
+tokenizing and comments. The names of run-control files, their
+higher-level syntax, and the semantic interpretation of the syntax are
+usually application-specific. There are a very few exceptions to
+this rule, however; one is dotfiles which have become
+&#8216;well-known&#8217; in the sense that they routinely carry
+information used by a whole class of applications. Sharing
+run-control file formats in this way reduces the amount of novelty
+users have to cope with.</p><p>Of these, probably the best established is the
+<tt>.netrc</tt> file.  Internet client programs that must
+track host/password pairs for a user can usually get them from
+the <tt>.netrc</tt> file, if it exists.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2942210"/>Case Study: The <tt>.netrc</tt> File</h3></div></div><p>The <tt>.netrc</tt> file is a good example of the
+standard rules in action.  An example, with the passwords changed to
+protect the innocent, is in <a href="#netrc" title="Example 10.1. A .netrc example.">Example 10.1</a>.</p><div class="example"><a id="netrc"/><p class="title"><b>Example 10.1. A <tt>.netrc</tt> example.</b></p><pre class="programlisting">
+# FTP access to my Web host
+machine unix1.netaxs.com
+        login esr
+        password joesatriani
+
+# My main mailserver at Netaxs
+machine imap.netaxs.com
+        login esr
+        password jeffbeck
+
+# Auxiliary IMAP maildrop at CCIL
+machine imap.ccil.org
+    login esr
+    password marcbonilla
+
+# Auxiliary POP maildrop at CCIL
+machine pop3.ccil.org
+    login esr
+    password ericjohnson
+
+# Shell account at CCIL
+machine locke.ccil.org
+    login esr
+    password stevemorse
+</pre></div><p>Observe that this format is easy to parse by eyeball even if
+you've never seen it before; it's a set of machine/login/password
+triples, each of which describes an account on a remote host. This
+kind of
+transparency<a id="id2942282" class="indexterm"/> is important &#8212; much more
+important, actually, than the time economy of faster interpretation or
+the space economy of a more compact and cryptic file format. It
+economizes the far more valuable resource that is
+<span class="emphasis"><em>human</em></span> time, by making it likely that a human
+being will be able to read and modify the format without having to
+read a manual or use a tool less familiar than a plain old text
+editor.</p><p>Observe also that this format is used to supply information for
+multiple services &#8212; an advantage, because it means sensitive
+password information need only be stored in one place. The
+<tt>.netrc</tt> format was designed for the original Unix
+FTP client program. It's used by all FTP clients, and also understood
+by some telnet clients, and by the
+smbclient(1)
+command-line tool, and by the
+<i>fetchmail</i><a id="id2942337" class="indexterm"/>
+program. If you are writing an Internet client that must do password
+authentication through remote logins, the Rule of Least Surprise
+demands that it use the contents of <tt>.netrc</tt> as
+defaults.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2942358"/>Portability to Other Operating Systems</h3></div></div><p>Systemwide run-control files are a design tactic that can be
+used on almost any operating system, but dotfiles are rather more
+difficult to map to a non-Unix environment. The critical thing
+missing from most non-Unix operating systems is true multiuser
+capability and the notion of a per-user home directory. DOS and
+Windows versions up to ME (including 95 and 98), for example,
+completely lack any such notion; all configuration information has to
+be stored either in systemwide run-control files at a fixed location,
+the Windows registry, or configuration files in the same directory a
+program is run from.  Windows NT has some notion of per-user home
+directories (which made its way into Windows 2000 and XP), but it is
+only poorly supported by the system tools.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2941866" href="#id2941866">100</a>] </sup>To make dotfiles visible,
+use the <tt>-a</tt> option of
+ls(1).</p></div><div class="footnote"><p><sup>[<a id="ftn.id2941902" href="#id2941902">101</a>] </sup>The &#8216;rc&#8217;
+suffix goes back to Unix's grandparent,
+CTSS<a id="id2941907" class="indexterm"/>.  It had a
+command-script feature called &quot;runcom&quot;.  Early Unixes used
+&#8216;rc&#8217; for the name of the operating system's boot script,
+as a tribute to CTSS runcom.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch10s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="configurationchapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch10s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Where Configurations Live </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Environment Variables</td></tr></table></div></body></html>

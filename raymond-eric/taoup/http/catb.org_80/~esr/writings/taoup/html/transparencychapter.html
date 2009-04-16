@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 6. Transparency</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="design.html" title="Part II. Design"/><link rel="previous" href="ch05s04.html" title="Application Protocol Metaformats"/><link rel="next" href="ch06s01.html" title="Studying Cases"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 6. Transparency</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch05s04.html">Prev</a> </td><th width="60%" align="center">Part II. Design</th><td width="20%" align="right"> <a accesskey="n" href="ch06s01.html">Next</a></td></tr></table><hr/></div><div class="chapter" lang="en"><div class="titlepage"><div><h2 class="title"><a id="transparencychapter"/>Chapter 6. Transparency</h2></div><div><h3 class="subtitle"><i>Let There Be Light</i></h3></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><a href="ch06s01.html">Studying Cases</a></dt><dd><dl><dt><a href="ch06s01.html#audacity">Case Study: audacity</a></dt><dt><a href="ch06s01.html#fetchmail_v">Case Study: fetchmail's -v option</a></dt><dt><a href="ch06s01.html#id2909841">Case Study: GCC</a></dt><dt><a href="ch06s01.html#id2909954">Case Study: kmail</a></dt><dt><a href="ch06s01.html#id2910193">Case Study: SNG</a></dt><dt><a href="ch06s01.html#id2910334">Case Study: The Terminfo Database</a></dt><dt><a href="ch06s01.html#id2914115">Case Study: Freeciv Data Files</a></dt></dl></dd><dt><a href="ch06s02.html">Designing for Transparency and Discoverability</a></dt><dd><dl><dt><a href="ch06s02.html#zen_of_transparency">The Zen of Transparency</a></dt><dt><a href="ch06s02.html#id2914509">Coding for Transparency and Discoverability</a></dt><dt><a href="ch06s02.html#id2914680">Transparency and Avoiding Overprotectiveness</a></dt><dt><a href="ch06s02.html#id2914758">Transparency and Editable Representations</a></dt><dt><a href="ch06s02.html#id2915107">Transparency, Fault Diagnosis, and Fault Recovery</a></dt></dl></dd><dt><a href="ch06s03.html">Designing for Maintainability</a></dt></dl></div><a id="id2909441" class="indexterm"/><div xmlns="" class="epigraph"><i><p xmlns="http://www.w3.org/1999/xhtml">Beauty is more important in
+computing than anywhere else in technology because software is so
+complicated. Beauty is the ultimate defense against complexity.</p></i><span>--<i><span xmlns="http://www.w3.org/1999/xhtml" class="attribution">
+<span class="author">David Gelernter</span>
+<i>Machine Beauty: Elegance and the Heart of Technology (1998)</i>
+<a id="id2911430" class="indexterm"/>
+</span></i></span></div><p>In the previous chapter we discussed the importance of
+textual data formats and application protocols, representations that
+are easy for human beings to examine and interact with.  These promote
+qualities in design that are much valued in the Unix tradition but
+seldom if ever talked about explicitly:
+<i>transparency</i><a id="id2911463" class="indexterm"/>
+and <i>discoverability</i>.</p><p>Software systems are transparent when they don't have murky
+corners or hidden depths.  Transparency is a passive quality.  A
+program is transparent when it is possible to form a simple mental
+model of its behavior that is actually predictive for all or most
+cases, because you can see through the machinery to what is actually
+going on.</p><p>Software systems are discoverable when they include features
+that are designed to help you build in your mind a correct mental
+model of what they do and how they work.  So, for example, good
+documentation helps discoverability to a user.  Good choice of
+variable and function names helps discoverability to a
+programmer. Discoverability<a id="id2911497" class="indexterm"/>
+is an active quality. To achieve it in your software you cannot merely
+fail to be obscure, you have to go out of your way to be helpful.<sup>[<a id="id2911508" href="#ftn.id2911508">58</a>]</sup>
+</p><p>Transparency and discoverability are important for both users
+and software developers. But they're important in different ways.
+Users like these properties in a UI because they mean an easier
+learning curve.  UI transparency and discoverability are a large part
+of what people mean when they say a UI is &#8216;intuitive&#8217;;
+most of the rest is the Rule of Least Surprise.  We'll examine the
+properties that make user interfaces pleasant and effective in more
+depth in <a href="interfacechapter.html" title="Chapter 11. Interfaces">Chapter 11</a>.</p><p>Software developers like these qualities in the code itself (the
+part users don't see) because they so often need to understand it well
+enough to modify and debug it.  Also, a program designed so that its
+internal data flows are readily comprehensible is more likely to be
+one that does not fail because of bad interactions that the designer
+didn't notice, and more likely to be able to evolve forward gracefully
+(including accommodating change when new maintainers pick up the
+baton).</p><p>Transparency is a major component of what David
+Gelernter<a id="id2911563" class="indexterm"/>
+refers to as &#8220;beauty&#8221; in this chapter's epigraph.  Unix
+programmers, borrowing from mathematicians, often use the more
+specific term &#8220;elegance&#8221; for the quality Gelernter speaks
+of.  Elegance is a combination of power and simplicity.  Elegant code
+does much with little.  Elegant code is not only correct but visibly,
+<span class="emphasis"><em>transparently</em></span> correct.  It does not merely
+communicate an algorithm to a computer, but also conveys insight and
+assurance to the mind of a human that reads it.  By seeking elegance
+in our code, we build better code.  Learning to write transparent code
+is a first, long step toward learning how to write elegant code
+&#8212; and taking care to make code discoverable helps us learn how
+to make it transparent.  Elegant code is both transparent and
+discoverable.</p><p>It may be easier to appreciate the difference between
+transparency and discoverability with a pair of extreme examples.  The
+Linux<a id="id2911604" class="indexterm"/>
+kernel source is remarkably transparent (given the intrinsic
+complexity of what it does) but not at all discoverable &#8212;
+acquiring the minimum knowledge needed to live in the code and
+understand the idiom of the developers is difficult, but once you do
+the whole makes sense.<sup>[<a id="id2911617" href="#ftn.id2911617">59</a>]</sup>  On the other hand, the
+Emacs Lisp libraries are discoverable but not transparent.  It's easy
+to acquire enough knowledge to tweak just one thing, but quite
+difficult to comprehend the whole system.</p><p>In this chapter, we'll examine features of Unix designs that
+promote transparency and discoverability not just in UIs but in the
+parts users don't normally see.  We'll develop some useful rules you
+can apply to your coding and development practice.  Later on, in <a href="opensourcechapter.html" title="Chapter 19. Open Source">Chapter 19</a> we'll see how good release-engineering
+practices (like having a <tt>README</tt> file with
+appropriate content) can make your source code as discoverable as your
+design.</p><p>If you need a practical reminder why these qualities are
+important, remember that the sanity you save by writing transparent,
+discoverable systems may well be that of your own future self.</p><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2911508" href="#id2911508">58</a>] </sup>An economically-minded friend comments: &#8220;Discoverability is
+about reducing barriers to entry; transparency is about reducing the 
+cost of living in the code&#8221;.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2911617" href="#id2911617">59</a>] </sup>The Linux kernel makes a number
+of attempts at discoverability, including the Documentation
+subdirectory in the Linux kernel source tarball and quite a number of
+tutorial websites and books.  These attempts are frustrated by the
+speed at which the kernel changes; the documentation has a chronic
+tendency to fall behind.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch05s04.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="design.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch06s01.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Application Protocol Metaformats </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Studying Cases</td></tr></table></div></body></html>

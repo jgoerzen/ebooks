@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Evolution of C</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="portabilitychapter.html" title="Chapter 17. Portability"/><link rel="previous" href="portabilitychapter.html" title="Chapter 17. Portability"/><link rel="next" href="ch17s02.html" title="Unix Standards"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Evolution of C</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="portabilitychapter.html">Prev</a> </td><th width="60%" align="center">Chapter 17. Portability</th><td width="20%" align="right"> <a accesskey="n" href="ch17s02.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="c_evolution"/>Evolution of C</h2></div></div><a id="id2998161" class="indexterm"/><p>The central fact of the Unix programming experience has always
+been the stability of the C language and the handful of service
+interfaces that always travel with it (notably, the standard I/O
+library and friends).  The fact that a language originated in 1973 has
+required as little change as this one has in thirty years of heavy use
+is truly remarkable, and without parallels anywhere else in computer
+science or engineering.</p><p>In <a href="modularitychapter.html" title="Chapter 4. Modularity">Chapter 4</a>, we
+argued that C has been successful because it acts as a layer of thin
+glue over computer hardware approximating the &#8220;standard
+architecture&#8221; of [<a href="apb.html#BlaauwBrooks" title="[BlaauwBrooks]">BlaauwBrooks</a>].  There is, of course, more to the story than
+that. To understand the rest of the story, we'll need to take a brief
+look at the history of C.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2998213"/>Early History of C</h3></div></div><p>C began life in 1971 as a systems-programming language for the
+PDP-11<a id="id2998222" class="indexterm"/> port of
+Unix, based on Ken Thompson's<a id="id2998234" class="indexterm"/> earlier B interpreter which had in turn been
+modeled on BCPL, the Basic Common Programming Language designed at
+Cambridge University in 1966-67.<sup>[<a id="id2998245" href="#ftn.id2998245">142</a>]</sup></p><p>Dennis Ritchie's<a id="id2998269" class="indexterm"/> original C compiler (often called the
+&#8220;DMR&#8221; compiler after his initials) served the rapidly
+growing community around Unix versions 5, 6, and 7.  Version 6 C
+spawned Whitesmiths C, a reimplementation that became the first
+commercial C compiler and the nucleus of IDRIS, the first Unix
+workalike. But most modern C implementations are patterned on Steven
+C. Johnson's &#8220;portable C compiler&#8221; (PCC) which debuted in
+Version 7 and replaced the DMR compiler entirely in both System
+V<a id="id2998294" class="indexterm"/> and the BSD
+4.x<a id="id2998302" class="indexterm"/> releases.</p><p>In 1976, Version 6 C introduced the <tt>typedef</tt>, <tt>union</tt>, and <tt>unsigned
+int</tt> declarations.  The approved syntax for variable
+initializations and some compound operators also changed.</p><p>The original description of C was Brian Kernighan and Dennis
+M. Ritchie's<a id="id2994041" class="indexterm"/>
+original <i>The C Programming Language</i> aka
+&#8220;the White Book&#8221; [<a href="apb.html#Kernighan-Ritchie" title="[Kernighan-Ritchie]">Kernighan-Ritchie</a>].  It
+was published in 1978, the same year the Whitemiths C compiler
+became available. </p><p>The White Book described enhanced Version 6 C, with one
+significant exception involving the handling of public storage.
+Ritchie's original intention had been to model C's rules on FORTRAN
+COMMON declarations, on the theory that any machine that could handle
+FORTRAN would be ready for C.  In the common-block model, a public
+variable may be declared multiple times; identical declarations are
+merged by the linker.  But two early C ports (to Honeywell and IBM 360
+mainframes) happened to be to machines with very limited common
+storage or a primitive linker or both.  Thus, the Version 6 C compiler
+was moved to the stricter definition-reference model (requiring at
+most one definition of any given public variable and the
+<b>extern</b> keyword tagging references to it) described
+in [<a href="apb.html#Kernighan-Ritchie" title="[Kernighan-Ritchie]">Kernighan-Ritchie</a>].</p><p>This decision was reversed in the C compiler that shipped with
+Version 7 after it developed that a great deal of existing source
+depended on the looser rules.  Pressure for backward-compatibility
+would foil yet another attempt to switch (in 1983's System V
+Release 1<a id="id2994104" class="indexterm"/>)
+before the ANSI Draft Standard finally settled on definition-reference
+rules in 1988.  Common-block public storage is still admitted as an
+acceptable variation by the standard.</p><p>V7 C introduced <tt>enum</tt> and
+treated <tt>struct</tt> and <tt>union</tt> values as first-class objects that
+could be assigned, passed as arguments, and returned from functions
+(rather than being passed around by address).</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Another major change in V7 was that Unix data structure declarations
+were now documented on header files, and included.  Previous Unixes
+had actually printed the data structures (e.g., for directories) in
+the manual, from which people would copy it into their code.  Needless
+to say, this was a major portability problem.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Steve Johnson</span>
+<a id="id2994167" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>The System III<a id="id2994191" class="indexterm"/> C version of the PCC compiler (which also
+shipped with BSD 4.1c<a id="id2994201" class="indexterm"/>) changed the handling of struct
+declarations so that members with the same names in different structs
+would not clash.  It also introduced <tt>void</tt> and
+<tt>unsigned char</tt> declarations.  The scope of
+<tt>extern</tt> declarations local to a function was
+restricted to the function, and no longer included all code following
+it. </p><p>The ANSI C Draft Proposed Standard added <tt>const</tt> (for read-only storage) and <tt>volatile</tt> (for locations such as memory-mapped
+I/O registers that might be modified asynchronously from the thread of
+program control). The <tt>unsigned</tt> type
+modifier was generalized to apply to any type, and a symmetrical
+<tt>signed</tt> was added.  Initialization
+syntax for <tt>auto</tt> array and structure
+initializers and <tt>union</tt> types was
+added. Most importantly, function prototypes were added.</p><p>The most important changes in early C were the switch to
+definition-reference and the introduction of function prototypes in
+the Draft Proposed ANSI C Standard. The language has been essentially
+stable since copies of the X3J11 committee's working papers on the
+Draft Proposed Standard signaled the committee's intentions to
+compiler implementers in 1985-1986.</p><p>A more detailed history of early C, written by its designer, can
+be found at [<a href="apb.html#Ritchie93" title="[Ritchie93]">Ritchie93</a>].</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2994334"/>C Standards</h3></div></div><p>C standards development has been a conservative process with
+great care taken to preserve the spirit of the original C language,
+and an emphasis on ratifying experiments in existing compilers rather
+than inventing new features. The C9X charter<sup>[<a id="id2994347" href="#ftn.id2994347">143</a>]</sup> document is an excellent expression
+of this mission.</p><p>Work on the first official C standard began in 1983 under the
+auspices of the X3J11 ANSI committee. The major functional additions
+to the language were settled by the end of 1986, at which point it
+became common for programmers to distinguish between &#8220;K&amp;R
+C&#8221; and &#8220;ANSI C&#8221;.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Many people don't realize how <span class="emphasis"><em>unusual</em></span> the C
+standardization effort, especially the original ANSI C work, was in
+its insistence on standardizing only tested features.  Most language
+standard committees spend much of their time inventing new features,
+often with little consideration of how they might be implemented.
+Indeed, the few ANSI C features that <span class="emphasis"><em>were</em></span>
+invented from scratch &#8212; e.g., the notorious
+&#8220;trigraphs&#8221;&#8212;were the most disliked and least
+successful features of C89.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Henry Spencer</span>
+<a id="id2994392" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Void pointers were invented as part of the standards effort, and have
+been a winner.  But Henry's point is still well taken.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Steve Johnson</span>
+<a id="id2994442" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>While the core of ANSI C was settled early, arguments over the
+contents of the standard libraries dragged on for years. The formal
+standard was not issued until the end of 1989, well after most
+compilers had implemented the 1985 recommendations.  The standard was
+originally known as ANSI X3.159, but was redesignated ISO/IEC
+9899:1990 when the International Standards Organization (ISO) took
+over sponsorship in 1990.  The language variant it describes is
+generally known as C89 or C90.</p><p>The first book on C and Unix portability practice,
+<i>Portable C and Unix Systems Programming</i> [<a href="apb.html#Lapin" title="[Lapin]">Lapin</a>], was published in 1987 (I wrote it under a corporate
+pseudonym forced on me by my employers at the time).  The Second
+Edition of [<a href="apb.html#Kernighan-Ritchie" title="[Kernighan-Ritchie]">Kernighan-Ritchie</a>] came out in 1988.</p><p>A very minor revision of C89, known as Amendment 1, AM1, or C93,
+was floated in 1993.  It added more support for wide characters and
+Unicode. This became ISO/IEC 9899-1:1994.</p><p>Revision of the C89 standard began in 1993.  In 1999, ISO/IEC
+9899 (generally known as C99) was adopted by ISO.  It incorporated
+Amendment 1, and added a great many minor features.  Perhaps the most
+significant one for most programmers is the C++-like ability to
+declare variables at any point in a block, rather than just at the
+beginning.  Macros with a variable number of arguments were also
+added.</p><p>The C9X working group has a
+<a href="http://anubis.dkuug.dk/JTC1/SC22/WG14/www/projects" target="_top">
+Web page</a>, but no third standards effort is planned as
+of mid-2003.  They are developing an addendum on C for 
+embedded systems.</p><p>Standardization of C has been greatly aided by the fact that
+working and largely compatible implementations were running on a wide
+variety of systems before standards work was begun.  This made it
+harder to argue about what features should be in the standard.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2998245" href="#id2998245">142</a>] </sup>The &#8216;C&#8217; in
+C therefore stands for Common &#8212; or, perhaps, for
+&#8216;Christopher&#8217;.  BCPL originally stood for &#8220;Bootstrap
+CPL&#8221;&#8212;a much simplified version of CPL, the very
+interesting but overly ambitious and never implemented Common
+Programming Language of Oxford and Cambridge, also known
+affectionately as &#8220;Christopher's Programming Language&#8221;
+after its prime advocate, computer-science pioneer Christopher
+Strachey.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2994347" href="#id2994347">143</a>] </sup><a href="http://anubis.dkuug.dk/JTC1/SC22/WG14/www/charter" target="_top">Available on
+the Web</a>.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="portabilitychapter.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="portabilitychapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch17s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 17. Portability </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Unix Standards</td></tr></table></div></body></html>

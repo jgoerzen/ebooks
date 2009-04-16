@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 8. Minilanguages</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="design.html" title="Part II. Design"/><link rel="previous" href="ch07s04.html" title="Process Partitioning at the Design Level"/><link rel="next" href="ch08s01.html" title="Understanding the Taxonomy of Languages"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 8. Minilanguages</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch07s04.html">Prev</a> </td><th width="60%" align="center">Part II. Design</th><td width="20%" align="right"> <a accesskey="n" href="ch08s01.html">Next</a></td></tr></table><hr/></div><div class="chapter" lang="en"><div class="titlepage"><div><h2 class="title"><a id="minilanguageschapter"/>Chapter 8. Minilanguages</h2></div><div><h3 class="subtitle"><i>Finding a Notation That Sings</i></h3></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><a href="ch08s01.html">Understanding the Taxonomy of Languages</a></dt><dt><a href="ch08s02.html">Applying Minilanguages</a></dt><dd><dl><dt><a href="ch08s02.html#id2924747">Case Study: sng</a></dt><dt><a href="ch08s02.html#regexps">Case Study: Regular Expressions</a></dt><dt><a href="ch08s02.html#id2933450">Case Study: Glade</a></dt><dt><a href="ch08s02.html#id2933775">Case Study: m4</a></dt><dt><a href="ch08s02.html#id2934034">Case Study: XSLT</a></dt><dt><a href="ch08s02.html#id2934197">Case Study: The Documenter's Workbench Tools</a></dt><dt><a href="ch08s02.html#fetchmailrc">Case Study:
+fetchmail Run-Control Syntax</a></dt><dt><a href="ch08s02.html#awk">Case Study: awk</a></dt><dt><a href="ch08s02.html#id2935613">Case Study: PostScript</a></dt><dt><a href="ch08s02.html#id2935779">Case Study: bc and
+dc</a></dt><dt><a href="ch08s02.html#emacs_lisp_study">Case Study: Emacs Lisp</a></dt><dt><a href="ch08s02.html#javascript">Case Study: JavaScript</a></dt></dl></dd><dt><a href="ch08s03.html">Designing Minilanguages</a></dt><dd><dl><dt><a href="ch08s03.html#id2936413">Choosing the Right Complexity Level</a></dt><dt><a href="ch08s03.html#id2936650">Extending and Embedding Languages</a></dt><dt><a href="ch08s03.html#id2936912">Writing a Custom Grammar</a></dt><dt><a href="ch08s03.html#macroexpansion">Macros &#8212; Beware!</a></dt><dt><a href="ch08s03.html#id2937424">Language or Application Protocol?</a></dt></dl></dd></dl></div><div xmlns="" class="epigraph"><i><p xmlns="http://www.w3.org/1999/xhtml">A good notation has a subtlety and suggestiveness which at times 
+makes it almost seem like a live teacher.</p></i><span>--<i><span xmlns="http://www.w3.org/1999/xhtml" class="attribution">
+<span class="author">Bertrand Russell</span>
+<i>The World of Mathematics (1956)</i>
+<a id="id2930925" class="indexterm"/>
+</span></i></span></div><p>One of the most consistent results from large-scale studies of
+error patterns in software is that programmer error rates in defects per 
+hundreds of lines are largely independent of the language in which
+the programmers are coding.<sup>[<a id="id2930951" href="#ftn.id2930951">78</a>]</sup>  
+Higher-level languages, which allow
+you to get more done in fewer lines, mean fewer bugs as well.</p><p>Unix has a long tradition of hosting little languages
+specialized for a particular application domain, languages that can
+enable you to drastically reduce the line count of your programs.
+Domain-specific language examples include the numerous Unix
+typesetting languages (<i>troff</i>,
+<i>eqn</i>, <i>tbl</i>,
+<i>pic</i>, <i>grap</i>),
+shell utilities (<i>awk</i>,
+<i>sed</i>, <i>dc</i>,
+<i>bc</i>), and software development tools
+(<i>make</i>, <i>yacc</i>,
+<i>lex</i>).  There is a fuzzy boundary between
+domain-specific languages and the more flexible sort of application
+run-control file (<i>sendmail</i>, BIND, X);
+another with data-file formats; and another with scripting
+languages<a id="id2931070" class="indexterm"/>
+(which we'll survey in <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a>).</p><p>Historically, domain-specific languages of this kind have been
+called &#8216;little languages&#8217; or &#8216;minilanguages&#8217;
+in the Unix world, because early examples were small and low in
+complexity relative to general-purpose languages (all three terms for
+the category are in common use). But if the application domain is
+complex (in that it has lots of different primitive operations or
+involves manipulation of intricate data structures), an application
+language for it may have to be rather more complex than some
+general-purpose languages.  We'll keep the traditional term
+&#8216;minilanguage&#8217; to emphasize that the wise course
+is usually to keep these designs as small and simple as
+possible.</p><p>The domain-specific little language is an extremely powerful
+design idea.  It allows you to define your own higher-level language
+to specify the appropriate methods, rules, and algorithms for the task
+at hand, reducing global complexity relative to a design that uses
+hardwired lower-level code for the same ends.  You can get to a
+minilanguage design in at least three ways, two of them good and one
+of them dangerous.</p><p>One right way to get there is to realize up front that you can
+use a minilanguage design to push a given specification of a programming
+problem up a level, into a notation that is more compact and
+expressive than you could support in a general-purpose language.  As
+with code generation and data-driven programming, a minilanguage lets
+you take practical advantage of the fact that the defect rate in your
+software will be largely independent of the level of the language you
+are using; more expressive languages mean shorter programs and fewer
+bugs.</p><p>The second right way to get to a minilanguage design is to
+notice that one of your specification file formats is looking more and
+more like a minilanguage &#8212; that is, it is developing complex
+structures and implying actions in the application you are
+controlling.  Is it trying to describe control flow as well as data
+layouts?  If so, it may be time to promote that control flow from
+being implicit to being explicit in your specification
+language.</p><p>The wrong way to get to a minilanguage design is to extend your
+way to it, one patch and crufty added feature at a time. On this path,
+your specification file keeps sprouting more implied control flow and
+more tangled special-purpose structures until it has become an ad-hoc
+language without your noticing it.  Some legendary nightmares have
+been spawned this way; the example every Unix guru will think of (and
+shudder over) is the <tt>sendmail.cf</tt> configuration
+file associated with the <i>sendmail</i> mail
+transport.</p><p>Sadly, most people do their first minilanguage the wrong way,
+and only realize later what a mess it is.  Then the question is: how
+to clean it up?  Sometimes the answer implies rethinking the entire
+application design. Another notorious example of language-by-feature
+creep was the editor <i>TECO</i>, which grew first
+macros and then loops and conditionals as programmers wanted to use it
+to package increasingly complex editing routines. The resulting
+ugliness was eventually fixed by a redesign of the entire editor to be
+based on an intentional language; this is how Emacs
+Lisp<a id="id2931189" class="indexterm"/>
+(which we'll survey below) evolved.</p><p>All sufficiently complicated specification files aspire to the
+condition of minilanguages.  Therefore, it will often be the case that
+your only defense against designing a bad minilanguage is knowing how
+to design a good one. This need not be a huge step or involve knowing
+a lot of formal language theory; with modern tools, learning a few
+relatively simple techniques and bearing good examples in mind as you
+design should be sufficient.</p><p>In this chapter we'll examine all the kinds of minilanguages
+normally supported under Unix, and try to identify the kinds of
+situation in which each of them represents an effective design
+solution.  This chapter is not meant to be an exhaustive catalog of
+Unix languages, but rather to bring out the design principles involved
+in structuring an application around a minilanguage.  We'll have much
+more to say about languages for general-purpose programming in <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a>.</p><p>We'll need to start by doing a little taxonomy, so we'll
+know what we're talking about later on.</p><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2930951" href="#id2930951">78</a>] </sup>Les Hatton reports by email on the analysis in his book in
+preparation, <i>Software Failure</i>: &#8220;Provided
+you use executable line counts for the density measure, the injected
+defect densities vary less between languages than they do between
+engineers by about a factor of 10&#8221;.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch07s04.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="design.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch08s01.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Process Partitioning at the Design Level </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Understanding the Taxonomy of Languages</td></tr></table></div></body></html>

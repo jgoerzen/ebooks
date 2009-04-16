@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Unix and Open Source</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="opensourcechapter.html" title="Chapter 19. Open Source"/><link rel="previous" href="opensourcechapter.html" title="Chapter 19. Open Source"/><link rel="next" href="ch19s02.html" title="Best Practices for Working with Open-Source Developers"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Unix and Open Source</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="opensourcechapter.html">Prev</a> </td><th width="60%" align="center">Chapter 19. Open Source</th><td width="20%" align="right"> <a accesskey="n" href="ch19s02.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3009499"/>Unix and Open Source</h2></div></div><p>Open-source development exploits the fact that characterizing
+and fixing bugs &#8212; unlike, say, implementing a particular
+algorithm &#8212; is a task that lends itself well to being split into
+multiple parallel subtasks.  Exploration of the neighborhood of
+possibilities near a prototype design also parallelizes well.  With
+the right technological and social machinery in place, development
+teams that are loosely networked and very large can do astoundingly
+good work.</p><p>Astoundingly, that is, if you are carrying around the mental
+habits developed by people who treat process secrecy and proprietary
+control as a given. From <i>The Mythical Man-Month</i>
+[<a href="apb.html#Brooks" title="[Brooks]">Brooks</a>] until the rise of
+Linux<a id="id3009532" class="indexterm"/>,
+the orthodoxy in software engineering was all about small, closely
+managed teams within heavyweight organizations like corporations and
+government. The practice was of <span class="emphasis"><em>large</em></span> teams
+closely managed.</p><p>The early Unix community, before the
+AT&amp;T<a id="id3009553" class="indexterm"/> divestiture, was a paradigmatic
+example of open source in action.  While the pre-divestiture Unix code
+was technically and legally proprietary, it was treated as a commons
+within its user/developer community.  Volunteer efforts were
+self-directed by the people most strongly motivated to solve problems.
+From these choices many good things flowed.  Indeed, the technique of
+open-source development evolved as an unconscious folk practice in the
+Unix community for more than a quarter century, many years before it was
+analyzed and labeled in the late 1990s (See <i>The Cathedral
+and the Bazaar</i> [<a href="apb.html#Raymond01" title="[Raymond01]">Raymond01</a>] and <i>Understanding
+Open Source Software Development</i> [<a href="apb.html#Feller-Fitzgerald" title="[Feller-Fitzgerald]">Feller-Fitzgerald</a>].</p><p>In retrospect, it is rather startling how oblivious we all were
+to the implications of our own behavior. Several people came very
+close to understanding the phenomenon; Richard Gabriel in his
+&#8220;Worse Is Better&#8221;<a id="id3009606" class="indexterm"/> paper from 1990 [<a href="apb.html#Gabriel" title="[Gabriel]">Gabriel</a>]
+is the best known, but one can find prefigurations in Brooks [<a href="apb.html#Brooks" title="[Brooks]">Brooks</a>] (1975) and as far back as Vyssotsky and
+Corbató's meditations on the Multics design (1965). I failed to
+get it over more than twenty years of observing software development,
+before being awakened by Linux in the mid-1990s.  This experience
+should make any thoughtful and humble person wonder what other
+important unifying concepts are still implicit in our behavior and
+lurking right under our collective noses, hidden not by their
+complexity but by their very simplicity.</p><p>The rules of open-source development are simple:</p><div class="orderedlist"><ol type="1"><li><p><span class="emphasis"><em>Let the source be open.</em></span> 
+Have no secrets.  Make the code and the process that produces it
+public. Encourage third-party peer review.  Make sure that others 
+can modify and redistribute the code freely.  Grow the co-developer
+community as big as you can.</p></li><li><p><span class="emphasis"><em>Release early, release often.</em></span> A rapid
+release tempo means quick and effective feedback.  When each
+incremental release is small, changing course in response to
+real-world feedback is easier.</p><p>Just make sure your first release builds, runs, and demonstrates
+promise.  Usually, an initial version of an open-source program
+demonstrates promise by doing at least some portion of its final job,
+sufficient to show that the initiator can actually continue the
+project.  For example, an initial version of a word processor might
+support typing in text and displaying it on the screen. </p><p>A first release that cannot be compiled or run can kill a
+project (as, famously, almost happened to the Mozilla browser).
+Releases that cannot compile suggest that the project developers will
+be unable to complete the project, Also, non-working programs are
+difficult for other developers to contribute to, because they cannot
+easily determine if any change they made improved the program or not.</p></li><li><p><span class="emphasis"><em>Reward contribution with praise.</em></span> 
+If you can't give your co-developers material rewards, 
+give psychological ones.  Even if you can, remember that people will
+often work harder for reputation than they would for gold.</p></li></ol></div><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>A corollary of rule 2 is that individual releases should not be
+momentous events, with many promises attached and much preparation.
+It's important to ruthlessly streamline your release process, so that
+you <span class="emphasis"><em>can</em></span> do frequent releases painlessly.  A setup
+where all other work must stop during release preparation is a
+terrible mistake.  (Notably, if you're using CVS or something similar,
+releases in preparation should be branches off the main line of
+development, so that they don't block main-line progress.)  To sum up,
+don't treat releases as big special events; make them part of normal
+routine.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Henry Spencer</span>
+<a id="id3007670" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Remember that the reason for frequent releases is to shorten and
+speed the feedback loop connecting your user population to your
+developers.  Therefore, resist thinking of the next release as a
+polished jewel that cannot ship until everything is perfect.  Don't
+make long wish lists.  Make progress incrementally, admit and advertise
+current bugs, and have confidence that perfection will come with
+time.  Accept that you will go through dozens of point releases on the
+way, and don't get upset as the version numbers mount.</p><p>Open-source development uses large teams of programmers
+distributed over the Internet and communicating primarily through
+email and Web documents.  Typically, most contributors to any given
+project are volunteers contributing in order to be rewarded by the
+increased usefulness of the software to them, and by reputation
+incentives.  A central individual or core group steers the project;
+other contributors may drop in and drop out sporadically.  To
+encourage casual contributors, it is important to avoid erecting
+social barriers between them and the core team.  Minimize the core
+team's privileged status, and work hard to keep the boundaries
+inconspicuous.</p><p>Open-source projects follow the Unix-tradition advice of
+automating wherever possible.  They use the
+patch(1)
+tool to pass around incremental changes.  Many projects (and all large
+ones) have network-accessible code repositories using version-control
+systems like CVS (recall the discussion in <a href="toolschapter.html" title="Chapter 15. Tools">Chapter 15</a>). Use of automated bug- and patch-tracking
+systems is also common.</p><p>In 1997, almost nobody outside the hacker culture understood
+that it was even possible to run a large project this way, let alone
+get high-quality results.  In 2003 this is no longer news;
+projects like Linux<a id="id3007763" class="indexterm"/>,
+Apache<a id="id3007775" class="indexterm"/>, and Mozilla
+have achieved both success and high public visibility.</p><p>Abandoning the habit of secrecy in favor of process
+transparency<a id="id3007790" class="indexterm"/> and peer review was
+the crucial step by which alchemy became chemistry.  In the same way,
+it is beginning to appear that open-source development may signal the
+long-awaited maturation of software development as a
+discipline.</p></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="opensourcechapter.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="opensourcechapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch19s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 19. Open Source </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Best Practices for Working with Open-Source Developers</td></tr></table></div></body></html>

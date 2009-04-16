@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Process Partitioning at the Design Level</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="multiprogramchapter.html" title="Chapter 7. Multiprogramming"/><link rel="previous" href="ch07s03.html" title="Problems and Methods to Avoid"/><link rel="next" href="minilanguageschapter.html" title="Chapter 8. Minilanguages"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Process Partitioning at the Design Level</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch07s03.html">Prev</a> </td><th width="60%" align="center">Chapter 7. Multiprogramming</th><td width="20%" align="right"> <a accesskey="n" href="minilanguageschapter.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2924086"/>Process Partitioning at the Design Level</h2></div></div><p>Now that we have all these methods, what should we do with them?</p><p>The first thing to notice is that tempfiles, the more
+interactive sort of master/slave process relationship, sockets, RPC,
+and all other methods of bidirectional IPC are at some level
+equivalent &#8212; they're all just ways for programs to exchange data
+during their lifetimes.  Much of what we do in a sophisticated way
+using sockets or shared memory we could do in a primitive way using
+tempfiles as mailboxes and signals for notification.  The differences
+are at the edges, in how programs establish communication, where and
+when one does the marshalling and unmarshalling of messages, in what
+sorts of buffering problems you may have, and atomicity guarantees you
+get on the messages (that is, to what extent you can know that the
+result of a single send action from one side will show up as a single
+receive event on the other).</p><p>We've seen from the PostgreSQL study that one effective way to
+hold down complexity is to break an application into a client/server
+pair. The PostgreSQL client and server communicate through an application
+protocol over sockets, but very little about the design pattern would
+change if they used any other bidirectional IPC method.</p><p>This kind of partitioning is particularly effective in
+situations where multiple instances of the application must manage
+access to resources that are shared among all. A single server process
+may manage all resource contention, or cooperating peers may each take
+responsibility for some critical resource.</p><p>Client-server partitioning can also help distribute cycle-hungry
+applications across multiple hosts.  Or it may make them suitable for
+distributed computing across the Internet (as with Freeciv). We'll
+discuss the related <i>CLI server</i> pattern in <a href="interfacechapter.html" title="Chapter 11. Interfaces">Chapter 11</a>.</p><p>Because all these peer-to-peer IPC techniques are alike at some
+level, we should evaluate them mainly on the amount of
+program-complexity overhead they incur, and how much opacity they
+introduce into our designs.  This, ultimately, is why BSD sockets have
+won over other Unix IPC methods, and why RPC has generally failed to
+get much traction.</p><p>Threads are fundamentally different.  Rather than supporting
+communication among different programs, they support a sort of
+timesharing within an instance of a single program.  Rather
+than being a way to partition a big program into smaller ones 
+with simpler behavior, threading is strictly a performance hack. It
+has all the problems normally associated with performance hacks, and
+a few special ones of its own.</p><p>Accordingly, while we should seek ways to break up large
+programs into simpler cooperating processes, the use of threads within
+processes should be a last resort rather than a first.  Often, you may
+find you can avoid them.  If you can use limited shared memory and
+semaphores, asynchronous I/O using <tt>SIGIO</tt>, or
+poll(2)/select(2)
+rather than threading, do it that way.  Keep it simple; use techniques
+earlier on this list and lower on the complexity scale in preference
+to later ones.  </p><p>The combination of threads, remote-procedure-call interfaces, and
+heavyweight object-oriented design is especially dangerous.  Used
+sparingly and tastefully, any of these techniques can be valuable &#8212;
+but if you are ever invited onto a project that is supposed to feature
+all three, fleeing in terror might well be an appropriate
+reaction.</p><p>We have previously observed that programming in the real world
+is all about managing complexity.  Tools to manage complexity are good
+things.  But when the effect of those tools is to proliferate
+complexity rather than to control it, we would be better off throwing them
+away and starting from zero.  An important part of the Unix wisdom 
+is to never forget this.</p></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch07s03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="multiprogramchapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="minilanguageschapter.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Problems and Methods to Avoid </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 8. Minilanguages</td></tr></table></div></body></html>

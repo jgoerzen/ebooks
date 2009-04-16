@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Programming for Portability</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="portabilitychapter.html" title="Chapter 17. Portability"/><link rel="previous" href="ch17s04.html" title="Specifications as DNA, Code as RNA"/><link rel="next" href="ch17s06.html" title="Internationalization"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Programming for Portability</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch17s04.html">Prev</a> </td><th width="60%" align="center">Chapter 17. Portability</th><td width="20%" align="right"> <a accesskey="n" href="ch17s06.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3000262"/>Programming for Portability</h2></div></div><p>Software portability is usually thought of in quasi-spatial
+terms: can this code be moved sideways to existing hardware and
+software platforms other than the one it was built for?  But Unix
+experience over decades tells us that durability down through time is
+just as important, if not more so.  If we could predict the future of
+software in detail it would probably be the present &#8212;
+nevertheless, in programming for portability we should try to think
+about making choices that will base the software on the features of
+its environment that are likeliest to persist, and avoid technologies
+that seem likely to face end-of-life in the foreseeable future.</p><p>Under Unix, two decades of attention to the issues of
+specifying portable APIs has largely solved that problem.  Facilities
+described in the Single Unix Specification are likely to be present
+on all modern Unix platforms today and rather unlikely to go 
+unsupported in the future.</p><p>But not all platform dependencies have to do with the system
+or library APIs.  Your implementation language can matter; file-system
+layout and configuration differences between the source and target
+system can be a problem as well.  But Unix practice has evolved ways 
+to cope.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3000303"/>Portability and Choice of Language</h3></div></div><p>The first issue in programming for portability is your choice of
+implementation language.  All the major languages we surveyed in <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a> are highly portable
+in the sense that compatible implementations are available across all
+modern Unixes; for most, implementations under Windows and MacOS are
+available as well.  Portability problems tend to arise not in the core
+languages but in support libraries and degree of integration with the
+local environment (especially IPC and concurrent-process management,
+including the infrastructure for GUIs).</p><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="c_portability"/>C Portability</h4></div></div><a id="id3000340" class="indexterm"/><p>The core C language is extremely portable.  The standard Unix
+implementation is the GNU C compiler, which is ubiquitous not only in
+open-source Unixes but modern proprietary Unixes as well.  GNU C has
+been ported to Windows and classic MacOS, but is not widely used in
+either environment because it lacks portable bindings to the native
+GUI.</p><p>The standard I/O library, mathematics routines, and
+internationalization support are portable across all C
+implementations.  File I/O, signals, and process control are portable
+across Unixes provided one takes care to use only the modern APIs
+described in the Single Unix Specification; older C code often has
+thickets of preprocessor conditionals for portability, but those
+handle legacy pre-POSIX interfaces from older proprietary Unixes that 
+are obsolete or close to it in 2003.</p><p>C portability starts to be a more serious problem near IPC,
+threads, and GUI interfaces.  We discussed IPC and threads portability
+issues in <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a>. The real practical problem is GUI
+toolkits.  A number of open-source GUI toolkits are universally
+portable across modern Unixes and to Windows and classic MacOS as well
+&#8212; Tk, wxWindows, GTK, and Qt are four well-known ones with source
+code and documentation readily discoverable by Web search.  But none
+of them is shipped with all platforms, and (for reasons more legal
+than technical) none of these offers the native-GUI look and feel on
+all platforms.  We gave some guidelines for coping in <a href="toolschapter.html" title="Chapter 15. Tools">Chapter 15</a>.</p><p>Volumes have been written on the subject of how to write 
+portable C code.  This book is not going to be one of them.   Instead,
+we recommend a careful reading of <i>Recommended C Style and 
+Coding Standards</i> [<a href="apb.html#Cannon" title="[Cannon]">Cannon</a>]
+and the chapter on portability in
+<i>The Practice of Programming</i> 
+[<a href="apb.html#Kernighan-Pike99" title="[Kernighan-Pike99]">Kernighan-Pike99</a>].</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="cc_portability"/>C++ Portability</h4></div></div><a id="id3000442" class="indexterm"/><p>C++ has all the same operating-system-level portability issues as C,
+and some of its own.
+An additional one is that the open-source GNU compiler for C++ has
+lagged substantially behind the proprietary implementations for most
+of its existence; thus, there is not yet as of mid-2003 a
+universally deployed equivalent of GNU C on which to base a de-facto
+standard.  Furthermore, no C++ compiler yet implements the full C++99
+ISO standard for the language, though GNU C++ comes closest.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="shell_portability"/>Shell Portability</h4></div></div><a id="id3000477" class="indexterm"/><p>Shell-script portability is, unfortunately, poor.  The problem
+is not shell itself;
+bash(1)
+(the open-source Bourne Again shell) has become sufficiently
+ubiquitous that pure shellscripts can run almost anywhere.  The
+problem is that most shellscripts make heavy use of other commands and
+filters that are much less portable, and by no means guaranteed to be
+in the toolkit in any given target machine.</p><p>This problem can be overcome by dint of heroic effort, as in the
+autoconf(1)
+tools.  But it is sufficiently severe that most of the heavier sort of
+programming that used to be done in shell has moved to
+second-generation scripting languages<a id="id3000524" class="indexterm"/> like Perl, Python, and Tcl.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="perl_portability"/>Perl Portability</h4></div></div><a id="id3000544" class="indexterm"/><p>Perl has good portability. Stock Perl even offers a portable set
+of bindings to the Tk toolkit that supports portable GUIs across
+Unix, MacOS and Windows. One issue dogs it, however.  Perl scripts often
+require add-on libraries from CPAN (the Comprehensive Perl Archive
+Network) which are not guaranteed to be present with every Perl
+implementation.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="python_portability"/>Python Portability</h4></div></div><a id="id3000576" class="indexterm"/><p>Python has excellent portability.  Like Perl, stock Python even
+offers a portable set of bindings to the Tk toolkit that supports
+portable GUIs across Unix, MacOS, and Windows.</p><p>Stock Python has a much richer standard library than does
+Perl<a id="id3000598" class="indexterm"/> and no
+equivalent of CPAN for programmers to rely on; instead, important
+extension modules are routinely incorporated into the stock Python
+distribution during minor releases. This trades a spatial problem for
+a temporal one, making Python much less subject to the missing-module
+effect at the cost of making Python minor version numbers somewhat
+more important than Perl release levels are.  In practice, the
+tradeoff seems to favor Python.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="tcl_portability"/>Tcl Portability</h4></div></div><a id="id3000626" class="indexterm"/><p>Tcl portability is good, overall, but varies sharply by project
+complexity.  The Tk toolkit for cross-platform GUI programming is
+native to Tcl.  As with Python, evolution of the core language has
+been relatively smooth, with few version-skew problems.
+Unfortunately, Tcl relies even more heavily than Perl on extension
+facilities that are not guaranteed to ship with every implementation
+&#8212; and there is no equivalent of CPAN to centrally distribute
+them.</p><p>For smaller projects not reliant on extensions, therefore, Tcl
+portability is excellent.  But larger projects tend to depend heavily
+on both extensions and (as with shell programming) calling external
+commands that may or may not be present on the target machine; their
+portability tends to be poor.</p><p>Tcl may have suffered, ironically, from
+the ease of adding extensions to it.  By the time a particular extension
+started to look interesting as part of the standard distribution, there
+typically were several different versions of it in existence.  At the
+1995 Tcl/Tk Workshop, John Ousterhout explained why there was no OO
+support in the standard Tcl distribution:</p><div class="blockquote"><blockquote class="blockquote"><p>Think of five mullahs sitting around in a circle, all saying
+&#8220;Kill him, he's a heathen&#8221;.  If I put a specific OO
+scheme into the core, then one of them will say &#8220;Bless you, my
+son, you may kiss my ring&#8221;, and the other four will say
+&#8220;Kill him, he's a heathen&#8221;.</p></blockquote></div><p>The lot of a language designer is not necessarily a happy one.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="java_portability"/>Java Portability</h4></div></div><a id="id3000711" class="indexterm"/><p>Java portability is excellent &#8212; it was, after all,
+designed with &#8220;write once, run everywhere&#8221; as a primary
+goal.  Portability fails, however, to be perfect.  The difficulties are
+mostly version-skew problems between JDK 1.1 and the older AWT GUI
+toolkit (on the one hand) and JDK 1.2 with the newer Swing GUI toolkit.
+There are several important reasons for these:</p><div class="itemizedlist"><ul type="disc"><li><p>Sun's AWT design was so deficient that it had to be replaced 
+with Swing.</p></li><li><p>Microsoft's<a id="id3000755" class="indexterm"/>
+refusal to support Java development on Windows and attempt to replace
+it with C#.</p></li><li><p>Microsoft's decision to hold Internet Explorer's applet support 
+at the JDK 1.1 level.</p></li><li><p>Sun<a id="id3000782" class="indexterm"/>
+licensing terms that make open-source implementations of JDK 1.2
+impossible, retarding its deployment (especially in the Linux
+world).</p></li></ul></div><p>For programs that involve GUIs, Java developers seeking
+portability will, for the foreseeable future, face a choice: Stay in
+JDK 1.1/AWT with a poorly designed toolkit for maximum portability
+(including to Microsoft Windows<a id="id3000804" class="indexterm"/>), or get the better toolkit and
+capabilities of JDK 1.2 at the cost of sacrificing some
+portability.</p><p>Finally, as we noted previously, the Java thread support has
+portability problems.  The Java API, unlike less ambitious
+operating-system bindings for other languages, bravely tried to bridge
+the gaps between the diverging process models offered by different
+operating systems.  It does not quite manage the trick.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="emacs_lisp_portability"/>Emacs Lisp Portability</h4></div></div><a id="id3000836" class="indexterm"/><p>Emacs Lisp portability is excellent. Emacs installations tend to
+be upgraded frequently, so seriously out-of-date environments are
+rare.  The same extension Lisp<a id="id3000854" class="indexterm"/> is supported everywhere and effectively
+all extensions are shipped with Emacs itself.</p><p>Then, too, the primitive set of Emacs is quite stable.  It
+achieved completeness for the things an editor has to do (manipulating
+buffers, bashing text) years ago.  Only the introduction of X has
+disturbed this picture at all, and very few Emacs modes need to be
+aware of X.  Portability problems are usually manifestations of quirks
+in the C-level bindings of operating-system facilities; control of
+subordinate processes in modes like mail agents is about the only
+issue where such problems manifest with any frequency.</p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3000882"/>Avoiding System Dependencies</h3></div></div><p>Once your language and support libraries are chosen, the next
+portability issue is usually the location of key system files and
+directories: mail spools, logfile directories and the like.
+The archetype of this sort of problem is whether the mail spool
+directory is <tt>/var/spool/mail</tt> or
+<tt>/var/mail</tt>.</p><p>Often, you can avoid this sort of dependency by stepping back
+and reframing the problem.  Why are you opening a file in the mail
+spool directory, anyway?  If you're writing to it, wouldn't it be
+better to simply invoke the local mail transport agent to do it for
+you so the file-locking gets done right?  If you're reading from it, 
+might it be better to query it through a POP3 or IMAP server?</p><p>The same sort of question applies elsewhere.  If you find
+yourself opening logfiles manually, shouldn't you be using
+syslog(3)
+instead?  Function-call interfaces through the C library are better
+standardized than system file locations.  Use that fact!</p><p>If you must have system file locations in your code, your best
+alternative depends on whether you will be distributing in source code
+or binary form.  If you are distributing in source, the
+<i>autoconf</i> tools we discuss in the next
+section will help you.  If you're distributing in binary, then it's
+good practice to have your program poke around at runtime and see if
+it can automatically adapt itself to local conditions &#8212; say, by
+actually checking for the existence of <tt>/var/mail</tt> and <tt>/var/spool/mail</tt>.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3000984"/>Tools for Portability</h3></div></div><p>You can often use the open-source GNU
+autoconf(1)
+we surveyed in <a href="toolschapter.html" title="Chapter 15. Tools">Chapter 15</a> to
+handle portability issues, do system-configuration probes, and tailor
+your makefiles.  People building from sources today expect to be able
+to type <b>configure; make; make install</b> and get a
+clean build.  There is a good <a href="http://seul.org/docs/autotut/" target="_top">tutorial on these
+tools</a>. Even if you're distributing in binary, the
+autoconf(1)
+tools can help automate away the problem of conditionalizing your code
+for different platforms.</p><p>Other tools that address this problem; two of the better known
+are the
+Imake(1)
+tool associated with the X windowing system and the <i>Configure</i> tool built by Larry Wall (later
+the inventor of Perl<a id="id3001065" class="indexterm"/>) and adapted for many different
+projects.  All are at least as complicated as the autoconf suite, and
+no longer as often used.  They don't cover as wide a range of target
+systems.</p></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch17s04.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="portabilitychapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch17s06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Specifications as DNA, Code as RNA </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Internationalization</td></tr></table></div></body></html>

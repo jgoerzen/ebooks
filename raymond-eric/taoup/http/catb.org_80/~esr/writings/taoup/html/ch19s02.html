@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Best Practices for Working with Open-Source Developers</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="opensourcechapter.html" title="Chapter 19. Open Source"/><link rel="previous" href="ch19s01.html" title="Unix and Open Source"/><link rel="next" href="ch19s03.html" title="The Logic of Licenses: How to Pick One"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Best Practices for Working with Open-Source Developers</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch19s01.html">Prev</a> </td><th width="60%" align="center">Chapter 19. Open Source</th><td width="20%" align="right"> <a accesskey="n" href="ch19s03.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3007808"/>Best Practices for Working with Open-Source Developers</h2></div></div><p>Much of what constitutes best practice in the open-source
+community is a natural adaptation to distributed development; you'll
+read a lot in the rest of this chapter about behaviors that maintain
+good communication with other developers.  Where Unix conventions are
+arbitrary (such as the standard names of files that convey
+metainformation about a source distribution) they often trace back
+either to Usenet<a id="id3007825" class="indexterm"/> in
+the early 1980s, or to the conventions and standards of the GNU
+project<a id="id3007835" class="indexterm"/>.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="patching"/>Good Patching Practice</h3></div></div><p>Most people become involved in open-source software by writing patches
+for other people's software before releasing projects of their own.
+Suppose you've written a set of source-code changes for someone else's
+baseline code. Now put yourself in that person's shoes. How is he
+to judge whether to include the patch?</p><p>It is very difficult to judge the quality of code, so
+developers tend to evaluate patches by the quality of the submission.
+They look for clues in the submitter's style and communications
+behavior instead &#8212; indications that the person has been in their
+shoes and understands what it's like to have to evaluate and merge an
+incoming patch.</p><p>This is actually a rather reliable proxy for code quality.  In
+many years of dealing with patches from many hundreds of strangers,
+I have only seldom seen a patch that was thoughtfully
+presented and respectful of my time but technically bogus.  On the
+other hand, experience teaches that patches which look careless or
+are packaged in a lazy and inconsiderate way are very likely to
+actually <span class="emphasis"><em>be</em></span> bogus.</p><p>Here are some tips on how to get your patch accepted:</p><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id3007894"/>Do send patches, don't send whole archives or files.</h4></div></div><p>If your change includes a new file that doesn't exist in the code,
+then of course you have to send the whole file.  But if you're modifying
+an already-existing file, don't send the whole file.  Send a diff instead;
+specifically, send the output of the 
+diff(1)
+command run to compare the baseline distributed version against your
+modified version.</p><p>The
+diff(1)
+command and its dual,
+patch(1),
+are the most basic tools of open-source development.  Diffs are better
+than whole files because the developer you're sending a patch to may
+have changed the baseline version since you got your copy.  By sending
+him a diff you save him the effort of separating your changes from
+his; you show respect for his time.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id3007953"/>Send patches against the current version of the code.</h4></div></div><p>It is both counterproductive and rude to send a maintainer
+patches against the code as it existed several releases ago, and expect
+him to do all the work of determining which changes duplicate things he
+has since done, versus which things are actually novel in your patch.</p><p>As a patch submitter, it is <span class="emphasis"><em>your</em></span> responsibility
+to track the state of the source and send the maintainer a minimal patch
+that expresses what you want done to the main-line codebase. That means
+sending a patch against the current version.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id3007988"/>Don't include patches for generated files.</h4></div></div><p>Before you send your patch, walk through it and delete any patch
+bands for files in it that are going to be automatically regenerated
+once the maintainer applies the patch and remakes.  The classic
+examples of this error are C<a id="id3008001" class="indexterm"/> files
+generated by <i>Bison</i> or
+<i>Flex</i>.</p><p>These days the most common mistake of this kind is sending a
+diff with a huge band that is nothing but changebars between your
+<b>configure</b> script and the maintainer's.  This file is
+generated by <b>autoconf</b>.</p><p>This is inconsiderate.  It means your recipient is put to the trouble
+of separating the real content of the patch from a lot of bulky noise.
+It's a minor error, not as important as some of the things we'll get
+to further on &#8212; but it will count against you.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id3008059"/>Don't send patch bands that just tweak RCS or SCCS $-symbols.</h4></div></div><p>Some people put special tokens in their source files that are
+expanded by the version-control system when the file is checked in:
+the $Id$ construct used by RCS and CVS,
+for example.</p><p>If you're using a local version-control system yourself, your
+changes may alter these tokens.  This isn't really harmful, because
+when your recipient checks his code back in after applying your patch
+the tokens will be re-expanded in accordance with the
+<span class="emphasis"><em>maintainer's</em></span> version-control status.  But those
+extra patch bands are noise.  They're distracting.  It's more
+considerate not to send them.</p><p>This is another minor error.  You'll be forgiven for it if you
+get the big things right.  But you want to avoid it anyway.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id3008100"/>Do use <tt>-c</tt> or <tt>-u</tt> format, don't use the default (<tt>-e</tt>) format.</h4></div></div><p>The default (<tt>-e</tt>) format of
+diff(1)
+is very brittle.  It doesn't include any context, so the patch tool
+can't cope if any lines have been inserted or deleted in the baseline 
+code since you took the copy you modified.</p><p>Getting an <tt>-e</tt> diff is annoying, and suggests
+that the sender is either an extreme newbie, careless, or clueless.
+Most such patches get tossed out without a second thought.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id3008156"/>Do include documentation with your patch.</h4></div></div><p>This is very important.  If your patch makes a user-visible addition
+or change to the software's features, <span class="emphasis"><em>include changes to the
+appropriate man pages and other documentation files in your patch</em></span>.
+Do <span class="emphasis"><em>not</em></span> assume that the recipient will be happy to
+document your code for you, or to have undocumented features lurking
+in the code.</p><p>Documenting your changes well demonstrates some good things.  First,
+it's considerate to the person you are trying to persuade.  Second, it
+shows that you understand the ramifications of your change well enough
+to explain it to somebody who can't see the code.  Third, it demonstrates
+that you care about the people who will ultimately use the software.</p><p>Good documentation is usually the most visible sign of what separates
+a solid contribution from a quick and dirty hack.  If you take the time
+and care necessary to produce it, you'll find you're already 85% of the
+way to having your patch accepted by most developers.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id3008201"/>Do include an explanation with your patch.</h4></div></div><p>Your patch should include cover notes explaining why you think the
+patch is necessary or useful.  This is explanation directed not to the
+users of the software but to the maintainer to whom you are sending the
+patch.</p><p>The note can be short &#8212; in fact, some of the most
+effective cover notes I've ever seen just said &#8220;See the
+documentation updates in this patch&#8221;.  But it should show the
+right attitude.</p><p>The right attitude is helpful, respectful of the maintainer's time,
+quietly confident but unassuming.  It's good to display understanding of
+the code you're patching.  It's good to show that you can identify with the
+maintainer's problems. It's also good to be up front about any risks you
+perceive in applying the patch.  Here are some examples of the sorts of
+explanatory comments that experienced developers send:</p><p>&#8220;I've seen two problems with this code, X and Y.  I fixed
+problem X, but I didn't try addressing problem Y because I don't think
+I understand the part of the code that I believe is
+involved&#8221;.</p><p>&#8220;Fixed a core dump that can happen when one of the foo
+inputs is too long.  While I was at it, I went looking for similar
+overflows elsewhere.  I found a possible one in blarg.c, near line
+666.  Are you sure the sender can't generate more than 80 characters
+per transmission?&#8221;</p><p>&#8220;Have you considered using the Foonly algorithm for this
+problem?  There is a good implementation at
+&lt;http://www.example.com/~jsmith/foonly.html&gt;&#8221;.</p><p>&#8220;This patch solves the immediate problem, but I realize it
+complicates the memory allocation in an unpleasant way.  Works for me,
+but you should probably test it under heavy load before
+shipping&#8221;.</p><p>&#8220;This may be featuritis, but I'm sending it anyway.
+Maybe you'll know a cleaner way to implement the
+feature&#8221;.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id3008290"/>Do include useful comments in your code.</h4></div></div><p>A maintainer will want to have strong confidence that he
+understands your changes before merging them in.  This isn't an
+invariable rule; if you have a track record of good work with the
+maintainer, he may just run a casual eye over the changes before
+checking them in semiautomatically.  But everything you can do to
+help him understand your code and decrease his uncertainty increases
+your chances that your patch will be accepted.</p><p>Good comments in your code help the maintainer understand it.
+Bad comments don't.</p><p>Here's an example of a bad comment:</p><pre class="programlisting">
+/* norman newbie fixed this 13 Aug 2001 */
+</pre><p>This conveys no information.  It's nothing but a muddy
+territorial bootprint you're planting in the middle of the
+maintainer's code.  If he takes your patch (which you've made less
+likely) he will almost certainly strip out this comment.  If you want
+a credit, include a patch band for the project
+<tt>NEWS</tt> or <tt>HISTORY</tt> file.  He's
+more likely to take that.</p><p>Here's an example of a good comment:</p><pre class="programlisting">
+/*
+ * This conditional needs to be guarded so that crunch_data() never
+ * gets passed a NULL pointer.  &lt;norman_newbie@foosite.com&gt;
+ */
+</pre><p>This comment shows that you understand not only the maintainer's
+code but the kind of information that he needs to have confidence in
+your changes.  This kind of comment <span class="emphasis"><em>gives</em></span> him
+confidence in your changes.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id3008383"/>Don't take it personally if your patch is rejected</h4></div></div><p>There are lots of reasons a patch can be rejected that don't
+reflect on you.  Remember that most maintainers are under heavy time
+pressure, and have to be conservative in what they accept lest the
+project code get broken.  Sometime resubmitting with improvements
+will help.  Sometimes it won't.  Life is hard.</p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="naming"/>Good Project- and Archive-Naming Practice</h3></div></div><p>As the load on maintainers of archives like ibiblio, SourceForge,
+and CPAN increases, there is an increasing trend for submissions
+to be processed partly or wholly by programs (rather than entirely by
+a human).</p><p>This makes it more important for project and archive-file names
+to fit regular patterns that computer programs can parse and
+understand.</p><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id3008426"/>Use GNU-style names with a stem and major.minor.patch numbering.</h4></div></div><p>It's helpful to everybody if your archive files all have GNU-like
+names &#8212; all-lower-case alphanumeric stem prefix, followed by a hyphen,
+followed by a version number, extension, and other suffixes.</p><p>A good general form of name has these parts in order:</p><div class="orderedlist"><ol type="1"><li><p>project prefix</p></li><li><p>dash</p></li><li><p>version number</p></li><li><p>dot</p></li><li><p>&#8220;src&#8221; or &#8220;bin&#8221; (optional)</p></li><li><p>dot or dash (dot preferred)</p></li><li><p>binary type and options (optional)</p></li><li><p>archiving and compression extensions</p></li></ol></div><p>Name stems in this style can contain hyphen or underscores to
+separate syllables; dashes are actually preferred.  It is good
+practice to group related projects by giving the stems a common 
+hyphen-terminated prefix.</p><p>Let's suppose you have a project you call &#8216;foobar&#8217;
+at major version 1, minor version or release 2, patchlevel 3.  If it's
+got just one archive part (presumably the sources), here's what its
+names should look like like:</p><div class="variablelist"><dl><dt><span class="term"><tt>foobar-1.2.3.tar.gz</tt></span></dt><dd><p>The source archive.</p></dd><dt><span class="term"><tt>foobar.lsm</tt></span></dt><dd><p>The LSM file (assuming you're submitting to ibiblio).</p></dd></dl></div><p>Please <span class="emphasis"><em>don't</em></span> use names like these:</p><div class="variablelist"><dl><dt><span class="term"><tt>foobar123.tar.gz</tt></span></dt><dd><p>This looks to many programs like an archive
+for a project called &#8220;foobar123&#8221; with no version number.</p></dd><dt><span class="term"><tt>foobar1.2.3.tar.gz</tt></span></dt><dd><p>This looks to many programs like an archive
+for a project called &#8220;foobar1&#8221; at version 2.3.</p></dd><dt><span class="term"><tt>foobar-v1.2.3.tar.gz</tt></span></dt><dd><p>Many programs think this goes with a
+project called &#8220;foobar-v1&#8221;.</p></dd><dt><span class="term"><tt>foo_bar-1.2.3.tar.gz</tt></span></dt><dd><p>The underscore is hard for people to speak,
+type, and remember.</p></dd><dt><span class="term"><tt>FooBar-1.2.3.tar.gz</tt></span></dt><dd><p>Unless you <span class="emphasis"><em>like</em></span> looking like a
+marketing weenie.  This is also hard for people to speak, type, and 
+remember.</p></dd></dl></div><p>If you have to differentiate between source and binary archives, or
+between different kinds of binary, or express some kind of build
+option in the file name, please treat that as a file extension to go
+<span class="emphasis"><em>after</em></span> the version number. That is, please do this:</p><div class="variablelist"><dl><dt><span class="term"><tt>foobar-1.2.3.src.tar.gz</tt></span></dt><dd><p>Sources.</p></dd><dt><span class="term"><tt>foobar-1.2.3.bin.tar.gz</tt></span></dt><dd><p>Binaries, type not specified.</p></dd><dt><span class="term"><tt>foobar-1.2.3.bin.i386.tar.gz</tt></span></dt><dd><p>i386 binaries.</p></dd><dt><span class="term"><tt>foobar-1.2.3.bin.i386.static.tar.gz</tt></span></dt><dd><p>i386 binaries statically linked.</p></dd><dt><span class="term"><tt>foobar-1.2.3.bin.SPARC.tar.gz</tt></span></dt><dd><p>SPARC binaries.</p></dd></dl></div><p>Please <span class="emphasis"><em>don't</em></span> use names like
+&#8216;foobar-i386-1.2.3.tar.gz&#8217;, because programs have a hard
+time telling type infixes (like &#8216;-i386&#8217;) from the
+stem.</p><p>The convention for distinguishing major from minor release is
+simple: you increment the patch level for fixes or minor features, the 
+minor version number for compatible new features, and the major
+version number when you make incompatible changes.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="local"/>But respect local conventions where appropriate.</h4></div></div><p>Some projects and communities have well-defined conventions for
+names and version numbers that aren't necessarily compatible with the
+above advice.  For instance,
+Apache<a id="id3012923" class="indexterm"/> modules are
+generally named like mod_foo, and have both their own version number
+and the version of Apache with which they work.  Likewise,
+Perl<a id="id3012933" class="indexterm"/> modules
+have version numbers that can be treated as floating point numbers
+(e.g., you might see 1.303 rather than 1.3.3), and the distributions
+are generally named Foo-Bar-1.303.tar.gz for version 1.303 of module
+Foo::Bar. (Perl itself, on the other hand, switched to using the
+conventions described here in late 1999.)</p><p>Look for and respect the conventions of specialized
+communities and developers; for general use, follow the above
+guidelines.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="prefix"/>Try hard to choose a name prefix that is unique and easy to type.</h4></div></div><p>The stem prefix should be common to all of a project's files, and it
+should be easy to read, type, and remember.  So please don't use
+underscores.  And don't capitalize or BiCapitalize without extremely
+good reason &#8212; it messes up the natural human-eyeball search order and
+looks like some marketing weenie trying to be clever.</p><p>It confuses people when two different projects have the same
+stem name.  So try to check for collisions before your first release.
+Two good places to check are the <a href="http://metalab.unc.edu/pub/Linux" target="_top">index file of ibiblio</a>
+and the application index at <a href="http://www.freshmeat.net/" target="_top">Freshmeat</a>.  Another good place
+to check is <a href="http://www.sourceforge.net/" target="_top">SourceForge</a>;
+do a name search there.</p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="develpractice"/>Good Development Practice</h3></div></div><p>Here are some of the behaviors that can make the difference 
+between a successful project with lots of contributors and one that
+stalls out after attracting no interest:</p><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="proprietary"/>Don't rely on proprietary code.</h4></div></div><p>Don't rely on proprietary languages, libraries, or other code.
+Doing so is risky business at the best of times; in the open-source
+community, it is considered downright rude. Open-source developers
+don't trust code for which they can't review the source.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="autoconf"/>Use GNU Autotools.</h4></div></div><p>Configuration choices should be made at compile time. A
+significant advantage of open-source distributions is that they allow
+the package to adapt at compile-time to the environment it finds. This
+is critical because it allows the package to run on platforms its
+developers have never seen, and it allows the software's community of
+users to do their own ports. Only the largest of development teams can
+afford to buy all the hardware and hire enough employees to support
+even a limited number of platforms.</p><p>Therefore: Use the GNU autotools to handle portability issues,
+do system-configuration probes, and tailor your makefiles.  People
+building from sources today expect to be able to type
+<b>configure; make; make install</b> and get a clean build
+&#8212; and rightly so.  There is a <a href="http://seul.org/docs/autotut/" target="_top">good tutorial on these
+tools</a>.</p><p><i>autoconf</i> and
+<i>autoheader</i> are mature.
+<i>automake</i>, as we've previously noted, is
+still buggy and brittle as of mid-2003; you may have to maintain
+your own <tt>Makefile.in</tt>.  Fortunately
+it's the least important of the autotools.</p><p>Regardless of your approach to configuration, do not ask the user
+for system information at compile-time. The user installing the package
+does not know the answers to your questions, and this approach is doomed
+from the start. The software must be able to determine for itself any
+information that it may need at compile- or install-time.</p><p>But <i>autoconf</i> should not be regarded
+as a license for knob-ridden designs.  If at all possible, program to
+standards like POSIX and refrain also from asking the system for
+configuration information.  Keep ifdefs to a minimum &#8212; or,
+better yet, have none at all.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="testcode"/>Test your code before release.</h4></div></div><p>A good test suite allows the team to easily run regression tests
+before releases. Create a strong, usable test framework so that you
+can incrementally add tests to your software without having to train
+developers in the specialized intricacies of the test suite.</p><p>Distributing the test suite allows the community of users to test
+their ports before contributing them back to the group.</p><p>Encourage your developers to use a wide variety of platforms as
+their desktop and test machines, so that code is continuously being
+tested for portability flaws as part of normal development.</p><p>It is good practice, and encourages confidence in your code, when
+it ships with the test suite you use, and that test suite can be run
+with <b>make test</b>.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="sanitycode"/>Sanity-check your code before release.</h4></div></div><p>By &#8220;sanity check&#8221; we mean: use every tool available
+that has a reasonable chance of catching errors a human would be prone
+to overlook. The more of these you catch with tools, the fewer your
+users and you will have to contend with.</p><p>If you're writing C<a id="id3013223" class="indexterm"/>/C++<a id="id3013231" class="indexterm"/> using GCC, test-compile with -Wall and
+clean up all warning messages before each release. Compile your code
+with every compiler you can find &#8212; different compilers often
+find different problems. Specifically, compile your software on a true
+64-bit machine. Underlying datatypes can change on 64-bit machines,
+and you will often find new problems there. Find a Unix vendor's
+system and run the lint utility over your software.</p><p>Run tools that look for memory leaks and other runtime errors;
+Electric Fence and Valgrind are two good ones available in open source.
+</p><p>For Python<a id="id3013259" class="indexterm"/> projects, the <a href="http://sourceforge.net/projects/pychecker" target="_top">PyChecker</a>
+program can be a useful check.  It often catches nontrivial errors.</p><p>If you're writing Perl<a id="id3013280" class="indexterm"/>, check your code with perl
+<tt>-c</tt> (and maybe <tt>-T</tt>, if
+applicable). Use perl <tt>-w</tt> and 'use strict'
+religiously. (See the Perl documentation for further
+discussion.)</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="sanitydocs"/>Spell-check your documentation and READMEs before release.</h4></div></div><p>Spell-check your documentation, README files and error messages
+in your software. Sloppy code, code that produces warning messages when
+compiled, and spelling errors in README files or error messages, all lead
+users to believe the engineering behind it is also haphazard and
+sloppy.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="cport"/>Recommended C/C++ Portability Practices</h4></div></div><p>If you are writing C<a id="id3013338" class="indexterm"/>, feel free to use the full ANSI
+features.  Specifically, do use function prototypes, which will help
+you spot cross-module inconsistencies.  The old-style K&amp;R
+compilers are ancient history.</p><p>Do not assume compiler-specific features such as the GCC
+<tt>-pipe</tt> option or nested functions are available. These
+will come around and bite you the second somebody ports to a
+non-Linux, non-GCC system.</p><p>Code required for portability should be isolated to a single
+area and a single set of source files (for example, an
+<tt>os</tt> subdirectory).  Compiler, library and
+operating system interfaces with portability issues should be
+abstracted to files in this directory.</p><p>A portability layer is a library (or perhaps just a set of
+macros in header files) that abstracts away just the parts of an
+operating system's API your program is interested in.  Portability
+layers make it easier to do new software ports. Often, no member of
+the development team knows the porting platform (for example, there
+are literally hundreds of different embedded operating systems, and
+nobody knows any significant fraction of them). By creating a separate
+portability layer, it becomes possible for a specialist who knows a
+platform to port your software without having to understand anything
+outside the portability layer.</p><p>Portability layers also simplify applications. Software rarely
+needs the full functionality of more complex system calls such as
+mmap(2)
+or
+stat(2),
+and programmers commonly configure such complex interfaces
+incorrectly. A portability layer with abstracted interfaces
+(say, something named <tt>__file_exists</tt> instead of a call to
+stat(2))
+allows you to import only the limited, necessary functionality from
+the system, simplifying the code in your application.</p><p>Always write your portability layer to select based on a
+feature, never based on a platform. Trying to create a separate
+portability layer for each supported platform results in a multiple
+update problem maintenance nightmare. A &#8220;platform&#8221; is
+always selected on at least two axes: the compiler and the
+library/operating system release. In some cases there are three axes,
+as when Linux vendors select a C<a id="id3013458" class="indexterm"/> library independently of the operating
+system release. With <span class="emphasis"><em>M</em></span> vendors, <span class="emphasis"><em>N</em></span> compilers, and <span class="emphasis"><em>O</em></span> operating system
+releases, the number of platforms quickly scales out of reach of any
+but the largest development teams.  On the other hand, by using
+language and systems standards such as ANSI and POSIX 1003.1, the set
+of features is relatively
+constrained.<a id="id3013485" class="indexterm"/></p><p>Portability choices can be made along either lines of code or
+compiled files. It doesn't make a difference if you select alternate
+lines of code on a platform, or one of a few different files. A rule
+of thumb is to move portability code for different platforms into
+separate files when the implementations diverge significantly (shared
+memory mapping on Unix vs. Windows), and leave portability code in a
+single file when the differences are minimal (for example, whether
+you're using <tt>gettimeofday</tt>, <tt>clock_gettime</tt>, <tt>ftime</tt> or <tt>time</tt> to
+find out the current time-of-day).</p><p>For anywhere outside a portability layer, heed this advice:</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p><tt>#ifdef</tt> and <tt>#if</tt> are last resorts, usually a sign of failure
+of imagination, excessive product differentiation, gratuitous
+&#8220;optimization&#8221; or accumulated trash. In the middle of
+code they are anathema.  <tt>/usr/include/stdio.h</tt>
+from GNU is an archetypical horror.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Doug McIlroy</span>
+<a id="id3013564" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Use of <tt>#ifdef</tt> and <tt>#if</tt> is permissible (if well controlled) within a
+portability layer. Outside it, try hard to confine these to
+conditionalizing <tt>#includes</tt> based on feature
+symbols.</p><p>Never intrude on the namespace of any other part of the system,
+including filenames, error return values and function names.  Where
+the namespace is shared, document the portion of the namespace that you
+use.</p><p>Choose a coding standard. The debate over the choice of standard
+can go on forever &#8212; regardless, it is too difficult and
+expensive to maintain software built using multiple coding standards,
+and so some common style must be chosen. Enforce your coding standard
+ruthlessly, as consistency and cleanliness of the code are of the
+highest priority; the details of the coding standard itself are a
+distant second.</p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="distpractice"/>Good Distribution-Making Practice</h3></div></div><p>These guidelines describe how your distribution should look when
+someone downloads, retrieves and unpacks it.</p><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="tarballs"/>Make sure tarballs always unpack into a single new directory.</h4></div></div><p>The single most annoying mistake fledgling contributors make is to build
+tarballs that unpack the files and directories in the distribution into
+the current directory, potentially overwriting files already located there.
+<span class="emphasis"><em>Never do this!</em></span></p><p>Instead, make sure your archive files all have a common directory part
+named after the project, so they will unpack into a single top-level 
+directory directly <span class="emphasis"><em>beneath</em></span> the current one.
+Conventionally, the name of the directory should be the same as the
+stem of the tarball's name.  So, for example, a tarball named
+<tt>foo-0.23.tar.gz</tt> is expected to unpack into
+a subdirectory named <tt>foo-0.23</tt>.</p><p><a href="#tar_trick" title="Example 19.1. tar archive maker production.">Example 19.1</a> shows a makefile trick that,
+assuming your distribution directory is named &#8220;foobar&#8221;
+and SRC contains a list of your distribution files, accomplishes
+this.</p><div class="example"><a id="tar_trick"/><p class="title"><b>Example 19.1. <i>tar</i> archive maker production.</b></p><pre class="programlisting">
+foobar-$(VERS).tar.gz:
+	@ls $(SRC) | sed s:^:foobar-$(VERS)/: &gt;MANIFEST
+	@(cd ..; ln -s foobar foobar-$(VERS))
+	(cd ..; tar -czvf foobar/foobar-$(VERS).tar.gz `cat foobar/MANIFEST`)
+	@(cd ..; rm foobar-$(VERS))
+</pre></div></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="readme"/>Include a README.</h4></div></div><p>Include a file called <tt>README</tt> that is a roadmap
+of your source distribution.  By ancient convention (originating with
+Dennis Ritchie himself before 1980, and promulgated on
+Usenet<a id="id3013802" class="indexterm"/> in the early
+1980s), this is the first file intrepid explorers will read after
+unpacking the source.</p><p><tt>README</tt> files should be short and easy to
+read.  Make yours an introduction, not an epic. Good things to have in
+the <tt>README</tt> include the following:</p><div class="orderedlist"><ol type="1"><li><p>A brief description of the project.</p></li><li><p>A pointer to the project website (if it has 
+one).</p></li><li><p>Notes on the developer's build environment and
+potential portability problems.</p></li><li><p>A roadmap describing important files and subdirectories.</p></li><li><p>Either build/installation instructions or a pointer to a file
+containing same (usually <tt>INSTALL</tt>).</p></li><li><p>Either a maintainers/credits list or a pointer to a
+file containing same (usually
+<tt>CREDITS</tt>).</p></li><li><p>Either recent project news or a pointer to a file
+containing same (usually <tt>NEWS</tt>).</p></li><li><p>Project mailing list addresses.</p></li></ol></div><p>At one time this file was commonly <tt>READ.ME</tt>,
+but this interacts badly with browsers, who are all too likely to
+assume that the <tt>.ME</tt> suffix means it's not textual and can only be
+downloaded rather than browsed.  This usage is deprecated.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="filenames"/>Respect and follow standard file-naming practices.</h4></div></div><p>Before even looking at the <tt>README</tt>, your
+intrepid explorer will have scanned the filenames in the top-level
+directory of your unpacked distribution.  Those names can themselves
+convey information.  By adhering to certain standard naming practices,
+you can give the explorer valuable clues about where to look
+next.</p><p>Here are some standard top-level file names and what they mean.  Not
+every distribution needs all of these.</p><div class="variablelist"><dl><dt><span class="term">README</span></dt><dd><p>The roadmap file, to be read first.</p></dd><dt><span class="term">INSTALL</span></dt><dd><p>Configuration, build, and installation instructions.</p></dd><dt><span class="term">AUTHORS</span></dt><dd><p>List of project contributors (GNU convention).</p></dd><dt><span class="term">NEWS</span></dt><dd><p>Recent project news.</p></dd><dt><span class="term">HISTORY</span></dt><dd><p>Project history.</p></dd><dt><span class="term">CHANGES</span></dt><dd><p>Log of significant changes between revisions.</p></dd><dt><span class="term">COPYING</span></dt><dd><p>Project license terms (GNU convention).</p></dd><dt><span class="term">LICENSE</span></dt><dd><p>Project license terms.</p></dd><dt><span class="term">FAQ</span></dt><dd><p>Plain-text Frequently-Asked-Questions document for
+the project.</p></dd></dl></div><p>Note the overall convention that filenames with all-caps names
+are human-readable metainformation about the package, rather than
+build components. This elaboration of the <tt>README</tt>
+was developed early on at the Free Software
+Foundation<a id="id3014118" class="indexterm"/>.</p><p>Having a <tt>FAQ</tt> file can save you a lot of
+grief.  When a question about the project comes up often, put it in
+the FAQ; then direct users to read the FAQ before sending questions or
+bug reports.  A well-nurtured FAQ can decrease the support burden on
+the project maintainers by an order of magnitude or more.</p><p>Having a <tt>HISTORY</tt> or
+<tt>NEWS</tt> file with timestamps in it for each release
+is valuable.  Among other things, it may help establish prior art if
+you are ever hit with a patent-infringement lawsuit (this hasn't
+happened to anyone yet, but best to be prepared).</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="upgradability"/>Design for upgradability.</h4></div></div><p>Your software will change over time as you put out new releases.  Some
+of these changes will not be backward-compatible.  Accordingly, you
+should give serious thought to designing your installation layouts so
+that multiple installed versions of your code can coexist on the same
+system.  This is especially important for libraries &#8212; you can't 
+count on all your client programs to upgrade in lockstep with your
+API changes.</p><p>The Emacs, Python, and Qt projects have a good convention for
+handling this: version-numbered directories (another practice that
+seems to have been made routine by the FSF<a id="id3014194" class="indexterm"/>).  Here's how an installed
+Qt library hierarchy looks (<tt>${ver}</tt> is the version
+number):</p><pre class="screen">
+/usr/lib/qt
+/usr/lib/qt-${ver}
+/usr/lib/qt-${ver}/bin          # Where you find moc
+/usr/lib/qt-${ver}/lib          # Where you find .so
+/usr/lib/qt-${ver}/include      # Where you find header files
+</pre><p>With this organization, multiple versions can coexist.  Client
+programs have to specify the library version they want, but that's a
+small price to pay for not having the interfaces break on them.  This
+good practice avoids the notorious <a href="ch03s02.html#dll_hell">&#8220;DLL
+Hell&#8221;</a> failure mode of Windows.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="rpms"/>Under Linux, provide RPMs.</h4></div></div><p>The de facto standard format for installable binary packages
+under Linux that used by the Red Hat Package manager, RPM.  It's
+featured in the most popular Linux<a id="id3014256" class="indexterm"/> distribution, and supported by
+effectively all other Linux distributions (except Debian and
+Slackware; and Debian can install from RPMs). Accordingly, it's a good
+idea for your project site to provide installable RPMs as well as
+source tarballs.</p><p>It's also a good idea for you to include in your source tarball
+the RPM spec file, with a production that makes RPMs from it in your
+<tt>makefile</tt>.  The spec file should have the
+extension <tt>.spec</tt>; that's how the
+<i>rpm</i> <tt>-t</tt> option finds it in a
+tarball.</p><p>For extra style points, generate your spec file with a
+shellscript that automatically plugs in the correct version number by
+analyzing the project <tt>makefile</tt> or a
+<tt>version.h</tt>.</p><p>Note: If you supply source RPMs, use BuildRoot to make the
+program be built in <tt>/tmp</tt> or
+<tt>/var/tmp</tt>.  If you don't, during the course of
+running the make install part of your build, the install will install
+the files in the real final places. This will happen even if there are
+file collisions, and even if you didn't want to install the package at
+all. When you're done, the files will have been installed and your
+system's RPM database will not know about it. Such badly behaved SRPMs
+are a minefield and should be eschewed.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="checksums"/>Provide checksums.</h4></div></div><p>Provide checksums with your binaries (tarballs, RPMs, etc.).  This
+will allow people to verify that they haven't been corrupted or had
+Trojan-horse code inserted in them.</p><p>While there are several commands you can use for this purpose
+(such as <b>sum</b> and <b>cksum</b>) it is
+best to use a cryptographically-secure hash function.  The GPG package
+provides this capability via the <tt>--detach-sign</tt>
+option; so does the GNU command <b>md5sum</b>.</p><p>For each binary you ship, your project Web page should list
+the checksum and the command you used to generate it.</p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="communication"/>Good Communication Practice</h3></div></div><p>Your software and documentation won't do the world much good if
+nobody but you knows they exist.  Also, developing a visible presence for
+the project on the Internet will assist you in recruiting users and
+co-developers.  Here are the standard ways to do that.</p><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="announce"/>Announce to Freshmeat.</h4></div></div><p>Announce to <a href="http://www.freshmeat.net/" target="_top">Freshmeat</a>.
+Besides being widely read itself, this group is a major feeder for 
+Web-based technical news channels.</p><p>Never assume the audience has been reading your release
+announcements since the beginning of time.  Always include at least a
+one-line description of what the software does.  Bad example:
+&#8220;Announcing the latest release of FooEditor, now with themes
+and ten times faster&#8221;.  Good example: &#8220;Announcing the
+latest release of FooEditor, the scriptable editor for touch-typists, 
+now with themes and ten times faster&#8221;.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="newsgroup"/>Announce to a relevant topic newsgroup.</h4></div></div><p>Find a Usenet topic group directly relevant to your application,
+and announce there as well.  Post only where the
+<span class="emphasis"><em>function</em></span> of the code is relevant, and exercise
+restraint.</p><p>If (for example) you are releasing a program written in Perl
+that queries IMAP servers, you should certainly post to <tt>comp.mail.imap</tt>.  But you should probably
+not post to <tt>comp.lang.perl</tt>
+unless the program is also an instructive example of cutting-edge Perl
+techniques.</p><p>Your announcement should include the URL of a project website.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="website"/>Have a website.</h4></div></div><p>If you intend trying to build any substantial user or developer community
+around your project, it should have a website.  Standard things to have
+on the website include:</p><div class="itemizedlist"><ul type="disc"><li><p>The project charter (why it exists, who the audience is, etc.).</p></li><li><p>Download links for the project sources.</p></li><li><p>Instructions on how to join the project mailing list(s).</p></li><li><p>A FAQ (Frequently Asked Questions) list.</p></li><li><p>HTMLized versions of the project documentation.</p></li><li><p>Links to related and/or competing projects.</p></li></ul></div><p>Refer to the website examples in <a href="reusechapter.html" title="Chapter 16. Reuse">Chapter 16</a> for examples of what a well-educated project
+website looks like.</p><p>An easy way to have a website is to put your project on one of
+the sites that specializes in providing free hosting. In 2003
+the two most important of these are SourceForge (which is a
+demonstration and test site for proprietary collaboration tools) or
+Savannah (which hosts open-source projects as an ideological
+statement).</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="lists"/>Host project mailing lists.</h4></div></div><p>It's standard practice to have a private development list
+through which project collaborators can communicate and exchange
+patches.  You may also want to have an announcements list for people
+who want to be kept informed of the project's progress.</p><p>If you are running a project named &#8216;foo&#8217;, your
+developer list might be <tt>&lt;<a href="mailto:foo-dev">foo-dev</a>&gt;</tt> or
+<tt>&lt;<a href="mailto:foo-friends">foo-friends</a>&gt;</tt>; your announcement list might be
+<tt>&lt;<a href="mailto:foo-announce">foo-announce</a>&gt;</tt>.</p><p>An important decision is just how private the
+&#8220;private&#8221; development list is.  Wider participation in
+design discussions is often a good thing, but if the list is
+relatively open, sooner or later you <span class="emphasis"><em>will</em></span> get
+people asking new-user questions on it.  Opinions vary on how best to
+solve this problem.  Just having the documentation tell the new users
+not to ask elementary questions on the development list is not a
+solution; such a request must be enforced somehow.</p><p>An announcements list needs to be tightly controlled.  Traffic should be
+at most a few messages a month; the whole purpose of such a list is to
+accommodate people who want to know when something important happens, but
+don't want to hear about day-to-day details.  Most such people will
+quickly unsubscribe if the list starts generating significant clutter in
+their mailboxes.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="archives"/>Release to major archives.</h4></div></div><p>See the section <i>Where Should I Look?</i> in
+<a href="reusechapter.html" title="Chapter 16. Reuse">Chapter 16</a> for specifics on
+the major open-source archive sites.  You should release your package
+to these.</p><p>Other important locations include:</p><div class="itemizedlist"><ul type="disc"><li><p>The <a href="http://www.python.org/" target="_top">Python Software Activity</a>
+site (for software written in Python).</p></li><li><p>The <a href="http://language.perl.com/CPAN" target="_top">CPAN</a>, the
+Comprehensive Perl Archive Network (for software written in Perl).</p></li></ul></div></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch19s01.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="opensourcechapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch19s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Unix and Open Source </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> The Logic of Licenses: How to Pick One</td></tr></table></div></body></html>

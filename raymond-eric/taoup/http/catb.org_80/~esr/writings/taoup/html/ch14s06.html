@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Choosing an X Toolkit</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="languageschapter.html" title="Chapter 14. Languages"/><link rel="previous" href="ch14s05.html" title="Trends for the Future"/><link rel="next" href="toolschapter.html" title="Chapter 15. Tools"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Choosing an X Toolkit</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch14s05.html">Prev</a> </td><th width="60%" align="center">Chapter 14. Languages</th><td width="20%" align="right"> <a accesskey="n" href="toolschapter.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2978671"/>Choosing an X Toolkit</h2></div></div><p>An issue related to choice of language is choice of X toolkit
+for GUI programming.  Recall the discussion in <a href="philosophychapter.html" title="Chapter 1. Philosophy">Chapter 1</a> of how X separates mechanism from
+policy.  Each possible choice of toolkit will give you a slightly
+different look and feel.</p><p>Your choice of X toolkit will be connected to your choice of
+application language in two ways: first, because some languages ship
+with a binding to a preferred toolkit, and second because some
+toolkits only have bindings to a limited set of languages.</p><p>Java<a id="id2978702" class="indexterm"/>, of
+course, has its own cross-platform toolkits built in, so your choice
+will be between AWT (universally deployed) and Swing (more capable,
+more complex, slower, and only in JDK 1.2/Java 2). The remainder of
+this section focuses on the other languages we have
+surveyed. Similarly, if you're using Tcl, Tk comes bundled.  There
+probably is not a lot of point in evaluating alternatives.</p><p>The once-ubiquitous Motif toolkit is effectively dead. It
+couldn't keep up with the newer toolkits distributed without license fees
+or restrictions.  These attracted more developer effort until they
+surged past closed-source toolkits in capability and features;
+nowadays, the competition is all in open source.</p><p>The four toolkits to consider seriously in 2003 are Tk,
+GTK, Qt, and wxWindows, with GTK and Qt being the clear front runners.
+All four have ports on MacOS and Windows, so any choice will give you
+the capability to do cross-platform development.</p><p>The Tk toolkit is the oldest of the four and has the advantage
+of incumbency; it's native in Tcl and bindings to it are shipped with
+the stock version of Python<a id="id2978744" class="indexterm"/>.  Libraries to provide language
+bindings to Tk are generally available for C<a id="id2978754" class="indexterm"/> and C++<a id="id2978762" class="indexterm"/>.  Unfortunately, Tk also shows its age
+in that its standard widget set is both limited and rather ugly.  On
+the other hand, the Tk Canvas widget has capabilities that other
+toolkits still match only with difficulty.</p><p>GTK began life as a replacement for Motif, and was invented to
+support the GIMP<a id="id2978780" class="indexterm"/>.  It is
+now the preferred toolkit of the GNOME project and is used by hundreds
+of GNOME applications. The native API is C; bindings are available for
+C++<a id="id2978791" class="indexterm"/>,
+Perl<a id="id2978800" class="indexterm"/>, and
+Python<a id="id2978808" class="indexterm"/>, but
+do not ship with the stock language distributions.  It's the only one
+of these four with a native C binding.</p><p>Qt is a toolkit associated with the KDE project.  It is natively
+a C++<a id="id2978824" class="indexterm"/> library;
+bindings are available for Python<a id="id2978833" class="indexterm"/> and Perl<a id="id2978842" class="indexterm"/> but do not ship with the stock
+interpreters. Qt has a reputation for having the best-designed and
+most expressive API of these four, but adoption was initially hindered
+by controversy over early versions of the Qt license and was further
+slowed down by the fact that a C binding was slow in coming.</p><p>wxWindows is also natively C++<a id="id2978860" class="indexterm"/> with bindings available in
+Perl<a id="id2978869" class="indexterm"/> and
+Python<a id="id2978878" class="indexterm"/>.  The
+wxWindows developers emphasize their support for cross-platform
+development heavily and appear to regard it as the main selling point
+of the toolkit.  Another selling point is that wxWindows is actually a
+wrapper around the native (GTK, Windows, and MacOS 9) widgets on each
+platform, so applications written using it retain a native look and
+feel.</p><p>As of mid-2003 few detailed comparisons have been written, but
+a Web search for &#8220;X toolkit comparison&#8221; may turn up some
+useful hits. <a href="#x_toolkits" title="Table 14.2. Summary of X Toolkits.">Table 14.2</a> summarizes the
+state of play.</p><div class="table"><a id="x_toolkits"/><p class="title"><b>Table 14.2. Summary of X Toolkits.</b></p><table summary="Summary of X Toolkits." border="1"><colgroup><col/><col/><col/><col/><col/><col/><col/><col/></colgroup><thead><tr><th rowspan="2">Toolkit</th><th rowspan="2">Native language</th><th rowspan="2">Shipped with</th><th colspan="5">Bindings</th></tr><tr><th>C</th><th>C++</th><th>Perl</th><th>Tcl</th><th>Python</th></tr></thead><tbody><tr><td>Tk</td><td>Tcl</td><td>Tcl, Python</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td></tr><tr><td>GTK</td><td>C</td><td>Gnome</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td></tr><tr><td>Qt</td><td>C++</td><td>KDE</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td></tr><tr><td>wxWindows</td><td>C++</td><td>&#8212;</td><td>&#8212;</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td></tr></tbody></table></div><p>Architecturally, these libraries are all written at about the
+same abstraction level.  GTK and Qt use a slot-and-signal apparatus
+for event-handling so similar that ports between them have been
+reported to be almost trivial.  Your choice among them will probably
+be conditioned more by the availability of bindings to your chosen
+development language than anything else.</p></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch14s05.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="languageschapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="toolschapter.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Trends for the Future </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 15. Tools</td></tr></table></div></body></html>

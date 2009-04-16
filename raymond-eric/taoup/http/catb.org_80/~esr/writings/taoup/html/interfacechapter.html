@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 11. Interfaces</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="design.html" title="Part II. Design"/><link rel="previous" href="ch10s07.html" title="On Breaking These Rules"/><link rel="next" href="ch11s01.html" title="Applying the Rule of Least Surprise"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 11. Interfaces</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch10s07.html">Prev</a> </td><th width="60%" align="center">Part II. Design</th><td width="20%" align="right"> <a accesskey="n" href="ch11s01.html">Next</a></td></tr></table><hr/></div><div class="chapter" lang="en"><div class="titlepage"><div><h2 class="title"><a id="interfacechapter"/>Chapter 11. Interfaces</h2></div><div><h3 class="subtitle"><i>User-Interface Design Patterns in the Unix Environment</i></h3></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><a href="ch11s01.html">Applying the Rule of Least Surprise</a></dt><dt><a href="ch11s02.html">History of Interface Design on Unix</a></dt><dt><a href="ch11s03.html">Evaluating Interface Designs</a></dt><dt><a href="ch11s04.html">Tradeoffs between CLI and Visual Interfaces</a></dt><dd><dl><dt><a href="ch11s04.html#id2951734">Case Study: Two Ways to Write a Calculator Program</a></dt></dl></dd><dt><a href="ch11s05.html">Transparency, Expressiveness, and Configurability</a></dt><dt><a href="ch11s06.html">Unix Interface Design Patterns</a></dt><dd><dl><dt><a href="ch11s06.html#id2957637">The Filter Pattern</a></dt><dt><a href="ch11s06.html#id2957916">The Cantrip Pattern</a></dt><dt><a href="ch11s06.html#id2958032">The Source Pattern</a></dt><dt><a href="ch11s06.html#id2958116">The Sink Pattern</a></dt><dt><a href="ch11s06.html#id2958199">The Compiler Pattern</a></dt><dt><a href="ch11s06.html#id2958336">The ed pattern</a></dt><dt><a href="ch11s06.html#id2958491">The Roguelike Pattern</a></dt><dt><a href="ch11s06.html#id2958899">The &#8216;Separated Engine and Interface&#8217; Pattern</a></dt><dt><a href="ch11s06.html#id2959821">The CLI Server Pattern</a></dt><dt><a href="ch11s06.html#id2959928">Language-Based Interface Patterns</a></dt></dl></dd><dt><a href="ch11s07.html">Applying Unix Interface-Design Patterns</a></dt><dd><dl><dt><a href="ch11s07.html#id2960228">The Polyvalent-Program Pattern</a></dt></dl></dd><dt><a href="ch11s08.html">The Web Browser as a Universal Front End</a></dt><dt><a href="ch11s09.html">Silence Is Golden</a></dt></dl></div><div xmlns="" class="epigraph"><i><p xmlns="http://www.w3.org/1999/xhtml">All our knowledge has its origins in our perceptions.</p></i><span>--<i><span xmlns="http://www.w3.org/1999/xhtml" class="attribution">
+<span class="author">Leonardo Da Vinci</span>
+</span></i></span></div><p>The interface of a program is the sum of all the ways that it
+communicates with human users and other programs.  In <a href="configurationchapter.html" title="Chapter 10. Configuration">Chapter 10</a>, we discussed the use of environment
+variables, switches, run-control files and other parts of
+start-up-time interfaces. In this chapter, we'll untangle the history
+and explain the pragmatics of Unix interfaces after startup time.
+Because user-interface code normally consumes 40% or more of development
+time, knowing good design patterns is especially important here in
+order to avoid a lot of false starts and time-intensive
+rewrites.</p><p>In the Unix tradition of interface design, we encounter two
+themes over and over again. One is anticipatory design for
+communication with other programs; the other is the Rule of Least
+Surprise.</p><p>Unix programs can give you extra power from being used in
+synergistic combinations; we discussed various methods for hooking
+together such combinations in <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a>. The &#8216;other programs&#8217; part
+of Unix interface design is not an afterthought or a marginal case as
+it is under many other operating systems. Rather, it is a central
+challenge that has to be balanced and integrated carefully with the
+demands of interface design for human users.</p><p>Much of Unix-community tradition about program interface design
+may seem odd and arbitrary &#8212; or even, in the age of the GUI,
+downright regressive &#8212; when you encounter that tradition for the
+first time.  But in spite of various blemishes and irregularities,
+that tradition has an inner logic to it which is worth learning and
+understanding. It reflects heuristics accumulated over Unix's long
+history about ways to do effective communication both with human
+beings and with other programs. And it includes a set of conventions
+which create commonalities between programs &#8212; it defines
+&#8216;least surprising&#8217; alternatives for a wide range of common
+interface-design problems.</p><p>After startup, programs normally get input or commands from the
+following sources:</p><div class="itemizedlist"><ul type="disc"><li><p>Data and commands presented on the program's standard
+input.</p></li><li><p>Inputs passed through IPC, such as X server events and
+network messages.</p></li><li><p>Files and devices in known locations (such as a data file name
+passed to or computed by the program).</p></li></ul></div><p>Programs can emit results in all the same ways (with output
+going to standard output).</p><p>Some Unix programs are graphical, some have screen-oriented
+character interfaces, and some use a starkly simple text-filter
+design unchanged from the days of mechanical teletypes. To the
+uninitiated, it is often far from obvious why any given program
+uses the style it does &#8212; or, indeed, why Unix supports such a
+plethora of interface styles at all.</p><p>Unix has several competing interface styles.  All are still
+alive for a reason; they're optimized for different situations. By
+understanding the fit between task and interface style, you will learn
+how to choose the right styles for the jobs you need to do.</p></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch10s07.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="design.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch11s01.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">On Breaking These Rules </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Applying the Rule of Least Surprise</td></tr></table></div></body></html>

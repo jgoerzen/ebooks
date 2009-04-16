@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Evaluating Interface Designs</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="interfacechapter.html" title="Chapter 11. Interfaces"/><link rel="previous" href="ch11s02.html" title="History of Interface Design on Unix"/><link rel="next" href="ch11s04.html" title="Tradeoffs between CLI and Visual Interfaces"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Evaluating Interface Designs</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch11s02.html">Prev</a> </td><th width="60%" align="center">Chapter 11. Interfaces</th><td width="20%" align="right"> <a accesskey="n" href="ch11s04.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2951095"/>Evaluating Interface Designs</h2></div></div><p>All these interface styles survive because they are adapted for
+different jobs. When making design decisions about a project, it's
+important to know how to pick a style (or combine styles) that will be
+appropriate to your application and your user population.</p><p>We will use five basic metrics to categorize interface
+styles: <i>concision</i>,
+<i>expressiveness</i>, <i>ease</i>,
+<i>transparency</i><a id="id2951129" class="indexterm"/>, and
+<i>scriptability</i>.  We've already used some of
+these terms earlier in this book in ways that were preparation for
+defining them here.  They are comparatives, not absolutes; they have
+to be evaluated with respect to a particular problem domain and with
+some knowledge of the users' skill base. Nevertheless, they will help
+organize our thinking in useful ways.</p><p>A program interface is &#8216;concise&#8217; when the length and
+complexity of actions required to do a transaction with it has a low
+upper bound (the measurement might be in keystrokes, gestures, or
+seconds of attention required). Concise interfaces pack a lot of
+leverage into a relatively few bits or state changes.</p><p>Interfaces are &#8216;expressive&#8217; when they can readily be
+used to command a wide variety of actions. The
+<span class="emphasis"><em>most</em></span> expressive interfaces can command
+combinations of actions not anticipated by the designer of the
+program, but which nevertheless give the user useful and consistent
+results.</p><p>The difference between concision and expressiveness is an
+important one. Consider two different ways of entering text: from a
+keyboard, or by picking characters from a screen display with mouse
+clicks. These have equal expressiveness, but the keyboard is more
+concise (as we can easily verify by comparing average text-entry
+speeds). On the other hand, consider two dialects of the same
+programming language, one with a complex-number type and one not.
+Within the problem domain they have in common, their concision will
+be identical; but for a mathematician or electrical engineer, the
+dialect with complex numbers will be much more expressive.</p><p>The &#8216;ease&#8217; of an interface is inversely proportional
+to the mnemonic load it puts on the user &#8212; how many things
+(commands, gestures, primitive concepts) the user has to remember
+specifically to support using that interface. Programming languages
+have a high mnemonic load and low ease; menus and well-labeled
+on-screen buttons are simpler.</p><p>Recall that we devoted an entire earlier chapter to
+&#8216;transparency&#8217;.  In that chapter we touched on the idea of
+interface transparency, and gave the <a href="ch06s01.html#audacity" title="Case Study: audacity"><i>audacity audio
+editor</i></a> as one superb example of it.  But we were
+then much more interested in transparency of a different kind, one
+that relates to the structure of code rather than of user interfaces.
+We therefore described UI transparency in terms of its effect (nothing
+obtrudes between the user and the problem domain) rather than the
+specific features of design that produce it.  Now it's time to zero in
+on these.</p><p>The &#8216;transparency&#8217; of an interface is how few things
+the user has to remember about the state of his problem, his data, or
+his program while <span class="emphasis"><em>using</em></span> the interface<a id="id2951238" class="indexterm"/>.  An interface has high
+transparency when it naturally presents intermediate results, useful
+feedback, and error notifications on the effects of a user's
+actions. So-called WYSIWYG (What You See Is What You Get) interfaces
+are intended to maximize transparency, but sometimes backfire &#8212;
+especially by presenting an over-simplified view of the
+domain.</p><p>The related concept of discoverability applies to interface
+design, as well.  A discoverable interface provides the user with
+assistance in learning it, such as a greeting message pointing to
+context-sensitive help, or explanatory balloon popups.  Though
+discoverability has to be implemented in rather different ways
+for each of the interface styles we shall consider, the degree to
+which it is achievable is largely independent of interface style.
+Thus, we shall not use it as a metric in this discussion.</p><p>Note that transparency of code and design does not automatically imply 
+transparency of interface, or vice versa!  It is all too easy to point
+to code that has one but not the other.</p><p>The &#8216;scriptability&#8217; of an interface is the ease with
+which it can be manipulated by other programs (e.g., through the IPC
+mechanisms discussed in <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a>). Scriptable programs are readily
+usable as components by other programs, reducing the need for costly
+custom coding and making it relatively easy to automate repetitive
+tasks.</p><p>That last point &#8212; automating repetitive tasks &#8212;
+deserves more attention than it usually gets.  Unix programmers,
+administrators, and users develop a habit of thinking through the
+routine procedures they use, then packaging them so they no longer
+have to manually execute or even think about them any more.  This
+habit depends on scriptable interfaces.  It is a quiet but tremendous
+productivity booster not available in most other software
+environments.</p><p>It will be useful to bear in mind that humans and computer
+programs have very different cost functions with respect to these
+metrics. So do novice and expert human users in a particular problem
+domain. We'll explore how the tradeoffs between them change for
+different user populations.</p></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch11s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="interfacechapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch11s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">History of Interface Design on Unix </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Tradeoffs between CLI and Visual Interfaces</td></tr></table></div></body></html>

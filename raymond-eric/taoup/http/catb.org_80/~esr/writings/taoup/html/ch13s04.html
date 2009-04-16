@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>The Right Size of Software</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="complexitychapter.html" title="Chapter 13. Complexity"/><link rel="previous" href="ch13s03.html" title="The Right Size for an Editor"/><link rel="next" href="implementation.html" title="Part III. Implementation"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">The Right Size of Software</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch13s03.html">Prev</a> </td><th width="60%" align="center">Chapter 13. Complexity</th><td width="20%" align="right"> <a accesskey="n" href="implementation.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2968013"/>The Right Size of Software</h2></div></div><p>There is a hidden dual of the Unix gospel of small, sharp tools;
+a background so implicit that many Unix practitioners do not notice 
+it, any more than fish notice the water they swim in.  It is the
+presence of frameworks.</p><p>Small, sharp tools in the Unix style have trouble sharing data,
+unless they live inside a framework that makes communication among
+them easy. Emacs is such a framework, and
+<span class="emphasis"><em>unified management of shared context</em></span> is what the
+optional complexity of Emacs is buying.
+The practical impact of unified management of shared context is that
+the user is not burdened with low-level naming and resource-management
+issues.</p><p>In old-school Unix, the only framework was pipelines,
+redirection, and the shell; the integration was done with scripts, and
+the shared context was (essentially) the file system itself.  But that
+was not the end of evolution.</p><p>Emacs unifies the file system with a world of text buffers and
+helper processes, largely leaving the shell framework behind.  Wily is
+also about buffers and helpers, but incorporates the shell framework
+into itself. Modern desktop environments provide a communication
+framework for GUIs, also leaving the shell framework behind.  Each
+framework has strengths and weaknesses of its own.  Frameworks become
+homes to ecologies of tools &#8212; the shell to shellscripts, Emacs
+to Lisp modes, and desktop environments to flocks of GUIs
+communicating both via drag and drop and by more esoteric means such
+as object brokers.</p><p>This suggests a Rule of Minimality: <span class="emphasis"><em>Choose the shared
+context you want to manage, and build your programs as small as those
+boundaries will allow.</em></span> This is &#8220;as simple as
+possible, but no simpler&#8221;, but it focuses attention on the
+choice of shared context.  It applies not just to frameworks, but
+to applications and program systems.</p><p>It is, however, all too easy to get sloppy about how large your
+shared context needs to be. The pressure behind Zawinski's Law is the
+tendency of applications to want to share context for convenience.
+It's easy to end up carrying around too much weight, too many
+assumptions, and to write programs that are over-complex, bloated, and
+huge.  The paradigmatic example in the 1990s was the way that the
+mailto: URL induced the growth of huge mail clients
+embedded in Web browsers.</p><p>The corrective to this tendency comes straight from the
+old-school Unix hymnbook.  It is the Rule of Parsimony:
+<span class="emphasis"><em>Write a big program only when it is clear by demonstration
+that nothing else will do</em></span>&#8212;that is, when attempts to
+partition the problem have been made and failed. This maxim implies an
+astringent skepticism about large programs, and a strategy for
+avoiding them: look for the small-program solution first. If a single
+small program won't do the job, try building a toolkit of cooperating
+small programs within an existing framework to attack it. Only if both
+approaches fail are you free (in the Unix tradition) to build a large
+program (or a new framework) without feeling you have failed the
+design challenge.</p><p>When you do write a framework, remember the Rule of Separation.
+Frameworks should be mechanism, and have as little policy as possible.
+In most cases, that is no policy at all. Factor as much behavior as
+possible into modules that use the framework.  One of the benefits of
+writing or reusing a framework is that it can help you separate what
+would otherwise be big lumps of policy into separate modules, modes,
+or tools &#8212; pieces that can be usefully recombined with
+others.</p><p>These rules are valuable heuristics, but the tension at the
+heart of the Unix tradition does not resolve neatly into a set of
+<span class="foreignphrase"><i>a-priori</i></span> prescriptions for optimal size
+of any given project.  Circumstances alter cases, and exercising good
+judgment and good taste is what software designers are for.  As in
+Soto Zen, the journey <span class="emphasis"><em>is</em></span> the destination;
+enlightenment has to be rediscovered in every day of practice.</p></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch13s03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="complexitychapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="implementation.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">The Right Size for an Editor </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Part III. Implementation</td></tr></table></div></body></html>

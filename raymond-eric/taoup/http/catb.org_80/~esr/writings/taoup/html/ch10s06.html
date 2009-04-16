@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>How to Choose among the Methods</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="configurationchapter.html" title="Chapter 10. Configuration"/><link rel="previous" href="ch10s05.html" title="Command-Line Options"/><link rel="next" href="ch10s07.html" title="On Breaking These Rules"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">How to Choose among the Methods</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch10s05.html">Prev</a> </td><th width="60%" align="center">Chapter 10. Configuration</th><td width="20%" align="right"> <a accesskey="n" href="ch10s07.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2950195"/>How to Choose among the Methods</h2></div></div><p>We've looked in turn at system and user run-control files, at
+environment variables, and at command-line arguments. Observe the
+progression from least easily changed to most easily changed. There is
+a strong convention that well-behaved Unix programs that use more than
+one of these places should look at them in the order given, allowing
+later settings to override earlier ones (there are specific
+exceptions, such as command-line options that specify where a dotfile
+should be found).</p><p>In particular, environment settings usually override dotfile
+settings, but can be overridden by command-line options. It is good
+practice to provide a command-line option like the <tt>-e</tt>
+of
+make(1) 
+that can override environment settings or declarations in run-control files;
+that way the program can be scripted with well-defined behavior
+regardless of the way the run-control files look or environment
+variables are set.</p><p>Which of these places you choose to look at depends on how much
+persistent configuration state your program needs to keep around
+between invocations. Programs designed mainly to be used in a batch
+mode (as generators or filters in pipelines, for example) are usually
+completely configured with command-line options. Good examples of this
+pattern include
+ls(1),
+grep(1)
+and
+sort(1). At
+the other extreme, large programs with complicated interactive
+behavior may rely entirely on run-control files and environment
+variables, and normal use involves few command-line options or none at
+all. Most X window managers are a good example of this pattern.</p><p>(Unix has the capability for the same file to have multiple
+names or &#8216;links&#8217;.  At startup time, every program has
+available to it the filename through which it was called.
+One other way to signal to a program that has several modes of
+operation which one it should come up in is to give it a link for each
+mode, have it find out which link it was called through, and change 
+its behavior accordingly.  But this technique is generally considered
+unclean and seldom used.)</p><p>Let's look at a couple of programs that gather configuration
+data from all three places. It will be instructive to consider why,
+for each given piece of configuration data, it is collected as it
+is.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="fetchmail_environment"/>Case Study:
+<i>fetchmail</i></h3></div></div><a id="id2950315" class="indexterm"/><p>The <i>fetchmail</i> program uses only two
+environment variables, <tt>USER</tt> and
+<tt>HOME</tt>. These variables are in the predefined set
+initialized by the system; many programs use them.</p><p>The value of <tt>HOME</tt> is used to find the dotfile
+<tt>.fetchmailrc</tt>, which contains configuration
+information in a fairly elaborate syntax obeying the shell-like
+lexical rules described above. This is appropriate because, once it
+has been initially set up, Fetchmail's
+configuration will change only infrequently.</p><p>There is neither an <tt>/etc/fetchmailrc</tt> nor
+any other systemwide file specific to fetchmail. Normally such files
+hold configuration that's not specific to an individual user.
+fetchmail does use a small set of properties with this kind of scope
+&#8212; specifically, the name of the local postmaster, and a few
+switches and values describing the local mail transport setup (such as
+the port number of the local SMTP listener). In practice, however,
+these are seldom changed from their compiled-in default values.  When
+they are changed, they tend to be modified in user-specific
+ways. Thus, there has been no demand for a systemwide fetchmail 
+run-control file.</p><p>Fetchmail can retrieve host/login/password triples from a
+<tt>.netrc</tt> file. Thus, it gets authenticator
+information in the least surprising way.</p><p>Fetchmail has an elaborate set of command-line options, which
+nearly but do not entirely replicate what the
+<tt>.fetchmailrc</tt> can express. The set was not
+originally large, but grew over time as new constructs were added to
+the <tt>.fetchmailrc</tt> minilanguage and parallel
+command-line options for them were added more or less
+reflexively.</p><p>The intent of supporting all these options was to make
+fetchmail easier to script by allowing
+users to override bits of its run control from the command line. But
+it turns out that outside of a few options like
+<tt>--fetchall</tt> and <tt>--verbose</tt> there is
+little demand for this &#8212; and none that can't be satisfied with a
+shellscript that creates a temporary run-control file on the fly and
+then feeds it to fetchmail using the
+<tt>-f</tt> option.</p><p>Thus, most of the command-line options are never used, and in
+retrospect including them was probably a mistake; they bulk up the
+fetchmail code a bit without accomplishing
+anything very useful.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>If bulking up the code were the only problem, nobody would care,
+except for a couple of maintainers.  However, options increase the
+chances of error in code, particularly due to unforeseen interactions
+among rarely used options.  Worse, they bulk up the manual, which is a
+burden on everybody.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Doug McIlroy</span>
+<a id="id2950474" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>There is a lesson here; had I thought carefully enough about
+fetchmail's usage pattern and been a little less ad-hoc about adding
+features, the extra complexity might have been avoided.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>An alternative way of dealing with such situations, which
+doesn't clutter up either the code or the manual much, is to have a
+&#8220;set option variable&#8221; option, such as the
+<tt>-O</tt> option of <i>sendmail</i>,
+which lets you specify an option name and value, and sets that name to
+that value as if such a setting had been given in a configuration
+file.  A more powerful variant of this is what
+<i>ssh</i> does with its <tt>-o</tt>
+option: the argument to <tt>-o</tt> is treated as if it were a
+line appended to the configuration file, with the full config-file
+syntax available.  Either of these approaches gives people with
+unusual requirements a way to override configuration from the command
+line, without requiring you to provide a separate option for each bit
+of configuration that might be overridden.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Henry Spencer</span>
+<a id="id2950516" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2950578"/>Case Study: The XFree86 Server</h3></div></div><p>The X windowing system is the engine that supports bitmapped 
+displays on Unix machines. Unix applications running through a client machine
+with a bitmapped display get their input events through X and 
+send screen-painting requests to it.  Confusingly, X &#8216;servers&#8217;
+actually run on the client machine &#8212; they exist to serve requests to
+interact with the client machine's display device.  The applications
+sending those requests to the X server are called &#8216;X
+clients&#8217;, even though they may be running on a server machine.
+And no, there is no way to explain this inverted terminology that is
+not confusing.</p><p>X servers have a forbiddingly complex interface to their
+environment. This is not surprising, as they have to deal with a wide
+range of complex hardware and user preferences. The environment
+queries common to all X servers, documented on the
+X(1)
+and
+Xserver(1)
+pages, therefore make a useful example for study.  The implementation
+we examine here is XFree86, the X implementation used under
+Linux<a id="id2950627" class="indexterm"/>
+and several other open-source Unixes.</p><p>At startup, the XFree86 server examines a systemwide
+run-control file; the exact pathname varies between X builds on
+different platforms, but the basename is XF86Config. The XF86Config
+file has a shell-like syntax as described above. <a href="#X_config" title="Example 10.2. X configuration example.">Example 10.2</a> is a sample section of an XF86Config file.</p><div class="example"><a id="X_config"/><p class="title"><b>Example 10.2. X configuration example.</b></p><pre class="programlisting">
+# The 16-color VGA server
+
+Section &quot;Screen&quot;
+    Driver      &quot;vga16&quot;
+    Device      &quot;Generic VGA&quot;
+    Monitor     &quot;LCD Panel 1024x768&quot;
+    Subsection  &quot;Display&quot;
+        Modes       &quot;640x480&quot; &quot;800x600&quot;
+        ViewPort    0 0
+    EndSubsection
+EndSection
+</pre></div><p>The XF86Config file describes the host machine's display
+hardware (graphics card, monitor), keyboard, and pointing device
+(mouse/trackball/glidepad). It's appropriate for this information to
+live in a systemwide run-control file, because it applies to all
+users of the machine.</p><p>Once X has acquired its hardware configuration from the run
+control file, it uses the value of the environment variable
+<tt>HOME</tt> to find two dotfiles in the calling user's home
+directory. These files are <tt>.Xdefaults</tt> and
+<tt>.xinitrc</tt>.<sup>[<a id="id2950710" href="#ftn.id2950710">105</a>]</sup></p><p>The <tt>.Xdefaults</tt> file specifies per-user,
+application-specific resources relevant to X (trivial examples of
+these might include font and foreground/background colors for a
+terminal emulator). The phrase &#8216;relevant to X&#8217; indicates a
+design problem, however.  Collecting all these resource declarations
+in one place is convenient for inspecting and editing them, but it is
+not always clear what should be declared in
+<tt>.Xdefaults</tt> and what belongs in an
+application-specific dotfile. The <tt>.xinitrc</tt> file
+specifies the commands that should be run to initialize the user's X
+desktop just after server startup. These programs will almost always
+include a window or session manager.</p><p>X servers have a large set of command-line options. Some of
+these, such as the <tt>-fp</tt> (font path) option, override
+the XF86Config.  Some are intended to help track server bugs, such as
+the <tt>-audit</tt> option; if these are used at all, they are
+likely to vary quite frequently between test runs and are therefore
+poor candidates to be included in a run-control file. A very important
+option is the one that sets the server's display number. Multiple
+servers may run on a host provided each has a unique display number,
+but all instances share the same run-control file(s); thus, the
+display number cannot be derived solely from those files.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2950710" href="#id2950710">105</a>] </sup>The
+<tt>.xinitrc</tt> is analogous to a Startup folder on
+Windows and other operating systems.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch10s05.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="configurationchapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch10s07.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Command-Line Options </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> On Breaking These Rules</td></tr></table></div></body></html>

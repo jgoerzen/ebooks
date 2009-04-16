@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Basics of the Unix Philosophy</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="philosophychapter.html" title="Chapter 1. Philosophy"/><link rel="previous" href="ch01s05.html" title="What Unix Gets Right"/><link rel="next" href="ch01s07.html" title="The Unix Philosophy in One Lesson"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Basics of the Unix Philosophy</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s05.html">Prev</a> </td><th width="60%" align="center">Chapter 1. Philosophy</th><td width="20%" align="right"> <a accesskey="n" href="ch01s07.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2873237"/>Basics of the Unix Philosophy</h2></div></div><p>The &#8216;Unix philosophy&#8217; originated with Ken
+Thompson's<a id="id2873247" class="indexterm"/>
+early meditations on how to design a small but capable operating
+system with a clean service interface. It grew as the Unix culture
+learned things about how to get maximum leverage out of Thompson's
+design.  It absorbed lessons from many sources along the way.</p><p>The Unix philosophy is not a formal design method. It wasn't
+handed down from the high fastnesses of theoretical computer
+science as a way to produce theoretically perfect software. Nor is
+it that perennial executive's mirage, some way to magically extract
+innovative but reliable software on too short a deadline from
+unmotivated, badly managed, and underpaid programmers.</p><p>The Unix philosophy (like successful folk traditions in other
+engineering disciplines) is bottom-up, not top-down. It is pragmatic
+and grounded in experience. It is not to be found in official methods
+and standards, but rather in the implicit half-reflexive knowledge, the
+<span class="emphasis"><em>expertise</em></span> that the Unix culture transmits. It
+encourages a sense of proportion and skepticism &#8212; and shows both
+by having a sense of (often subversive) humor.</p><p>Doug McIlroy,<a id="id2873292" class="indexterm"/> the inventor of
+Unix pipes<a id="id2873301" class="indexterm"/> and one of the
+founders of the Unix tradition, had this to say at the time [<a href="apb.html#McIlroy78" title="[McIlroy78]">McIlroy78</a>]:</p><div class="blockquote"><blockquote class="blockquote"><p>(i) Make each program do one thing well. To do a new job, build
+afresh rather than complicate old programs by adding new
+features.</p><p>(ii) Expect the output of every program to become the input to
+another, as yet unknown, program. Don't clutter output with
+extraneous information. Avoid stringently columnar or binary input
+formats. Don't insist on interactive input.</p><p>(iii) Design and build software, even operating systems, to be
+tried early, ideally within weeks. Don't hesitate to throw away the
+clumsy parts and rebuild them.</p><p>(iv) Use tools in preference to unskilled help to lighten a
+programming task, even if you have to detour to build the tools and
+expect to throw some of them out after you've finished using
+them.</p></blockquote></div><p>He later summarized it this way (quoted in <i>A Quarter
+Century of Unix</i> [<a href="apb.html#Salus" title="[Salus]">Salus</a>]):</p><div class="blockquote"><blockquote class="blockquote"><p>This is the Unix philosophy: Write programs that do one
+thing and do it well. Write programs to work together. Write
+programs to handle text streams, because that is a universal
+interface.</p></blockquote></div><p>Rob Pike<a id="id2873377" class="indexterm"/>, who
+became one of the great masters of C<a id="id2873386" class="indexterm"/>, offers a slightly different angle
+in <i>Notes on C Programming</i> [<a href="apb.html#Pike" title="[Pike]">Pike</a>]:</p><div class="blockquote"><blockquote class="blockquote"><p>Rule 1. You can't tell where a program is going to spend its
+time. Bottlenecks occur in surprising places, so don't try to second
+guess and put in a speed hack until you've proven that's where the
+bottleneck
+is.<a id="id2873416" class="indexterm"/></p><p>Rule 2. Measure. Don't tune for speed until you've measured, and
+even then don't unless one part of the code overwhelms the
+rest.</p><p>Rule 3. Fancy algorithms are slow when <tt>n</tt> is small, and <tt>n</tt> is usually small. Fancy algorithms have big
+constants. Until you know that <tt>n</tt> is
+frequently going to be big, don't get fancy. (Even if <tt>n</tt> does get big, use Rule 2 first.)</p><p>Rule 4. Fancy algorithms are buggier than simple ones, and
+they're much harder to implement. Use simple algorithms as well as
+simple data structures.</p><p><a id="rule5"/>Rule 5. Data dominates. If you've chosen the right data
+structures and organized things well, the algorithms will almost
+always be self-evident. Data structures, not algorithms, are central
+to programming.<sup>[<a id="id2873492" href="#ftn.id2873492">9</a>]</sup></p><p>Rule 6. There is no Rule 6.</p></blockquote></div><p>Ken Thompson<a id="id2873529" class="indexterm"/>, the man who designed and implemented the
+first Unix, reinforced Pike's rule 4 with a gnomic maxim worthy of a
+Zen<a id="id2873540" class="indexterm"/> patriarch:</p><div class="blockquote"><blockquote class="blockquote"><p>When in doubt, use brute force.</p></blockquote></div><p>More of the Unix philosophy was implied not by what these elders
+said but by what they did and the example Unix itself set. Looking
+at the whole, we can abstract the following ideas:</p><div class="orderedlist"><ol type="1"><li><p>Rule of Modularity: Write simple parts connected by clean interfaces.</p></li><li><p>Rule of Clarity: Clarity is better than cleverness.</p></li><li><p>Rule of Composition: Design programs to be connected to other programs.</p></li><li><p>Rule of Separation: Separate policy from mechanism;
+separate interfaces from engines.</p></li><li><p>Rule of Simplicity: Design for simplicity; add
+complexity only where you must.</p></li><li><p>Rule of Parsimony: Write a big program only when it is
+clear by demonstration that nothing else will do.</p></li><li><p>Rule of Transparency: Design for visibility to make
+inspection and debugging easier.</p></li><li><p>Rule of Robustness: Robustness is the child of transparency and simplicity.</p></li><li><p>Rule of Representation: Fold knowledge into data so program
+logic can be stupid and robust.</p></li><li><p>Rule of Least Surprise: In interface design, always do
+the least surprising thing.</p></li><li><p>Rule of Silence: When a program has nothing surprising
+to say, it should say nothing.</p></li><li><p>Rule of Repair: When you must fail, fail noisily and
+as soon as possible.</p></li><li><p>Rule of Economy: Programmer time is expensive; conserve it in 
+preference to machine time.</p></li><li><p>Rule of Generation: Avoid hand-hacking; write programs
+to write programs when you can.</p></li><li><p>Rule of Optimization: Prototype before polishing. Get it
+working before you optimize it.</p></li><li><p>Rule of Diversity: Distrust all claims for
+&#8220;one true way&#8221;.</p></li><li><p>Rule of Extensibility: Design for the future, because
+it will be here sooner than you think.</p></li></ol></div><p>If you're new to Unix, these principles are worth some
+meditation. Software-engineering texts recommend most of them; but
+most other operating systems lack the right tools and traditions to
+turn them into practice, so most programmers can't apply them with
+any consistency. They come to accept blunt tools, bad designs,
+overwork, and bloated code as normal &#8212; and then wonder what Unix
+fans are so annoyed about.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2877537"/>Rule of Modularity: Write simple parts connected by clean interfaces.</h3></div></div><p>As Brian Kernighan once observed, &#8220;Controlling complexity
+is the essence of computer programming&#8221; [<a href="apb.html#Kernighan-Plauger" title="[Kernighan-Plauger]">Kernighan-Plauger</a>]. Debugging dominates
+development time, and getting a working system out the door is
+usually less a result of brilliant design than it is of managing not
+to trip over your own feet too many times.</p><p>Assemblers, compilers, flowcharting, procedural programming,
+structured programming, &#8220;artificial intelligence&#8221;,
+fourth-generation languages, object
+orientation<a id="id2877569" class="indexterm"/>, and software-development
+methodologies without number have been touted and sold as a cure for
+this problem. All have failed as cures, if only because they
+&#8216;succeeded&#8217; by escalating the normal level of program
+complexity to the point where (once again) human brains could barely
+cope. As Fred Brooks<a id="id2877583" class="indexterm"/> famously observed [<a href="apb.html#Brooks" title="[Brooks]">Brooks</a>], there is no silver bullet.</p><p>The only way to write complex software that won't fall on its
+face is to hold its global complexity down &#8212; to build it out of
+simple parts connected by well-defined interfaces, so that most
+problems are local and you can have some hope of upgrading
+a part without breaking the whole.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2877610"/>Rule of Clarity: Clarity is better than cleverness.</h3></div></div><p>Because maintenance is so important and so expensive, write
+programs as if the most important communication they do is not to the
+computer that executes them but to the human beings who will read and
+maintain the source code in the future (including yourself).</p><p>In the Unix tradition, the implications of this advice go beyond
+just commenting your code.  Good Unix practice also embraces choosing
+your algorithms and implementations for future maintainability.  Buying a
+small increase in performance with a large increase in the complexity 
+and obscurity of your technique is a bad trade &#8212; not merely because
+complex code is more likely to harbor bugs, but also because complex
+code will be harder to read for future maintainers.</p><p>Code that is graceful and clear, on the other hand, is less
+likely to break &#8212; and more likely to be instantly comprehended
+by the next person to have to change it.  This is important,
+especially when that next person might be yourself some years down the
+road.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Never struggle to decipher subtle code three times.  Once might
+be a one-shot fluke, but if you find yourself having to figure it out
+a second time &#8212; because the first was too long ago and you've
+forgotten details &#8212; it is time to comment the code so that the
+third time will be relatively painless.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Henry Spencer</span>
+<a id="id2877661" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2877684"/>Rule of Composition: Design programs to be connected with other programs.</h3></div></div><p>It's hard to avoid programming overcomplicated monoliths if none
+of your programs can talk to each other.</p><p>Unix tradition strongly encourages writing programs that
+read and write simple, textual, stream-oriented, device-independent
+formats.  Under classic Unix, as many programs as possible are written
+as simple <i>filters</i>, which take a simple text
+stream on input and process it into another simple text stream on
+output.</p><p>Despite popular mythology, this practice is favored not because
+Unix programmers hate graphical user interfaces. It's because if you
+don't write programs that accept and emit simple text streams, it's
+much more difficult to hook the programs together.</p><p>Text streams are to Unix tools as messages are to objects in an
+object-oriented setting. The simplicity of the text-stream interface
+enforces the encapsulation of the tools.  More elaborate forms of
+inter-process communication, such as remote procedure calls, show a
+tendency to involve programs with each others' internals too
+much.</p><p>To make programs composable, make them independent.  A program
+on one end of a text stream should care as little as possible about
+the program on the other end.  It should be made easy to replace one
+end with a completely different implementation without disturbing the
+other.</p><p>GUIs can be a very good thing. Complex binary data formats are
+sometimes unavoidable by any reasonable means. But before writing a
+GUI, it's wise to ask if the tricky interactive parts of your
+program can be segregated into one piece and the workhorse
+algorithms into another, with a simple command stream or
+application protocol connecting the two. Before devising a tricky
+binary format to pass data around, it's worth experimenting to see
+if you can make a simple textual format work and accept a little
+parsing overhead in return for being able to hack the data stream
+with general-purpose tools.</p><p>When a serialized, protocol-like interface is not natural for the
+application, proper Unix design is to at least organize as many of the
+application primitives as possible into a library with a well-defined
+API.  This opens up the possibility that the application can be called
+by linkage, or that multiple interfaces can be glued on it for different tasks.</p><p>(We discuss these issues in detail in <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a>.)</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2877777"/>Rule of Separation: Separate policy from mechanism;
+separate interfaces from engines.</h3></div></div><p>In our discussion of what Unix gets wrong, we observed that the
+designers of X<a id="id2877788" class="indexterm"/> made a basic decision to implement
+&#8220;mechanism, not policy&#8221;<a id="id2877801" class="indexterm"/>&#8212;to make X a generic
+graphics engine and leave decisions about user-interface style to
+toolkits and other levels of the system.  We justified this by
+pointing out that policy and mechanism tend to mutate on different
+timescales, with policy changing much faster than mechanism. Fashions
+in the look and feel of GUI toolkits may come and go, but raster
+operations and compositing are forever.</p><p>Thus, hardwiring policy and mechanism together has two bad
+effects: It makes policy rigid and harder to change in response to user
+requirements, and it means that trying to change policy has a strong
+tendency to destabilize the mechanisms.</p><p>On the other hand, by separating the two we make it possible to
+experiment with new policy without breaking mechanisms.  We also make
+it much easier to write good tests for the mechanism (policy,
+because it ages so quickly, often does not justify the investment).</p><p>This design rule has wide application outside the GUI
+context.  In general, it implies that we should look for ways to
+separate interfaces from engines.</p><p>One way to effect that separation is, for example, to write
+your application as a library of C<a id="id2877847" class="indexterm"/> service routines that are driven by an
+embedded scripting language, with the application flow of control
+written in the scripting language rather than C. A classic example of
+this pattern is the <i>Emacs</i> editor, which uses
+an embedded Lisp<a id="id2877866" class="indexterm"/> interpreter to control editing
+primitives written in C.  We discuss this style of design in <a href="interfacechapter.html" title="Chapter 11. Interfaces">Chapter 11</a>.</p><p>Another way is to separate your application into cooperating
+front-end and back-end processes communicating through a specialized
+application protocol over sockets<a id="id2877889" class="indexterm"/>; we discuss this kind of design in <a href="textualitychapter.html" title="Chapter 5. Textuality">Chapter 5</a> and <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a>.  The front end implements policy; the
+back end, mechanism.  The global complexity of the pair will often be
+far lower than that of a single-process monolith implementing the same
+functions, reducing your vulnerability to bugs and lowering life-cycle
+costs.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2877917"/>Rule of Simplicity: Design for simplicity; add complexity only where you must.</h3></div></div><p>Many pressures tend to make programs more complicated (and
+therefore more expensive and buggy). One such pressure is technical
+machismo. Programmers are bright people who are (often justly) proud
+of their ability to handle complexity and juggle abstractions. Often
+they compete with their peers to see who can build the most intricate
+and beautiful complexities. Just as often, their ability to design
+outstrips their ability to implement and debug, and the result is
+expensive failure.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>The notion of &#8220;intricate and beautiful complexities&#8221; is
+almost an oxymoron.  Unix programmers vie with each other
+for &#8220;simple and beautiful&#8221; honors &#8212; a point that's
+implicit in these rules, but is well worth making overt.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Doug McIlroy</span>
+<a id="id2877951" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Even more often (at least in the commercial software world)
+excessive complexity comes from project requirements that are based on
+the marketing fad of the month rather than the reality of what
+customers want or software can actually deliver. Many a good design
+has been smothered under marketing's pile of &#8220;checklist
+features&#8221; &#8212; features that, often, no customer will ever
+use. And a vicious circle operates; the competition thinks it has to
+compete with chrome by adding more chrome. Pretty soon, massive bloat
+is the industry standard and everyone is using huge, buggy programs
+not even their developers can love.</p><p>Either way, everybody loses in the end.</p><p>The only way to avoid these traps is to encourage a software
+culture that knows that small is beautiful, that actively resists
+bloat and complexity: an engineering tradition that puts a high
+value on simple solutions, that looks for ways to break program systems up
+into small cooperating pieces, and that reflexively fights attempts to
+gussy up programs with a lot of chrome (or, even worse, to design
+programs <span class="emphasis"><em>around</em></span> the chrome).</p><p>That would be a culture a lot like Unix's.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2878022"/>Rule of Parsimony: Write a big program only when it is
+clear by demonstration that nothing else will do.</h3></div></div><p>&#8216;Big&#8217; here has the sense both of large in volume of
+code and of internal complexity.  Allowing programs to get large
+hurts maintainability.  Because people are reluctant to throw
+away the visible product of lots of work, large programs invite
+overinvestment in approaches that are failed or suboptimal.</p><p>(We'll examine the issue of the right size of software in more
+detail in <a href="complexitychapter.html" title="Chapter 13. Complexity">Chapter 13</a>.)</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2878054"/>Rule of Transparency: Design for visibility to make
+inspection and debugging easier.</h3></div></div><p>Because debugging often occupies three-quarters or more of
+development time, work done early to ease debugging can be a very
+good investment. A particularly effective way to ease debugging is to
+design for
+<i>transparency</i><a id="id2878070" class="indexterm"/> and
+<i>discoverability</i><a id="id2878084" class="indexterm"/>.</p><p>A software system is <span class="emphasis"><em>transparent</em></span> when you
+can look at it and immediately understand what it is doing and how. It
+is <span class="emphasis"><em>discoverable</em></span> when it has facilities for
+monitoring and display of internal state so that your program not only
+functions well but can be <span class="emphasis"><em>seen</em></span> to function
+well.</p><p>Designing for these qualities will have implications throughout
+a project. At minimum, it implies that debugging options should not be
+minimal afterthoughts. Rather, they should be designed in from the
+beginning &#8212; from the point of view that the program should be
+able to both demonstrate its own correctness and communicate to future
+developers the original developer's mental model of the problem it
+solves.</p><p>For a program to demonstrate its own correctness, it needs to be
+using input and output formats sufficiently simple so that the proper
+relationship between valid input and correct output is easy to
+check.</p><p>The objective of designing for transparency and discoverability
+should also encourage simple interfaces that can easily be manipulated
+by other programs &#8212; in particular, test and monitoring harnesses
+and debugging scripts.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2878145"/>Rule of Robustness: Robustness is the child of transparency and simplicity.</h3></div></div><p>Software is said to be <i>robust</i> when
+it performs well under unexpected conditions which stress the designer's
+assumptions, as well as under normal conditions.</p><p>Most software is fragile and buggy because most programs are too
+complicated for a human brain to understand all at once. When you
+can't reason correctly about the guts of a program, you can't be sure
+it's correct, and you can't fix it if it's broken.</p><p>It follows that the way to make robust programs is to make their
+internals easy for human beings to reason about. There are two main
+ways to do that:
+transparency<a id="id2878177" class="indexterm"/> and
+simplicity.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>For robustness, designing in tolerance for unusual or extremely
+bulky inputs is also important.  Bearing in mind the Rule of
+Composition helps; input generated by other programs is notorious for
+stress-testing software (e.g., the original Unix C compiler reportedly
+needed small upgrades to cope well with Yacc output).  The forms
+involved often seem useless to humans.  For example, accepting empty
+lists/strings/etc., even in places where a human would seldom or never
+supply an empty string, avoids having to special-case such situations when
+generating the input mechanically.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Henry Spencer</span>
+<a id="id2878201" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>One very important tactic for being robust under odd inputs is
+to avoid having special cases in your code.  Bugs often lurk in the
+code for handling special cases, and in the interactions among parts
+of the code intended to handle different special cases.</p><p>We observed above that software is
+<i>transparent</i> when you can look at it and
+immediately see what is going on. It is <span class="emphasis"><em>simple</em></span>
+when what is going on is uncomplicated enough for a human brain to
+reason about all the potential cases without strain.  The more
+your programs have both of these qualities, the more robust they will
+be.</p><p>Modularity (simple parts, clean interfaces) is a way to organize
+programs to make them simpler. There are other ways to fight for
+simplicity. Here's another one.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2878263"/>Rule of Representation: Fold knowledge into data, 
+so program logic can be stupid and robust.</h3></div></div><p>Even the simplest procedural logic is hard for humans to verify,
+but quite complex data structures are fairly easy to model and reason
+about. To see this, compare the expressiveness and explanatory power
+of a diagram of (say) a fifty-node pointer tree with a flowchart of a
+fifty-line program.  Or, compare an array initializer expressing a conversion
+table with an equivalent switch statement. The difference in
+transparency<a id="id2878281" class="indexterm"/> and
+clarity is dramatic. See Rob Pike's <a href="#rule5">Rule 5</a>.</p><p>Data is more tractable than program logic. It follows that where
+you see a choice between complexity in data structures and
+complexity in code, choose the former. More: in evolving a design,
+you should actively seek ways to shift complexity from code to
+data.</p><p>The Unix community did not originate this insight, but a lot of
+Unix code displays its influence.  The
+C<a id="id2878312" class="indexterm"/> language's facility at
+manipulating pointers, in particular, has encouraged the use of
+dynamically-modified reference structures at all levels of coding from
+the kernel upward. Simple pointer chases in such structures frequently
+do duties that implementations in other languages would instead have
+to embody in more elaborate procedures.</p><p>(We also cover these techniques in <a href="generationchapter.html" title="Chapter 9. Generation">Chapter 9</a>.)</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2878339"/>Rule of Least Surprise: In interface design, always do
+the least surprising thing.</h3></div></div><p>(This is also widely known as the Principle of Least
+Astonishment.)</p><p>The easiest programs to use are those that demand the least new
+learning from the user &#8212; or, to put it another way, the easiest
+programs to use are those that most effectively connect to the user's
+pre-existing knowledge.<a id="id2878358" class="indexterm"/></p><p>Therefore, avoid gratuitous novelty and excessive cleverness in
+interface design.  If you're writing a calculator program,
+&#8216;+&#8217; should always mean addition! When designing an
+interface, model it on the interfaces of functionally similar or
+analogous programs with which your users are likely to be
+familiar.</p><p>Pay attention to your expected audience.  They may be end
+users, they may be other programmers, or they may be system
+administrators.  What is least surprising can differ among these
+groups.</p><p>Pay attention to tradition. The Unix world has rather well-developed
+conventions about things like the format of configuration and
+run-control files, command-line switches, and the like. These
+traditions exist for a good reason: to tame the learning curve.
+Learn and use them.</p><p>(We'll cover many of these traditions in <a href="textualitychapter.html" title="Chapter 5. Textuality">Chapter 5</a> and <a href="configurationchapter.html" title="Chapter 10. Configuration">Chapter 10</a>.)</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>The flip side of the Rule of Least Surprise is to avoid
+making things superficially similar but really a little bit different.
+This is extremely treacherous because the seeming familiarity raises false
+expectations.  It's often better to make things distinctly different than
+to make them <span class="emphasis"><em>almost</em></span> the same.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Henry Spencer</span>
+<a id="id2878424" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2878450"/>Rule of Silence: When a program has nothing surprising
+to say, it should say nothing.</h3></div></div><p>One of Unix's oldest and most persistent design rules is that when a
+program has nothing interesting or surprising to say, it should
+<span class="emphasis"><em>shut up</em></span>.  Well-behaved Unix programs do their jobs
+unobtrusively, with a minimum of fuss and bother.  Silence is
+golden.</p><p>This &#8220;silence is golden&#8221; rule evolved originally
+because Unix predates video displays.  On the slow printing terminals
+of 1969, each line of unnecessary output was a serious drain on the
+user's time.  That constraint is gone, but excellent reasons for
+terseness remain.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>I think that the terseness of Unix programs is a central feature
+of the style.  When your program's output becomes another's input, it 
+should be easy to pick out the needed bits.  And for people it is
+a human-factors necessity &#8212; important information should not
+be mixed in with verbosity about internal program behavior.  If all
+displayed information is important, important information is easy to
+find.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Ken Arnold</span>
+<a id="id2878493" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Well-designed programs treat the user's attention and
+concentration as a precious and limited resource, only to be claimed
+when necessary.</p><p>(We'll discuss the Rule of Silence and the reasons for it in
+more detail at the end of <a href="interfacechapter.html" title="Chapter 11. Interfaces">Chapter 11</a>.)</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2878538"/>Rule of Repair: Repair what you can &#8212; but when you
+must fail, fail noisily and as soon as possible.</h3></div></div><p>Software should be
+transparent<a id="id2878548" class="indexterm"/> in the way that it fails, as well
+as in normal operation.  It's best when software can cope with
+unexpected conditions by adapting to them, but the worst kinds of bugs
+are those in which the repair doesn't succeed and the problem quietly
+causes corruption that doesn't show up until much later.</p><p>Therefore, write your software to cope with incorrect inputs and
+its own execution errors as gracefully as possible.  But when it
+cannot, make it fail in a way that makes diagnosis of the problem as
+easy as possible.</p><p>Consider also Postel's Prescription:<sup>[<a id="id2878578" href="#ftn.id2878578">10</a>]</sup>
+&#8220;Be liberal in what you accept, and conservative in what you
+send&#8221;. Postel was speaking of network service programs, but the
+underlying idea is more general.  Well-designed programs cooperate
+with other programs by making as much sense as they can from
+ill-formed inputs; they either fail noisily or pass strictly clean and
+correct data to the next program in the chain.</p><p>However, heed also this warning:</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>The original HTML documents recommended &#8220;be generous in
+what you accept&#8221;, and it has bedeviled us ever since because
+each browser accepts a different superset of the specifications.  It
+is the <span class="emphasis"><em>specifications</em></span> that should be generous,
+not their interpretation.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Doug McIlroy</span>
+<a id="id2878625" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>McIlroy adjures us to <span class="emphasis"><em>design</em></span> for
+generosity rather than compensating for inadequate standards with 
+permissive implementations.  Otherwise, as he rightly points
+out, it's all too easy to end up in tag soup.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2878666"/>Rule of Economy: Programmer time is expensive; conserve it in 
+preference to machine time.</h3></div></div><p>In the early minicomputer days of Unix, this was still a fairly
+radical idea (machines were a great deal slower and more expensive
+then). Nowadays, with every development shop and most users (apart
+from the few modeling nuclear explosions or doing 3D movie
+animation) awash in cheap machine cycles, it may seem too obvious
+to need saying.</p><p>Somehow, though, practice doesn't seem to have quite caught up
+with reality. If we took this maxim really seriously throughout
+software development, most applications would be written in
+higher-level languages like Perl, Tcl, Python, Java,
+Lisp<a id="id2878691" class="indexterm"/> and
+even shell &#8212; languages that ease the programmer's burden by
+doing their own memory management (see [<a href="apb.html#Ravenbrook" title="[Ravenbrook]">Ravenbrook</a>]).</p><p>And indeed this is happening within the Unix world, though
+outside it most applications shops still seem stuck with the
+old-school Unix strategy of coding in C<a id="id2878714" class="indexterm"/> (or C++<a id="id2878722" class="indexterm"/>). Later in this book
+we'll discuss this strategy and its tradeoffs in detail.</p><p>One other obvious way to conserve programmer time is to teach
+machines how to do more of the low-level work of programming. This
+leads to...</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2878742"/>Rule of Generation: Avoid hand-hacking; write programs to write
+programs when you can.</h3></div></div><p>Human beings are notoriously bad at sweating the details.
+Accordingly, any kind of hand-hacking of programs is a rich source of
+delays and errors. The simpler and more abstracted your program
+specification can be, the more likely it is that the human designer
+will have gotten it right. Generated code (at
+<span class="emphasis"><em>every</em></span> level) is almost always cheaper and more
+reliable than hand-hacked.</p><p>We all know this is true (it's why we have compilers and
+interpreters, after all) but we often don't think about the
+implications. High-level-language code that's repetitive and
+mind-numbing for humans to write is just as productive a target for a
+code generator as machine code. It pays to use code generators when
+they can raise the level of abstraction &#8212; that is, when the
+specification language for the generator is simpler than the generated
+code, and the code doesn't have to be hand-hacked afterwards.</p><p>In the Unix tradition, code generators are heavily used to
+automate error-prone detail work. Parser/lexer generators are the
+classic examples; makefile generators and GUI interface builders are
+newer ones.</p><p>(We cover these techniques in <a href="generationchapter.html" title="Chapter 9. Generation">Chapter 9</a>.)</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="rule_of_optimization"/>Rule of Optimization:
+Prototype before polishing. Get it working before you optimize
+it.</h3></div></div><a id="id2878810" class="indexterm"/><p>The most basic argument for prototyping first is Kernighan &amp;
+Plauger's;<a id="id2878826" class="indexterm"/> &#8220;90% of the functionality delivered now
+is better than 100% of it delivered never&#8221;. Prototyping first
+may help keep you from investing far too much time for marginal
+gains.<a id="id2878837" class="indexterm"/><a id="id2878844" class="indexterm"/></p><p>For slightly different reasons, Donald
+Knuth<a id="id2878856" class="indexterm"/>
+(author of <i>The Art Of Computer Programming</i>, one
+of the field's few true classics) popularized the observation that
+&#8220;Premature optimization is the root of all
+evil&#8221;.<sup>[<a id="id2878872" href="#ftn.id2878872">11</a>]</sup>
+And he was right.</p><p>Rushing to optimize before the bottlenecks are known may be the
+only error to have ruined more designs than feature creep. From
+tortured code to incomprehensible data layouts, the results of
+obsessing about speed or memory or disk usage at the expense of
+transparency and simplicity are everywhere. They spawn innumerable
+bugs and cost millions of man-hours &#8212; often, just to get marginal
+gains in the use of some resource much less expensive than
+debugging time.</p><p>Disturbingly often, premature local optimization actually
+hinders global optimization (and hence reduces overall performance).
+A prematurely optimized portion of a design frequently interferes with
+changes that would have much higher payoffs across the whole design,
+so you end up with both inferior performance and excessively complex
+code.</p><p>In the Unix world there is a long-established and very explicit
+tradition (exemplified by Rob Pike's<a id="id2878916" class="indexterm"/> comments above and Ken
+Thompson's<a id="id2878924" class="indexterm"/>
+maxim about brute force) that says: <span class="emphasis"><em>Prototype, then
+polish. Get it working before you optimize it</em></span>. Or: Make it
+work first, then make it work fast. &#8216;Extreme programming' guru
+Kent Beck<a id="id2878940" class="indexterm"/>,
+operating in a different culture, has usefully amplified this to:
+&#8220;Make it run, then make it right, then make it
+fast&#8221;.</p><p>The thrust of all these quotes is the same: get your design
+right with an un-optimized, slow, memory-intensive implementation
+before you try to tune. Then, tune systematically, looking for the
+places where you can buy big performance wins with the smallest
+possible increases in local complexity.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Prototyping is important for system design as well as
+optimization &#8212; it is much easier to judge whether a prototype
+does what you want than it is to read a long specification.  I
+remember one development manager at Bellcore who fought against the
+&#8220;requirements&#8221; culture years before anybody talked about
+&#8220;rapid prototyping&#8221; or &#8220;agile development&#8221;. He
+wouldn't issue long specifications; he'd lash together some combination of
+shell scripts and awk code that did roughly what was needed, tell the
+customers to send him some clerks for a few days, and then have the
+customers come in and look at their clerks using the prototype and
+tell him whether or not they liked it.  If they did, he would say
+&#8220;you can have it industrial strength so-many-months from now at
+such-and-such cost&#8221;.  His estimates tended to be accurate, but
+he lost out in the culture to managers who believed that requirements 
+writers should be in control of everything.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Mike Lesk</span>
+<a id="id2878976" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Using prototyping to learn which features you don't have to
+implement helps optimization for performance; you don't have to
+optimize what you don't write. The most powerful optimization tool in
+existence may be the delete key.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>One of my most productive days was throwing away 1000 lines of
+code.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Ken Thompson</span>
+<a id="id2879047" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>(We'll go into a bit more depth about related ideas in <a href="optimizationchapter.html" title="Chapter 12. Optimization">Chapter 12</a>.)</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2879078"/>Rule of Diversity: Distrust all claims for 
+&#8220;one true way&#8221;.</h3></div></div><p>Even the best software tools tend to be limited by the
+imaginations of their designers. Nobody is smart enough to optimize
+for everything, nor to anticipate all the uses to which their software
+might be put. Designing rigid, closed software that won't talk
+to the rest of the world is an unhealthy form of arrogance.</p><p>Therefore, the Unix tradition includes a healthy
+mistrust of &#8220;one true way&#8221; approaches to software design or
+implementation. It embraces multiple languages, open extensible
+systems, and customization hooks everywhere.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2879112"/>Rule of Extensibility: Design for the future, because it
+will be here sooner than you think.</h3></div></div><p>If it is unwise to trust other people's claims for &#8220;one
+true way&#8221;, it's even more foolish to believe them about your
+own designs.  Never assume you have the final answer.  Therefore,
+leave room for your data formats and code to grow; otherwise, you
+will often find that you are locked into unwise early choices because
+you cannot change them while maintaining backward compatibility.</p><p>When you design protocols or file formats, make them sufficiently
+self-describing to be extensible.  Always, <span class="emphasis"><em>always</em></span>
+either include a version number, or compose the format from
+self-contained, self-describing clauses in such a way that new clauses
+can be readily added and old ones dropped without confusing 
+format-reading code.  Unix experience tells us that the marginal
+extra overhead of making data layouts self-describing is paid back 
+a thousandfold by the ability to evolve them forward without 
+breaking things.</p><p>When you design code, organize it so future developers
+will be able to plug new functions into the architecture without
+having to scrap and rebuild the
+architecture<a id="id2879158" class="indexterm"/>.
+This rule is not a license to add features you don't yet need; it's
+advice to write your code so that adding features later when you
+<span class="emphasis"><em>do</em></span> need them is easy.
+Make the joints flexible, and put &#8220;If you ever need
+to...&#8221; comments in your code.  You owe this grace to people who
+will use and maintain your code after you.</p><p>You'll be there in the future too, maintaining code you may have
+half forgotten under the press of more recent projects.  When you
+design for the future, the sanity you save may be your own.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2873492" href="#id2873492">9</a>] </sup>Pike's original adds &#8220;(See
+Brooks p. 102.)&#8221; here. The reference is to an early edition of
+<i>The Mythical Man-Month</i> [<a href="apb.html#Brooks" title="[Brooks]">Brooks</a>]; the quote is &#8220;Show me your
+flow charts and conceal your tables and I shall continue to be
+mystified, show me your tables and I won't usually need your flow
+charts; they'll be obvious&#8221;.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2878578" href="#id2878578">10</a>] </sup>Jonathan
+Postel was the first editor of the Internet RFC series of standards,
+and one of the principal architects of the Internet. A tribute <a href="http://www.postel.org/postel.html" target="_top">page</a> is maintained
+by the Postel Center for Experimental Networking.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2878872" href="#id2878872">11</a>] </sup>In full: &#8220;We should forget about
+small efficiencies, say about 97% of the time: premature optimization
+is the root of all evil&#8221;. Knuth himself attributes the remark
+to C. A. R. Hoare.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s05.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="philosophychapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch01s07.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">What Unix Gets Right </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> The Unix Philosophy in One Lesson</td></tr></table></div></body></html>

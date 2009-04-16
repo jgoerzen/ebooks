@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>A Tale of Five Editors</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="complexitychapter.html" title="Chapter 13. Complexity"/><link rel="previous" href="ch13s01.html" title="Speaking of Complexity"/><link rel="next" href="ch13s03.html" title="The Right Size for an Editor"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">A Tale of Five Editors</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch13s01.html">Prev</a> </td><th width="60%" align="center">Chapter 13. Complexity</th><td width="20%" align="right"> <a accesskey="n" href="ch13s03.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2963292"/>A Tale of Five Editors</h2></div></div><p>Now we're going to use five different Unix editors as case 
+studies.  It will be helpful to bear in mind a set of benchmark
+tasks as we examine these designs:</p><div class="itemizedlist"><ul type="disc"><li><p><span class="emphasis"><em>Plain-text editing.</em></span> Manipulating
+plain ASCII (or, in this internationalized age, perhaps Unicode) files
+with no structure known to the editor above byte level, or perhaps
+line level.</p></li><li><p><span class="emphasis"><em>Rich-text editing.</em></span>  Editing of text
+with attributes; these might include font changes, color, or other sorts of
+properties of text spans (such as being a hyperlink).  Editors that can
+do this have to be able to translate between some presentation of the
+attributes in the user interface and some on-disk representation of
+the data (such as HTML, XML, or other rich-text formats.)</p></li><li><p><span class="emphasis"><em>Syntax awareness.</em></span>  An editor that
+is syntax-aware knows that input events have a grammar, and does things like
+automatically changing the indent level when it recognizes the
+beginning or end of a block scope in a programming language.  Editors
+that are syntax-aware also commonly highlight syntax with colors
+or distinguished fonts.</p></li><li><p><span class="emphasis"><em>Output parsing</em></span> of batch command
+output. The commonest case of this in the Unix world is running a C
+compilation from inside the editor, trapping the error messages, and
+then being able to step through the error locations without leaving the
+editor.</p></li><li><p><span class="emphasis"><em>Interaction</em></span> with helper
+subprocesses that persist and maintain state between editor commands.
+This capability, when present, has powerful consequences:</p><div class="itemizedlist"><ul type="circle"><li><p>It's possible to drive a version-control system
+    from inside the editor, performing file checkins and checkouts
+    without dropping out to a shell window or separate
+    utility.</p></li><li><p>It's possible to front-end a symbolic debugger
+    inside the editor, such that (for example) when the run stops on a
+    breakpoint the appropriate file and line is automatically
+    visited.</p></li><li><p>It's possible to edit remote files within the
+    editor, by having it recognize when a filename refers to another
+    host (recognizing some syntax like
+    <tt>/user@host:/path/to-file</tt>).  Provided you have
+    the right access, such an editor can automatically run a
+    utility like
+    scp(1)
+    or
+    ftp(1)
+    to fetch a local copy, then automatically copy the edited version
+    back to the remote location at file-save time.</p></li></ul></div></li></ul></div><p>All our case studies can edit plain text.  (The reader should
+not take this capability for granted &#8212; there are many things
+called editors, such as &#8216;word processors&#8217; that are too
+specialized to do this!) We begin seeing variable degrees of optional
+complexity in how they handle the more complex tasks.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2963445"/><i>ed</i></h3></div></div><p>ed(1)
+is the truly Unix-minimalist way of plain-text editing.  It dates from
+the days of teletypes.<sup>[<a id="id2963466" href="#ftn.id2963466">116</a>]</sup>  It has a simple, austere CLI, and there is
+no screen display.  In the following listing, computer output is
+<span class="emphasis"><em>emphasized</em></span>.</p><pre class="programlisting">
+ed sample.txt
+<span class="emphasis"><em>sample.txt: No such file or directory</em></span>
+# This is a comment line, not a command.
+# The message above warns that the sample.txt file is newly created.
+a
+<span class="emphasis"><em>the quick brown fox
+jumped over the lazy dog</em></span>
+.
+# That was an append command, which added text to the file.  
+# The dot on a line by itself terminated the append.
+1s/f[a-z]x/dragon/
+# On line 1, replace the first substring matching an f followed by a
+# lowercase alphabetic followed by x with &#8216;dragon&#8217;.  The
+# substitute command accepts basic regular expressions.
+1,$p
+the quick brown dragon
+jumped over the lazy dog
+# Print all lines from 1 to the last.
+w
+<span class="emphasis"><em>51</em></span>
+# That wrote the file to disk. The &#8216;q&#8217; command ends the
+# editing session.
+q
+</pre><p>Unbelievable as it may seem to a modern reader, most of Unix's
+original code was written with this editor.  The reader with DOS
+experience may recognize here the original on which
+<i>EDLIN</i> was (crudely) modeled.</p><p>If one defines the job of an editor simply as enabling the user
+to create and modify plain text files,
+ed(1)
+is entirely sufficient for the job.  Importantly to the Unix view of
+design correctness, it does nothing else.  Many old-school Unix
+programmers half-seriously maintain that all editors with more
+features than ed has are simply bloated &#8212; and a few still who
+seriously believe this.</p><p>Appropriately, <i>ed</i> was Ken Thompson's
+deliberate simplification of the earlier
+<i>qed</i>[<a href="apb.html#RitchieQED" title="[RitchieQED]">RitchieQED</a>] editor
+&#8212; which was very similar (and the first editor to use regular
+expressions in the characteristic Unix way) but had multiple-buffer
+capability that Ken deliberately discarded.  He judged it not worth
+the additional complexity.</p><p>A notable characteristic of ed(1) and all its descendants is the
+object-operation format of its commands (the session example shows an
+explicit range on the &#8216;p&#8217; command).  There is a relatively
+powerful syntax for specifying line ranges, either numerically, or by
+regular-expression pattern match, or by special shorthands for the
+current and last line.  Most editor operations can be applied to any
+range.  This is a good example of orthogonality.</p><p>Nowadays,
+ed(1)
+is primarily used as a program-driven editing tool in scripts &#8212;
+a role to which editors with more elaborate modes of interactivity are
+unsuited.  There is a close variant called
+ex(1)
+which adds a few useful interactivity features such as command
+prompts; it is occasionally useful in rare cases when editing must be
+done over a slow serial line, or in certain unusual crash-recovery
+situations where the library support needed to run other editors is
+not accessible.  For these reasons, every Unix includes an
+<i>ed</i> implementation and most include
+<i>ex</i> as well.</p><p>The
+sed(1)
+stream editor mentioned in <a href="generationchapter.html" title="Chapter 9. Generation">Chapter 9</a> is also closely related to ed; many
+of the basic commands are the same, though designed to be invoked
+through command-line switches rather than from standard input.</p><p>Almost all Unix programmers have strayed from the path of
+austerity and minimalist virtue enough to normally use editors that at
+least present a roguelike, screen-oriented interface.  However, the
+fact that the religion of ed
+persists<sup>[<a id="id2963675" href="#ftn.id2963675">117</a>]</sup> says a great deal that is worth
+noting about the Unix mindset.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="vi_complexity"/>vi</h3></div></div><a id="id2963706" class="indexterm"/><p>The original
+vi(1)
+editor was the first attempt to bolt a visual, roguelike interface
+onto the command set of
+ed(1).
+Like ed, its commands are generally single
+keystrokes, and it is particularly well suited to use by
+touch-typists.</p><p>The original vi didn't have mouse
+support, editing menus, macros, assignable key bindings, or any form
+of user customization. In line with the religion of ed, vi's partisans
+considered the lack of these features a virtue.  On this view, one of
+vi's most important virtues is that you can start editing immediately
+on a new Unix system without having to carry along your customizations
+or worrying that the default command bindings will be dangerously
+different from what you're used to.</p><p>One characteristic of vi that
+beginners tend to find frustrating is a result of its terse
+single-keystroke commands. It has a <i>moded</i>
+interface &#8212; you are either in command mode or in text-insertion
+mode. In text-insertion mode, the only commands that work are the
+ESC key for mode exit and (on newer versions) the cursor-movement
+keys. In command mode, typing text will be interpreted as commands and
+do odd (and probably destructive) things to your content.</p><p>On the other hand, one property of the command set that
+vi fans particularly tout is the
+object-operation format it inherited from
+ed. Most of the extended commands also
+operate in a natural way on any line range.</p><p>Over the years, vi has bulked up
+considerably.  Modern versions add mouse support, editing menus,
+unlimited undo (the original vi could only
+undo the last command), multiple files in separate buffers, and
+customization with a run-control file.  However, the use of
+run-control files is still unusual, and in contrast to
+Emacs, the use of embedded general-purpose
+scripting has never caught on.  Instead, vi
+implementations have grown individual capabilities to do things, like
+syntax awareness of C code and output parsing of C compiler error
+messages, by adding C code to vi itself.
+Subprocess interaction is not supported.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2963798"/><i>Sam</i></h3></div></div><p>The <i>Sam</i> editor<sup>[<a id="id2963818" href="#ftn.id2963818">118</a>]</sup>
+was written by Rob Pike at Bell Labs in the mid-1980s.  Sam was
+designed for the Plan 9 operating system<a id="id2963830" class="indexterm"/>, which we'll survey in <a href="futurechapter.html" title="Chapter 20. Futures">Chapter 20</a>.  While the Sam editor is not widely known
+outside the Labs, it's favored by many of the original Unix developers
+who went on to work on Plan 9, including Ken Thompson himself.</p><p>Sam is a fairly straightforward descendant of ed, remaining much
+closer to its parent than vi.  Sam incorporates only two new concepts:
+a curses-style text display and text selection with the mouse.</p><p>Each Sam session has exactly one command window, and one or more
+text windows.  Text windows edit text, and command windows accept
+ed-style editing commands.  The mouse is used to move between windows,
+and to select text regions within text windows.  This is a clean,
+orthogonal, modeless design that discards most of the interface
+complexity of vi.</p><p>Most commands operate by default on a select region that can be
+painted with a mouse drag operation.  The select region for a command
+can also be set by specifying a line range in the fashion of ed, but
+Sam gains considerable power from the fact that the user can select at
+finer granularity than a line range.  Because the mouse is available
+to do selections and rapidly change focus between buffers (including
+the command buffer), Sam needs no equivalent of the default (command)
+mode of vi.  The hundreds of extended vi commands are unnecessary and,
+therefore, omitted. Overall, Sam adds only about a dozen commands to
+the seventeen or so in the ed set, for a total of about thirty.</p><p>Four of the new commands in Sam join two inherited from
+ed(1)
+and
+vi(1),
+as ways to apply regular expressions to the task of selecting files
+and file regions to operate on.  These provide limited but effective
+loop and conditional facilities to the command language.  There is,
+however, no way to name or parameterize command-language
+procedures. Nor can the language do interactive control of a
+subprocess.</p><p>An interesting feature of Sam is that it's split into two parts.
+separating a back end that manipulates files and does searches from a
+front end that handles the screen interface.  This instance of the 
+&#8220;separated engine and interface&#8221; chapter has the 
+immediate practical benefit that, though the program has a GUI, it
+can run easily over a low-bandwidth connection to edit files on a
+remote server.  Also, the front and back ends can be retargeted
+relatively easily.</p><p>Sam, like recent versions of vi, has infinite undo.  By design,
+it supports neither rich-text editing, nor output parsing, nor
+subprocess interaction.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="emacs_editing"/>Emacs</h3></div></div><a id="id2963947" class="indexterm"/><p><i>Emacs</i> is undoubtedly the most
+powerful programmer's editor in existence. It's a big, feature-laden
+program with a great deal of flexibility and customizability. As we
+observed in the <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a>
+section on Emacs Lisp, Emacs has an entire programming language inside
+it that can be used to write arbitrarily powerful editor
+functions.</p><p>Unlike
+vi<a id="id2967010" class="indexterm"/>,
+Emacs doesn't have interface modes;
+instead, commands are normally control characters or prefixed with an
+ESC. However, in Emacs it is possible to
+bind just about any key sequence to any command, and commands can be
+stock or customized Lisp programs.</p><p>Emacs can edit multiple files, each
+in a separate buffer, and supports moving text among the buffers.
+Versions running under X have native mouse support.</p><p>The Lisp programs bound to Emacs keystrokes can perform
+arbitrary text transformations on a buffer.  This capability is
+heavily used, among other things to define syntax-aware and rich-text
+editing modes for dozens of different languages and markup formats
+(beginning with support and color highlighting of C code as in
+vi, but going way beyond that).  Each mode
+is simply a library file of Lisp code that is loaded on demand.</p><p>Emacs Lisp programs can also interactively control arbitrary
+subprocesses.  Some notable consequences of this capability were
+listed earlier, including the ability to serve as a front end for
+version-control systems, debuggers, and the like.</p><p>The designers of Emacs<sup>[<a id="id2967056" href="#ftn.id2967056">119</a>]</sup> built a programmable editor
+that could have task-related intelligence customized into it for
+hundreds of different specialized editing jobs.  They then gave it the
+ability to drive other tools. As a result, Emacs supports dealing with
+all things textual in one shared context &#8212; files, mail, news,
+debugger symbols.  It can serve as a customizable front end to any
+command with an interactive textual interface.</p><p>It is a common joke, both among fans and detractors of
+Emacs, to describe it as an operating
+system masquerading as an editor.  That overstates the case, but
+Emacs certainly does fulfill the role
+occupied by integrated development environments (IDEs) under non-Unix
+operating systems (a theme to which we shall return in <a href="toolschapter.html" title="Chapter 15. Tools">Chapter 15</a>).</p><p>This power comes at a price in complexity. To use a customized
+Emacs you have to carry around the Lisp
+files that define your personal Emacs
+preferences. Learning how to customize
+Emacs is an entire art in
+itself. Emacs is correspondingly harder to
+learn than vi.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2967110"/>Wily</h3></div></div><p>The <i>wily</i> editor<sup>[<a id="id2967125" href="#ftn.id2967125">120</a>]</sup>
+is a clone of the Plan 9<a id="id2967135" class="indexterm"/> editor
+<i>acme</i>.<sup>[<a id="id2967150" href="#ftn.id2967150">121</a>]</sup>
+It shares some facilities with Sam, but is intended to provide a
+fundamentally different user experience.  Although Wily probably sees
+the least widespread use of any of these editors, it is interesting
+because it illustrates a different and arguably more Unixy way of
+implementing an Emacs-like programmable editor.</p><p>Wily could be described as a minimalist IDE, an implementation
+of Emacs-style extensibility without the decades of accompanying
+cruft.  In Wily, even global search and replace, that
+<span class="foreignphrase"><i>sine qua non</i></span> of Unix editors, is
+supplied by an external program.  The built-in commands relate almost
+exclusively to windowing operations.  Wily is designed from the ground
+up to use the mouse as much, and as well, as possible.</p><p>Wily attempts to replace not only conventional editors but
+conventional terminal windows such as
+xterm(1)
+as well.  In Wily, any piece of text within the main window (which
+contains multiple non-overlapping Wily windows) can be an action or a
+search expression.  The left mouse button is used to select text, the
+middle button to execute text as a command (either built-in or
+external), and the right button to search either Wily's buffers or the
+file system for text.  No permanent or popup menus are
+required.</p><p>In Wily, the keyboard is used <span class="emphasis"><em>only</em></span> to enter
+text.  Shortcuts are achieved not by special use of the keyboard, but
+by holding down more than one mouse button at the same time.  These
+shortcuts are always equivalent to using the middle button on some
+built-in command.</p><p>Wily can also be used as the front
+end for C, Python, or Perl programs, reporting to them whenever a
+window is changed or an execute or search command is performed with
+the mouse.  These plugins function analogously to Emacs modes, but
+don't run in the same address space with Wily; instead, they
+communicate with it via a very simple set of remote procedure calls.
+Wily comes packaged with an <i>xterm</i> analog
+and a mail tool which uses it as the editing front end.</p><p>Because Wily depends on the mouse so heavily, it cannot be used
+on a character-cell-only console display; nor can it be used over a
+remote link without X forwarding.  As an editor, Wily is designed for
+editing plain text; it has only two fonts (one proportional and one
+fixed-width) and has no mechanism that could support rich-text editing
+or syntax awareness.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2963466" href="#id2963466">116</a>] </sup>Younger readers may not be aware
+that terminals used to print.  On paper.  Very
+slowly.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2963675" href="#id2963675">117</a>] </sup>The religion of ed
+is exemplified by a famous Usenet posting which the reader may be able
+to find with a Web search for &#8220;Ed is the standard
+editor&#8221;.  While it is clearly intended as parody, it is by no
+means clear that the author was entirely joking.  Most Unix hackers
+would read it as an example of &#8220;Ha ha, only
+serious&#8221;.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2963818" href="#id2963818">118</a>] </sup><a href="http://plan9.bell-labs.com/sys/doc/sam/sam.html" target="_top">http://plan9.bell-labs.com/sys/doc/sam/sam.html</a></p></div><div class="footnote"><p><sup>[<a id="ftn.id2967056" href="#id2967056">119</a>] </sup>The designers of Emacs were
+Richard M. Stallman, Bernie Greenberg, and Richard M. Stallman.  The
+original Emacs was Stallman's invention, the first version with an
+embedded Lisp was Greenberg's, and the now-definitive version is
+Stallman's derived from Greenberg's.  No complete account of the
+design history has been written in 2003, but Greenberg's
+<i>Multics Emacs: The History, Design, and
+Implementation</i> is illuminating and readily discoverable
+via keyword search on the Web.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2967125" href="#id2967125">120</a>] </sup><a href="http://www.cs.yorku.ca/~oz/wily" target="_top">http://www.cs.yorku.ca/~oz/wily</a></p></div><div class="footnote"><p><sup>[<a id="ftn.id2967150" href="#id2967150">121</a>] </sup> <a href="http://plan9.bell-labs.com/sys/doc/acme/acme.html" target="_top">http://plan9.bell-labs.com/sys/doc/acme/acme.html</a></p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch13s01.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="complexitychapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch13s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Speaking of Complexity </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> The Right Size for an Editor</td></tr></table></div></body></html>

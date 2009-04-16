@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Origins and History of Unix, 1969-1995</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="historychapter.html" title="Chapter 2. History"/><link rel="previous" href="historychapter.html" title="Chapter 2. History"/><link rel="next" href="hackers.html" title="Origins and History of the Hackers, 1961-1995"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Origins and History of Unix, 1969-1995</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="historychapter.html">Prev</a> </td><th width="60%" align="center">Chapter 2. History</th><td width="20%" align="right"> <a accesskey="n" href="hackers.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2881252"/>Origins and History of Unix, 1969-1995</h2></div></div><p>A notorious &#8216;second-system effect&#8216; often afflicts
+the successors of small experimental prototypes.  The urge to add
+everything that was left out the first time around all too frequently
+leads to huge and overcomplicated design.  Less well known, because
+less common, is the &#8216;third-system effect&#8217;; sometimes,
+after the second system has collapsed of its own weight, there is a
+chance to go back to simplicity and get it really right.</p><p>The original Unix was a third system.  Its grandfather was the
+small and simple Compatible Time-Sharing System
+(CTSS)<a id="id2881275" class="indexterm"/>, either the first
+or second timesharing system ever deployed (depending on some
+definitional questions we are going to determinedly ignore).  Its
+father was the pioneering
+Multics<a id="id2881286" class="indexterm"/> project, an
+attempt to create a feature-packed &#8216;information utility&#8217;
+that would gracefully support interactive timesharing of mainframe
+computers by large communities of users. Multics, alas, did
+collapse of its own weight.  But Unix was born from that collapse.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="genesis"/>Genesis: 1969&#8211;1971</h3></div></div><a id="id2881306" class="indexterm"/><a id="id2881317" class="indexterm"/><p>Unix was born in 1969 out of the mind of a computer scientist at
+Bell Laboratories<a id="id2881333" class="indexterm"/>, Ken Thompson.  Thompson had been a
+researcher on the Multics project, an experience which spoiled him for
+the primitive batch computing that was the rule almost everywhere
+else.  But the concept of timesharing was still a novel one in the late
+1960s; the first speculations on it had been uttered barely ten years
+earlier by computer scientist John McCarthy (also the inventor of the
+Lisp<a id="id2881351" class="indexterm"/> language),
+the first actual deployment had been in 1962, seven years earlier, and
+timesharing operating systems were still experimental and
+temperamental beasts.</p><p>Computer hardware was at that time more primitive than even
+people who were there to see it can now easily recall.  The most
+powerful machines of the day had less computing power and internal
+memory than a typical cellphone of today.<sup>[<a id="id2881371" href="#ftn.id2881371">13</a>]</sup>
+Video display terminals were in their infancy and would not be widely
+deployed for another six years.  The standard interactive device on
+the earliest timesharing systems was the ASR-33 teletype &#8212; a
+slow, noisy device that printed upper-case-only on big rolls of yellow
+paper.  The ASR-33 was the natural parent of the Unix tradition of
+terse commands and sparse responses.</p><p>When Bell Labs withdrew from the Multics research consortium,
+Ken Thompson was left with some Multics-inspired ideas about how to
+build a file system.  He was also left without a machine on which to
+play a game he had written called Space Travel, a science-fiction
+simulation that involved navigating a rocket through the solar
+system. Unix began its life on a scavenged
+PDP-7<a id="id2881401" class="indexterm"/>
+minicomputer<sup>[<a id="id2881412" href="#ftn.id2881412">14</a>]</sup> like the one shown in <a href="#pdp7" title="Figure 2.1. The PDP-7.">Figure 2.1</a>, as a platform for the Space Travel game and a
+testbed for Thompson's ideas about operating system design.</p><div class="figure"><a id="pdp7"/><p class="title"><b>Figure 2.1. The PDP-7.</b></p><div class="mediaobject"><img src="graphics/pdp7.jpg" alt="The PDP-7."/></div><a id="id2881463" class="indexterm"/></div><p>The full origin story is told in [<a href="apb.html#Ritchie79" title="[Ritchie79]">Ritchie79</a>] from the point of view of
+Thompson's first collaborator, Dennis Ritchie, the man who would
+become known as the co-inventor of Unix and the inventor of the
+C<a id="id2881494" class="indexterm"/> language.
+Dennis Ritchie, Doug McIlroy<a id="id2881502" class="indexterm"/>, and a few colleagues had become used to
+interactive computing under
+Multics<a id="id2881512" class="indexterm"/> and did not
+want to lose that capability.  Thompson's PDP-7 operating system
+offered them a lifeline.</p><p>Ritchie observes: &#8220;What we wanted to preserve was not just
+a good environment in which to do programming, but a system around
+which a fellowship could form. We knew from experience that the
+essence of communal computing, as supplied by remote-access,
+time-shared machines, is not just to type programs into a terminal
+instead of a keypunch, but to encourage close communication&#8221;.
+The theme of computers being viewed not merely as logic devices but as
+the nuclei of communities was in the air; 1969 was also the year the
+ARPANET (the direct ancestor of today's Internet) was invented. The theme
+of &#8220;fellowship&#8221; would resonate all through Unix's
+subsequent history.</p><p>Thompson and Ritchie's Space Travel implementation attracted
+notice.  At first, the PDP-7's software had to be cross-compiled on a
+GE mainframe.  The utility programs that Thompson and Ritchie wrote to
+support hosting game development on the PDP-7 itself became the core
+of Unix &#8212; though the name did not attach itself until 1970.  The
+original spelling was &#8220;UNICS&#8221; (UNiplexed Information
+and Computing Service), which Ritchie later described as &#8220;a
+somewhat treacherous pun on Multics&#8221;, which stood for
+MULTiplexed Information and Computing
+Service<a id="id2879500" class="indexterm"/>.</p><p>Even at its earliest stages, PDP-7 Unix bore a strong
+resemblance to today's Unixes and provided a rather more
+pleasant programming environment than was available anywhere else in
+those days of card-fed batch mainframes.  Unix was very close to being
+the first system under which a programmer could sit down directly at a
+machine and compose programs on the fly, exploring possibilities and
+testing while composing.  All through its lifetime Unix has had a pattern
+of growing more capabilities by attracting highly skilled volunteer
+efforts from programmers impatient with the limitations of other
+operating systems.  This pattern was set early, within Bell Labs
+itself.</p><p>The Unix tradition of lightweight development and informal
+methods also began at its beginning.  Where Multics had been a large
+project with thousands of pages of technical specifications written
+before the hardware arrived, the first running Unix code was
+brainstormed by three people and implemented by Ken
+Thompson<a id="id2879536" class="indexterm"/> in two
+days &#8212; on an obsolete machine that had been designed to be a
+graphics terminal for a &#8216;real&#8217; computer.</p><p>Unix's first real job, in 1971, was to support what would now be
+called word processing for the Bell Labs patent department; the first
+Unix application was the ancestor of the
+nroff(1)
+text formatter.  This project justified the purchase of a
+PDP-11<a id="id2879563" class="indexterm"/>, a much
+more capable minicomputer.  Management remained blissfully unaware
+that the word-processing system that Thompson and colleagues were
+building was incubating an operating system.  Operating systems were
+not in the Bell Labs plan &#8212;
+AT&amp;T<a id="id2879579" class="indexterm"/> had joined
+the Multics consortium precisely to avoid doing an operating
+system on its own.  Nevertheless, the completed system was a rousing
+success.  It established Unix as a permanent and valued part of the
+computing ecology at Bell Labs, and began another theme in Unix's
+history &#8212; a close association with document-formatting,
+typesetting, and communications tools.  The 1972 manual claimed 10
+installations.</p><p>Later, Doug McIlroy<a id="id2879599" class="indexterm"/> would write of this period [<a href="apb.html#McIlroy91" title="[McIlroy91]">McIlroy91</a>]: &#8220;Peer pressure and simple pride in
+workmanship caused gobs of code to be rewritten or discarded as better
+or more basic ideas emerged. Professional rivalry and protection of
+turf were practically unknown: so many good things were happening that
+nobody needed to be proprietary about innovations&#8221;. But it
+would take another quarter century for all the implications of that
+observation to come home.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2879627"/>Exodus: 1971&#8211;1980</h3></div></div><p>The original Unix operating system was written in assembler, and
+the applications in a mix of assembler and an interpreted language
+called B, which had the virtue that it was small enough to run on the
+PDP-7<a id="id2879640" class="indexterm"/>.  But B
+was not powerful enough for systems programming, so Dennis Ritchie
+added data types and structures to it.  The resulting C
+language<a id="id2879653" class="indexterm"/> evolved
+from B beginning in 1971; in 1973 Thompson and Ritchie finally
+succeeded in rewriting Unix in their new language.  This was quite an
+audacious move; at the time, system programming was done in assembler
+in order to extract maximum performance from the hardware, and the
+very concept of a portable operating system was barely a gleam in
+anyone's eye. As late as 1979, Ritchie<a id="id2879669" class="indexterm"/> could write: &#8220;It seems certain that
+much of the success of Unix follows from the readability,
+modifiability, and portability of its software that in turn follows
+from its expression in high-level languages&#8221;, in the knowledge
+that this was a point that still needed making.</p><div class="mediaobject"><img src="graphics/kd14.jpg"/><div class="caption"><p>Ken (seated) and Dennis (standing) at a PDP-11 in 1972.</p></div></div><p>A 1974 paper in <i>Communications of the ACM</i>
+[<a href="apb.html#Ritchie-Thompson" title="[Ritchie-Thompson]">Ritchie-Thompson</a>] gave Unix its first public
+exposure.  In that paper, its authors described the unprecedentedly
+simple design of Unix, and reported over 600 Unix installations. All
+were on machines underpowered even by the standards of that day, but
+(as Ritchie and Thompson wrote) &#8220;constraint has encouraged not
+only economy, but also a certain elegance of design&#8221;.</p><p>After the CACM paper, research labs and universities all over
+the world clamored for the chance to try out Unix themselves.  Under a
+1958 consent decree in settlement of an antitrust case, AT&amp;T
+<a id="id2879792" class="indexterm"/>(the parent organization of Bell Labs) had
+been forbidden from entering the computer business.  Unix could not,
+therefore, be turned into a product; indeed, under the terms of
+the consent decree, Bell Labs was required to license its nontelephone
+technology to anyone who asked.  Ken
+Thompson<a id="id2879808" class="indexterm"/>
+quietly began answering requests by shipping out tapes and disk packs
+&#8212; each, according to legend, with a note signed &#8220;love,
+ken&#8221;.</p><p>This was years before personal computers. Not only was the
+hardware needed to run Unix too expensive to be within an individual's
+reach, but nobody imagined that would change in the foreseeable
+future.  So Unix machines were only available by the grace of big
+organizations with big budgets: corporations, universities,
+government agencies. But use of these minicomputers was less regulated
+than the even-bigger mainframes, and Unix development rapidly took on
+a countercultural air.  It was the early 1970s; the pioneering Unix
+programmers were shaggy hippies and hippie-wannabes.  They delighted
+in playing with an operating system that not only offered them
+fascinating challenges at the leading edge of computer science, but also
+subverted all the technical assumptions and business practices that
+went with Big Computing.  Card punches, COBOL, business suits, and
+batch IBM<a id="id2879768" class="indexterm"/> mainframes were
+the despised old wave; Unix
+hackers<a id="id2879850" class="indexterm"/> reveled in
+the sense that they were simultaneously building the future and
+flipping a finger at the system.</p><p>The excitement of those days is captured in this quote from
+Douglas Comer: &#8220;Many universities contributed to UNIX. At the
+University of Toronto, the department acquired a 200-dot-per-inch
+printer/plotter and built software that used the printer to simulate a
+phototypesetter. At Yale University, students and computer scientists
+modified the UNIX shell. At Purdue University, the Electrical
+Engineering Department made major improvements in performance,
+producing a version of UNIX that supported a larger number of
+users. Purdue also developed one of the first UNIX computer
+networks. At the University of California at Berkeley, students
+developed a new shell and dozens of smaller utilities. By the late
+1970s, when Bell Labs released Version 7 UNIX, it was clear that the
+system solved the computing problems of many departments, and that it
+incorporated many of the ideas that had arisen in universities. The
+end result was a strengthened system. A tide of ideas had started a
+new cycle, flowing from academia to an industrial laboratory, back to
+academia, and finally moving on to a growing number of commercial
+sites&#8221; [<a href="apb.html#Comer" title="[Comer]">Comer</a>].</p><p>The first Unix of which it can be said that essentially all of
+it would be recognizable to a modern Unix programmer was the Version 7
+release in 1979.<sup>[<a id="id2879903" href="#ftn.id2879903">15</a>]</sup>
+The first Unix user group had formed the previous year. By this time
+Unix was in use for operations support all through the Bell System
+[<a href="apb.html#Hauben" title="[Hauben]">Hauben</a>], and had spread to universities as far away
+as Australia, where John Lions's 1976 notes [<a href="apb.html#Lions" title="[Lions]">Lions</a>] on
+the Version 6 source code became the first serious documentation of
+the Unix kernel internals.  Many senior Unix hackers still treasure a
+copy.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>The Lions book was a samizdat publishing sensation.  Because
+of copyright infringement or some such it couldn't be published in the
+U.S., so copies of copies seeped everywhere.  I still have my copy,
+which was at least 6th generation.  Back then you couldn't be a kernel
+hacker without a Lions.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Ken Arnold</span>
+<a id="id2879950" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>The beginnings of a Unix industry were coalescing as well.  The
+first Unix company (the Santa Cruz Operation, SCO) began operations in
+1978, and the first commercial C<a id="id2879976" class="indexterm"/> compiler (Whitesmiths) sold that same
+year.  By 1980 an obscure software company in Seattle was also getting
+into the Unix game, shipping a port of the
+AT&amp;T<a id="id2879988" class="indexterm"/> version for microcomputers called XENIX.
+But Microsoft's<a id="id2880000" class="indexterm"/>
+affection for Unix as a product was not to last very long (though Unix
+would continue to be used for most internal development work at the
+company until after 1990).</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2880014"/>TCP/IP and the Unix Wars: 1980-1990</h3></div></div><p>The Berkeley<a id="id2880023" class="indexterm"/>
+campus of the University of California emerged early as the single
+most important academic hot-spot in Unix development.  Unix research
+had begun there in 1974, and was given a substantial impetus when Ken
+Thompson<a id="id2880035" class="indexterm"/> taught
+at the University during a 1975-76 sabbatical. The first BSD
+release<a id="id2880045" class="indexterm"/> had been in
+1977 from a lab run by a then-unknown grad student named Bill
+Joy<a id="id2880055" class="indexterm"/>.  By 1980
+Berkeley was the hub of a sub-network of universities actively
+contributing to their variant of Unix.  Ideas and code from Berkeley
+Unix (including the
+vi(1)
+editor)<a id="id2880074" class="indexterm"/> were feeding back
+from Berkeley to Bell Labs.</p><p>Then, in 1980, the Defense Advanced Research Projects Agency
+needed a team to implement its brand-new
+TCP/IP<a id="id2880090" class="indexterm"/> protocol stack
+on the VAX under Unix.  The PDP-10s<a id="id2880099" class="indexterm"/> that
+powered the ARPANET at that time were aging, and indications that DEC
+might be forced to cancel the 10 in order to support the VAX were
+already in the air.  DARPA considered contracting DEC to implement
+TCP/IP<a id="id2880114" class="indexterm"/>, but rejected
+that idea because they were concerned that DEC might not be responsive
+to requests for changes in their proprietary
+VAX/VMS<a id="id2880125" class="indexterm"/>
+operating system [<a href="apb.html#Libes-Ressler" title="[Libes-Ressler]">Libes-Ressler</a>]. Instead, DARPA
+chose Berkeley Unix as a platform &#8212; explicitly because its
+source code was available and unencumbered [<a href="apb.html#Leonard" title="[Leonard]">Leonard</a>].</p><p>Berkeley's<a id="id2880151" class="indexterm"/>
+Computer Science Research Group was in the right place at the right
+time with the strongest development tools; the result became arguably
+the most critical turning point in Unix's history since its
+invention.</p><p>Until the TCP/IP<a id="id2880167" class="indexterm"/>
+implementation was released with Berkeley<a id="id2880176" class="indexterm"/> 4.2 in 1983, Unix
+had had only the weakest networking support.  Early experiments with
+Ethernet were unsatisfactory.  An ugly but serviceable facility called
+UUCP (Unix to Unix Copy Program) had been developed at Bell Labs for
+distributing software over conventional telephone lines via modem.<sup>[<a id="id2880193" href="#ftn.id2880193">16</a>]</sup>  UUCP could forward Unix mail
+between widely separated machines, and (after Usenet was invented in
+1981) supported
+Usenet<a id="id2880205" class="indexterm"/>, a distributed
+bulletin-board facility that allowed users to broadcast text messages
+to anywhere that had phone lines and Unix systems.</p><p>Still, the few Unix users aware of the bright lights of the
+ARPANET felt like they were stuck in a backwater.  No FTP, no telnet,
+only the most restricted remote job execution, and painfully slow
+links.  Before TCP/IP<a id="id2880224" class="indexterm"/>,
+the Internet and Unix cultures did not mix.  Dennis
+Ritchie's<a id="id2880234" class="indexterm"/>
+vision of computers as a way to &#8220;encourage close
+communication&#8221; was one of collegial communities clustered
+around individual timesharing machines or in the same computing
+center; it didn't extend to the continent-wide distributed
+&#8216;network nation&#8217; that ARPA users had started to form in
+the mid-1970s.  Early ARPANETters, for their part, considered Unix a
+crude makeshift limping along on risibly weak hardware.</p><p>After TCP/IP<a id="id2880258" class="indexterm"/>,
+everything changed. The ARPANET and Unix cultures began to merge at
+the edges, a development that would eventually save both from
+destruction.  But there would be hell to pay first as the result of
+two unrelated disasters; the rise of
+Microsoft<a id="id2880271" class="indexterm"/> and the
+AT&amp;T<a id="id2880279" class="indexterm"/> divestiture.</p><a id="id2880292" class="indexterm"/><p><a id="ms_history"/>In 1981, Microsoft made its historic deal with
+IBM<a id="id2880310" class="indexterm"/> over the new IBM
+PC. Bill Gates bought QDOS (Quick and Dirty Operating System), a clone
+of CP/M that its programmer Tim Paterson had thrown together in six
+weeks, from Paterson's employer Seattle Computer Products. Gates,
+concealing the IBM deal from Paterson and SCP, bought the rights for
+$50,000.  He then talked IBM into allowing Microsoft to market MS-DOS
+separately from the PC hardware.  Over the next decade, leveraging
+code he didn't write made Bill Gates a multibillionaire, and
+business tactics even sharper than the original deal gained Microsoft
+a monopoly lock on desktop computing.  XENIX as a product was rapidly
+deep-sixed, and eventually sold to SCO.</p><p><a id="ms_effects"/>It was not apparent at the time how successful
+(or how destructive)
+Microsoft<a id="id2880339" class="indexterm"/> was going
+to be.  Since the IBM PC-1 didn't have the hardware capacity to run
+Unix, Unix people barely noticed it at all (though, ironically enough,
+DOS 2.0 eclipsed CP/M largely because Microsoft's co-founder Paul Allen
+merged in Unix features including subdirectories and
+pipes<a id="id2880352" class="indexterm"/>).  There were
+things that seemed much more interesting going on &#8212; like the
+1982 launching of Sun Microsystems<a id="id2880363" class="indexterm"/>.</p><p>Sun Microsystems<a id="id2880376" class="indexterm"/> founders Bill
+Joy<a id="id2880384" class="indexterm"/>, Andreas
+Bechtolsheim, and Vinod Khosla set out to build a dream Unix machine
+with built-in networking capability.  They combined hardware designed
+at Stanford with the Unix developed at Berkeley to produce a smashing
+success, and founded the workstation industry.  At the time, nobody
+much minded watching source-code access to one branch of the Unix tree
+gradually dry up as Sun began to behave less like a freewheeling
+startup and more like a conventional
+firm. Berkeley<a id="id2880401" class="indexterm"/> was
+still distributing BSD<a id="id2880410" class="indexterm"/> with source code. Officially, System
+III<a id="id2880419" class="indexterm"/> source
+licenses cost $40,000 each; but Bell Labs was turning a blind eye to
+the number of bootleg Bell Labs Unix tapes in circulation, the
+universities were still swapping code with Bell Labs, and it looked
+like Sun's<a id="id2880431" class="indexterm"/>
+commercialization of Unix might just be the best thing to happen to it
+yet.</p><p>1982 was also the year that C<a id="id2880446" class="indexterm"/> first showed signs of establishing
+itself outside the Unix world as the systems-programming language of
+choice.  It would only take about five years for
+C<a id="id2880457" class="indexterm"/> to drive machine
+assemblers almost completely out of use.  By the early 1990s C and
+C++<a id="id2880467" class="indexterm"/> would dominate not
+only systems but application programming; by the late 1990s all other
+conventional compiled languages would be effectively obsolete.</p><p>When DEC canceled development on the
+PDP-10's<a id="id2880483" class="indexterm"/> successor
+machine (Jupiter) in 1983, VAXes running Unix began to take over as
+the dominant Internet machines, a position they would hold until being
+displaced by Sun workstations<a id="id2880497" class="indexterm"/>.  By 1985, about 25% of all VAXes
+would be running Unix despite DEC's stiff opposition.  But the
+longest-term effect of the Jupiter cancellation was a less obvious
+one; the death of the MIT AI Lab's PDP-10-centered hacker culture
+motivated a programmer named Richard
+Stallman<a id="id2880511" class="indexterm"/>
+to begin writing GNU<a id="id2880520" class="indexterm"/>, a complete free clone of Unix.</p><p>By 1983 there were no fewer than six Unix-workalike
+operating systems for the IBM-PC: uNETix, Venix, Coherent, QNX, Idris,
+and the port hosted on the Sritek PC daughtercard.  There was still no
+port of Unix in either the
+System V<a id="id2880537" class="indexterm"/> or
+BSD<a id="id2880546" class="indexterm"/> versions;
+both groups considered the 8086 microprocessor woefully
+underpowered and wouldn't go near it.  None of the Unix-workalikes
+were significant as commercial successes, but they indicated a
+significant demand for Unix on cheap hardware that the major vendors
+were not supplying.  No individual could afford to meet it, either,
+not with the $40,000 price-tag on a source-code license.</p><p>Sun<a id="id2880566" class="indexterm"/>
+was already a success (with imitators!) when, in 1983, the
+U.S. Department of Justice won its second antitrust case against
+AT&amp;T<a id="id2880576" class="indexterm"/> and broke
+up the Bell System.  This relieved AT&amp;T from the 1958 consent
+decree that had prevented them from turning Unix into a product.
+AT&amp;T promptly rushed to commercialize Unix System V&#8212;a move
+that nearly killed Unix.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>So true.  But their marketing did spread Unix internationally.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Ken Thompson</span>
+<a id="id2880604" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Most Unix boosters thought that the
+divestiture<a id="id2880624" class="indexterm"/> was great news. We thought we saw in
+the post-divestiture AT&amp;T, Sun Microsystems<a id="id2885301" class="indexterm"/>, and Sun's smaller imitators the
+nucleus of a healthy Unix industry &#8212; one that, using inexpensive
+68000-based workstations, would challenge and eventually break the
+oppressive monopoly that then loomed over the computer industry
+&#8212; IBM's.<a id="id2885314" class="indexterm"/></p><p>What none of us realized at the time was that the productization
+of Unix would destroy the free exchanges of source code that had nurtured
+so much of the system's early vitality.  Knowing no other model than
+secrecy for collecting profits from software and no other model than
+centralized control for developing a commercial product, AT&amp;T
+clamped down hard on source-code distribution.  Bootleg Unix tapes became
+far less interesting in the knowledge that the threat of lawsuit might
+come with them.  Contributions from universities began to dry up.</p><p>To make matters worse, the big new players in the Unix market
+promptly committed major strategic blunders.  One was to seek
+advantage by product differentiation &#8212; a tactic which resulted
+in the interfaces of different Unixes diverging.  This threw away
+cross-platform compatibility and fragmented the Unix market.</p><p>The other, subtler error was to behave as if personal computers
+and Microsoft<a id="id2885351" class="indexterm"/> were
+irrelevant to Unix's prospects.  Sun
+Microsystems<a id="id2885360" class="indexterm"/>
+failed to see that commoditized PCs would inevitably become an attack
+on its workstation market from below.
+AT&amp;T<a id="id2885370" class="indexterm"/>, fixated on
+minicomputers and mainframes, tried several different strategies to
+become a major player in computers, and badly botched all of them.  A
+dozen small companies formed to support Unix on PCs; all were
+underfunded, focused on selling to developers and engineers, and never
+aimed at the business and home market that Microsoft was
+targeting.</p><p>In fact, for years after divestiture the Unix community was
+preoccupied with the first phase of the Unix
+wars<a id="id2885392" class="indexterm"/> &#8212; an
+internal dispute, the rivalry between System
+V Unix<a id="id2885401" class="indexterm"/> and BSD
+Unix<a id="id2885409" class="indexterm"/>. The dispute
+had several levels, some technical (sockets vs. streams,
+BSD<a id="id2885419" class="indexterm"/> tty vs. System V
+termio) and some cultural.  The divide was roughly between
+longhairs and shorthairs; programmers and technical people tended to
+line up with Berkeley and BSD<a id="id2885430" class="indexterm"/>, more business-oriented types with AT&amp;T
+and System V<a id="id2885440" class="indexterm"/>.
+The longhairs, repeating a theme from Unix's early days ten years
+before, liked to see themselves as rebels against a corporate empire;
+one of the small companies put out a poster showing an X-wing-like
+space fighter marked &#8220;BSD&#8221; speeding away from a huge
+AT&amp;T &#8216;death star&#8217; logo left broken and in flames. Thus
+we fiddled while Rome burned.</p><p>But something else happened in the year of the
+AT&amp;T divestiture that would have more long-term importance for
+Unix.  A programmer/linguist named Larry Wall quietly invented the
+patch(1)
+utility.  The <i>patch</i> program, a simple tool
+that applies changebars generated by
+diff(1)
+to a base file, meant that Unix developers could cooperate by passing
+around patch sets &#8212; incremental changes to code &#8212; rather
+than entire code files.  This was important not only because patches
+are less bulky than full files, but because patches would often apply
+cleanly even if much of the base file had changed since the
+patch-sender fetched his copy.  With this tool, streams of development
+on a common source-code base could diverge, run in parallel, and
+re-converge.  The <i>patch</i> program did more
+than any other single tool to enable collaborative development over
+the Internet &#8212; a method that would revitalize Unix after
+1990.</p><p>In 1985 Intel shipped the first 386 chip, capable of addressing 4
+gigabytes of memory with a flat address space.  The clumsy segment
+addressing of the 8086 and 286 became immediately obsolete.  This was
+big news, because it meant that for the first time, a microprocessor in
+the dominant Intel family had the capability to run Unix without
+painful compromises.  The handwriting was on the wall for
+Sun<a id="id2885525" class="indexterm"/> and the
+other workstation makers.  They failed to see it.</p><p>1985 was also the year that Richard
+Stallman<a id="id2885540" class="indexterm"/>
+issued the GNU manifesto [<a href="apb.html#Stallman" title="[Stallman]">Stallman</a>] and launched the
+Free Software Foundation<a id="id2885555" class="indexterm"/>.  Very few people took him or his
+GNU<a id="id2885564" class="indexterm"/> project
+seriously, a judgment that turned out to be seriously mistaken.  In
+an unrelated development of the same year, the originators of the X
+window system released it as source code without royalties,
+restrictions, or license code.  As a direct result of this decision,
+it became a safe neutral area for collaboration between Unix vendors,
+and defeated proprietary contenders to become Unix's graphics
+engine.</p><p>Serious standardization efforts aimed at reconciling the System
+V<a id="id2885585" class="indexterm"/> and
+Berkeley<a id="id2885594" class="indexterm"/> APIs also
+began in 1983 with the /usr/group standard. This was followed in 1985
+by the POSIX<a id="id2885604" class="indexterm"/> standards, an
+effort backed by the IEEE.  These described the intersection set of
+the BSD<a id="id2885614" class="indexterm"/> and SVR3
+(System V Release 3)<a id="id2885622" class="indexterm"/> calls, with the superior Berkeley signal
+handling and job control but with SVR3 terminal control.  All later
+Unix standards would incorporate POSIX at their core, and later Unixes
+would adhere to it closely. The only major addition to the modern Unix
+kernel API to come afterwards was BSD sockets.</p><p>In 1986 Larry Wall<a id="id2885641" class="indexterm"/>, previously the inventor of
+patch(1),
+began work on Perl<a id="id2885658" class="indexterm"/>, which would become the first and most
+widely used of the open-source scripting languages. In early 1987 the
+first version of the GNU C compiler <a id="id2885670" class="indexterm"/><a id="id2885676" class="indexterm"/> appeared, and by the end of 1987 the
+core of the GNU toolset was falling into place<a id="id2885687" class="indexterm"/>: editor, compiler, debugger, and
+other basic development tools.  Meanwhile, the X windowing
+system<a id="id2885697" class="indexterm"/> was
+beginning to show up on relatively inexpensive workstations. Together,
+these would provide the armature for the open-source Unix developments
+of the 1990s.</p><p>1986 was also the year that PC technology broke free of IBM's
+grip.  IBM<a id="id2885713" class="indexterm"/>, still trying
+to preserve a price-vs.-power curve across its product line that would
+favor its high-margin mainframe business, rejected the 386 for most of
+its new line of PS/2 computers in favor of the weaker 286.  The PS/2
+series, designed around a proprietary bus architecture to lock out
+clonemakers, became a colossally expensive failure.<sup>[<a id="id2885728" href="#ftn.id2885728">17</a>]</sup>  Compaq, the most aggressive of the
+clonemakers, trumped IBM's move by releasing the first 386 machine.
+Even with a clock speed of a mere 16 MHz, the 386 made a tolerable Unix
+machine.  It was the first PC of which that could be said.</p><p>It was beginning to be possible to imagine that
+Stallman's<a id="id2885750" class="indexterm"/> GNU project<a id="id2885759" class="indexterm"/> might mate with 386 machines to produce
+Unix workstations almost an order of magnitude less costly than anyone
+was offering.  Curiously, no one seems to have actually got this far
+in their thinking.  Most Unix programmers, coming from the
+minicomputer and workstation worlds, continued to disdain cheap 80x86
+machines in favor of more elegant 68000-based designs.  And, though a
+lot of programmers contributed to the GNU
+project<a id="id2885776" class="indexterm"/>, among
+Unix people it tended to be considered a quixotic gesture that was
+unlikely to have near-term practical consequences.</p><p>The Unix community had never lost its rebel streak.  But in
+retrospect, we were nearly as blind to the future bearing down on us
+as IBM<a id="id2885793" class="indexterm"/> or
+AT&amp;T<a id="id2885801" class="indexterm"/>.  Not even
+Richard Stallman<a id="id2885810" class="indexterm"/>, who had declared a moral crusade against
+proprietary software a few years before, really understood how badly
+the productization of Unix had damaged the community around it; his
+concerns were with more abstract and long-term issues.  The rest of us
+kept hoping that some clever variation on the corporate formula would
+solve the problems of fragmentation, wretched marketing, and strategic
+drift, and redeem Unix's pre-divestiture
+promise<a id="id2885827" class="indexterm"/>.  But worse was still to
+come.</p><p>1988 was the year Ken Olsen (CEO of DEC) famously described Unix
+as &#8220;snake oil&#8221;.  DEC had been shipping its own variant of
+Unix on PDP-11s<a id="id2885849" class="indexterm"/> since
+1982, but really wanted the business to go to its proprietary
+VMS<a id="id2885862" class="indexterm"/>
+operating system.  DEC and the minicomputer industry were in deep
+trouble, swamped by waves of powerful low-cost machines coming out of
+Sun Microsystems<a id="id2885873" class="indexterm"/> and the rest of the workstation
+vendors. Most of those workstations ran Unix.</p><p>But the Unix industry's own problems were growing more severe.
+In 1988 AT&amp;T took a 20% stake in Sun Microsystems.  These two
+companies, the leaders in the Unix market, were beginning to wake up
+to the threat posed by PCs, IBM, and Microsoft, and to realize that
+the preceding five years of bloodletting had gained them little.  The
+AT&amp;T/Sun alliance and the development of technical standards around
+POSIX<a id="id2885895" class="indexterm"/> eventually healed
+the breach between the System V<a id="id2885904" class="indexterm"/> and BSD Unix<a id="id2885912" class="indexterm"/> lines.  But the second phase of the Unix
+wars<a id="id2885921" class="indexterm"/> began when the
+second-tier vendors (IBM<a id="id2885930" class="indexterm"/>,
+DEC, Hewlett-Packard, and others) formed the Open Software Foundation
+and lined up against the AT&amp;T/Sun axis (represented by Unix
+International).  More rounds of Unix fighting Unix ensued.</p><p>Meanwhile,
+Microsoft<a id="id2885947" class="indexterm"/> was
+making billions in the home and small-business markets that the
+warring Unix factions had never found the will to address. The 1990
+release of Windows 3.0 &#8212; the first successful graphical
+operating system from Redmond &#8212; cemented Microsoft's dominance,
+and created the conditions that would allow them to flatten and
+monopolize the market for desktop applications in the 1990s.</p><p>The years from 1989 to 1993 were the darkest in Unix's history.
+It appeared then that all the Unix community's dreams had failed.
+Internecine warfare had reduced the proprietary Unix industry to a
+squabbling shambles that never summoned either the determination or
+the capability to challenge Microsoft.  The elegant Motorola chips
+favored by most Unix programmers had lost out to Intel's ugly but
+inexpensive processors.  The GNU project<a id="id2885975" class="indexterm"/> failed to produce the free Unix kernel
+it had been promising since 1985, and after years of excuses
+its credibility was beginning to wear thin.  PC technology was being
+relentlessly corporatized.  The pioneering Unix
+hackers<a id="id2885987" class="indexterm"/> of the 1970s
+were hitting middle age and slowing down.  Hardware was getting
+cheaper, but Unix was still too expensive.  We were belatedly becoming
+aware that the old monopoly of
+IBM<a id="id2885999" class="indexterm"/> had yielded to a
+newer monopoly of
+Microsoft<a id="id2886008" class="indexterm"/>, and
+Microsoft's mal-engineered software was rising around us like a tide
+of sewage.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2886020"/>Blows against the Empire: 1991-1995</h3></div></div><p>The first glimmer of light in the darkness was the 1990 effort
+by William Jolitz to port BSD<a id="id2886031" class="indexterm"/> onto a 386 box, publicized by a series of
+magazine articles beginning in 1991.  The 386BSD port was possible because,
+partly influenced by Stallman<a id="id2886042" class="indexterm"/>,
+Berkeley<a id="id2886051" class="indexterm"/> hacker
+Keith Bostic<a id="id2886059" class="indexterm"/>
+had begun an effort to clean AT&amp;T proprietary code out of the BSD
+sources in 1988.  But the 386BSD project took a severe blow when, near
+the end of 1991, Jolitz walked away from it and destroyed his own
+work.  There are conflicting explanations, but a common thread in all
+is that Jolitz wanted his code to be released as unencumbered source
+and was upset when the corporate sponsors of the project opted for a
+more proprietary licensing model.</p><p>In August 1991 Linus Torvalds<a id="id2886081" class="indexterm"/>, then an unknown university student from
+Finland, announced the Linux<a id="id2886090" class="indexterm"/> project.  Torvalds is on record that one
+of his main motivations was the high cost of Sun's<a id="id2886101" class="indexterm"/> Unix at his university.  Torvalds
+has also said that he would have joined the BSD<a id="id2886111" class="indexterm"/> effort had he known of it, rather than
+founding his own.  But 386BSD was not shipped until early 1992, some
+months after the first Linux release.</p><p>The importance of both these projects became clear only in
+retrospect. At the time, they attracted little notice even within the
+Internet hacker culture &#8212; let alone in the wider Unix community,
+which was still fixated on more capable machines than PCs, and on
+trying to reconcile the special properties of Unix with the
+conventional proprietary model of a software business.</p><p>It would take another two years and the great Internet explosion
+of 1993&#8211;1994 before the true importance of
+Linux<a id="id2886139" class="indexterm"/> and the
+open-source<a id="id2886151" class="indexterm"/>
+BSD<a id="id2886159" class="indexterm"/> distributions
+became evident to the rest of the Unix world.  Unfortunately for the
+BSDers, an AT&amp;T<a id="id2886169" class="indexterm"/>
+lawsuit against BSDI (the startup company that had backed the Jolitz
+port) consumed much of that time and motivated some key
+Berkeley<a id="id2886180" class="indexterm"/> developers
+to switch to Linux.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Code copying and theft of trade secrets was alleged. The actual
+infringing code was not identified for nearly two years. The lawsuit
+could have dragged on for much longer but for the fact that Novell
+bought USL from AT&amp;T and sought a settlement. In the end, three files
+were removed from the 18,000 that made up the distribution, and a
+number of minor changes were made to other files. In addition, the
+University agreed to add USL copyrights to about 70 files, with the
+stipulation that those files continued to be freely redistributed.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Marshall Kirk McKusick</span>
+<a id="id2886209" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>The settlement set an important precedent by freeing an entire
+working Unix from proprietary control, but its effects on BSD itself
+were dire.  Matters were not helped when, in 1992&#8211;1994, the
+Computer Science Research Group at
+Berkeley<a id="id2886242" class="indexterm"/> shut
+down<a id="id2886251" class="indexterm"/>; afterwards,
+factional warfare within the BSD community split it into
+three competing development efforts.  As a result, the BSD lineage
+lagged behind Linux<a id="id2886262" class="indexterm"/> at a crucial time and lost to it
+the lead position in the Unix community.</p><p>The Linux<a id="id2886279" class="indexterm"/> and BSD<a id="id2886288" class="indexterm"/> development efforts were native to the
+Internet in a way previous Unixes had not been.  They relied on
+distributed development and Larry Wall's
+patch(1)
+tool, and recruited developers via email and through
+Usenet<a id="id2886308" class="indexterm"/> newsgroups.
+Accordingly, they got a tremendous boost when Internet Service
+Provider businesses began to proliferate in 1993, enabled by changes
+in telecomm technology and the privatization of the Internet backbone
+that are outside the scope of this history.  The demand for cheap
+Internet was created by something else: the 1991 invention of
+the World Wide Web.  The Web was the &#8220;killer app&#8221; of the
+Internet, the graphical user interface technology that made it
+irresistible to a huge population of nontechnical end users.</p><p>The mass-marketing of the Internet both increased the pool of
+potential developers and lowered the transaction costs of distributed
+development.  The results were reflected in efforts like XFree86,
+which used the Internet-centric model to build a more effective
+development organization than that of the official X
+Consortium<a id="id2886337" class="indexterm"/>.  The
+first XFree86 in 1992 gave Linux<a id="id2886349" class="indexterm"/> and the BSDs<a id="id2886357" class="indexterm"/> the graphical-user-interface engine they
+had been missing.  Over the next decade XFree86 would lead in X
+development, and an increasing portion of the X Consortium's activity
+would come to consist of funneling innovations originated in the
+XFree86 community back to the Consortium's industrial sponsors.</p><p>By late 1993, Linux<a id="id2886376" class="indexterm"/> had both Internet capability and
+X<a id="id2886385" class="indexterm"/>. The entire
+GNU toolkit had been hosted on it from the beginning, providing
+high-quality development tools<a id="id2886395" class="indexterm"/>.  Beyond GNU tools,
+Linux<a id="id2886404" class="indexterm"/> acted as a basin of attraction,
+collecting and concentrating twenty years of open-source software that
+had previously been scattered across a dozen different proprietary
+Unix platforms.  Though the Linux kernel was still officially in beta
+(at 0.99 level), it was remarkably crash-free.  The breadth and
+quality of the software in Linux<a id="id2886422" class="indexterm"/> distributions was already that of a
+production-ready operating system.</p><p>A few of the more flexible-minded among old-school Unix
+developers began to notice that the long-awaited dream of a cheap Unix
+system for everybody had snuck up on them from an unexpected direction.
+It didn't come from
+AT&amp;T<a id="id2886440" class="indexterm"/> or
+Sun<a id="id2886448" class="indexterm"/> or any
+of the traditional vendors. Nor did it rise out of an organized effort
+in academia.  It was a bricolage that bubbled up out of the Internet
+by what seemed like spontaneous generation, appropriating and
+recombining elements of the Unix tradition in surprising ways.</p><p>Elsewhere, corporate maneuvering continued.
+AT&amp;T<a id="id2886467" class="indexterm"/> divested
+its interest in Sun in 1992; then sold its Unix Systems Laboratories
+to Novell in 1993; Novell handed off the Unix trademark to the X/Open
+standards group in 1994; AT&amp;T and Novell joined OSF in 1994,
+finally ending the Unix wars<a id="id2886479" class="indexterm"/>.  In 1995 SCO bought UnixWare (and the
+rights to the original Unix sources) from Novell.  In 1996, X/Open and
+OSF merged, creating one big Unix standards group.</p><p>But the conventional Unix vendors and the wreckage of their wars
+came to seem steadily less and less relevant.  The action and energy
+in the Unix community were shifting to Linux<a id="id2886498" class="indexterm"/> and BSD<a id="id2886510" class="indexterm"/> and the open-source<a id="id2886518" class="indexterm"/> developers.  By the time
+IBM<a id="id2886527" class="indexterm"/>, Intel, and SCO
+announced the Monterey project in 1998 &#8212; a last-gasp attempt to
+merge One Big System out of all the proprietary Unixes left standing
+&#8212; developers and the trade press reacted with amusement, and the
+project was abruptly canceled in 2001 after three years of going
+nowhere.</p><p>The industry transition could not be said to have completed
+until 2000, when SCO sold UnixWare and the original Unix source-code
+base to Caldera &#8212; a Linux distributor. But after 1995, the story
+of Unix became the story of the open-source movement.  There's another
+side to that story; to tell it, we'll need to return to 1961 and the 
+origins of the Internet hacker culture.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2881371" href="#id2881371">13</a>] </sup>Ken Thompson
+reminded me that today's cellphones have more RAM than the PDP-7 had
+RAM and disk storage combined; a <span class="emphasis"><em>large</em></span> disk, in
+those days, was less than a megabyte of storage.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2881412" href="#id2881412">14</a>] </sup>There is a Web FAQ on the <a href="http://www.faqs.org/faqs/dec-faq/pdp8/" target="_top">PDP computers</a>
+that explains the otherwise extremely obscure PDP-7's place in
+history.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2879903" href="#id2879903">15</a>] </sup>The version 7 manuals can be browsed
+on-line at <a href="http://plan9.bell-labs.com/7thEdMan/index.html" target="_top">http://plan9.bell-labs.com/7thEdMan/index.html</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2880193" href="#id2880193">16</a>] </sup>UUCP was hot stuff when a <span class="emphasis"><em>fast</em></span>
+modem was 300 baud.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2885728" href="#id2885728">17</a>] </sup>The
+PS/2 did, however, leave one mark on later PCs &#8212; they made the
+mouse a standard peripheral, which is why the mouse connector on the
+back of your chassis is called a &#8220;PS/2
+port&#8221;.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="historychapter.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="historychapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="hackers.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 2. History </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Origins and History of the Hackers, 1961-1995</td></tr></table></div></body></html>

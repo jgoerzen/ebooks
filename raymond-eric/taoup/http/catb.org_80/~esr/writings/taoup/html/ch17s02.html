@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Unix Standards</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="portabilitychapter.html" title="Chapter 17. Portability"/><link rel="previous" href="c_evolution.html" title="Evolution of C"/><link rel="next" href="ietf_process.html" title="IETF and the RFC Standards Process"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Unix Standards</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="c_evolution.html">Prev</a> </td><th width="60%" align="center">Chapter 17. Portability</th><td width="20%" align="right"> <a accesskey="n" href="ietf_process.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2994542"/>Unix Standards</h2></div></div><p>The 1973 rewrite of Unix in C<a id="id2994550" class="indexterm"/> made it unprecedentedly easy to port
+and modify.  As a result, the ancestral Unix diverged into a family of
+operating systems early on.  Unix standards originally developed to
+reconcile the APIs of the different branches of the family
+tree.</p><p>The Unix standards that evolved after 1985 were quite successful
+at this &#8212; so much so that they serve as valuable documentation
+of the API of modern Unix implementations.  In fact, real-world Unixes
+follow published standards so closely that developers can (and
+frequently do) lean more on documents like the POSIX specification
+than on the official manual pages for the Unix variant they happen to
+be using.</p><p>In fact, on the newer open-source Unixes (such as
+Linux<a id="id2994580" class="indexterm"/>), it is common for operating-system
+features to have been engineered using published standards as the
+specification.  We'll return to this point when we examine the RFC
+standards process later in this chapter.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2994594"/>Standards and the Unix Wars</h3></div></div><p>The original motivation for the development of Unix standards
+was the split between the
+AT&amp;T<a id="id2994604" class="indexterm"/> and
+Berkeley<a id="id2994613" class="indexterm"/> lines of
+development that we examined in <a href="historychapter.html" title="Chapter 2. History">Chapter 2</a>.</p><p>The 4.x BSD Unixes were descended from the 1979 Version 7.
+After the release of 4.1BSD in 1980 the BSD<a id="id2994636" class="indexterm"/> line quickly developed a reputation as the
+cutting edge of Unix.  Important additions included the
+<i>vi</i><a id="id2994651" class="indexterm"/>
+visual editor, job control facilities for managing multiple foreground
+and background tasks from a single console, and improvements in
+signals (see <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a>). By far the most important addition
+was to be TCP/IP<a id="id2994672" class="indexterm"/>
+networking, but though Berkeley got the contract to do it in 1980,
+TCP/IP was not to ship in an external release for three years.</p><p>But another version, 1981's System III<a id="id2994687" class="indexterm"/>, became the basis of AT&amp;T's later
+development. System III reworked the Version 7 terminals interface
+into a cleaner and more elegant form that was completely incompatible
+with the Berkeley enhancements.  It retained the older (non-resetting)
+semantics of signals (again, see <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a> for discussion of this point).  The
+January 1983 release of System V Release 1<a id="id2994710" class="indexterm"/> incorporated some
+BSD<a id="id2994719" class="indexterm"/> utilities (such
+as
+vi(1)).</p><p>The first attempt to bridge the gap came in February 1983 from
+UniForum, an influential Unix user group.  Their Uniforum 1983 Draft
+Standard (UDS 83) described a &#8220;core Unix System&#8221; consisting of a
+subset of the System III<a id="id2994748" class="indexterm"/> kernel and libraries plus a file-locking
+primitive. AT&amp;T<a id="id2994758" class="indexterm"/>
+declared support for UDS 83, but the standard was an inadequate subset
+of evolving practice based on 4.1BSD<a id="id2994768" class="indexterm"/>.  The problem was exacerbated by the July
+1983 release of 4.2BSD, which added many new features (including
+TCP/IP<a id="id2994778" class="indexterm"/> networking) and
+introduced some subtle incompatibilities with the ancestral Version
+7.</p><p>The 1984 divestiture of the Bell operating companies and the
+beginnings of the Unix wars<a id="id2994794" class="indexterm"/> (see <a href="historychapter.html" title="Chapter 2. History">Chapter 2</a>) significantly complicated matters.  Sun
+Microsystems<a id="id2994811" class="indexterm"/>
+was leading the workstation industry in a BSD direction; AT&amp;T was
+trying to get into the computer business and use control of Unix as a
+strategic weapon even as it continued to license the operating system
+to competitors like Sun.  All the vendors were making business
+decisions to differentiate their versions of Unix for competitive
+advantage.</p><p>During the Unix wars<a id="id2994830" class="indexterm"/>, technical standardization became something
+that cooperating technical people pushed for and most product managers
+accepted grudgingly or actively resisted.  The one large and important
+exception was
+AT&amp;T<a id="id2994843" class="indexterm"/>,
+which declared its intention to cooperate with user groups in setting
+standards when it announced System V Release
+2 (SVr2)<a id="id2994853" class="indexterm"/> in January
+1984.  The second revision of the UniForum Draft Standard, in 1984,
+both tracked and influenced the API of SVr2.  Later Unix standards
+also tended to track System V except in areas where
+BSD<a id="id2994865" class="indexterm"/> facilities were
+clearly functionally superior (thus, for example, modern Unix
+standards describe the System V<a id="id2994876" class="indexterm"/> terminal controls rather than the BSD
+interface to the same facilities).</p><p>In 1985,
+AT&amp;T<a id="id2994890" class="indexterm"/> released
+the <i>System V Interface Definition</i> (SVID).  SVID
+provided a more formal description of the SVr2 API, incorporating UDS
+84.  Later revisions SVID2 and SVID3 tracked the interfaces of System V
+releases 3 and 4.  SVID became the basis for the POSIX standards, which
+ultimately tipped most of the Berkeley/AT&amp;T disputes over system
+and C<a id="id2994908" class="indexterm"/> library calls in
+AT&amp;T's favor.</p><p>But this would not become obvious for a few years yet;
+meanwhile, the Unix wars<a id="id2994934" class="indexterm"/> raged on.  For example, 1985 saw the
+release of two competing API standards for file system sharing over
+networks: Sun's<a id="id2994945" class="indexterm"/> Network File System (NFS) and
+AT&amp;T's<a id="id2994954" class="indexterm"/> Remote
+File System (RFS).  Sun's NFS prevailed because Sun was willing to
+share not merely specifications but open-source code with
+others.</p><p>The lesson of this success should have been all the more pointed
+because on purely logical grounds RFS was the superior model. It
+supported better file-locking semantics and better mapping among user
+identities on different systems, and generally made an effort to get
+the finer details of Unix file system semantics precisely right,
+unlike NFS. The lesson was ignored, however, even when it was repeated
+in 1987 by the open-source X windowing system's<a id="id2994977" class="indexterm"/> victory over Sun's proprietary
+Networked Window System (NeWS).</p><p>After 1985 the main thrust of Unix standardization passed to the
+Institute of Electrical and Electronic Engineers (IEEE).  The IEEE's
+1003 committee developed a series of standards generally known as
+POSIX<a id="id2994995" class="indexterm"/>.<sup>[<a id="id2995003" href="#ftn.id2995003">144</a>]</sup>  These went beyond describing
+merely systems calls and C<a id="id2995021" class="indexterm"/> library facilities; they specified
+detailed semantics of a shell and a minimum command set, and also
+detailed bindings for various non-C programming languages.  The first
+release in 1990 was followed by a second edition in 1996. The
+International Standards Organization adopted them as ISO/IEC
+9945.</p><p>Key POSIX standards include the following:</p><div class="variablelist"><dl><dt><span class="term">1003.1 (released 1990)</span></dt><dd><p>Library procedures.  Described the C system call API, much like
+Version 7 except for signals and the terminal-control interface.</p></dd><dt><span class="term">1003.2 (released 1992)</span></dt><dd><p>Standard shell and utilities. Shell semantics strongly resemble those 
+of the System V Bourne shell.</p></dd><dt><span class="term">1003.4 (released 1993)</span></dt><dd><p>Real-time Unix.  Binary semaphores, process memory locking,
+memory-mapped files, shared memory, priority scheduling, real-time
+signals, clocks and timers, IPC message passing, synchronized I/O,
+asynchronous I/O, real-time files.</p><p>In the 1996 Second Edition, 1003.4 was split into 1003.1b
+(real-time) and 1003.1c (threads).</p></dd></dl></div><p>Despite being underspecified in a couple of key areas such as
+signal-handling semantics and omitting BSD<a id="id2995116" class="indexterm"/> sockets, the original POSIX standards
+became the basis of all later Unix standardization work.  They are
+still cited as an authority, albeit indirectly through references like
+<i>POSIX Programmer's Guide</i> [<a href="apb.html#Lewine" title="[Lewine]">Lewine</a>].  The de facto Unix API standard is still
+&#8220;POSIX plus sockets&#8221;, with later standards mainly adding
+features and specifying conformance in unusual edge cases more
+closely.</p><p>The next player on the scene was X/Open (later renamed the Open
+Group), a consortium of Unix vendors formed in 1984.  Their X/Open
+Portability Guides (XPGs) initially developed in parallel with the
+POSIX drafts, then after 1990 the XPGs incorporated and extended
+POSIX.  Unlike POSIX, which attempted to capture a safe subset of all
+Unixes, the XPGs were oriented more toward common practice at the
+leading edge; even XPG1 in 1985, spanning SVr2 and 4.2BSD,
+<a id="id2995157" class="indexterm"/> included
+sockets.</p><p>XPG2 in 1987 added a terminal-handling API that was essentially
+System V
+curses(3).
+XPG3 in 1990 merged in the X11 API.  XPG4 in 1992 mandated full
+compliance with the 1989 ANSI C standard<a id="id2999235" class="indexterm"/>.  XPG2, 3, and 4 were heavily concerned
+with support of internationalization and described an elaborate API
+for handling codesets and message catalogs.</p><p>In reading about Unix standards you might come across references
+to &#8220;Spec 1170&#8221; (from 1993), &#8220;Unix 95&#8221; (from
+1995) and &#8220;Unix 98&#8221; (from 1998).  These were
+certification marks based on the X/Open standards; they are now of
+historical interest only.  But the work done on XPG4 turned into 
+Spec 1170, which turned into the first version of the Single Unix
+Specification (SUS).</p><p>In 1993 seventy-five systems and software vendors including
+every major Unix company put a final end to the Unix
+wars<a id="id2999275" class="indexterm"/> when they
+declared backing for X/Open to develop a common definition of Unix.
+As part of the arrangement, X/Open acquired the rights to the Unix
+trademark.  The merged standard became Single Unix Standard version 1.
+It was followed in 1997 by a version 2.  In 1999 X/Open absorbed the
+POSIX activity.</p><p>In 2001, X/Open (now The Open Group) issued the <a href="http://www.unix.org/version3/" target="_top">Single Unix Standard version 3</a>.  All the threads of Unix API standardization were finally
+gathered into one bundle.  This reflected facts on the ground; the
+different varieties of Unix had re-converged on a common API.  And, at
+least among old-timers who remembered the turbulence of the 1980s,
+there was much rejoicing.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2999310"/>The Ghost at the Victory Banquet</h3></div></div><p>There was, unfortunately, an awkward detail &#8212; the
+old-school Unix vendors who had backed the effort were under severe
+pressure from the new school of open-source Unixes, and were in some
+cases in the process of abandoning (in favor of
+Linux<a id="id2999323" class="indexterm"/>)
+the proprietary Unixes for which they had gone to so much effort to
+secure conformance.</p><p>The conformance testing needed to verify Single Unix
+Specification conformance is an expensive proposition.  It would need
+to be done on a per-distribution basis, but is well out of the reach
+of most distributors of open-source operating systems.  In any case,
+Linux changes so fast that any given release of a distribution would
+probably be obsolete by the time it could get
+certified.<sup>[<a id="id2999345" href="#ftn.id2999345">145</a>]</sup></p><p>Standards like the Single Unix Specification have not entirely lost their
+relevance.  They're still valuable guides for Unix implementers.  But
+how The Open Group and other institutions of the old-school Unix
+standardization process will adapt to the rapid tempo of open-source
+releases (and to the low- or zero-budget operation of open-source
+development groups!) remains to be seen.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2999366"/>Unix Standards in the Open-Source World</h3></div></div><p>In the mid-1990s, the open-source community began
+standardization efforts of its own.  These efforts built on the
+source-code-level compatibility secured by
+POSIX<a id="id2999378" class="indexterm"/> and its
+descendants.  Linux<a id="id2999387" class="indexterm"/>, in particular, had been written from
+scratch in a way that depended on the availability of Unix API
+standards like POSIX.<sup>[<a id="id2999397" href="#ftn.id2999397">146</a>]</sup></p><p>In 1998 Oracle ported its market-leading database product to
+Linux, in a move that was rightly seen as a major breakthrough in
+Linux's mainstream acceptance.  The engineer in charge of the port
+provided a definitive demonstration that API standards had done their
+job when he was asked by a reporter what technical challenges Oracle
+had had to surmount.  The engineer's reply was &#8220;We typed
+&#8216;make&#8217;.&#8221;</p><p>The problem for the new-school Unixes, therefore, was not API
+compatibility at the source-code level.  Everybody took for granted
+the ability to move source code between different
+Linux<a id="id2999433" class="indexterm"/>,
+BSD<a id="id2999442" class="indexterm"/>, and
+proprietary-Unix distributions without more than a trivial amount of
+porting labor.  The new problem was not source compatibility but
+binary compatibility.  For the ground under Unix had shifted in a
+subtle way as a consequence of the triumph of commodity PC
+hardware.</p><p>In the old days, each Unix had run on what was effectively its
+own hardware platform.  There was enough variety in processor
+instruction sets and machine architectures that applications had to be
+ported at source level to move at all.  On the other hand, there were
+a relatively few major Unix releases, each with relatively long
+service lifetimes.  Application vendors like Oracle could afford the
+cost of building and shipping separate binary distributions for each
+of three or four hardware/software combinations, because they could
+amortize the low cost of source-code porting over large customer
+populations and a long enough product life cycle.</p><p>But then the minicomputer and workstation vendors were swamped by
+inexpensive 386-based supermicros, and open-source Unixes changed the 
+rules.  Vendors found they no longer had a stable platform to ship
+their binaries to.</p><p>The superficial problem, at first, was the large number of Unix
+distributors &#8212; but as the Linux<a id="id2999486" class="indexterm"/> distribution market
+consolidated, it became clear that the real issue was the rate of
+change over time.  APIs were stable, but the expected locations of
+system administrative files, utility programs, and things like the
+prefix of the paths to user mailbox names and system log files kept
+changing.</p><p>The first standards effort to develop within the new-school
+Linux<a id="id2999505" class="indexterm"/>
+and BSD<a id="id2999514" class="indexterm"/> community
+itself (beginning in 1993) was the Filesystem Hierarchy Standard (FHS).
+This was incorporated into the Linux Standards Base (LSB), which also
+standardized an expected set of service libraries and helper
+applications.  Both standards became activities of the <a href="http://www.freestandards.org/" target="_top">Free Standards Group</a>,
+which by 2001 developed a role similar to X/Open's position amidst the
+old-school Unix vendors.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2995003" href="#id2995003">144</a>] </sup>The
+original 1986 trial-use standard was called IEEE-IX.  The name
+&#8216;POSIX&#8217; was suggested by Richard Stallman. The
+introduction to POSIX.1 says: &#8220;It is expected to be pronounced
+pahz-icks as in positive, not poh-six, or other variations. The
+pronounciation has been published in an attempt to promulgate a
+standardized way of referring to a standard operating system
+interface&#8221;.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2999345" href="#id2999345">145</a>] </sup>One Linux distributor, Lasermoon in Great
+Britain, did achieve POSIX.1 FIPS 151-2 certification &#8212; and went
+out of business, because potential customers didn't
+care.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2999397" href="#id2999397">146</a>] </sup>See <i>Just for
+Fun</i> [<a href="apb.html#Torvalds" title="[Torvalds]">Torvalds</a>] for
+discussion.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="c_evolution.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="portabilitychapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ietf_process.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Evolution of C </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> IETF and the RFC Standards Process</td></tr></table></div></body></html>

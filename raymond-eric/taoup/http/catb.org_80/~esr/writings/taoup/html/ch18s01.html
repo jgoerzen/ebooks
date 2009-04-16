@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Documentation Concepts</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="documentationchapter.html" title="Chapter 18. Documentation"/><link rel="previous" href="documentationchapter.html" title="Chapter 18. Documentation"/><link rel="next" href="ch18s02.html" title="The Unix Style"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Documentation Concepts</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="documentationchapter.html">Prev</a> </td><th width="60%" align="center">Chapter 18. Documentation</th><td width="20%" align="right"> <a accesskey="n" href="ch18s02.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3003105"/>Documentation Concepts</h2></div></div><p>Our first distinction is between &#8220;What You See Is What You
+Get&#8221; (WYSIWYG) documentation programs and
+<i>markup-centered tools</i>. Most desktop-publishing
+programs and word processors are in the former category; they have
+GUIs in which what one types is inserted directly into an on-screen
+presentation of the document intended to resemble the final printed
+version as closely as possible.  In a markup-centered system, by
+contrast, the master document is normally flat text containing
+explicit, visible control tags and not at all resembling the intended
+output.  The marked-up source can be modified with an ordinary text
+editor, but has to be fed to a formatter program to produce rendered
+output for printing or display.</p><p>The visual-interface, WYSIWYG style was too expensive for early
+computer hardware, and remained rare until the advent of the Macintosh
+personal computer in 1984. It is completely dominant on non-Unix
+operating systems today, Native Unix document tools, on the other
+hand, are almost all markup-centered. The Unix
+troff(1)
+of 1971 was a markup formatter, and is probably the oldest such
+program still in use.  </p><p>Markup-centered tools still have a role because actual
+implementations of WYSIWYG tend to be broken in various ways &#8212;
+some superficial, some deep.  WYSIWYG document processors have the
+general problem with GUIs that we discussed in <a href="interfacechapter.html" title="Chapter 11. Interfaces">Chapter 11</a>; the fact that you
+<span class="emphasis"><em>can</em></span> visually manipulate anything tends to mean
+you <span class="emphasis"><em>must</em></span> visually manipulate everything.  That
+would remain a problem even if the WYSIWIG correspondence between
+screen and printer output were perfect &#8212; but it almost never
+is.</p><p>In truth, WYSIWYG document processors aren't exactly
+WYSIWIG. Most have interfaces that obscure the differences between
+screen presentation and printer output without actually eliminating
+them. Thus they violate the Rule of Least Surprise: the visual aspect
+of the interface encourages you to use the program like a
+typewriter even though it is not, and your input will occasionally
+produce an unexpected and undesired result.</p><p>In further truth, WYSIWIG systems actually rely on markup codes
+but expend great effort on keeping them invisible in normal use.  Thus they
+break the Rule of Transparency: you can't see all of the markup, so it
+is difficult to fix documents that break because of misplaced markup
+codes. </p><p>Despite its problems, WYSIWYG document processors can be very
+nice if what you want is to slide a picture three ems to the right on
+the cover of a four-page brochure.  But they tend to be constricting
+any time you need to make a global change to the layout of a 300-page
+manuscript. WYSIWYG users faced with that kind of challenge must give
+it up or suffer the death of a thousand mouse clicks; in situations
+like that, there is really no substitute for being able to edit
+explicit markup, and Unix's markup-centered document tools offer
+better solutions.</p><p>Today, in a world influenced by the example of the Web and XML,
+it has become common to make a distinction between
+<i>presentation</i> and
+<i>structural</i> markup in documents &#8212; the
+former being instructions about how a document should look, the latter
+being instructions about how it's organized and what it means.
+This distinction wasn't clearly understood or followed through in
+early Unix tools, but it's important for understanding the design
+pressures that led to today's descendants of them.</p><p>Presentation-level markup carries all the formatting information
+(e.g., about desired whitespace layout and font changes) in the
+document itself.  In a structural-markup system, the document has to
+be combined with a <i>stylesheet</i> that tells  the
+formatter how to translate the structure markup in the document to a
+physical layout.  Both kinds of markup ultimately control the physical
+appearance of a printed or browsed document, but structural markup
+does it through one more level of indirection that turns out to be
+necessary if you want to produce good results for both printing 
+and the Web.</p><p>Most markup-centered documentation systems support a macro
+facility.  Macros are user-defined commands that are expanded by text
+substitution into sequences of built-in markup requests.  Usually,
+these macros add structural features (like the ability to declare
+section headings) to the markup language.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>The troff macro sets (<i>mm</i>,
+<i>me</i>, and my <i>ms</i> package) were actually designed to push
+people away from format-oriented editing and toward content-oriented
+editing.  The idea was to label the semantic parts and then have
+different style packages that would know whether in this style the
+title should be boldfaced or not, centered or not, and so on.  Thus
+there was at one point a set of macros that tried to imitate ACM
+style, and another that imitated Physical Review style, but used the
+basic <tt>-ms</tt> markup.  All of the macros lost out to
+people who were focused on producing one document, and controlling its
+appearance, just as Web pages get bogged down in the dispute over
+whether the reader or author should control the appearance.  I
+frequently found secretaries who were using the .AU
+(author name) command just to produce italics, noticing that it did
+that, and then getting into trouble with its other effects.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Mike Lesk</span>
+<a id="id3003280" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Finally, we note that there are significant differences between
+the sorts of things composers want to do with small documents
+(business and personal letters, brochures, newsletters) and the things
+they want to do with large ones (books, long articles, technical
+papers, and manuals).  Large documents tend to have more structure, to
+be pieced together from parts that may have to be changed separately,
+and to need automatically-generated features like tables of contents;
+these are both traits that favor markup-centered tools.</p></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="documentationchapter.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="documentationchapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch18s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 18. Documentation </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> The Unix Style</td></tr></table></div></body></html>

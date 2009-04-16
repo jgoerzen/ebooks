@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>A Developer-Friendly Operating System</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="toolschapter.html" title="Chapter 15. Tools"/><link rel="previous" href="toolschapter.html" title="Chapter 15. Tools"/><link rel="next" href="ch15s02.html" title="Choosing an Editor"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">A Developer-Friendly Operating System</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="toolschapter.html">Prev</a> </td><th width="60%" align="center">Chapter 15. Tools</th><td width="20%" align="right"> <a accesskey="n" href="ch15s02.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2980514"/>A Developer-Friendly Operating System</h2></div></div><p>Unix has a long-established reputation as a good environment to
+develop under. It's well equipped with tools written by programmers
+for programmers. These automate away many of the grubby little
+tasks that would otherwise distract you from concentrating on the
+most important (and most enjoyable!) aspect of development&#8212; your design.</p><p>While all the tools you'll need are there and individually well
+documented, they're not knit together by an integrated development
+environment (IDE). Finding and assembling them into a kit that
+suits your needs has traditionally taken considerable effort.</p><p>If you're used to a good IDE &#8212; the kind of GUI-driven
+combination of editor, configuration-manager, compiler, and
+debugger now common on Macintosh and Windows systems &#8212; the Unix
+approach may seem casual, murky, and primitive. But there's
+actually method in it.</p><p>IDEs make a lot of sense for single-language programming in a
+tool-poor environment. If what you're doing is confined to grinding
+out C<a id="id2980553" class="indexterm"/> or
+C++<a id="id2980560" class="indexterm"/> code by hand
+and the yard, they're quite appropriate.  Under Unix, however, your
+languages and implementation options are a lot more varied. It's
+common to use multiple code generators, custom configurators, and many
+other standard and custom tools.</p><p>IDEs do exist under Unix (there are several good open-source
+ones, including emulations of the major Macintosh and Windows
+IDEs). But it's difficult to control an open-ended variety of
+programming tools with them, and they're not much used. Unix
+encourages a more flexible style, one less exclusively centered on
+the edit/compile/debug loop.</p><p>In this chapter we introduce you to the tactics of
+development under Unix &#8212; building code, managing code
+configurations, profiling, debugging, and automating away a lot
+of the drudgery associated with these tasks so you can concentrate on
+the fun parts. As usual, the exposition focuses more on the
+architectural picture than the how-to details. When you
+<span class="emphasis"><em>want</em></span> how-to details, most of the tools in this
+chapter are well described in <i>Programming with GNU
+Software</i> [<a href="apb.html#Loukides-Oram" title="[Loukides-Oram]">Loukides-Oram</a>].</p><p>Many of these tools automate things that you could do yourself
+by hand, albeit more slowly and with a higher error rate.  The
+one-time cost of climbing the learning curve should be more than
+paid off by the ability to write programs more efficiently, and
+spend less attention on low-level details and more on design.</p><p>Unix programmers traditionally learn how to use these tools by
+osmosis from other programmers, and by exploration over a period of
+years. If you're a novice, pay careful attention; we're going to try
+to jump you over a big section of the Unix learning curve by showing
+you what is possible right at the outset. If you are an experienced
+Unix programmer in a hurry, you can skip this chapter &#8212; but
+maybe you shouldn't. There might just be some bit of useful lore here
+that even you don't know.</p></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="toolschapter.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="toolschapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch15s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 15. Tools </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Choosing an Editor</td></tr></table></div></body></html>

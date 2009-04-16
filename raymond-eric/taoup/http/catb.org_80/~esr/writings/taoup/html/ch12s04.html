@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Throughput vs. Latency</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="optimizationchapter.html" title="Chapter 12. Optimization"/><link rel="previous" href="ch12s03.html" title="Nonlocality Considered Harmful"/><link rel="next" href="complexitychapter.html" title="Chapter 13. Complexity"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Throughput vs. Latency</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch12s03.html">Prev</a> </td><th width="60%" align="center">Chapter 12. Optimization</th><td width="20%" align="right"> <a accesskey="n" href="complexitychapter.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2961183"/>Throughput vs. Latency</h2></div></div><p>Another effect of fast processors is that performance is 
+usually bounded by the cost of I/O and &#8212; especially with 
+programs that use the Internet &#8212; network transactions.  It's
+therefore valuable to know how to design network protocols for
+good performance.</p><p>The most important issue is avoiding protocol round trips as
+much as possible.  Every protocol transaction that requires a
+handshake turns any latency in the connection into a potentially
+serious slowdown.  Avoiding such handshakes is not specifically a
+Unix-tradition practice, but it's one that needs mention here because
+so many protocol designs lose huge amounts of performance to
+them.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>I cannot say enough about latency.  X11 went well beyond
+X10 in avoiding round trip requests: the Render extension goes even
+further.  X (and these days, HTTP/1.1) is a streaming protocol.  For
+example, on my laptop, I can execute over 4
+<span class="emphasis"><em>million</em></span> 1×1 rectangle requests (8 million no-op
+requests) per second.  But round trips are hundreds or thousands of
+times more expensive. Anytime you can get a client to do something
+without having to contact the server, you have a tremendous
+win.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Jim Gettys</span>
+<a id="id2961223" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>In fact, a good rule of thumb is to design for the lowest
+possible latency and ignore bandwidth costs until your profiling tells
+you otherwise.  Bandwidth problems can be solved later in development
+by tricks like compressing a protocol stream on the fly; but getting
+rid of high latency baked into an existing design is much, much harder
+(often, effectively impossible).</p><p>While this effect shows up most clearly in network protocol
+design, throughput vs. latency tradeoffs are a much more general
+phenomenon.  In writing applications, you will sometimes face a choice
+between doing an expensive computation once in anticipation that it
+will be used several times, or computing only when actually needed
+(even if that means you will often recompute results).  In most cases
+where you face a tradeoff like this, the right thing to do is bias
+toward low latency.  That is, don't try to precompute expensive
+operations unless you have a throughput requirement and know by actual
+measurement that the throughput you are getting is too low.
+Precomputation may seem efficient because it minimizes total use of
+processor cycles, but processor cycles are cheap.  Unless you are
+doing one of a handful of monstrously compute-intensive applications
+like data mining, animation rendering, or the aforementioned bomb
+simulations, it is usually better to opt for short startup times and
+quick response.</p><p>In Unix's early days this advice might have been considered
+heretical.  Processors were much slower and cost ratios were very
+different then; also, the pattern of Unix use was tilted rather more
+strongly toward server operations.  The point about the value of low
+latency needs to be made partly because even newer Unix developers
+sometimes inherit an old-time cultural prejudice toward optimizing for
+throughput.  But times have changed.</p><p>Three general strategies for reducing latency are (a) batching
+transactions that can share startup costs, (b) allowing transactions
+to overlap, and (c) caching.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2961306"/>Batching Operations</h3></div></div><p>Graphics APIs are frequently written on the assumption that the
+fixed setup cost for a physical screen update is large.  Consequently, the
+write operations actually modify an internal buffer.  It is up to
+the programmer to decide when enough of these updates have been batched 
+and to issue the call that turns them into a physical screen update.
+Picking the right spacing of physical updates can make a great deal
+of difference to the feel of the graphics client.  Both the 
+X server and the
+curses(3)
+library used by roguelike programs are organized in this way.</p><p>Persistent service daemons are a more Unix-specific example of
+batching.  There are two reasons, one obvious and one subtle, to write
+persistent daemons (as opposed to CLI servers that are started up
+fresh for each session).  The obvious reason is to manage updates to a
+shared resource.  The less obvious reason, which obtains even for daemons
+that don't handle updates, is to amortize the cost of reading in the
+daemon's database across multiple requests.  A perfect example of this
+is the DNS service daemon
+named(8),
+which must sometimes handle thousands of requests per second, each one
+of which may actually be blocking a user's Web page load.  One of the
+tactics that makes
+named(8)
+fast is that it replaces parses of expensive on-disk text files
+describing DNS zones with accesses to a cache held in memory.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2961372"/>Overlapping Operations</h3></div></div><p>In <a href="textualitychapter.html" title="Chapter 5. Textuality">Chapter 5</a> we
+compared the POP3 and IMAP protocols for querying remote-mail
+servers.  We noted that IMAP requests (unlike POP3 requests) are
+tagged with a request identifier generated by the client; the server,
+when it ships back a response, includes the tag of the request it
+pertains to.</p><p>POP3 requests have to be processed in lockstep by both client
+and server; the client sends a request, waits for the response to that
+request, and only then can prepare and ship the next one.  IMAP
+requests, on the other hand, are are tagged so they can be overlapped.
+If an IMAP client knows that it wants to fetch multiple messages, it
+can stream several fetch requests (each with a different tag) to the
+IMAP server, without waiting for responses between them.  Responses,
+each tagged, will come back when the server is ready; responses to
+early requests may come in while the client is still shipping later
+ones.</p><p>This strategy is general to more areas than network protocols.
+If you want to cut latency, blocking or waiting on intermediate
+results is deadly.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="binary_caches"/>Caching Operation Results</h3></div></div><p>Sometimes you can get the best of both worlds (low latency and
+good throughput) by computing expensive results as needed and caching
+them for later use.  Earlier we mentioned that
+<i>named</i> reduces latency by batching; it
+also reduces latency by caching the results of previous network
+transactions with other DNS servers.</p><p>Caching has its own problems and tradeoffs, which are well
+illustrated by one application: the use of binary caches to eliminate
+parsing overhead associated with text database files.  Some variants
+of Unix have used this technique to speed up access to their password
+information (the usual motivation was to cut latency on logins at very
+large sites).</p><p>To make this work, all code that looks at the binary cache has
+to know that it should check the timestamps on both files and
+regenerate the cache if the text master is newer.  Alternatively, all
+changes to the textual master must be made through a wrapper that will
+update the binary format.</p><p>While this approach can be made to work, it has all the
+disadvantages that the SPOT<a id="id2961469" class="indexterm"/> rule would lead us to expect.  The
+duplication of data means that it doesn't yield any economy of storage
+&#8212; it's purely a speed
+optimization<a id="id2961480" class="indexterm"/>.
+But the real problem with it is that the code to ensure coherency
+between cache and master is notoriously leaky and bug-prone.  Very
+frequently updated cache files can lead to subtle race conditions
+simply because of the 1-second resolution of timestamps.</p><p>Coherency can be guaranteed in simple cases.  One such is the
+Python interpreter<a id="id2961499" class="indexterm"/>, which compiles and deposits on disk a
+p-code file with extension <tt>.pyc</tt> when a
+Python library file is first imported. On subsequent runs the cached
+copy of the p-code is loaded unless the source has since changed (this
+avoids reparsing the library source code on every run).  Emacs
+Lisp uses a similar technique with <tt>.el</tt> and
+<tt>.elc</tt> files.  This technique works because both
+read and write accesses to the cache go through a single
+program.</p><p>When the update pattern of the master is more complex, however,
+the synchronization code tends to spring leaks. The Unix variants that
+used this technique to speed up access to critical system databases
+were infamous for spawning system-administrator horror stories that
+reflected this.</p><p>In general, binary cache files are a brittle technique and
+probably best avoided.  The work that went into implementing a
+special-purpose hack to reduce latency in this one case would have
+been better spent improving the application design so it doesn't have
+a bottleneck there &#8212; or even on tuning to improve the speed of
+the file system or the virtual-memory implementation.</p><p>When you think you are in a situation that demands caching, it
+is wise to look one level deeper and ask why the caching is necessary.
+It may well be no more difficult to solve that problem than it would
+be to get all the edge cases in the caching software right.</p></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch12s03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="optimizationchapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="complexitychapter.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Nonlocality Considered Harmful </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 13. Complexity</td></tr></table></div></body></html>

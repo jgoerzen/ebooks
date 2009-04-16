@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 5. Textuality</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="design.html" title="Part II. Design"/><link rel="previous" href="ch04s06.html" title="Coding for Modularity"/><link rel="next" href="ch05s01.html" title="The Importance of Being Textual"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 5. Textuality</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch04s06.html">Prev</a> </td><th width="60%" align="center">Part II. Design</th><td width="20%" align="right"> <a accesskey="n" href="ch05s01.html">Next</a></td></tr></table><hr/></div><div class="chapter" lang="en"><div class="titlepage"><div><h2 class="title"><a id="textualitychapter"/>Chapter 5. Textuality</h2></div><div><h3 class="subtitle"><i>Good Protocols Make Good Practice</i></h3></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><a href="ch05s01.html">The Importance of Being Textual</a></dt><dd><dl><dt><a href="ch05s01.html#id2901332">Case Study: Unix Password File Format</a></dt><dt><a href="ch05s01.html#id2901494">Case Study: .newsrc Format</a></dt><dt><a href="ch05s01.html#png">Case Study: The PNG Graphics File Format</a></dt></dl></dd><dt><a href="ch05s02.html">Data File Metaformats</a></dt><dd><dl><dt><a href="ch05s02.html#id2901882">DSV Style</a></dt><dt><a href="ch05s02.html#id2902039">RFC 822 Format</a></dt><dt><a href="ch05s02.html#id2902164">Cookie-Jar Format</a></dt><dt><a href="ch05s02.html#id2906931">Record-Jar Format</a></dt><dt><a href="ch05s02.html#id2907018">XML</a></dt><dt><a href="ch05s02.html#id2907263">Windows INI Format</a></dt><dt><a href="ch05s02.html#id2907428">Unix Textual File Format Conventions</a></dt><dt><a href="ch05s02.html#id2907903">The Pros and Cons of File Compression</a></dt></dl></dd><dt><a href="ch05s03.html">Application Protocol Design</a></dt><dd><dl><dt><a href="ch05s03.html#id2908194">Case Study: SMTP, the Simple Mail Transfer Protocol</a></dt><dt><a href="ch05s03.html#id2908383">Case Study: POP3, the Post Office Protocol</a></dt><dt><a href="ch05s03.html#id2908582">Case Study: IMAP, the Internet Message Access Protocol</a></dt></dl></dd><dt><a href="ch05s04.html">Application Protocol Metaformats</a></dt><dd><dl><dt><a href="ch05s04.html#id2908835">The Classical Internet Application Metaprotocol</a></dt><dt><a href="ch05s04.html#id2908915">HTTP as a Universal Application Protocol</a></dt><dt><a href="ch05s04.html#id2909217">BEEP: Blocks Extensible Exchange Protocol</a></dt><dt><a href="ch05s04.html#id2909294">XML-RPC, SOAP, and Jabber</a></dt></dl></dd></dl></div><div xmlns="" class="epigraph"><i><p xmlns="http://www.w3.org/1999/xhtml">It's a well-known fact that computing devices such as the abacus
+were invented thousands of years ago. But it's not well known that the
+first use of a common computer protocol occurred in the Old
+Testament. This, of course, was when Moses aborted the Egyptians'
+process with a control-sea.</p></i><span>--<i><span xmlns="http://www.w3.org/1999/xhtml" class="attribution">
+<span class="author">Tom Galloway</span>
+<i><tt>rec.arts.comics</tt>, February 1992</i>
+<a id="id2906216" class="indexterm"/>
+</span></i></span></div><p>In this chapter, we'll look at what the Unix tradition has to
+tell us about two different kinds of design that are closely related:
+the design of file formats for retaining application data in permanent
+storage, and the design of application protocols for passing data
+and commands between cooperating programs, possibly over a
+network.</p><p>What unifies these two kinds of design is that they both involve
+the serialization of in-memory data structures.  For the internal
+operation of computer programs, the most convenient representation of
+a complex data structure is one in which all fields have the machine's
+native data format (e.g. two's-complement binary for integers) and all
+pointers are actual memory addresses (as opposed, say, to being named
+references).  But these representations are not well suited to storage
+and transmission; memory addresses in the data structure lose their
+meaning outside memory, and emitting raw native data formats causes
+interoperability problems passing data between machines with different
+conventions (big- vs. little-endian, say, or 32-bit vs. 64-bit).</p><p>For transmission and storage, the traversable, quasi-spatial
+layout of data structures like linked lists needs to be flattened or
+serialized into a byte-stream representation from which the structure
+can later be recovered.  The serialization (save) operation is
+sometimes called <i>marshaling</i> and its inverse
+(load) operation <i>unmarshaling</i>.  These terms
+are usually applied with respect to objects in an
+OO<a id="id2906281" class="indexterm"/>
+language like C++<a id="id2906289" class="indexterm"/> or Python<a id="id2906296" class="indexterm"/> or Java<a id="id2906304" class="indexterm"/>, but could be used with equal justice
+of operations like loading a graphics file into the internal storage
+of a graphics editor and saving it out after modifications.</p><p>A significant percentage of what C<a id="id2906320" class="indexterm"/> and C++<a id="id2906328" class="indexterm"/> programmers maintain is ad-hoc code for
+marshaling and unmarshaling operations &#8212; even when the
+serialized representation chosen is as simple as a binary structure
+dump (a common technique under non-Unix environments).  Modern
+languages like Python<a id="id2906341" class="indexterm"/> and Java<a id="id2906350" class="indexterm"/> tend to have built-in unmarshal and
+marshal functions that can be applied to any object or byte-stream
+representing an object, and that reduce this labor substantially.</p><p>But these naïve methods are often unsatisfactory for
+various reasons, including both the machine-interoperability problems
+we mentioned above and the negative trait of being opaque to other
+tools.  When the application is a network protocol, economy may demand
+that an internal data structure (such as, say, a message with source
+and destination addresses) be serialized not into a single blob of
+data but into a series of attempted transactions or messages which the
+receiving machine may reject (so that, for example, a large message can
+be rejected if the destination address is invalid).</p><p>Interoperability,
+transparency<a id="id2906381" class="indexterm"/>,
+extensibility<a id="id2906393" class="indexterm"/>,
+and storage or transaction economy: these are the important themes in
+designing file formats and application protocols.  Interoperability
+and transparency demand that we focus such designs on clean data
+representations, rather than putting convenience of implementation or
+highest possible performance first.  Extensibility also favors textual
+protocols, since binary ones are often harder to extend or subset
+cleanly.  Transaction economy sometimes pushes in the opposite
+direction &#8212; but we shall see that putting that criterion first
+is a form of premature
+optimization<a id="id2906412" class="indexterm"/>
+that it is often wise to resist. </p><p>Finally, we must note a difference between data file formats and
+the run-control files that are often used to set the startup options
+of Unix programs.  The most basic difference is that (with sporadic
+exceptions like GNU Emacs's configuration interface) programs don't
+normally modify their own run-control files &#8212; the information
+flow is one-way, from file read at startup time to application
+settings.  Data-file formats, on the other hand, associate properties
+with named resources and are both read and written by their
+applications. Configuration files are generally hand-edited and small,
+whereas data files are program-generated and can become arbitrarily
+large.</p><p>Historically, Unix has related but different sets of conventions
+for these two kinds of representation.  The conventions for run
+control files are surveyed in <a href="configurationchapter.html" title="Chapter 10. Configuration">Chapter 10</a>; only conventions for data files are
+examined in this chapter.</p></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch04s06.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="design.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch05s01.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Coding for Modularity </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> The Importance of Being Textual</td></tr></table></div></body></html>

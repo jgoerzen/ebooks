@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Compactness and Orthogonality</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="modularitychapter.html" title="Chapter 4. Modularity"/><link rel="previous" href="ch04s01.html" title="Encapsulation and Optimal Module Size"/><link rel="next" href="ch04s03.html" title="Software Is a Many-Layered Thing"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Compactness and Orthogonality</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch04s01.html">Prev</a> </td><th width="60%" align="center">Chapter 4. Modularity</th><td width="20%" align="right"> <a accesskey="n" href="ch04s03.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2894547"/>Compactness and Orthogonality</h2></div></div><p>Code is not the only sort of thing with an optimal chunk size.
+Languages and APIs (such as sets of library or system calls) run up
+against the same sorts of human cognitive constraints that produce
+Hatton's U-curve.</p><p>Accordingly, Unix programmers have learned to think very hard
+about two other properties when designing APIs, command sets,
+protocols, and other ways to make computers do tricks:
+<i>compactness</i> and
+<i>orthogonality</i>.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="compactness"/>Compactness</h3></div></div><a id="id2894585" class="indexterm"/><p>Compactness<a id="id2894599" class="indexterm"/>
+is the property that a design can fit inside a human being's head.  A
+good practical test for compactness is this: Does an experienced user
+normally need a manual?  If not, then the design (or at least the
+subset of it that covers normal use) is compact.</p><p>Compact software tools have all the virtues of physical tools
+that fit well in the hand.  They feel pleasant to use, they don't obtrude
+themselves between your mind and your work, they make you more
+productive &#8212; and they are much less likely than unwieldy tools
+to turn in your hand and injure you.</p><p>Compact is not equivalent to &#8216;weak&#8217;.  A design can
+have a great deal of power and flexibility and still be compact if it
+is built on abstractions that are easy to think about and fit together
+well.  Nor is compact equivalent to &#8216;easily learned&#8217;; some
+compact designs are quite difficult to understand until you have
+mastered an underlying conceptual model that is tricky, at which point
+your view of the world changes and compact
+<span class="emphasis"><em>becomes</em></span> simple.  For a lot of people, the Lisp
+language is a classic example of this<a id="id2894640" class="indexterm"/>.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Nor does compact mean &#8216;small&#8217;.  If a well-designed 
+system is predictable and &#8216;obvious&#8217; to the experienced
+user, it might have quite a few pieces.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Ken Arnold</span>
+<a id="id2894663" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Very few software designs are compact in an absolute sense, but
+many are compact in a slightly looser sense of the term.  They have a
+compact working set, a subset of capabilities that suffices for 80% or
+more of what expert users normally do with them.  Practically
+speaking, such designs normally need a reference card or cheat sheet
+but not a manual.  We'll call such designs
+<i>semi-compact</i>, as opposed to <i>strictly
+compact</i>.</p><p>The concept is perhaps best illustrated by examples.  The Unix
+system call API is semi-compact, but the standard
+C<a id="id2894706" class="indexterm"/> library is not
+compact in any sense.  While Unix programmers easily keep a subset of
+the system calls sufficient for most applications programming (file
+system operations, signals, and process control) in their heads, the C
+library on modern Unixes includes many hundreds of entry points,
+e.g., mathematical functions, that won't all fit inside a single
+programmer's cranium.</p><p><i>The Magical Number Seven, Plus or Minus Two: Some
+Limits on Our Capacity for Processing Information</i> [<a href="apb.html#Miller" title="[Miller]">Miller</a>] is one of the foundation papers in cognitive
+psychology (and, incidentally, the specific reason that U.S.
+local telephone numbers have seven digits).  It showed that the number
+of discrete items of information human beings can hold in
+short-term memory is seven, plus or minus two. This gives us a good
+rule of thumb for evaluating the compactness of APIs: Does a
+programmer have to remember more than seven entry points?  Anything
+larger than this is unlikely to be strictly compact.</p><p>Among Unix tools,
+make(1)
+is compact;
+autoconf(1)
+and
+automake(1)
+are not.  Among markup languages, HTML is semi-compact, but DocBook (a
+documentation markup language we shall discuss in <a href="documentationchapter.html" title="Chapter 18. Documentation">Chapter 18</a>) is not.  The
+man(7)
+macros are compact, but
+troff(1)
+markup is not.</p><p>Among general-purpose programming languages,
+C<a id="id2894804" class="indexterm"/> and
+Python<a id="id2894816" class="indexterm"/> are
+semi-compact; 
+Perl<a id="id2894824" class="indexterm"/>,
+Java<a id="id2894832" class="indexterm"/>, Emacs
+Lisp<a id="id2894841" class="indexterm"/>, and
+shell<a id="id2894850" class="indexterm"/> are
+not (especially since serious shell programming requires you to know
+half-a-dozen other tools like
+sed(1)
+and
+awk(1)).
+C++<a id="id2894877" class="indexterm"/> is
+anti-compact &#8212; the language's designer has admitted that he
+doesn't expect any one programmer to ever understand it all.</p><p>Some designs that are not compact have enough internal
+redundancy of features that individual programmers end up carving out
+compact dialects sufficient for that 80% of common tasks by choosing a
+working subset of the language.  Perl has this kind of
+pseudo-compactness, for example.  Such designs have a built-in trap;
+when two programmers try to communicate about a project, they may find
+that differences in their working subsets are a significant barrier to
+understanding and modifying the code.</p><p>Noncompact designs are not automatically doomed or bad,
+however.  Some problem domains are simply too complex for a compact
+design to span them.  Sometimes it's necessary to trade away
+compactness for some other virtue, like raw power and range.  Troff
+markup is a good example of this.  So is the
+BSD<a id="id2894911" class="indexterm"/> sockets
+API. The purpose of emphasizing compactness as a virtue is not to
+condition you to treat compactness as an absolute requirement, but to
+teach you to do what Unix programmers do: value compactness
+properly, design for it whenever possible, and not throw it away
+casually.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="orthogonality"/>Orthogonality</h3></div></div><a id="id2894936" class="indexterm"/><p>Orthogonality<a id="id2894950" class="indexterm"/>
+is one of the most important properties that can help make even
+complex designs
+compact<a id="id2894960" class="indexterm"/>.  In a purely
+orthogonal design, operations do not have side effects; each action
+(whether it's an API call, a macro invocation, or a language
+operation) changes just one thing without affecting others.  There is
+one and only one way to change each property of whatever system you
+are controlling.  </p><p>Your monitor has orthogonal controls.  You can change the
+brightness independently of the contrast level, and (if the monitor
+has one) the color balance control will be independent of both.
+Imagine how much more difficult it would be to adjust a monitor on
+which the brightness knob affected the color balance: you'd
+have to compensate by tweaking the color balance every time after you
+changed the brightness.  Worse, imagine if the contrast control also
+affected the color balance; then, you'd have to adjust both knobs
+simultaneously in exactly the right way to change either contrast or
+color balance alone while holding the other constant.</p><p>Far too many software designs are non-orthogonal.  One common
+class of design mistake, for example, occurs in code that reads and
+parses data from one (source) format to another (target) format.  A
+designer who thinks of the source format as always being stored in a
+disk file may write the conversion function to open and read from a
+named file.  Usually the input could just as well have been any file
+handle.  If the conversion routine were designed orthogonally,
+e.g., without the side effect of opening a file, it could save work
+later when the conversion has to be done on a data stream supplied
+from standard input, a network socket, or any other source.</p><p>Doug McIlroy's<a id="id2895012" class="indexterm"/> advice to &#8220;Do one thing well&#8221;
+is usually interpreted as being about simplicity.  But it's also,
+implicitly and at least as importantly, about orthogonality.</p><p>It's not a problem for a program to do one thing well and
+other things as side effects, provided supporting those other things
+doesn't raise the complexity of the program and its vulnerability
+to bugs.  In <a href="generationchapter.html" title="Chapter 9. Generation">Chapter 9</a> we'll
+examine a program called <i>ascii</i> that prints
+synonyms for the names of ASCII characters, including hex, octal, and
+binary values; as a side effect, it can serve as a quick base
+converter for numbers in the range 0&#8211;255.  This second use is not an
+orthogonality violation because the features that support it are all
+necessary to the primary function; they do not make the program
+more difficult to document or maintain.</p><p>The problems with non-orthogonality arise when side effects
+complicate a programmer's or user's mental model, and beg to be
+forgotten, with results ranging from inconvenient to dire.  Even when
+you do not forget the side effects, you're often forced to do extra
+work to suppress them or work around them.</p><p>There is an excellent discussion of orthogonality and how to
+achieve it in <i>The Pragmatic Programmer</i> [<a href="apb.html#Hunt-Thomas" title="[Hunt-Thomas]">Hunt-Thomas</a>].  As they point out, orthogonality reduces
+test and development time, because it's easier to verify code that
+neither causes side effects nor depends on side effects from other
+code &#8212; there are fewer combinations to test. If it breaks,
+orthogonal code is more easily replaced without disturbance to the
+rest of the system.  Finally, orthogonal code is easier to document
+and reuse.</p><p>The concept of <i>refactoring</i>, which first
+emerged as an explicit idea from the &#8216;Extreme Programming&#8217;
+school, is closely related to orthogonality.  To refactor code is to
+change its structure and organization without changing its observable
+behavior.  Software engineers have been doing this since the birth of
+the field, of course, but naming the practice and identifying a stock
+set of refactoring techniques has helped concentrate peoples'
+thinking in useful ways.  Because these fit so well with the central
+concerns of the Unix design tradition, Unix developers have quickly
+coopted the terminology and ideas of refactoring.<sup>[<a id="id2895110" href="#ftn.id2895110">43</a>]</sup></p><p>The basic Unix APIs were designed for orthogonality with
+imperfect but considerable success.  We take for granted being able to
+open a file for write access without exclusive-locking it for write,
+for example; not all operating systems are so graceful.  Old-style
+(System III<a id="id2895143" class="indexterm"/>)
+signals were non-orthogonal, because signal receipt had the
+side-effect of resetting the signal handler to the default
+die-on-receipt.  There are large non-orthogonal patches like the BSD
+sockets<a id="id2895155" class="indexterm"/> API and
+<span class="emphasis"><em>very</em></span> large ones like the X windowing system's
+drawing libraries.</p><p>But on the whole the Unix API is a good example:
+Otherwise it not only would not but <span class="emphasis"><em>could</em></span> not
+be so widely imitated by C<a id="id2895179" class="indexterm"/>
+libraries on other operating systems.  This is also a reason that the
+Unix API repays study even if you are not a Unix programmer; it has
+lessons about orthogonality to teach.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="spot_rule"/>The SPOT Rule</h3></div></div><a id="id2895202" class="indexterm"/><p><i>The Pragmatic Programmer</i> articulates a
+rule for one particular kind of orthogonality that is especially
+important.  Their &#8220;Don't Repeat Yourself&#8221; rule is: every
+piece of knowledge must have a <span class="emphasis"><em>single</em></span>,
+unambiguous, authoritative representation within a system.  In this
+book we prefer, following a suggestion by Brian Kernighan, to call
+this the Single Point Of Truth or SPOT rule.</p><p>Repetition leads to inconsistency and code that is subtly
+broken, because you changed only some repetitions when you needed to
+change <span class="emphasis"><em>all</em></span> of them.  Often, it also means
+that you haven't properly thought through the organization 
+of your code.</p><p>Constants, tables, and metadata should be declared and
+initialized <span class="emphasis"><em>once</em></span> and imported elsewhere.  Any
+time you see duplicate code, that's a danger sign.  Complexity
+is a cost; don't pay it twice.</p><p>Often it's possible to remove code duplication by
+<i>refactoring</i>; that is, changing the organization
+of your code without changing the core algorithms.  Data duplication
+sometimes appears to be forced on you.  But when you see it, here are
+some valuable questions to ask:</p><div class="itemizedlist"><ul type="disc"><li><p>If you have duplicated data in your code because it has to
+have two different representations in two different places, can you
+write a function, tool or code generator to make one representation from the
+other, or both from a common source?</p></li><li><p>If your documentation duplicates knowledge in your code, can you
+generate parts of the documentation from parts of the code, or
+vice-versa, or both from a common higher-level representation?
+</p></li><li><p>If your header files and interface declarations duplicate
+knowledge in your implementation code, is there a way you can generate
+the header files and interface declarations from the code?
+</p></li></ul></div><p>There is an analog of the SPOT rule for data structures:
+&#8220;No junk, no confusion&#8221;.  &#8220;No junk&#8221; says
+that the data structure (the model) should be minimal, e.g., not made
+so general that it can represent situations which cannot exist.
+&#8220;No confusion&#8221; says that states which must be kept
+distinct in the real-world problem must be kept distinct in the model.
+In short, the SPOT rule advocates seeking a data structure whose
+states have a one-to-one correspondence with the states of the
+real-world system to be modeled.</p><p>From deeper within the Unix tradition, we can add some of our
+own corollaries of the SPOT rule:</p><div class="itemizedlist"><ul type="disc"><li><p>Are you duplicating data because you're caching intermediate
+results of some computation or lookup?  Consider carefully whether
+this is premature
+optimization<a id="id2895355" class="indexterm"/>;
+stale caches (and the layers of code needed to keep caches
+synchronized) are a fertile source of bugs,<sup>[<a id="id2895368" href="#ftn.id2895368">44</a>]</sup> and
+can even slow down overall performance if (as often happens) the
+cache-management overhead is higher than you expected.</p></li><li><p>If you see lots of duplicative boilerplate code, can you
+generate all of it from a single higher-level representation,
+twiddling a few knobs to generate the different cases?</p></li></ul></div><p>The reader should begin to see a pattern emerging here.</p><p>In the Unix world, the SPOT Rule as a unifying idea has seldom
+been explicit &#8212; but heavy use of code generators to implement
+particular <span class="emphasis"><em>kinds</em></span> of SPOT are very much part of the
+tradition.  We'll survey these techniques in <a href="generationchapter.html" title="Chapter 9. Generation">Chapter 9</a>.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2895445"/>Compactness and the Strong Single Center</h3></div></div><p>One subtle but powerful way to promote compactness in a
+design is to organize it around a strong core algorithm addressing a
+clear formal definition of the problem, avoiding heuristics and
+fudging.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Formalization often clarifies a task spectacularly.  It is not
+enough for a programmer to recognize that bits of his task fall within
+standard computer-science categories &#8212; a little depth-first
+search here and a quicksort there.  The best results occur when the
+nub of the task can be formalized, and a clear model of the job at
+hand can be constructed.  It is not necessary that ultimate users
+comprehend the model.  The very existence of a unifying core will
+provide a comfortable feel, unencumbered with the
+why-in-hell-did-they-do-that moments that are so prevalent in using
+Swiss-army-knife programs.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Doug McIlroy</span>
+<a id="id2895473" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>This is an often-overlooked strength of the Unix
+tradition.  Many of its most effective tools are thin wrappers around
+a direct translation of some single powerful algorithm.</p><p>Perhaps the clearest example of this is
+diff(1),
+the Unix tool for reporting differences between related files.  This
+tool and its dual,
+patch(1),
+have become central to the network-distributed development style of
+modern Unix.  A valuable property of diff is that it seldom surprises
+anyone.  It doesn't have special cases or painful edge conditions,
+because it uses a simple, mathematically sound method of sequence
+comparison.  This has consequences:</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>By virtue of a mathematical model and a solid
+algorithm, Unix diff contrasts markedly with its
+imitators.  First, the central engine is solid, small, and
+has never needed one line of maintenance.  Second, the
+results are clear and consistent, unmarred by surprises
+where heuristics fail.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Doug McIlroy</span>
+<a id="id2895550" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Thus, people who use diff can develop an intuitive feel for what
+it will do in any given situation without necessarily understanding
+the central algorithm perfectly.  Other well-known examples of
+this special kind of clarity achieved through a strong central
+algorithm abound in Unix:</p><div class="itemizedlist"><ul type="disc"><li><p>The
+grep(1)
+utility for selecting lines out of files by pattern matching is a
+simple wrapper around a formal algebra of regular-expression patterns
+(see <a href="ch08s02.html#regexps" title="Case Study: Regular Expressions">the section called &#8220;Case Study: Regular Expressions&#8221;</a> for discussion).  If it had
+lacked this consistent mathematical model, it would probably look like
+the design of the original
+glob(1)
+facility in the oldest Unixes, a handful of ad-hoc wildcards that
+can't be combined.</p></li><li><p>The yacc(1) utility for
+generating language parsers is a thin wrapper around the formal theory
+of LR(1) grammars. Its partner, the lexical analyzer generator
+lex(1),
+is a similarly thin wrapper around the theory of nondeterministic
+finite-state automata.</p></li></ul></div><p>All three of these programs are so bug-free that their correct
+functioning is taken utterly for granted, and compact enough to fit
+easily in a programmer's hand. Only a part of these good qualities are due
+to the polishing that comes with a long service life and frequent use;
+most of it is that, having been constructed around a strong and
+provably correct algorithmic core, they never needed much polishing
+in the first place.</p><p>The opposite of a formal approach is using
+<i>heuristics</i>&#8212;rules of thumb leading
+toward a solution that is probabilistically, but not certainly,
+correct.  Sometimes we use heuristics because a deterministically
+correct solution is impossible. Think of spam filtering, for example;
+an algorithmically perfect spam filter would need a full solution to
+the problem of understanding natural language as a module.  Other
+times, we use heuristics because known formally correct methods are
+impossibly expensive.  Virtual-memory management is an example of
+this; there are near-perfect solutions, but they require so much
+runtime instrumentation that their overhead would swamp any
+theoretical gain over heuristics.</p><p>The trouble with heuristics is that they proliferate special
+cases and edge cases.  If nothing else, you usually have to backstop 
+a heuristic with some sort of recovery mechanism when it fails.  All
+the usual problems with escalating complexity follow.  To manage the
+resulting tradeoffs, you have to start by being aware of them.  Always
+ask if a heuristic actually pays off in performance what it costs 
+in code complexity &#8212; and don't guess at the performance
+difference, actually measure it before making a decision.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2899405"/>The Value of Detachment</h3></div></div><p>We began this book with a reference to Zen: &#8220;a special
+transmission, outside the scriptures&#8221;.  This was not mere
+exoticism for stylistic effect; the core concepts of Unix have always
+had a spare, Zen-like simplicity that continues to shine through the
+layers of historical accidents that have accreted around
+them<a id="id2899424" class="indexterm"/>.  This
+quality is reflected in the cornerstone documents of Unix, like
+<i>The C Programming Language</i> [<a href="apb.html#Kernighan-Ritchie" title="[Kernighan-Ritchie]">Kernighan-Ritchie</a>] and the 1974 CACM paper that introduced
+Unix to the world; one of the famous quotes from that paper observes
+&#8220;...constraint has encouraged not only economy, but also a
+certain elegance of design&#8221;.  That simplicity came from trying
+to think not about how much a language or operating system could do,
+but of how <span class="emphasis"><em>little</em></span> it could do &#8212; not by
+carrying assumptions but by starting from zero (what in Zen is called
+&#8220;beginner's mind&#8221; or &#8220;empty mind&#8221;).</p><p>To design for
+compactness<a id="id2899472" class="indexterm"/> and
+orthogonality<a id="id2899480" class="indexterm"/>,
+start from zero.  Zen teaches that attachment leads to suffering;
+experience with software design teaches that attachment to unnoticed
+assumptions leads to non-orthogonality, noncompact designs, and
+projects that fail or become maintenance nightmares.</p><p>To achieve enlightenment and surcease from suffering, Zen
+teaches detachment.  The Unix tradition teaches the value of
+detachment from the particular, accidental conditions under which a
+design problem was posed.  Abstract.  Simplify.  Generalize.  Because
+we write software to solve problems, we cannot completely detach from
+the problems &#8212; but it is well worth the mental effort to see how
+many preconceptions you can throw away, and whether the design becomes
+more compact<a id="id2899507" class="indexterm"/> and
+orthogonal as you do that.  Possibilities for code reuse often
+result.</p><p>Jokes about the relationship between Unix and Zen are a live
+part of the Unix tradition as well.<sup>[<a id="id2899522" href="#ftn.id2899522">45</a>]</sup>
+This is not an accident.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2895110" href="#id2895110">43</a>] </sup>In
+the foundation text on this topic, <i>Refactoring</i>
+[<a href="apb.html#Fowler" title="[Fowler]">Fowler</a>], the author comes very close to stating that
+the principal goal of refactoring is to improve orthogonality. But
+lacking the concept, he can only approximate this idea from several
+different directions: eliminating code duplication and various other
+&#8220;bad smells&#8221; many of which are some sort of orthogonality
+violation.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2895368" href="#id2895368">44</a>] </sup>An
+archetypal example of bad caching is the <b>rehash</b>
+directive in
+csh(1);
+type <b>man 1 csh</b> for details.  See <a href="ch12s04.html#binary_caches" title="Caching Operation Results">the section called &#8220;Caching Operation Results&#8221;</a> for another example.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2899522" href="#id2899522">45</a>] </sup>For a recent example
+of Unix/Zen crossover, see <a href="unix_koans.html" title="Appendix D. Rootless Root">Appendix D</a>.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch04s01.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="modularitychapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch04s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Encapsulation and Optimal Module Size </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Software Is a Many-Layered Thing</td></tr></table></div></body></html>

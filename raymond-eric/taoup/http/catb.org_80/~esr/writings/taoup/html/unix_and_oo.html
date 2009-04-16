@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Unix and Object-Oriented Languages</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="modularitychapter.html" title="Chapter 4. Modularity"/><link rel="previous" href="ch04s04.html" title="Libraries"/><link rel="next" href="ch04s06.html" title="Coding for Modularity"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Unix and Object-Oriented Languages</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch04s04.html">Prev</a> </td><th width="60%" align="center">Chapter 4. Modularity</th><td width="20%" align="right"> <a accesskey="n" href="ch04s06.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="unix_and_oo"/>Unix and Object-Oriented Languages</h2></div></div><a id="id2900532" class="indexterm"/><p>Since the mid-1980s most new language designs have included
+native support for <i>object-oriented programming</i>
+(OO).  Recall that in object-oriented programming, the functions that
+act on a particular data structure are encapsulated with the data in
+an object that can be treated as a unit.  By contrast, modules in
+non-OO languages make the association between data and the functions
+that act on it rather accidental, and modules frequently leak data or
+bits of their internals into each other.</p><p>The OO design concept initially proved valuable in the design of
+graphics systems, graphical user interfaces, and certain kinds of
+simulation. To the surprise and gradual disillusionment of many, it
+has proven difficult to demonstrate significant benefits of OO outside
+those areas.  It's worth trying to understand why.</p><p>There is some tension and conflict between the Unix tradition of
+modularity and the usage patterns that have developed around OO
+languages.  Unix programmers have always tended to be a bit more
+skeptical about OO than their counterparts elsewhere. Part of this is
+because of the Rule of Diversity; OO has far too often been promoted
+as the One True Solution to the software-complexity problem.  But
+there is something else behind it as well, an issue which is worth
+exploring as background before we evaluate specific OO
+(object-oriented) languages in <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a>.  It will also help throw some
+characteristics of the Unix style of non-OO programming into sharper
+relief.</p><p>We observed above that the Unix tradition of modularity is one
+of thin glue, a minimalist approach with few layers of abstraction
+between the hardware and the top-level objects of a program.  Part of
+this is the influence of C.  It takes serious effort to simulate true
+objects in C.  Because that's so, piling up abstraction layers is an
+exhausting thing to do.  Thus, object hierarchies in C tend to be
+relatively flat and
+transparent<a id="id2900606" class="indexterm"/>. Even when Unix programmers use other
+languages, they tend to want to carry over the
+thin-glue/shallow-layering style that Unix models have taught
+them.</p><p>OO languages make abstraction easy &#8212; perhaps too easy.
+They encourage architectures with thick glue and elaborate layers.
+This can be good when the problem domain is truly complex and demands
+a lot of abstraction, but it can backfire badly if coders end up doing
+simple things in complex ways just because they can.</p><p>All OO languages show some tendency to suck programmers into the
+trap of excessive layering.  Object frameworks and object browsers are
+not a substitute for good design or documentation, but they often get
+treated as one.  Too many layers destroy
+transparency<a id="id2900640" class="indexterm"/>: It becomes too difficult
+to see down through them and mentally model what the code is actually
+doing.  The Rules of Simplicity, Clarity, and Transparency get
+violated wholesale, and the result is code full of obscure bugs and
+continuing maintenance problems.</p><p>This tendency is probably exacerbated because a lot of
+programming courses teach thick layering as a way to satisfy the Rule
+of Representation.  In this view, having lots of classes is
+equated with embedding knowledge in your data.  The problem with this
+is that too often, the &#8216;smart data&#8217; in the glue layers is
+not actually about any natural entity in whatever the program is
+manipulating &#8212; it's just about being glue. (One sure sign of
+this is a proliferation of abstract subclasses or
+&#8216;mixins&#8217;.)</p><p>Another side effect of OO abstraction is that opportunities for
+optimization<a id="id2900675" class="indexterm"/>
+tend to disappear.  For example, <span class="emphasis"><em>a</em></span> + <span class="emphasis"><em>a</em></span> + <span class="emphasis"><em>a</em></span> + <span class="emphasis"><em>a</em></span> can become <span class="emphasis"><em>a</em></span> * 4 and even
+<span class="emphasis"><em>a</em></span> &lt;&lt; 2 if a is an integer.  But if one creates a class with
+operators, there is nothing to indicate if they are commutative,
+distributive, or associative.  Since one isn't supposed to look inside
+the object, it's not possible to know which of two equivalent
+expressions is more efficient.  This isn't in itself a good reason to
+avoid using OO techniques on new projects; that would be premature
+optimization<a id="id2900717" class="indexterm"/>.
+But it is reason to think twice before transforming non-OO code into a
+class hierarchy.</p><p>Unix programmers tend to share an instinctive sense of these
+problems. This tendency appears to be one of the reasons that, under
+Unix, OO languages have failed to displace non-OO workhorses like
+C<a id="id2900738" class="indexterm"/>,
+Perl<a id="id2900746" class="indexterm"/> (which
+actually has OO facilities, but they're not heavily used), and
+shell<a id="id2900756" class="indexterm"/>.
+There is more vocal criticism of OO in the Unix world than orthodoxy
+permits elsewhere; Unix programmers know when <span class="emphasis"><em>not</em></span>
+to use OO; and when they do use OO languages, they spend more
+effort on trying to keep their object designs uncluttered.  As the
+author of <i>The Elements of Networking Style</i> once
+observed in a slightly different context [<a href="apb.html#Padlipsky" title="[Padlipsky]">Padlipsky</a>]:
+&#8220;If you know what you're doing, three layers is enough; if you
+don't, even seventeen levels won't help&#8221;.</p><p>One reason that OO has succeeded most where it has (GUIs,
+simulation, graphics) may be because it's relatively difficult to get
+the ontology of types wrong in those domains.  In GUIs and graphics, for
+example, there is generally a rather natural mapping between
+manipulable visual objects and classes.  If you find yourself
+proliferating classes that have no obvious mapping to what goes
+on in the display, it is correspondingly easy to notice that the glue
+has gotten too thick.</p><p>One of the central challenges of design in the Unix style is how
+to combine the virtue of detachment (simplifying and generalizing
+problems from their original context) with the virtue of thin glue and
+shallow, flat, transparent hierarchies of code and
+design<a id="id2900812" class="indexterm"/>.</p><p>We'll return to some of these points and apply them when we
+discuss object-oriented languages in <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a>.</p></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch04s04.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="modularitychapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch04s06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Libraries </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Coding for Modularity</td></tr></table></div></body></html>

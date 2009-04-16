@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Command-Line Options</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="configurationchapter.html" title="Chapter 10. Configuration"/><link rel="previous" href="ch10s04.html" title="Environment Variables"/><link rel="next" href="ch10s06.html" title="How to Choose among the Methods"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Command-Line Options</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch10s04.html">Prev</a> </td><th width="60%" align="center">Chapter 10. Configuration</th><td width="20%" align="right"> <a accesskey="n" href="ch10s06.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2948015"/>Command-Line Options</h2></div></div><p>Unix tradition encourages the use of command-line switches to
+control programs, so that options can be specified from scripts. This
+is especially important for programs that function as pipes or
+filters. Three conventions for how to distinguish command-line options
+from ordinary arguments exist; the original Unix style, the GNU style,
+and the X toolkit style.</p><p>In the original Unix tradition, command-line options are single
+letters preceded by a single hyphen. Mode-flag options that do not
+take following arguments can be ganged together; thus, if
+<tt>-a</tt> and <tt>-b</tt> are mode options,
+<tt>-ab</tt> or <tt>-ba</tt> is also correct and
+enables both. The argument to an option, if any, follows it
+(optionally separated by whitespace). In this style, lowercase
+options are preferred to uppercase. When you use uppercase options,
+it's good form for them to be special variants of the lowercase
+option.</p><p>The original Unix style evolved on slow ASR-33 teletypes that made
+terseness a virtue; thus the single-letter options. Holding down the
+shift key required actual effort; thus the preference for lower case,
+and the use of &#8220;-&#8221; (rather than the perhaps more
+logical &#8220;+&#8221;) to enable options.</p><p>The GNU style uses option keywords (rather than keyword letters)
+preceded by two hyphens. It evolved years later when some of the
+rather elaborate GNU utilities began to run out of single-letter
+option keys (this constituted a patch for the symptom, not a cure for
+the underlying disease). It remains popular because GNU options are
+easier to read than the alphabet soup of older styles.  GNU-style
+options cannot be ganged together without separating whitespace. An
+option argument (if any) can be separated by either whitespace or a
+single &#8220;=&#8221; (equal sign) character.</p><p>The GNU double-hyphen option leader was chosen so that traditional
+single-letter options and GNU-style keyword options could be
+unambiguously mixed on the same command line. Thus, if your initial
+design has few and simple options, you can use the Unix style without
+worrying about causing an incompatible &#8216;flag day&#8217; if you
+need to switch to GNU style later on. On the other hand, if you are
+using the GNU style, it is good practice to support single-letter
+equivalents for at least the most common options.</p><p>The X toolkit style, confusingly, uses a single hyphen and
+keyword options. It is interpreted by X toolkits that filter out and
+process certain options (such as <tt>-geometry</tt> and
+<tt>-display</tt>) before handing the filtered command line to
+the application logic for interpretation. The X toolkit style is not
+properly compatible with either the classic Unix or GNU styles, and
+should not be used in new programs unless the value of being
+compatible with older X conventions seems very high.</p><p>Many tools accept a bare hyphen, not associated with any option
+letter, as a pseudo-filename directing the application to read from
+standard input.  It is also conventional to recognize a double hyphen
+as a signal to stop option interpretation and treat all following
+arguments literally.</p><p>Most Unix programming languages offer libraries that will parse
+a command line for you in either classic-Unix or GNU style
+(interpreting the double-hyphen convention as well).</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2948149"/>The <tt>-a</tt> to <tt>-z</tt> of Command-Line Options</h3></div></div><p>Over time, frequently-used options in well-known Unix programs
+have established a loose sort of semantic standard for what various flags
+might be expected to mean. The following is a list of options and
+meanings that should prove usefully unsurprising to an experienced
+Unix user:</p><div class="variablelist"><dl><dt><span class="term"><tt>-a</tt></span></dt><dd><p>All (without argument). If there is a GNU-style <tt>--all</tt>
+option, for <tt>-a</tt> to be anything but a synonym for it
+would be quite surprising. Examples:
+fuser(1),
+fetchmail(1)<a id="id2948216" class="indexterm"/>.</p><p>Append, as in
+tar(1).
+This is often paired with <tt>-d</tt> for delete.</p></dd><dt><span class="term"><tt>-b</tt></span></dt><dd><p>Buffer or block size (with argument). Set a critical buffer
+size, or (in a program having to do with archiving or managing storage
+media) set a block size. Examples:
+du(1),
+df(1),
+tar(1).</p><p>Batch. If the program is naturally interactive,
+<tt>-b</tt> may be used to suppress prompts or set other
+options appropriate to accepting input from a file rather than a human
+operator. Example:
+flex(1). </p></dd><dt><span class="term"><tt>-c</tt></span></dt><dd><p>Command (with argument). If the program is an interpreter that
+normally takes commands from standard input, it is expected that the
+option of a <tt>-c</tt> argument will be passed to it as a
+single line of input. This convention is particularly strong for
+shells and shell-like interpreters. Examples:
+sh(1),
+ash(1),
+bsh(1),
+ksh(1),
+python(1).
+Compare <tt>-e</tt> below.</p><p>Check (without argument). Check the correctness of the file
+argument(s) to the command, but don't actually perform normal
+processing. Frequently used as a syntax-check option by programs that
+do interpretation of command files. Examples:
+getty(1),
+perl(1).</p></dd><dt><span class="term"><tt>-d</tt></span></dt><dd><p>Debug (with or without argument). Set the level of debugging
+messages. This one is very common.</p><p>Occasionally <tt>-d</tt> has the sense of
+&#8216;delete&#8217; or &#8216;directory&#8217;.</p></dd><dt><span class="term"><tt>-D</tt></span></dt><dd><p>Define (with argument). Set the value of some symbol in an
+interpreter, compiler, or (especially) macro-processor-like
+application. The model is the use of <tt>-D</tt> by the C<a id="id2948464" class="indexterm"/>
+compiler's macro preprocessor.  This is a strong association 
+for most Unix programmers; don't try to fight it.</p></dd><dt><span class="term"><tt>-e</tt></span></dt><dd><p>Execute (with argument). Programs that are wrappers, or that can
+be used as wrappers, often allow <tt>-e</tt> to set the program they hand off
+control to. Examples:
+xterm(1),
+perl(1).</p><p>Edit. A program that can open a resource in either a read-only
+or editable mode may allow <tt>-e</tt> to specify opening in the editable
+mode. Examples:
+crontab(1),
+and the
+get(1)
+utility of the SCCS version-control system.</p><p>Occasionally <tt>-e</tt> has the sense of &#8216;exclude&#8217; or
+&#8216;expression&#8217;.</p></dd><dt><span class="term"><tt>-f</tt></span></dt><dd><p>File (with argument). Very often used with an argument to
+specify an input (or, less frequently, output) file for programs that
+need to randomly access their input or output (so that redirection via
+&lt; or &gt; won't suffice). The classic example is
+tar(1);
+others abound.  It is also used to indicate that arguments normally
+taken from the command line should be taken from a file instead;  see
+awk(1)
+and egrep(1)
+for classic examples.
+Compare <tt>-o</tt> below; often,
+<tt>-f</tt> is the input-side analog of <tt>-o</tt>.</p><p>Force (typically without argument). Force some operation (such
+as a file lock or unlock) that is normally performed
+conditionally. This is less common.</p><p>Daemons often use <tt>-f</tt> in a way that combines
+these two meanings, to force processing of a configuration file from a
+nondefault location. Examples:
+ssh(1),
+httpd(1),
+and many other daemons.</p></dd><dt><span class="term"><tt>-h</tt></span></dt><dd><p>Headers (typically without argument). Enable, suppress, or
+modify headers on a tabular report generated by the program.
+Examples:
+pr(1),
+ps(1).</p><p>Help. This is actually less common than one might expect offhand
+&#8212; for much of Unix's early history developers tended to think of
+on-line help as memory-footprint overhead they couldn't
+afford. Instead they wrote manual pages (this shaped the man-page
+style in ways we'll discuss in <a href="documentationchapter.html" title="Chapter 18. Documentation">Chapter 18</a>).</p></dd><dt><span class="term"><tt>-i</tt></span></dt><dd><p>Initialize (usually without argument). Set some critical
+resource or database associated with the program to an initial or
+empty state.  Example:
+ci(1)
+in RCS.</p><p>Interactive (usually without argument). Force a program that
+does not normally query for confirmation to do so. There are classical
+examples
+(rm(1),
+mv(1))
+but this use is not common.</p></dd><dt><span class="term"><tt>-I</tt></span></dt><dd><p>Include (with argument). Add a file or directory name to those
+searched for resources by the application. All Unix compilers with any
+equivalent of source-file inclusion in their languages use
+<tt>-I</tt> in this sense. It would be extremely surprising to
+see this option letter used in any other way.</p></dd><dt><span class="term"><tt>-k</tt></span></dt><dd><p>Keep (without argument). Suppress the normal deletion of
+some file, message, or resource. Examples:
+passwd(1),
+bzip(1),
+and
+fetchmail(1)<a id="id2948839" class="indexterm"/>.</p><p>Occasionally <tt>-k</tt> has the sense of
+&#8216;kill&#8217;.</p></dd><dt><span class="term"><tt>-l</tt></span></dt><dd><p>List (without argument). If the program is an archiver or
+interpreter/player for some kind of directory or archive format, it
+would be quite surprising for <tt>-l</tt> to do anything but request an item
+listing.  Examples:
+arc(1),
+binhex(1),
+unzip(1). (However,
+tar(1)
+and
+cpio(1)
+are exceptions.)</p><p>In programs that are already report generators,
+<tt>-l</tt> almost invariably means &#8220;long&#8221; and
+triggers some kind of long-format display revealing more detail than
+the default mode.  Examples:
+ls(1),
+ps(1).</p><p>Load (with argument). If the program is a linker or a language
+interpreter, <tt>-l</tt> invariably loads a library, in some
+appropriate sense. Examples:
+gcc(1),
+f77(1),
+emacs(1).</p><p>Login.  In programs such as
+rlogin(1)
+and
+ssh(1)
+that need to specify a network identity, <tt>-l</tt> is how you do it.</p><p>Occasionally <tt>-l</tt> has the sense of &#8216;length&#8217; or
+&#8216;lock&#8217;.</p></dd><dt><span class="term"><tt>-m</tt></span></dt><dd><p>Message (with argument). Used with an argument,
+<tt>-m</tt> passes it
+in as a message string for some logging or announcement purpose.
+Examples:
+ci(1),
+cvs(1).</p><p>Occasionally <tt>-m</tt> has the sense of &#8216;mail&#8217;,
+&#8216;mode&#8217;, or &#8216;modification-time&#8217;.</p></dd><dt><span class="term"><tt>-n</tt></span></dt><dd><p>Number (with argument). Used, for example, for page number
+ranges in programs such as
+head(1),
+tail(1),
+nroff(1),
+and
+troff(1). Some
+networking tools that normally display DNS names accept
+<tt>-n</tt> as an option that causes them to display the raw
+IP addresses instead;
+ifconfig(1)
+and
+tcpdump(1)
+are the archetypal examples.</p><p>Not (without argument). Used to suppress normal actions in
+programs such as make(1).</p></dd><dt><span class="term"><tt>-o</tt></span></dt><dd><p>Output (with argument). When a program needs to specify an
+output file or device by name on the command line, the
+<tt>-o</tt> option does it. Examples:
+as(1),
+cc(1),
+sort(1). On
+anything with a compiler-like interface, it would be extremely
+surprising to see this option used in any other way.  Programs that
+support <tt>-o</tt> often (like gcc) have logic that allows it
+to be recognized after ordinary arguments as well as before.</p></dd><dt><span class="term"><tt>-p</tt></span></dt><dd><p>Port (with argument). Especially used for options that specify
+TCP/IP<a id="id2949254" class="indexterm"/> port numbers.
+Examples:
+cvs(1),
+the PostgreSQL tools, the
+smbclient(1),
+snmpd(1),
+ssh(1).</p><p>Protocol (with argument). Examples:
+fetchmail(1)<a id="id2949309" class="indexterm"/>,
+snmpnetstat(1).</p></dd><dt><span class="term"><tt>-q</tt></span></dt><dd><p>Quiet (usually without argument). Suppress normal result or
+diagnostic output. This is very common.  Examples: ci(1), co(1), 
+make(1).  See also the &#8216;silent&#8217; sense of <tt>-s</tt>.</p></dd><dt><span class="term"><tt>-r</tt> (also <tt>-R</tt>)</span></dt><dd><p>Recurse (without argument). If the program operates on a
+directory, then this option might tell it to recurse on all
+subdirectories. Any other use in a utility that operated on
+directories would be quite surprising. The classic example is, of
+course, cp(1).</p><p>Reverse (without argument). Examples:
+ls(1),
+sort(1). A
+filter might use this to reverse its normal translation action
+(compare <tt>-d</tt>).</p></dd><dt><span class="term"><tt>-s</tt></span></dt><dd><p>Silent (without argument). Suppress normal diagnostic or result
+output (similar to <tt>-q</tt>; when both are supported, q
+means &#8216;quiet&#8217; but <tt>-s</tt> means &#8216;utterly
+silent&#8217;). Examples:
+csplit(1),
+ex(1),
+fetchmail(1)<a id="id2949495" class="indexterm"/>.</p><p>Subject (with argument). <span class="emphasis"><em>Always</em></span> used with
+this meaning on commands that send or manipulate mail or news
+messages.  It is extremely important to support this, as programs
+that send mail expect it. Examples: mail(1), elm(1), mutt(1).</p><p>Occasionally <tt>-s</tt> has the sense of
+&#8216;size&#8217;.</p></dd><dt><span class="term"><tt>-t</tt></span></dt><dd><p>Tag (with argument). Name a location or give a string for a
+program to use as a retrieval key. Especially used with text editors
+and viewers. Examples:
+cvs(1),
+ex(1),
+less(1),
+vi(1).</p></dd><dt><span class="term"><tt>-u</tt></span></dt><dd><p>User (with argument). Specify a user, by name or numeric UID.
+Examples:
+crontab(1),
+emacs(1),
+fetchmail(1)<a id="id2949649" class="indexterm"/>,
+fuser(1),
+ps(1).</p></dd><dt><span class="term"><tt>-v</tt></span></dt><dd><p>Verbose (with or without argument). Used to enable
+transaction-monitoring, more voluminous listings, or debugging
+output. Examples:
+cat(1),
+cp(1),
+flex(1),
+tar(1),
+many others.</p><p>Version (without argument). Display program's version on
+standard output and exit. Examples:
+cvs(1),
+chattr(1),
+patch(1),
+uucp(1). More
+usually this action is invoked by <tt>-V</tt>.</p></dd><dt><span class="term"><tt>-V</tt></span></dt><dd><p>Version (without argument). Display program's version on
+standard output and exit (often also prints compiled-in configuration
+details as well). Examples: gcc(1), flex(1), hostname(1),
+many others. It would be quite surprising for this switch to be
+used in any other way.</p></dd><dt><span class="term"><tt>-w</tt></span></dt><dd><p>Width (with argument). Especially used for specifying widths in
+output formats. Examples:
+faces(1),
+grops(1),
+od(1),
+pr(1),
+shar(1).</p><p>Warning (without argument). Enable warning diagnostics, or
+suppress them. Examples:
+fetchmail(1)<a id="id2949899" class="indexterm"/>,
+flex(1),
+nsgmls(1).</p></dd><dt><span class="term"><tt>-x</tt></span></dt><dd><p>Enable debugging (with or without argument). Like
+<tt>-d</tt>. Examples:
+sh(1),
+uucp(1).</p><p>Extract (with argument). List files to be extracted from an
+archive or working set. Examples:
+tar(1),
+zip(1).</p></dd><dt><span class="term"><tt>-y</tt></span></dt><dd><p>Yes (without argument). Authorize potentially destructive
+actions for which the program would normally require confirmation.
+Examples:
+fsck(1),
+rz(1).</p></dd><dt><span class="term"><tt>-z</tt></span></dt><dd><p>Enable compression (without argument). Archiving and backup
+programs often use this. Examples:
+bzip(1),
+GNU
+tar(1),
+zcat(1),
+zip(1),
+cvs(1).</p></dd></dl></div><p>The preceding examples are taken from the
+Linux<a id="id2950098" class="indexterm"/>
+toolset, but should be good on most modern Unixes.</p><p>When you're choosing command-line option letters for your
+program, look at the manual pages for similar tools.  Try to use the
+same option letters they use for the analogous functions of your
+program.  Note that some particular application areas that have
+particularly strong conventions about command-line switches which you
+violate at your peril &#8212; compilers, mailers, text filters,
+network utilities and X software are all notable for this.  Anybody
+who wrote a mail agent that used <tt>-s</tt> as anything but a
+Subject switch, for example, would have scorn rightly heaped upon the
+choice.</p><p>The GNU project<a id="id2950131" class="indexterm"/> recommends conventional meanings for
+a few double-dash options in the GNU coding
+standards.<sup>[<a id="id2950141" href="#ftn.id2950141">104</a>]</sup> It also lists long options
+which, though not standardized, are used in many GNU programs.
+If you are using GNU-style options, and some option you need has
+a function similar to one of those listed, by all means 
+obey the Rule of Least Surprise and reuse the name.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2950162"/>Portability to Other Operating Systems</h3></div></div><p>To have command-line options, you have to have a command line.
+The MS-DOS family does, of course, though in Windows it's hidden by a
+GUI and its use is discouraged; the fact that the option character is
+normally &#8216;<tt>/</tt>&#8217; rather than &#8216;<tt>-</tt>&#8217; is merely a
+detail.  MacOS classic and other pure GUI environments have no close
+equivalent of command-line options.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2950141" href="#id2950141">104</a>] </sup>See the <a href="http://www.gnu.org/prep/standards.html" target="_top">Gnu Coding
+Standards</a>.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch10s04.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="configurationchapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch10s06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Environment Variables </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> How to Choose among the Methods</td></tr></table></div></body></html>

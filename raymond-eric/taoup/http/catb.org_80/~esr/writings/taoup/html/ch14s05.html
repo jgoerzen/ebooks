@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Trends for the Future</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="languageschapter.html" title="Chapter 14. Languages"/><link rel="previous" href="ch14s04.html" title="Language Evaluations"/><link rel="next" href="ch14s06.html" title="Choosing an X Toolkit"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Trends for the Future</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch14s04.html">Prev</a> </td><th width="60%" align="center">Chapter 14. Languages</th><td width="20%" align="right"> <a accesskey="n" href="ch14s06.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2978170"/>Trends for the Future</h2></div></div><p><a href="#lang_usage" title="Table 14.1. Language choices.">Table 14.1</a> gives a rough indication of today's
+distribution of language usage.  We give figures from both
+SourceForge<sup>[<a id="id2978184" href="#ftn.id2978184">128</a>]</sup> and Freshmeat,<sup>[<a id="id2978197" href="#ftn.id2978197">129</a>]</sup> the two most important
+new-release sites, as of March 2003.</p><p>The SourceForge figures are soft in several ways: Notably,
+SourceForge's query interface doesn't permit filtering on OS and
+language simultaneously, so some of these numbers represent MacOS and
+Windows projects.  The effect is probably to exaggerate
+C++<a id="id2978219" class="indexterm"/> and
+Java's<a id="id2978227" class="indexterm"/> share
+considerably. However, Unix-based projects dominate sufficiently (by
+about a 3:1 ratio) so that the effect on the figures for languages other
+than these is probably not too distorting.</p><p>The Freshmeat sample is smaller, but the site hosts only
+Unix-based releases &#8212; and it counts actual releases, not the
+huge clutter of failed and inactive SourceForge projects.  It is thus
+interesting that the population figures track SourceForge's by about a
+1:2 ratio except in precisely the cases (C++ and Java) where we would
+expect them to be out of proportion because of the absence of Windows
+projects.</p><div class="table"><a id="lang_usage"/><p class="title"><b>Table 14.1. Language choices.</b></p><table summary="Language choices." border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th>Language</th><th>SourceForge</th><th>Freshmeat</th></tr></thead><tbody><tr><td>C</td><td>10296</td><td>4845</td></tr><tr><td>C++</td><td>9880</td><td>2098</td></tr><tr><td>Shell</td><td>1058</td><td>487</td></tr><tr><td>Perl</td><td>4394</td><td>2508</td></tr><tr><td>Tcl</td><td>649</td><td>328</td></tr><tr><td>Python</td><td>2222</td><td>948</td></tr><tr><td>Java</td><td>8032</td><td>1900</td></tr><tr><td>Emacs Lisp</td><td>?</td><td>31</td></tr></tbody></table></div><p>This chapter was first drafted in 1997; at time of writing
+it is mid-2003. That is a long enough time base that the relative
+positions of the languages we surveyed above have changed somewhat
+since first writing, indicating adoption trends that may suggest
+what their futures will be like. (Community size is an important
+predictor of the quality and amount of work that will go into
+improving the most-used open-source implementations of these
+languages; both growth and decline tend to be
+self-reinforcing.)</p><p>Broadly speaking, C<a id="id2978443" class="indexterm"/> and C++<a id="id2978455" class="indexterm"/> and Emacs Lisp<a id="id2978464" class="indexterm"/> have remained stable across the
+1997-2003 time period, appealing to much the same constituencies in
+2003 as they did in 1997. C has gained slowly at the expense of older
+conventional languages such as FORTRAN; C++, on the other hand, has
+lost some ground to Java<a id="id2978477" class="indexterm"/>.</p><p>Perl<a id="id2978490" class="indexterm"/>
+usage has grown respectably, but the language itself has been stagnant
+for some time. Perl's internals are notoriously grubby; it's been
+understood for years that the language's implementation needs to be
+rewritten from scratch, but an attempt in 1999 failed and another
+seems presently stalled in mid-2003.  Nevertheless, Perl is still
+the 800-pound gorilla of scripting
+languages<a id="id2978505" class="indexterm"/>, and dominates Web scripting and
+CGI.</p><p>Tcl<a id="id2978518" class="indexterm"/> has
+been in a period of relative decline, or at least of diminishing
+visibility.  In 1996 a widely-reported and plausible estimate of
+community sizes held that for every Python<a id="id2978530" class="indexterm"/> hacker there were five
+Tcl<a id="id2978539" class="indexterm"/> hackers and
+twelve Perl<a id="id2978548" class="indexterm"/>
+hackers. Today the SourceForge figures suggest those ratios are about
+3:1:7.  However, Tcl is reported to be very widely used for scripting
+of specialized components in several industries, including electronic
+design automation, radio and television broadcasting, and the film
+industry.</p><p>Python<a id="id2978566" class="indexterm"/>
+has risen in popularity as rapidly as Tcl<a id="id2978575" class="indexterm"/> has fallen. Though the
+Perl<a id="id2978584" class="indexterm"/> community
+is still twice the size of Python's, a visible tendency of the
+brightest Perl hackers to migrate to Python has been rather ominous
+for the former language &#8212; especially as there is no migration at
+all in the opposite direction.</p><p>Java<a id="id2978601" class="indexterm"/> has
+become widely used at sites already invested in Sun
+Microsystems<a id="id2978610" class="indexterm"/>
+technology and is in increasing deployment as an instructional
+language in undergraduate computer science curricula. Elsewhere,
+however, it is only marginally more popular than it was in 1997. Sun's
+determination to stick to a proprietary licensing model has prevented
+the major breakout many observers then predicted; under
+Linux<a id="id2978625" class="indexterm"/>
+and in the wider open-source community Java has not made the headway
+against C that it has elsewhere.</p><p>No new general-purpose language has emerged to seriously
+challenge those we've surveyed here. PHP is making inroads in Web
+development, challenging Perl CGIs (as well as ASP and server-side
+Java<a id="id2978643" class="indexterm"/>) but is
+almost never used for standalone programming.  Non-Emacs
+Lisp<a id="id2978653" class="indexterm"/> dialects,
+a once-promising area that seemed headed for a renaissance in the
+mid-1990s, have continued to fade. Recent efforts such as Ruby (a sort
+of Python-Perl-Smalltalk cross developed in Japan) and Squeak (an
+open-source Smalltalk port) look promising, but have so far neither
+attracted hackers far outside their development groups nor
+demonstrated staying power.</p><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2978184" href="#id2978184">128</a>] </sup><a href="http://sourceforge.net/softwaremap/trove_list.php?form_cat=160" target="_top">Query
+for statistics</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2978197" href="#id2978197">129</a>] </sup><a href="http://freshmeat.net/browse/160/?topic_id=160" target="_top">Query for
+statistics</a>.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch14s04.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="languageschapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch14s06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Language Evaluations </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Choosing an X Toolkit</td></tr></table></div></body></html>

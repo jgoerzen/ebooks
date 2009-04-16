@@ -1,0 +1,18 @@
+/* The Art of Unix Proframming stylesheet */
+
+/* background image for all TAOUP pages */
+body {
+  background-image: url('graphics/linen2d.jpg');
+ }
+
+/* sans-serif fonts for titles */
+h1, h2, h3	{font-family: Helvetica, Univers, sans-serif}
+
+/* center informal tables */
+div.informaltable {text-align: center;}
+div.informaltable table {margin: 0 auto; text-align: left;}
+
+/* illustrations (not yet used) */
+.caption	{text-align: center; font-weight: bold;}
+.mediaobject	{text-align: center;}
+

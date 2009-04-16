@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Special-Purpose Code Generators</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="toolschapter.html" title="Chapter 15. Tools"/><link rel="previous" href="ch15s02.html" title="Choosing an Editor"/><link rel="next" href="ch15s04.html" title="make: Automating Your Recipes"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Special-Purpose Code Generators</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch15s02.html">Prev</a> </td><th width="60%" align="center">Chapter 15. Tools</th><td width="20%" align="right"> <a accesskey="n" href="ch15s04.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2979728"/>Special-Purpose Code Generators</h2></div></div><p>Unix has a long-standing tradition of hosting tools that are
+specifically designed to generate code for various special purposes.
+The venerable monuments of this tradition, which go back to Version 7
+and earlier days, and were actually used to write the original
+Portable C Compiler back in the 1970s, are
+lex(1)
+and
+yacc(1).
+Their modern, upward-compatible successors are
+flex(1)
+and
+bison(1),
+part of the GNU<a id="id2979778" class="indexterm"/>
+toolkit and still heavily used today.  These programs have set an
+example that is carried forward in projects like GNOME's
+<i>Glade</i> interface builder.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2979797"/><i>yacc</i> and <i>lex</i></h3></div></div><p><i>yacc</i> and
+<i>lex</i> are tools for generating language
+parsers.  We observed in <a href="minilanguageschapter.html" title="Chapter 8. Minilanguages">Chapter 8</a> that your first minilanguage is all
+too likely to be an accident rather than a design.  That accident is
+likely to have a hand-coded parser that costs you far too much
+maintenance and debugging time &#8212; especially if you have not
+realized it is a parser, and have thus failed to properly separate it
+from the remainder of your application code.  Parser generators are
+tools for doing better than an accidental, ad-hoc implementation; they
+don't just let you express your grammar specification at a higher
+level, they also wall off all the parser's implementation complexity
+from the rest of your code.</p><p>If you reach a point where you are planning to implement a
+minilanguage from scratch, rather than by extending or embedding an
+existing scripting language<a id="id2979856" class="indexterm"/> or parsing XML,
+<i>yacc</i> and <i>lex</i>
+will probably be your most important tools after your
+C<a id="id2979879" class="indexterm"/> compiler.</p><p><i>lex</i> and
+<i>yacc</i> each generate code for a single
+function &#8212; respectively, &#8220;get a token from the input
+stream&#8221; and &#8220;parse a sequence of tokens to see if it
+matches a grammar&#8221;.  Usually, the
+<i>yacc</i>-generated parser function calls a
+Lex-generated tokenizer function each time it wants to get another
+token.  If there are no user-written C callbacks at all in the
+<i>yacc</i>-generated parser, all it will do is a
+syntax check; the value returned will tell the caller if the input
+matched the grammar it was expecting.</p><p>More usually, the user's C code, embedded in the generated
+parser, populates some runtime data structures as a side-effect of
+parsing the input.  If the minilanguage is declarative, your
+application can use these runtime data structures directly.  If your
+design was an imperative minilanguage, the data structures might
+include a parse tree which is immediately fed to some kind of
+evaluation function.</p><p><i>yacc</i> has a rather ugly interface,
+through exported global variables with the name prefix
+<tt>yy_</tt>.  This is because it predates structs in C; in
+fact, <i>yacc</i> predates C itself; the first
+implementation was written in C's predecessor B.  The crude
+though effective algorithm <i>yacc</i>-generated
+parsers use to try to recover from parse errors (pop tokens until an
+explicit error production is matched) can also lead to
+problems, including memory leaks.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>If you are building parse trees, using malloc to make nodes, and
+you start popping things off the stack in error recovery, you don't
+get to recover (free) the storage.  In general, Yacc can't do it,
+since it doesn't know enough about what's on the stack.  If the yacc
+parser were in C++, it could assume that the values were classes and
+&#8220;destruct&#8221; them.  In &#8220;real&#8221; compilers, parse
+tree nodes are generated using an arena-based allocator, so the nodes
+don't leak, but there is a logical leak anyway that needs to be
+thought about to make industrial-strength error recovery.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Steve Johnson</span>
+<a id="id2979998" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p><i>lex</i> is a lexical analyzer generator.
+It's a member of the same functional family as
+grep(1)
+and
+awk(1),
+but more powerful because it enables you to arrange for arbitrary C
+code to be executed on each match.  It accepts a declarative
+minilanguage and emits skeleton C code.</p><p>A crude but useful way to think about what a
+<i>lex</i>-generated tokenizer does is as a sort
+of inverse
+grep(1).
+Where
+grep(1)
+takes a single regular expression and returns a list of matches in the
+incoming data stream, each call to a
+<i>lex</i>-generated tokenizer takes a list of
+regular expressions and indicates which expression occurs next in the
+datastream.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Splitting input analysis into tokenizing input and parsing
+the token stream is a useful tactic even if you're not using Yacc and
+Lex and your &#8220;tokens&#8221; are nothing like the usual ones in
+a compiler.  More than once I've found that splitting input handling
+into two levels made the code much simpler and easier to understand,
+despite the complexity added by the split itself.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Henry Spencer</span>
+<a id="id2980118" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p><i>lex</i> was written to automate the task
+of generating lexical analyzers (tokenizers) for compilers.  It turned
+out to have a surprisingly wide range of uses for other kinds of
+pattern recognition, and has since been described as &#8220;the
+Swiss-army knife of Unix programming&#8221;.<sup>[<a id="id2980161" href="#ftn.id2980161">130</a>]</sup></p><p>If you are attacking any kind of pattern-recognition or
+state-machine problem in which all the possible input stimuli will fit
+in a byte, <i>lex</i> may enable you to generate
+code that will be more efficient and reliable than a hand-crafted
+state machine.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>John Jarvis at Holmdel [an AT&amp;T laboratory] used
+<i>lex</i> to find faults in circuit boards, by
+scanning the board, using a chain-encoding technique to represent the
+edges of areas on the board, and then using Lex to define patterns
+that would catch common fabrication errors.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Mike Lesk</span>
+<a id="id2980204" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Most importantly, the <i>lex</i>
+specification minilanguage is much higher-level and more
+compact<a id="id2980242" class="indexterm"/> than
+equivalent handcrafted C.  Modules are available to use
+<i>flex</i>, the open-source version, with
+Perl<a id="id2980258" class="indexterm"/> (find them
+with a Web search for &#8220;lex perl&#8221;), and a work-alike
+implementation is part of <i>PLY</i> in
+Python<a id="id2980279" class="indexterm"/>.</p><p><i>lex</i> generates parsers that are up
+to an order of magnitude slower than hand-coded parsers.  This is
+not a good reason to hand-code, however; it's an argument for
+prototyping with <i>lex</i> and hand-hacking
+only if prototyping reveals an actual bottleneck.</p><p><i>yacc</i> is a parser generator.  It, too,
+was written to automate part of the job of writing compilers.  It
+takes as input a grammar specification in a declarative minilanguage
+resembling BNF (Backus-Naur Form) with C code associated with each
+element of the grammar.  It generates code for a parser function
+that, when called, accepts text matching the grammar from an input
+stream.  As each grammar element is recognized, the parser function
+runs the associated C code.</p><p>The combination of <i>lex</i> and
+<i>yacc</i> is very effective for writing language
+interpreters of all kinds.  Though most Unix programmers never get to
+do the kind of general-purpose compiler-building that these tools were
+meant to assist, they're extremely useful for writing parsers for
+run-control file syntaxes and domain-specific minilanguages.</p><p><i>lex</i>-generated tokenizers are very
+fast at recognizing low-level patterns in input streams, but the
+regular-expression minilanguage that <i>lex</i>
+knows is not good at counting things, or recognizing recursively
+nested structures.  For parsing those, you want
+<i>yacc</i>.  On the other hand, while you
+theoretically could write a <i>yacc</i> grammar to
+do its own token-gathering, the grammar to specify that would be
+hugely bloated and the parser extremely slow.  For tokenizing input,
+you want <i>lex</i>.  Thus, these tools are
+symbiotic.</p><p>If you can implement your parser in a higher-level language than
+C (which we recommend you do; see <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a> for discussion), then look for equivalent
+facilities like Python's PLY (which covers both
+<i>lex</i> and <i>yacc</i>)<sup>[<a id="id2985990" href="#ftn.id2985990">131</a>]</sup>
+or Perl's<a id="id2986006" class="indexterm"/> PY
+and Parse::Yapp modules, or Java's<a id="id2986015" class="indexterm"/> CUP,<sup>[<a id="id2986024" href="#ftn.id2986024">132</a>]</sup>
+Jack,<sup>[<a id="id2986040" href="#ftn.id2986040">133</a>]</sup>
+or Yacc/M<sup>[<a id="id2986056" href="#ftn.id2986056">134</a>]</sup>
+packages.</p><p>As with macro processors, one of the problems with code
+generators and preprocessors is that compile-time errors in the
+generated code may carry line numbers that are relative to the
+generated code (which you don't want to edit) rather than the
+generator input (which is where you need to make corrections).
+<i>yacc</i> and <i>lex</i>
+address this by generating the same <tt>#line</tt> constructs that the C<a id="id2986105" class="indexterm"/>
+preprocessor does; these set the current line number for error
+reporting so the numbers will come out right. Any program that
+generates C<a id="id2986119" class="indexterm"/> or
+C++<a id="id2986130" class="indexterm"/> should do
+likewise.</p><p>More generally, well-designed procedural-code generators
+should never require the user to hand-alter or even look at the
+generated parts.  Getting those right is the code generator's
+job.</p><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id2986148"/>Case Study: The <tt>fetchmailrc</tt> Grammar</h4></div></div><p>The canonical demonstration example that seems to have appeared
+in every <i>lex</i> and
+<i>yacc</i> tutorial ever written is a toy
+interactive calculator program that parses and evaluates arithmetic
+expressions entered by the user.  We will spare you yet another
+repetition of this cliche; if you are interested, consult the source
+code of the
+bc(1)
+and
+dc(1)
+calculator implementations from the GNU project<a id="id2986200" class="indexterm"/>, or the paradigm example
+&#8216;hoc&#8217;<sup>[<a id="id2986209" href="#ftn.id2986209">135</a>]</sup>
+from [<a href="apb.html#Kernighan-Pike84" title="[Kernighan-Pike84]">Kernighan-Pike84</a>].</p><p>Instead, the grammar of <i>fetchmail</i>'s
+<a id="id2986236" class="indexterm"/>
+run-control-file parser provides a good medium-sized case study in
+<i>lex</i> and <i>yacc</i>
+usage.  There are a couple of points of interest here.</p><p>The <i>lex</i> specification, in
+<tt>rcfile_l.l</tt>, is a very typical implementation of a
+shell-like syntax.  Note how two complementary rules support either
+single or double-quoted strings; this is a good idea in general.  The
+rules for accepting (possibly signed) integer literals and discarding
+comments are also pretty generic.</p><p>The <i>yacc</i> specification, in
+<tt>rcfile_y.y</tt>, is long but straightforward. It does
+not perform any <i>fetchmail</i> actions, just
+sets bits in a list of internal control blocks. After startup,
+<i>fetchmail</i>'s normal mode of operation is
+just to repeatedly walk that list, using each record to drive a
+retrieval session with a remote site.</p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2986324"/>Case Study: <i>Glade</i></h3></div></div><p>We looked at <i>Glade</i> in <a href="minilanguageschapter.html" title="Chapter 8. Minilanguages">Chapter 8</a> as a good example of a
+declarative minilanguage. We also noted that its back end produces a
+result by generating code in any one of several languages.</p><p><i>Glade</i> is a good modern example of an
+application-code generator.  What makes it Unixy in spirit are the
+following features, which most GUI builders (especially most
+proprietary GUI builders) don't have:</p><div class="itemizedlist"><ul type="disc"><li><p> Rather than being glued together as one monster
+monolith, the <i>Glade</i> GUI and
+<i>Glade</i> code generator obey the Rule of
+Separation (following the &#8220;separated engine and
+interface&#8221; design pattern).</p></li><li><p>
+The GUI and code generator are connected by an (XML-based) textual
+data file format that can be read and modified by other tools.
+</p></li><li><p> Multiple target languages (as opposed to just
+C<a id="id2986409" class="indexterm"/> or
+C++<a id="id2986420" class="indexterm"/>) are supported.  More
+could easily be added.  </p></li></ul></div><p>The design implies that it should also be possible to
+replace the <i>Glade</i> GUI editor component,
+should that ever become desirable.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2980161" href="#id2980161">130</a>] </sup>The common latter-day description of Perl as a 
+&#8220;Swiss-army chainsaw&#8221; is derivative.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2985990" href="#id2985990">131</a>] </sup>PLY is 
+<a href="http://systems.cs.uchicago.edu/ply/" target="_top">downloadable</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2986024" href="#id2986024">132</a>] </sup>CUP is <a href="http://www.cs.princeton.edu/~appel/modern/java/CUP/" target="_top">downloadable</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2986040" href="#id2986040">133</a>] </sup>Jack is <a href="http://www.javaworld.com/javaworld/jw-12-1996/jw-12-jack.html" target="_top">downloadable</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2986056" href="#id2986056">134</a>] </sup>Yacc/M is <a href="http://david.tribble.com/yaccm.html" target="_top">downloadable</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2986209" href="#id2986209">135</a>] </sup><a href="http://cm.bell-labs.com/cm/cs/upe/" target="_top">http://cm.bell-labs.com/cm/cs/upe/</a></p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch15s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="toolschapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch15s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Choosing an Editor </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> make: Automating Your Recipes</td></tr></table></div></body></html>

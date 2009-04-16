@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Nonlocality Considered Harmful</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="optimizationchapter.html" title="Chapter 12. Optimization"/><link rel="previous" href="ch12s02.html" title="Measure before Optimizing"/><link rel="next" href="ch12s04.html" title="Throughput vs. Latency"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Nonlocality Considered Harmful</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch12s02.html">Prev</a> </td><th width="60%" align="center">Chapter 12. Optimization</th><td width="20%" align="right"> <a accesskey="n" href="ch12s04.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2961094"/>Nonlocality Considered Harmful</h2></div></div><p>The most effective way to optimize your code is to keep it
+small and simple.  We've been through lots of good reasons to
+keep it small and simple earlier in this book.  Here's a new 
+one: you want the central data structures and the time-critical loops
+in your code never to fall out of cache.</p><p>Consider your target machine as a hierarchy of memory types
+arranged by distance from the processor.  There are the processor's
+own registers; its instruction pipeline; the level-one (L1) cache; the
+level-two (L2) cache; possibly a level-three (L3) cache; main memory
+(what Unix old hands still quaintly call &#8216;core&#8217;); and the disk
+drives where swap space lives.  Technologies like SMP,
+shared-memory clusters, and non-uniform memory access (NUMA) add 
+more layers to the picture but only widen the overall spread.</p><p>Every kind of access to that stack is getting faster. Processor
+cycles are almost free, outside of a few demanding applications like
+modeling nuclear explosions or real-time video compression.  But
+what's also happening is that the speed ratios between layers in the
+storage hierarchy are all increasing as processor speeds go up.  Thus,
+the relative cost of a cache miss is increasing.</p><p>So we have an interesting paradox.  As machine resources plummet, the
+expected cost of large data structures falls &#8212; but because the cost
+spread between adjacent cache levels is also going up, the
+performance impact of being just large enough to break a cache
+boundary is also rising.</p><p>&#8220;Small is beautiful&#8221; is therefore better advice
+than ever, particularly with regard to central data structures that
+must live in the fastest possible cache.  The advice applies to code
+as well; the average instruction spends more time being loaded than
+it does executing.</p><p>This turns some traditional advice on its head.  Compiler
+optimizations like loop unrolling, which get rid of relatively
+expensive machine instructions in return for an increase in total code
+size, may no longer be worth doing.  Another example is precomputing
+small tables &#8212; for example, a table of sin(x) by degree for
+optimizing rotations in a 3D graphics engine will take 365 × 
+4 bytes on a modern machine.  Before processors got enough faster than
+memory to demand caching, this was an obvious speed optimization.
+Nowadays it may be faster to recompute each time rather than pay for
+the percentage of additional cache misses caused by the table.</p><p>But in the future, this might turn around again as caches grow
+larger.  More generally, many optimizations are temporary and can
+easily turn into pessimizations as cost ratios change.  The only way
+to know is to measure and see.</p></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch12s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="optimizationchapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch12s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Measure before Optimizing </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Throughput vs. Latency</td></tr></table></div></body></html>

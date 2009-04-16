@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Ad-hoc Code Generation</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="generationchapter.html" title="Chapter 9. Generation"/><link rel="previous" href="ch09s01.html" title="Data-Driven Programming"/><link rel="next" href="configurationchapter.html" title="Chapter 10. Configuration"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Ad-hoc Code Generation</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch09s01.html">Prev</a> </td><th width="60%" align="center">Chapter 9. Generation</th><td width="20%" align="right"> <a accesskey="n" href="configurationchapter.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2938585"/>Ad-hoc Code Generation</h2></div></div><p>Unix comes equipped with some powerful special-purpose code
+generators for purposes like building lexical analyzers (tokenizers)
+and parsers; we'll survey these in <a href="toolschapter.html" title="Chapter 15. Tools">Chapter 15</a>.  But there are much simpler, lighter-weight
+sorts of code generation we can use to make life easier without having
+to know any compiler theory or write (error-prone) procedural
+logic.</p><p>Here are a couple of simple case studies to illustrate this
+point:</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2938615"/>Case Study: Generating Code for the <i>ascii</i> Displays</h3></div></div><p>Called without arguments, <i>ascii</i>
+generates a usage screen that looks like <a href="#ascii-splash" title="Example 9.5. ascii usage screen.">Example 9.5</a>.</p><div class="example"><a id="ascii-splash"/><p class="title"><b>Example 9.5. <i>ascii</i> usage screen.</b></p><pre class="screen">
+Usage: ascii [-dxohv] [-t] [char-alias...]
+   -t = one-line output  -d = Decimal table  -o = octal table  -x = hex table
+   -h = This help screen -v = version information
+Prints all aliases of an ASCII character. Args may be chars, C \-escapes,
+English names, ^-escapes, ASCII mnemonics, or numerics in decimal/octal/hex.
+
+Dec Hex    Dec Hex    Dec Hex  Dec Hex  Dec Hex  Dec Hex   Dec Hex   Dec Hex
+  0 00 NUL  16 10 DLE  32 20    48 30 0  64 40 @  80 50 P   96 60 `  112 70 p
+  1 01 SOH  17 11 DC1  33 21 !  49 31 1  65 41 A  81 51 Q   97 61 a  113 71 q
+  2 02 STX  18 12 DC2  34 22 &quot;  50 32 2  66 42 B  82 52 R   98 62 b  114 72 r
+  3 03 ETX  19 13 DC3  35 23 #  51 33 3  67 43 C  83 53 S   99 63 c  115 73 s
+  4 04 EOT  20 14 DC4  36 24 $  52 34 4  68 44 D  84 54 T  100 64 d  116 74 t
+  5 05 ENQ  21 15 NAK  37 25 %  53 35 5  69 45 E  85 55 U  101 65 e  117 75 u
+  6 06 ACK  22 16 SYN  38 26 &amp;  54 36 6  70 46 F  86 56 V  102 66 f  118 76 v
+  7 07 BEL  23 17 ETB  39 27 '  55 37 7  71 47 G  87 57 W  103 67 g  119 77 w
+  8 08 BS   24 18 CAN  40 28 (  56 38 8  72 48 H  88 58 X  104 68 h  120 78 x
+  9 09 HT   25 19 EM   41 29 )  57 39 9  73 49 I  89 59 Y  105 69 i  121 79 y
+ 10 0A LF   26 1A SUB  42 2A *  58 3A :  74 4A J  90 5A Z  106 6A j  122 7A z
+ 11 0B VT   27 1B ESC  43 2B +  59 3B ;  75 4B K  91 5B [  107 6B k  123 7B {
+ 12 0C FF   28 1C FS   44 2C ,  60 3C &lt;  76 4C L  92 5C \  108 6C l  124 7C |
+ 13 0D CR   29 1D GS   45 2D -  61 3D =  77 4D M  93 5D ]  109 6D m  125 7D }
+ 14 0E SO   30 1E RS   46 2E .  62 3E &gt;  78 4E N  94 5E ^  110 6E n  126 7E ~
+ 15 0F SI   31 1F US   47 2F /  63 3F ?  79 4F O  95 5F _  111 6F o  127 7F DEL
+</pre></div><p>This screen is carefully designed to fit in 23 rows and 79
+columns, so that it will fit in a 24×80 terminal window.</p><p>This table could be generated at runtime, on the fly.  Grinding
+out the decimal and hex columns would be easy enough.  But between
+wrapping the table at the right places and knowing when to print
+mnemonics like NUL rather than characters, there would have been enough
+odd corner cases to make the code distinctly unpleasant.  Furthermore,
+the columns had to be unevenly spaced to make the table fit in 79
+columns.  But any Unix programmer would reflexively express it as a block
+of data before finding out these things.</p><p>The most naïve way to generate the usage screen would have been
+to put each line into a C<a id="id2938725" class="indexterm"/>
+initializer in the <tt>ascii.c</tt> source code, and then
+have all lines be written out by code that steps through the
+initializer.  The problem with this method is that the extra data in
+the C initializer format (trailing newline, string quotes, comma) would
+make the lines longer than 79 characters, causing them to wrap and
+making it rather difficult to map the appearance of the code to the
+appearance of the output.  This, in turn, would make the display
+difficult to edit, which was annoying when I was tinkering it
+to fit in 24×80 screen cells.</p><p>A more sophisticated method using the string-pasting behavior of
+the ANSI C<a id="id2938758" class="indexterm"/>
+preprocessor collided with a variant of the same problem.
+Essentially, any way of inlining the usage screen explicitly would
+involve punctuation at start and end of line that there's no room
+for.<sup>[<a id="id2938770" href="#ftn.id2938770">98</a>]</sup>  And copying the table to the screen from a
+file at runtime seemed like a fragile expedient; after all, the file
+could get lost.</p><p>Here's the solution.  The source distribution contains a file
+that just contains the usage screen, exactly as listed above and named
+<tt>splashscreen</tt>. The C<a id="id2941225" class="indexterm"/> source contains the following
+function:</p><pre class="programlisting">
+void 
+showHelp(FILE *out, char *progname) 
+{
+  fprintf(out,&quot;Usage: %s [-dxohv] [-t] [char-alias...]\n&quot;, progname);
+#include &quot;splashscreen.h&quot;
+
+  exit(0);
+}
+</pre><p>And <tt>splashscreen.h</tt> is generated by a makefile production:</p><pre class="programlisting">
+splashscreen.h: splashscreen
+        sed &lt;splashscreen &gt;splashscreen.h \
+            -e 's/\\/\\\\/g' -e 's/&quot;/\\&quot;/' -e 's/.*/puts(&quot;&amp;&quot;);/' 
+</pre><p>So when the program is built, the
+<tt>splashscreen</tt> file is automatically massaged into
+a series of output function calls, which are then included by the C
+preprocessor in the right function.</p><p>By generating the code from data, we get to keep the editable
+version of the usage screen identical to its display appearance.  This
+promotes
+transparency<a id="id2941291" class="indexterm"/>.  Furthermore, we could modify the usage
+screen at will without touching the C code at all, and the right thing
+would automatically happen on the next build.</p><p>For similar reasons, the initializer that holds the name synonym
+strings is also generated via a <i>sed</i> script
+in the makefile, from a file called <tt>nametable</tt> in
+the <i>ascii</i> source distribution.  Most of
+<tt>nametable</tt> is simply copied into the C
+initializer.  But the generation process would make it easy to adapt
+this tool for other 8-bit character sets such as the ISO-8859 series
+(Latin-1 and friends).</p><p>This is an almost trivial example, but it nevertheless
+illustrates the advantages of even simple and ad-hoc code
+generation.  Similar techniques could be applied to larger
+programs with correspondingly greater benefits.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="htmlgen"/>Case Study: Generating HTML Code for a Tabular List</h3></div></div><p>Let's suppose that we want to put a page of tabular data on a
+Web page.  We want the first few lines to look like <a href="#star_list" title="Example 9.6. Desired output format for the star table.">Example 9.6</a>.</p><div class="example"><a id="star_list"/><p class="title"><b>Example 9.6. Desired output format for the star table.</b></p><pre class="programlisting">
+Aalat         David Weber             The Armageddon Inheritance
+Aelmos        Alan Dean Foster        The Man who Used the Universe 
+Aedryr        Steve Miller/Sharon Lee Scout's Progress 
+Aergistal     Gerard Klein            The Overlords of War 
+Afdiar        L. Neil Smith           Tom Paine Maru 
+Agandar       Donald Kingsbury        Psychohistorical Crisis 
+Aghirnamirr   Jo Clayton              Shadowkill 
+</pre></div><p>The thick-as-a-plank way to handle this would be to hand-write
+HTML table code for the desired appearance.  Then, each time we want
+to add a name, we'd have to hand-write another set of
+&lt;tr&gt; and &lt;td&gt; tags for
+the entry.  This would get very tedious very quickly.  But what's
+worse, changing the format of the list would require hand-hacking
+every entry.</p><p>The superficially clever way to handle this would be to make
+this data a three-column relation in a database, then use some fancy
+CGI<sup>[<a id="id2941426" href="#ftn.id2941426">99</a>]</sup> technique or a database-capable templating
+engine like PHP to generate the page on the fly.  But suppose we know
+that the list will not change very often, don't want to run a database
+server just to be able to display this list, and don't want to load
+the server with unnecessary CGI traffic?</p><p>There's a better solution.  We put the data in a tabular flat-file
+format like <a href="#colon_table" title="Example 9.7. Master form of the star table.">Example 9.7</a>.</p><div class="example"><a id="colon_table"/><p class="title"><b>Example 9.7. Master form of the star table.</b></p><pre class="screen">
+Aalat         :David Weber                 :The Armageddon Inheritance
+Aelmos        :Alan Dean Foster            :The Man who Used the Universe 
+Aedryr        :Steve Miller/Sharon Lee     :Scout's Progress 
+Aergistal     :Gerard Klein                :The Overlords of War 
+Afdiar        :L. Neil Smith               :Tom Paine Maru 
+Agandar       :Donald Kingsbury            :Psychohistorical Crisis 
+Aghirnamirr   :Jo Clayton                  :Shadowkill 
+</pre></div><p>We could in a pinch have done without the explicit colon field
+delimiters, using the pattern consisting of two or more spaces as a
+delimiter, but the explicit delimiter protects us in case we press
+spacebar twice while editing a field value and fail to notice
+it.</p><p>We then write a script in shell<a id="id2941490" class="indexterm"/>, Perl, Python<a id="id2941498" class="indexterm"/>, or Tcl<a id="id2941507" class="indexterm"/> that massages
+this file into an HTML table, and run that each time we add an entry.
+The old-school Unix way would revolve around the following
+nigh-unreadable sed(1) invocation</p><pre class="programlisting">
+
+sed -e 's,^,&lt;tr&gt;&lt;td&gt;,' -e 's,$,&lt;/td&gt;&lt;/tr&gt;,' -e 's,:,&lt;/td&gt;&lt;td&gt;,g'
+
+</pre><p>or this perhaps slightly more scrutable awk(1) program:</p><pre class="programlisting">
+
+awk -F: '{printf(&quot;&lt;tr&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;/tr&gt;\n&quot;, \
+                 $1, $2, $3)}'
+
+</pre><p>(If either of these examples interests but mystifies, read the
+documentation for
+sed(1)
+or
+awk(1).
+We <a href="ch08s02.html#awk" title="Case Study: awk">explained</a> in <a href="minilanguageschapter.html" title="Chapter 8. Minilanguages">Chapter 8</a> that the latter has largely fallen
+out of use.  The former is still an important Unix tool that we
+haven't examined in detail because (a) Unix programmers already know
+it, and (b) it's easy for non-Unix programmers to pick up from the
+manual page once they grasp the basic ideas about pipelines and
+redirection.)</p><p>A new-school solution might center on this Python code, or
+on equivalent Perl:</p><pre class="programlisting">
+
+for row in map(lambda x:x.rstrip().split(':'),sys.stdin.readlines()):
+    print &quot;&lt;tr&gt;&lt;td&gt;&quot; + &quot;&lt;/td&gt;&lt;td&gt;&quot;.join(row) + &quot;&lt;/td&gt;&lt;/tr&gt;&quot;
+
+</pre><p>These scripts took about five minutes each to write and debug,
+certainly less time than would have been required to either hand-hack
+the initial HTML or create and verify the database.  The combination
+of the table and this code will be much simpler to maintain than
+either the under-engineered hand-hacked HTML or the over-engineered
+database.</p><p>A further advantage of this way of solving the problem is that
+the master file stays easy to search and modify with an ordinary text
+editor.  Another is that we can experiment with different
+table-to-HTML transformations by tweaking the generator script, or
+easily make a subset of the report by putting a
+grep(1)
+filter before it. </p><p>I actually use this technique to maintain the Web page that
+lists
+<i>fetchmail</i><a id="id2941661" class="indexterm"/>
+test sites; the example above is science-fictional only because
+publishing the real data would reveal account usernames and
+passwords.</p><p>This was a somewhat less trivial example than the previous
+one. What we've actually designed here is a separation between content
+and formatting, with the generator script acting as a stylesheet.
+(This is yet another mechanism-vs.-policy separation.)</p><p>The lesson in all these cases is the same.  Do as little work
+as possible.  Let the data shape the code. Lean on your tools.
+Separate mechanism from policy.  Expert Unix programmers learn to see
+possibilities like these quickly and automatically.  Constructive
+laziness is one of the cardinal virtues of the master programmer.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2938770" href="#id2938770">98</a>] </sup>Scripting languages tend to solve this problem more
+elegantly than C does.  Investigate the shell's <i>here
+documents</i> and Python's triple-quote construct to find out
+how.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2941426" href="#id2941426">99</a>] </sup>Here, CGI refers not to Computer Graphic Inagery
+but to the Common Gateway Interface used for live Web
+content.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch09s01.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="generationchapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="configurationchapter.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Data-Driven Programming </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 10. Configuration</td></tr></table></div></body></html>

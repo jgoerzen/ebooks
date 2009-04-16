@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Understanding the Taxonomy of Languages</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="minilanguageschapter.html" title="Chapter 8. Minilanguages"/><link rel="previous" href="minilanguageschapter.html" title="Chapter 8. Minilanguages"/><link rel="next" href="ch08s02.html" title="Applying Minilanguages"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Understanding the Taxonomy of Languages</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="minilanguageschapter.html">Prev</a> </td><th width="60%" align="center">Chapter 8. Minilanguages</th><td width="20%" align="right"> <a accesskey="n" href="ch08s02.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2924282"/>Understanding the Taxonomy of Languages</h2></div></div><p>All the languages in <a href="#taxonomy" title="Figure 8.1. Taxonomy of languages.">Figure 8.1</a> are described in
+case studies, either in this chapter or elsewhere in this book.  For
+the general-purpose interpreters near the right-hand side, see <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a>.</p><div class="figure"><a id="taxonomy"/><p class="title"><b>Figure 8.1. Taxonomy of languages.</b></p><div class="mediaobject"><img src="graphics/taxonomy.png" alt="Taxonomy of languages."/></div></div><p>In <a href="textualitychapter.html" title="Chapter 5. Textuality">Chapter 5</a> we
+looked at Unix conventions for data files.  There's a spectrum of
+complexity in these.  At the low end are files that make simple
+associations between names and properties; the <tt>/etc/passwd</tt>
+and <tt>.newsrc</tt> formats are good examples.  Further up the
+scale we start to get formats that marshal or serialize data
+structures; the PNG<a id="id2924386" class="indexterm"/> and
+SNG formats are (equivalent) good examples of this.</p><p>A structured data-file format starts to border on being a
+minilanguage when it expresses not just structure but actions
+performed on some interpretive context (that is, memory that is
+outside the data file itself).  XML markups tend to straddle this
+border; the example we'll look at here is <i>Glade</i>, a code generator for building GUI
+interfaces. Formats that are both designed to be read and written by
+humans (rather than just programs) and are used to generate code, are
+firmly in the realm of minilanguages.  <i>yacc</i>
+and <i>lex</i> are the classic examples.  We'll
+discuss <i>glade</i>,
+<i>yacc</i> and <i>lex</i> in
+<a href="generationchapter.html" title="Chapter 9. Generation">Chapter 9</a>.</p><p>The Unix macro processor, <i>m4</i>, is
+another very simple declarative minilanguage (that is, one in which
+the program is expressed as a set of desired relationships or
+constraints rather than explicit actions).  It has often been used as a
+preprocessing stage for other minilanguages.</p><p>Unix makefiles, which are designed to automate build processes,
+express dependency relationships between source and derived files<sup>[<a id="id2924480" href="#ftn.id2924480">79</a>]</sup> and the commands required to make each derived
+file from its sources.
+
+When you run make, it uses those declarations to walk the implied tree
+of dependencies, doing the least work necessary to bring your build up
+to date.  Like <i>yacc</i> and
+<i>lex</i> specifications, makefiles are a
+declarative minilanguage; they set up constraints that imply actions
+performed on an interpretive context (in this case, the portion of the
+file system where the source and generated files live).  We'll return
+to makefiles in <a href="toolschapter.html" title="Chapter 15. Tools">Chapter 15</a>.</p><p>XSLT, the language used to describe transformations of XML,
+is at the high end of complexity for declarative minilanguages.  It's
+complex enough that it's not normally thought of as a minilanguage 
+at all, but it shares some important characteristic of such languages
+which we'll examine when we look at it in more detail below.</p><p>The spectrum of minilanguages ranges from declarative (with
+implicit actions) to imperative (with explicit actions).  The
+run-control syntax of
+fetchmail(1)<a id="id2924564" class="indexterm"/>
+can be viewed as either a very weak imperative language or a
+declarative language with implied control flow.  The troff and
+PostScript typesetting languages are imperative languages with a lot
+of special-purpose domain expertise baked into them.</p><p>Some task-specific imperative minilanguages start to border on
+being general-purpose interpreters.  They reach this level when they
+are explicitly <i>Turing-complete</i>&#8212;that is,
+they can do both conditionals and loops (or recursion)<sup>[<a id="id2924589" href="#ftn.id2924589">80</a>]</sup>
+with features that are
+designed to be used as control structures.  Some languages, by
+contrast, are only accidentally Turing-complete &#8212; they have
+features that can be used to implement control structures as a 
+sort of side effect of what they are actually designed to do.</p><p>The
+bc(1)
+and
+dc(1)
+interpreters we looked at in <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a> are good examples of specialized
+imperative minilanguages that are explicitly Turing-complete.  </p><p>We are over the border into general-purpose interpreters when we
+reach languages like Emacs Lisp<a id="id2924645" class="indexterm"/> and
+JavaScript<a id="id2924654" class="indexterm"/> that are designed to be full
+programming languages run in specialized contexts.  We'll have more to
+say about these when we discuss embedded scripting
+languages<a id="id2924665" class="indexterm"/> later
+on.</p><p>The spectrum in interpreters is one of increasing generality;
+the flip side of this is that a more general-purpose interpreter
+embodies fewer assumptions about the context in which it runs.  With
+increasing generality there usually comes a richer ontology of data
+types.  Shell and Tcl<a id="id2924683" class="indexterm"/> have relatively simple ontologies;
+Perl<a id="id2924692" class="indexterm"/>,
+Python<a id="id2924701" class="indexterm"/>, and
+Java<a id="id2924709" class="indexterm"/> more
+complex ones.  We'll return to these general-purpose languages in
+<a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a>.</p><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2924480" href="#id2924480">79</a>] </sup>For less technical readers: the compiled form of a
+C<a id="id2924487" class="indexterm"/> program is
+derived from its C source form by compilation and linkage.  The
+PostScript version of a troff document is derived from the troff
+source; the command to make the former from the latter is a
+<i>troff</i> invocation.  There are many other
+kinds of derivation; makefiles can express almost all of
+them.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2924589" href="#id2924589">80</a>] </sup>Any Turing-complete language could theoretically be used for
+general-purpose programming, and is theoretically exactly as powerful
+as any other Turing-complete language.  In practice, some
+Turing-complete languages would be far too painful to use for anything
+outside a specified and narrow problem domain.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="minilanguageschapter.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="minilanguageschapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch08s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 8. Minilanguages </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Applying Minilanguages</td></tr></table></div></body></html>

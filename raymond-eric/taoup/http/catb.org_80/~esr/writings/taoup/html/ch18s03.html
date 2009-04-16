@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>The Zoo of Unix Documentation Formats</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="documentationchapter.html" title="Chapter 18. Documentation"/><link rel="previous" href="ch18s02.html" title="The Unix Style"/><link rel="next" href="ch18s04.html" title="The Present Chaos and a Possible Way Out"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">The Zoo of Unix Documentation Formats</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch18s02.html">Prev</a> </td><th width="60%" align="center">Chapter 18. Documentation</th><td width="20%" align="right"> <a accesskey="n" href="ch18s04.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3001590"/>The Zoo of Unix Documentation Formats</h2></div></div><p>All the major Unix documentation formats except the very newest
+one are presentation-level markups assisted by macro packages.  We
+examine them here from oldest to newest.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3001604"/><i>troff</i> and the Documenter's
+Workbench Tools</h3></div></div><p>We discussed the Documenter's Workbench architecture and tools
+in <a href="minilanguageschapter.html" title="Chapter 8. Minilanguages">Chapter 8</a> as an
+example of how to integrate a system of multiple minilanguages.  Now
+we return to these tools in their functional role as a typesetting
+system.</p><p>The <i>troff</i> formatter interprets a
+presentation-level markup language.  Recent implementations like the
+GNU project's<a id="id3001643" class="indexterm"/>
+groff(1)
+emit PostScript by default, though it is possible to get other forms
+of output by selecting a suitable driver.  See <a href="#troffexample1" title="Example 18.1. groff1 markup example.">Example 18.1</a> for several of the
+<i>troff</i> codes you might encounter in document
+sources.</p><div class="example"><a id="troffexample1"/><p class="title"><b>Example 18.1. groff(1) markup example.</b></p><pre class="programlisting">
+This is running text.
+.\&quot; Comments begin with a backslash and double quote.
+.ft B
+This text will be in bold font.
+.ft R
+This text will be back in the default (Roman) font.
+These lines, going back to &quot;This is running text&quot;, will 
+be formatted as a filled paragraph.
+.bp
+The bp request forces a new page and a paragraph break.
+This line will be part of the second filled paragraph.
+.sp 3
+The .sp request emits the number of blank lines given as argument
+.nf
+The nf request switches off paragraph filling.
+Until the fi request switches it back on
+whitespace and layout will be preserved.
+
+One word in this line will be in \fBbold\fR font.
+.fi
+
+Paragraph filling is back on.
+</pre></div><p>troff(1)
+has many other requests, but you are unlikely to see most of them
+directly.  Very few documents are written in bare
+<i>troff</i>.  It supports a macro facility, and
+half a dozen macro packages are in more or less general use.  Of
+these, the overwhelmingly most common is the
+man(7)
+macro package used to write Unix manual pages.  See <a href="#man_example" title="Example 18.2. man markup example.">Example 18.2</a> for a sample.</p><div class="example"><a id="man_example"/><p class="title"><b>Example 18.2. <i>man</i> markup example.</b></p><pre class="programlisting">
+.SH SAMPLE SECTION
+The SH macro starts a section, boldfacing the section title.  
+.P
+The P request starts a new paragraph.  The I request sets its 
+argument in
+.I italics.
+.IP *
+This starts an indented paragraph with an asterisk label.
+More text for the first bulleted paragraph.
+.TP
+This first line will become a paragraph label
+This will be the first line in the paragraph, further indented
+relative to the label.
+
+The blank line just above this is treated almost exactly like a
+paragraph break (actually, like the troff-level request .sp 1).
+.SS A subsection
+This is subsection text.  
+</pre></div><p>Two of the other half-dozen historical
+<i>troff</i> macro libraries, 
+ms(7)
+and
+mm(7)
+are still in use.  BSD Unix has its own elaborate
+extended macro set,
+mdoc(7).
+All these are designed for writing technical manuals and long-form
+documentation.  They are similar in style but more elaborate than man
+macros, and oriented toward producing typeset output.</p><p>A minor variant of
+troff(1)
+called
+nroff(1)
+produces output for devices that can only support constant-width
+fonts, like line printers and character-cell terminals.  When you view
+a Unix manual page within a terminal window, it is nroff that has
+rendered it for you.</p><p>The Documenter's Workbench tools do the technical-documentation
+jobs they were designed for quite well, which is why they have
+remained in continuous use for more than thirty years while computers
+increased a thousandfold in capacity. They produce typeset text of
+reasonable quality on imaging printers, and can throw a tolerable
+approximation of a formatted manual page on your screen.</p><p>They fall down badly in a couple of areas, however.  Their stock
+selection of available fonts is limited.  They don't handle images
+well. It's hard to get precise control of the positioning of text or
+images or diagrams within a page.  Support for multilingual documents
+is nonexistent.  There are numerous other problems, some chronic but
+minor and some absolute showstoppers for specific uses.  But the most
+serious problem is that because so much of the markup is presentation
+level, it's difficult to make good Web pages out of unmodified
+<i>troff</i> sources.</p><p>Nevertheless, at time of writing man pages remain the single 
+most important form of Unix documentation.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3001898"/><i>TeX</i></h3></div></div><p><i>TeX</i> (pronounced
+<span class="phonetic">/teH/</span> with a rough h as though you are
+gargling) is a very capable typesetting program that, like the
+Emacs editor, originated outside the Unix
+culture but is now naturalized in it.  It was created by noted
+computer scientist Donald Knuth<a id="id3001932" class="indexterm"/> when he became impatient with the quality of
+typography, and especially mathematical typesetting, that was
+available to him in the late 1970s.</p><p><i>TeX</i>, like
+troff(1),
+is a markup-centered system.  <i>TeX</i>'s request
+language is rather more powerful than
+<i>troff</i>'s; among other things, it is better
+at handling images, page-positioning content precisely, and
+internationalization.  <i>TeX</i> is particularly
+good at mathematical typesetting, and unsurpassed at basic typesetting
+tasks like kerning, line filling, and hyphenating.
+<i>TeX</i> has become the standard submission
+format for most mathematical journals.  It is actually now maintained
+as open source by a working group of the the American Mathematical
+Society.  It is also commonly used for scientific papers.</p><p>As with
+troff(1),
+human beings usually do not write large volumes of raw
+<i>TeX</i> macros by hand; they use macro packages
+and various auxiliary programs instead.  One particular macro package,
+<i>LaTeX</i>, is almost universal, and most people who say they're composing
+in <i>TeX</i> almost always actually mean they're
+writing <i>LaTeX</i>.  Like <i>troff</i>'s macro
+packages, a lot of its requests are semi-structural.</p><p>One important use of <i>TeX</i> that is
+normally hidden from the user is that other document-processing tools
+often generate <i>LaTeX</i> to be turned into PostScript, rather than
+attempting the much more difficult job of generating PostScript
+themselves.  The
+xmlto(1)
+front end that we discussed as a shell-programming case study in <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a> uses this tactic; so does the XML-DocBook
+toolchain we'll examine later in this chapter.</p><p><i>TeX</i> has a wider application range
+than
+troff(1)
+and is in most ways a better design.  It has the same fundamental
+problems as <i>troff</i> in an increasingly
+Web-centric world; its markup has strong ties to the presentation
+level, and automatically generating good Web pages from
+<i>TeX</i> sources is difficult and
+fault-prone.</p><p><i>TeX</i> is never used for Unix system
+documentation and only rarely used for application documentation;
+for those purposes, <i>troff</i> is sufficient.
+But some software packages that originated in academia outside the
+Unix community have imported the use of <i>TeX</i>
+as a documentation master format; the Python
+language<a id="id3002192" class="indexterm"/> is
+one example.  As we noted above, it is also heavily used for
+mathematical and scientific papers, and will probably dominate that
+niche for some years yet.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3002206"/>Texinfo</h3></div></div><p>Texinfo is a documentation markup invented by the Free Software
+Foundation and used mainly for GNU<a id="id3002216" class="indexterm"/> project documentation &#8212; including
+the documentation for such essential tools as
+Emacs and the GNU Compiler
+Collection. <a id="id3002227" class="indexterm"/></p><p>Texinfo was the first markup system specifically designed to
+support both typeset output on paper and hypertext output for
+browsing.  The hypertext format was not, however, HTML; it was a more
+primitive variety called &#8216;info&#8217;, originally designed to be
+browsed from within Emacs. On the print
+side, Texinfo turns into <i>TeX</i> macros and can
+go from there to PostScript.</p><p>The Texinfo tools can now generate HTML.  But they don't do a
+very good or complete job, and because a lot of Texinfo's markup
+is at presentation level it is doubtful that they ever will.  As of
+mid-2003, the Free Software Foundation is working on heuristic Texinfo 
+to DocBook translation.  Texinfo will probably remain a live format
+for some time.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3002268"/>POD</h3></div></div><p>Plain Old Documentation is the markup system used by the
+maintainers of Perl<a id="id3002277" class="indexterm"/>.  It generates manual pages, and has
+all the familiar problems of presentation-level markups, including
+trouble generating good HTML.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3002291"/>HTML</h3></div></div><p>Since the World Wide Web entered the mainstream in the early
+1990s, a small but increasing percentage of Unix projects have been
+writing their documentation directly in HTML.  The problem with this
+approach is that it is difficult to generate high-quality typeset
+output from HTML.  There are particular problems with indexing as
+well; the information needed to generate indexes is not present in
+HTML.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3002310"/>DocBook</h3></div></div><p>DocBook is an SGML and XML document type definition designed for
+large, complex technical documents.  It is alone among the markup
+formats used in the Unix community in being purely structural.  The
+xmlto(1)
+tool discussed in <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a> supports rendering to HTML, XHTML,
+PostScript, PDF<a id="id3002339" class="indexterm"/>, Windows
+Help markup, and several less important formats.</p><p>Several major open-source projects (including the Linux
+Documentation Project, FreeBSD,
+Apache<a id="id3002354" class="indexterm"/>, Samba, GNOME,
+and KDE) already use DocBook as a master format.  This book was
+written in XML-DocBook.</p><p>DocBook is a large topic. We'll return to it after summing up
+the problems with the current state of Unix documentation.</p></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch18s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="documentationchapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch18s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">The Unix Style </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> The Present Chaos and a Possible Way Out</td></tr></table></div></body></html>

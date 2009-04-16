@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Choosing an Editor</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="toolschapter.html" title="Chapter 15. Tools"/><link rel="previous" href="ch15s01.html" title="A Developer-Friendly Operating System"/><link rel="next" href="ch15s03.html" title="Special-Purpose Code Generators"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Choosing an Editor</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch15s01.html">Prev</a> </td><th width="60%" align="center">Chapter 15. Tools</th><td width="20%" align="right"> <a accesskey="n" href="ch15s03.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2980633"/>Choosing an Editor</h2></div></div><p>The first and most basic tool of development is a text editor
+suitable for modifying and writing programs.</p><p>Literally dozens of text editors are available under Unix;
+writing one seems to be one of the standard finger exercises for
+budding open-source
+hackers<a id="id2980650" class="indexterm"/>. Most of
+these are ephemera, not suitable for extended use by anyone other than
+their authors. A few are emulations of non-Unix editors, useful as
+transition aids for programmers used to other operating systems. You
+can browse through a wide variety at SourceForge or ibiblio or any
+other major open-source archive.</p><p>For serious editing work, two editors completely dominate the
+Unix programming scene. Each is available in a couple of minor variant
+implementations, but has a standard version you can rely on finding on
+any modern Unix system. These two editors are
+<i>vi</i> and <i>Emacs</i>.
+We discussed them in <a href="complexitychapter.html" title="Chapter 13. Complexity">Chapter 13</a> as part of our discussion of the right
+size of software.</p><p>As we noted in <a href="complexitychapter.html" title="Chapter 13. Complexity">Chapter 13</a>, these two editors express sharply
+contrasting design philosophies, but both are extremely popular and
+command great loyalty from identifiable core user populations. Surveys
+of Unix programmers consistently indicate about a 50/50 split between
+them, with all other editors barely registering.</p><p>In our earlier examinations of <i>vi</i> and
+<i>Emacs</i>, we were primarily concerned with
+their optional complexity and the surrounding design-philosophy issues.
+Many other things are worth knowing about these editors, both as a
+matter of practicality and of Unix cultural literacy.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="vi_literacy"/>Useful Things to Know about <i>vi</i></h3></div></div><a id="id2979331" class="indexterm"/><p>The name of <i>vi</i> is an abbreviation for
+&#8220;visual editor&#8221; and is pronounced <span class="phonetic">/vee eye/</span> (not <span class="phonetic">/vie/</span> and <span class="emphasis"><em>definitely</em></span>
+not <span class="phonetic">/siks/</span>!).</p><p><i>vi</i> was not quite the earliest
+screen-oriented editor; that palm goes to the Rand editor,
+<span class="emphasis"><em>re</em></span>, that ran on Version 6 Unix in the 1970s. But
+<i>vi</i> is the longest-lived screen-oriented
+editor built for Unix that is still in use, and is a hallowed part of
+Unix tradition.</p><p>The original <i>vi</i> was the version
+present in the earliest BSD software distributions<a id="id2979416" class="indexterm"/> beginning in 1976; it is now obsolete. Its
+replacement was &#8216;new vi&#8217; which shipped with 4.4BSD and is
+found on modern 4.4BSD variants such as BSD/OS, FreeBSD, and NetBSD
+systems. There are several variants with extended features, notably
+<i>vim</i>, <i>vile</i>,
+<i>elvis</i>, and <i>xvi</i>;
+of these <i>vim</i> is probably the most popular
+and is found on many Linux<a id="id2979464" class="indexterm"/> systems. All the variants are rather
+similar and share a core command set unchanged from the original
+<i>vi</i>.</p><p>Ports of <i>vi</i> are available for the
+Windows operating systems<a id="id2979493" class="indexterm"/> and MacOS<a id="id2979501" class="indexterm"/>.</p><p>Most introductory Unix books include a chapter describing basic
+<i>vi</i> usage. One place a <i>vi</i> FAQ is available
+is the <a href="http://www.faqs.org/faqs/editor-faq/vi/" target="_top">Editor
+FAQ/vi</a>; you can find many other copies with a WWW keyword
+search for page titles including &#8220;vi&#8221; and
+&#8220;FAQ&#8221;.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2979540"/>Useful Things to Know about Emacs</h3></div></div><p><i>Emacs</i> stands for &#8216;EDiting
+MACroS&#8217; (pronounce it <span class="phonetic">/ee´·maks/</span>).  It was originally
+written in the late 1970s as a set of macros in an editor called TECO,
+then reimplemented several times in different ways.  In an amusing
+twist, modern Emacs implementations include a TECO emulation
+mode.</p><p>In our earlier discussion of editors and optional complexity, we
+noted that many people consider Emacs
+excessively heavyweight.  However, investing the time to learn it can
+yield rich rewards in productivity.  Emacs
+supports many powerful editing modes that offer help with the syntax
+of various programming languages and markups.  We'll see later in this
+chapter how Emacs can be used in
+combination with other development tools to give capabilities
+comparable to (and in many ways surpassing) those of conventional
+IDEs.</p><p>The standard Emacs, universally
+available on modern Unixes, is <i>GNU Emacs</i>;
+this is what generally runs if you type <b>emacs</b> to a
+Unix shell prompt. GNU Emacs sources and documentation are available
+at the <a href="ftp://gnu.org/pub/gnu" target="_top">Free Software Foundation
+archive site</a><a id="id2979609" class="indexterm"/>.</p><p>The only major variant is called
+<i>XEmacs</i>; it has a better X interface but
+otherwise quite similar capabilities (it forked from Emacs
+19). <i>XEmacs</i> has a <a href="http://www.xemacs.org/" target="_top">home page</a>.
+Emacs (and Emacs Lisp) is universally
+available under modern Unixes. It has been ported to MS-DOS (where it
+works poorly) and Windows 95 and NT (where it is said to work
+reasonably well).</p><p>Emacs includes its own interactive
+tutorial and very complete on-line documentation; you'll find
+instructions on how to invoke both on the default
+Emacs startup screen. A good introduction
+on paper is <i>Learning GNU Emacs</i> [<a href="apb.html#Cameron" title="[Cameron]">Cameron</a>].</p><p>The keystroke commands used in the Unix ports of
+Netscape/Mozilla and Internet Explorer text windows (in forms and the
+mailer) are copied from the stock Emacs
+bindings for basic text editing.  These bindings are the closest thing
+to a cross-platform standard for editor keystrokes.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2979678"/>The Antireligious Choice: Using Both</h3></div></div><p>Many people who regularly use both <i>vi</i> and
+Emacs tend to use them for different
+things, and find it valuable to know both.</p><p>In general, <i>vi</i> is best for small jobs
+&#8212; quick replies to mail, simple tweaks to system configuration,
+and the like. It is especially useful when you're using a new system
+(or a remote one over a network) and don't have your
+Emacs customization files handy.</p><p>Emacs comes into its own for extended
+editing sessions in which you have to handle complex tasks, modify
+multiple files, and use results from other programs during the
+session. For programmers using X on their console (which is typical on
+modern Unixes), it's normal to start up
+Emacs shortly after login time in a large
+window and leave it running forever, possibly visiting dozens of files
+and even running programs in multiple Emacs
+subwindows.</p></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch15s01.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="toolschapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch15s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">A Developer-Friendly Operating System </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Special-Purpose Code Generators</td></tr></table></div></body></html>

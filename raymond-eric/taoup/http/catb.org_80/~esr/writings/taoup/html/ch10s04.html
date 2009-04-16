@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Environment Variables</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="configurationchapter.html" title="Chapter 10. Configuration"/><link rel="previous" href="ch10s03.html" title="Run-Control Files"/><link rel="next" href="ch10s05.html" title="Command-Line Options"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Environment Variables</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch10s03.html">Prev</a> </td><th width="60%" align="center">Chapter 10. Configuration</th><td width="20%" align="right"> <a accesskey="n" href="ch10s05.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2942386"/>Environment Variables</h2></div></div><p>When a Unix program starts up, the environment accessible to it
+includes a set of name to value associations (names and values are
+both strings). Some of these are set manually by the user; others are
+set by the system at login time, or by your shell or terminal
+emulator (if you're running one).  Under Unix, environment variables
+tend to carry information about file search paths, system defaults,
+the current user ID and process number, and other key bits of
+information about the runtime einvironment of programs.  At a shell
+prompt, typing <b>set</b> followed by a newline will list
+all currently defined shell variables.</p><p>In C<a id="id2942417" class="indexterm"/> and
+C++<a id="id2942425" class="indexterm"/> these values
+can be queried with the library function
+getenv(3). Perl<a id="id2942443" class="indexterm"/> and Python<a id="id2942451" class="indexterm"/> initialize environment-dictionary
+objects at startup. Other languages generally follow one of these two
+models.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2942463"/>System Environment Variables</h3></div></div><p>There are a number of well-known environment variables you can
+expect to find defined on startup of a program from the Unix
+shell.  These (especially <tt>HOME</tt>) will often need to be evaluated
+<span class="emphasis"><em>before</em></span> you read a local dotfile.</p><div class="variablelist"><dl><dt><span class="term"><tt>USER</tt></span></dt><dd><p>Login name of the account under which this session is logged in
+(BSD convention).</p></dd><dt><span class="term"><tt>LOGNAME</tt></span></dt><dd><p>Login name of the
+account under which this session is logged in (System V
+<a id="id2942519" class="indexterm"/>
+convention).</p></dd><dt><span class="term"><tt>HOME</tt></span></dt><dd><p>Home directory of the user running this
+session.</p></dd><dt><span class="term"><tt>COLUMNS</tt></span></dt><dd><p>The number of character-cell columns on the controlling
+terminal or terminal-emulator window.</p></dd><dt><span class="term"><tt>LINES</tt></span></dt><dd><p>The number of character-cell rows on the controlling terminal
+or terminal-emulator window.</p></dd><dt><span class="term"><tt>SHELL</tt></span></dt><dd><p>The name of the user's command shell (often used by shellout
+commands).</p></dd><dt><span class="term"><tt>PATH</tt></span></dt><dd><p>The list of directories that the shell searches when looking
+for executable commands to match a name.</p></dd><dt><span class="term"><tt>TERM</tt></span></dt><dd><p>Name of the terminal type of the session console or
+terminal emulator window (see the terminfo case study in <a href="transparencychapter.html" title="Chapter 6. Transparency">Chapter 6</a> for background).  TERM is special in
+that programs to create remote sessions over the network (such as
+<i>telnet</i> and <i>ssh</i>)
+are expected to pass it through and set it in the remote
+session.</p></dd></dl></div><p>(This list is representative, but not exhaustive.)</p><p>The <tt>HOME</tt> variable is especially important,
+because many programs use it to find the calling user's dotfiles
+(others call some functions in the C<a id="id2942669" class="indexterm"/> runtime library to get the calling
+user's home directory).</p><p>Note that some or all of these system environment variables may
+<span class="emphasis"><em>not</em></span> be set when a program is started by some
+other method than a shell spawn. In particular, daemon listeners on a
+TCP/IP<a id="id2942690" class="indexterm"/> socket often
+don't have these variables set &#8212; and if they do, the values are
+unlikely to be useful.</p><p>Finally, note that there is a tradition (exemplified by the
+<tt>PATH</tt> variable) of using a colon as a separator when an
+environment variable must contain multiple fields, especially when the
+fields can be interpreted as a search path of some sort. Note that
+some shells (notably <i>bash</i> and
+<i>ksh</i>) <span class="emphasis"><em>always</em></span> interpret
+colon-separated fields in an environment variable as filenames, which
+means in particular that they expand <tt>~</tt> in these fields to the user's
+home directory.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2942749"/>User Environment Variables</h3></div></div><p>Although applications are free to interpret environment
+variables outside the system-defined set, it is nowadays fairly
+unusual to actually do so. Environment values are not really suitable
+for passing structured information into a program (though it can in
+principle be done via parsing of the values). Instead, modern Unix
+applications tend to use run-control files and dotfiles.</p><p>There are, however, some design patterns in which user-defined
+environment variables can be useful:</p><p><span class="emphasis"><em>Application-independent preferences that need to be
+shared by a large number of different programs.</em></span> This set of
+&#8216;standard&#8217; preferences changes only slowly, because lots
+of different programs need to recognize each one before it becomes
+useful.<sup>[<a id="id2942782" href="#ftn.id2942782">102</a>]</sup> Here are the standard ones: </p><div class="variablelist"><dl><dt><span class="term"><tt>EDITOR</tt></span></dt><dd><p>The name of the user's preferred editor (often used by shellout
+commands).<sup>[<a id="id2942810" href="#ftn.id2942810">103</a>]</sup></p></dd><dt><span class="term"><tt>MAILER</tt></span></dt><dd><p>The name of the user's preferred mail user agent (often used by
+shellout commands).</p></dd><dt><span class="term"><tt>PAGER</tt></span></dt><dd><p>The name of the
+user's preferred program for browsing plaintext.</p></dd><dt><span class="term"><tt>BROWSER</tt></span></dt><dd><p>The name of the
+user's preferred program for browsing Web URLs.  This one, as of
+2003, is still very new and not yet widely
+implemented.</p></dd></dl></div></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2942882"/>When to Use Environment Variables</h3></div></div><p>What both user and system environment variables have in common
+is that it would be annoying to have to replicate the information they
+contain in a large number of application run-control files, and
+extremely annoying to have to change that information everywhere when
+your preference changes.  Typically, the user sets these variables in
+his or her shell session startup file.</p><p><span class="emphasis"><em>A value varies across several contexts that share
+dotfiles, or a parent needs to pass information to multiple child
+processes.</em></span> Some pieces of start-up information are expected
+to vary across several contexts in which the calling user would share
+common run-control files and dotfiles. For a system-level example,
+consider several shell sessions open through terminal emulator windows
+on an X desktop. They will all see the same dotfiles, but might have
+different values of <tt>COLUMNS</tt>, <tt>LINES</tt>, and
+<tt>TERM</tt>. (Old-school shell programming used this method
+extensively; makefiles still do.)</p><p><span class="emphasis"><em>A value varies too often for dotfiles, but doesn't
+change on every startup.</em></span> A user-defined environment
+variable may (for example) be used to pass a file system or Internet
+location that is the root of a tree of files that the program should
+play with. The CVS version-control system interprets the variable
+<tt>CVSROOT</tt> this way, for example. Several newsreader
+clients that fetch news from servers using the NNTP protocol interpret
+the variable <tt>NNTPSERVER</tt> as the location of the server
+to query.</p><p><span class="emphasis"><em>A process-unique override needs to be expressed in a
+way that doesn't require the command-line invocation to be
+changed.</em></span> A user-defined environment variable can be useful
+for situations in which, for whatever reason, it would be inconvenient to
+have to change an application dotfile or supply command-line options
+(perhaps it is expected that the application will normally be used
+inside a shell wrapper or within a makefile).  A particularly
+important context for this sort of use is debugging.  Under Linux, for
+example, manipulating the variable <tt>LD_LIBRARY_PATH</tt>
+associated with the ld(1) linking loader enables you to change where
+libraries are loaded from &#8212; perhaps to pick up versions that do
+buffer-overflow checking or profiling.</p><p>In general, a user-defined environment variable can be an
+effective design choice when the value changes often enough to make
+editing a dotfile each time inconvenient, but not necessarily every
+time (so always setting the location with a command-line option
+would also be inconvenient).  Such variables should typically be
+evaluated <span class="emphasis"><em>after</em></span> a local dotfile and be permitted 
+to override settings in it.</p><p>There is one traditional Unix design pattern that we do not
+recommend for new programs. Sometimes, user-set environment variables
+are used as a lightweight substitute for expressing a program
+preference in a run-control file.  The venerable
+nethack(1)
+dungeon-crawling game, for example, reads a
+<tt>NETHACKOPTIONS</tt> environment variable for user
+preferences.  This is an old-school technique; modern practice would
+lean toward parsing them from a <tt>.nethack</tt> or
+<tt>.nethackrc</tt> run-control file.</p><p>The problem with the older style is that it makes tracking where
+your preference information lives more difficult than it would be if
+you knew the program had a run-control file under your home directory.
+Environment variables can be set anywhere in several different shell
+run-control files &#8212; under Linux these are likely to include
+<tt>.profile</tt>, <tt>.bash_profile</tt>, and
+<tt>.bashrc</tt> at least.  These files are cluttered and
+fragile things, so as the code overhead of having an option-parser has
+come to seem less significant preference information has tended to
+migrate out of environment variables into dotfiles.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2947980"/>Portability to Other Operating Systems</h3></div></div><p>Environment variables have only very limited portability off
+Unix. Microsoft operating systems<a id="id2947991" class="indexterm"/> have an environment-variable feature
+modeled on that of Unix, and use a <tt>PATH</tt> variable as
+Unix does to set the binary search path, but most of other variables
+that Unix shell programmers take for granted (such as process ID or
+current working directory) are not supported. Other operating systems
+(including classic MacOS) generally do not have any local equivalent
+of environment variables.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2942782" href="#id2942782">102</a>] </sup>Nobody knows a really graceful way to represent
+this sort of distributed preference data; environment variables
+probably are not it, but all the known alternatives have equally nasty
+problems.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2942810" href="#id2942810">103</a>] </sup>Actually, most Unix programs first check
+<tt>VISUAL</tt>, and only if that's not set will they consult
+<tt>EDITOR</tt>. That's a relic from the days when people had
+different preferences for line-oriented editors and visual
+editors.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch10s03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="configurationchapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch10s05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Run-Control Files </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Command-Line Options</td></tr></table></div></body></html>

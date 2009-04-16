@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>The Elements of Operating-System Style</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="contrastchapter.html" title="Chapter 3. Contrasts"/><link rel="previous" href="contrastchapter.html" title="Chapter 3. Contrasts"/><link rel="next" href="ch03s02.html" title="Operating-System Comparisons"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">The Elements of Operating-System Style</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="contrastchapter.html">Prev</a> </td><th width="60%" align="center">Chapter 3. Contrasts</th><td width="20%" align="right"> <a accesskey="n" href="ch03s02.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2891992"/>The Elements of Operating-System Style</h2></div></div><p>Before we can start discussing specific operating systems, we'll
+need an organizing framework for the ways that operating-system
+design can affect programming style for good or ill.</p><p>Overall, the design and programming styles associated with
+different operating systems seem to derive from three different
+sources: (a) the intentions of the operating-system designers, (b)
+uniformities forced on designs by costs and limitations in the
+programming environment, and (c) random cultural drift, early
+practices becoming traditional simply because they were there
+first.</p><p>Even if we take it as given that there is some random cultural
+drift in every operating-system community, considering the intentions
+of the designers and the costs and limitations of the results does
+reveal some interesting patterns that can help us understand the Unix
+style better by contrast.  We can make the patterns explicit by
+analyzing some of the most important ways that operating systems
+differ.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2892028"/>What Is the Operating System's Unifying Idea?</h3></div></div><p>Unix has a couple of unifying ideas or metaphors that shape its
+APIs and the development style that proceeds from them.  The most
+important of these are probably the &#8220;everything is a
+file&#8221; model and the pipe metaphor<a id="id2892043" class="indexterm"/><sup>[<a id="id2892049" href="#ftn.id2892049">20</a>]</sup> built on top of it.
+In general, development style under any given operating system is
+strongly conditioned by the unifying ideas baked into the system by
+its designers &#8212; they percolate upwards into applications
+programming from the models provided by system tools and APIs.</p><p>Accordingly, the most basic question to ask in contrasting Unix
+with another operating system is: Does it have unifying ideas that
+shape its development, and if so how do they differ from
+Unix's?</p><p>To design the perfect anti-Unix, have no unifying idea at all,
+just an incoherent pile of ad-hoc features.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2892085"/>Multitasking Capability</h3></div></div><p>One of the most basic ways operating systems can differ is in
+the extent to which they can support multiple concurrent processes.  At
+the lowest end (such as DOS or CP/M) the operating system is basically
+a sequential program loader with no capacity to multitask at all.
+Operating systems of this kind are no longer competitive on
+general-purpose computers.</p><p>At the next level up, an operating system may have
+<i>cooperative multitasking</i>.  Such systems can
+support multiple processes, but a process has to voluntarily give up
+its hold on the processor before the next one can run (thus, simple
+programming errors can readily freeze the machine).  This style of
+operating system was a transient adaptation to hardware that was
+powerful enough for concurrency but lacked either a periodic clock
+interrupt<sup>[<a id="id2892115" href="#ftn.id2892115">21</a>]</sup> or a memory-management unit or both; it,
+too, is obsolete and no longer competitive.</p><p>Unix has <i>preemptive multitasking</i>, in
+which timeslices are allocated by a scheduler which routinely
+interrupts or pre-empts the running process in order to hand control
+to the next one.  Almost all modern operating systems support
+preemption.</p><p>Note that &#8220;multitasking&#8221; is not the same as
+&#8220;multiuser&#8221;.  An operating system can be multitasking
+but single-user, in which case the facility is used to support a
+single console and multiple background processes.  True multiuser
+support requires multiple user privilege domains, a feature we'll
+cover in the discussion of internal boundaries a bit further on.</p><p>To design the perfect anti-Unix, don't support multitasking at
+all &#8212; or, support multitasking but cripple it by surrounding
+process management with a lot of restrictions, limitations, and
+special cases that mean it's quite difficult to get any actual use out
+of multitasking.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2892171"/>Cooperating Processes</h3></div></div><p>In the Unix experience, inexpensive process-spawning and easy
+inter-process communication (IPC) makes a whole ecology of small
+tools, pipes<a id="id2892182" class="indexterm"/>, and
+filters possible.  We'll explore this ecology in <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a>; here, we need to point out some
+consequences of expensive process-spawning and IPC.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>The pipe was technically trivial, but profound in its effect.
+However, it would not have been trivial without the fundamental
+unifying notion of the process as an autonomous unit of computation,
+with process control being programmable.  As in Multics, a shell was
+just another process; process control did not come from God inscribed
+in JCL.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Doug McIlroy</span>
+<a id="id2892213" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>If an operating system makes spawning new processes expensive
+and/or process control is difficult and inflexible, you'll usually see
+all of the following consequences:</p><div class="itemizedlist"><ul type="disc"><li><p>Monster monoliths become a more natural way of programming.</p></li><li><p>Lots of policy has to be expressed within those monoliths. This
+encourages C++<a id="id2888005" class="indexterm"/> and
+elaborately layered internal code organization, rather than C and
+relatively flat internal hierarchies.</p></li><li><p>When processes can't avoid a need to communicate, they do so
+through mechanisms that are either clumsy, inefficient, and insecure
+(such as temporary files) or by knowing far too much about each others'
+implementations.</p></li><li><p>Multithreading is extensively used for tasks that Unix would
+handle with multiple communicating lightweight processes.</p></li><li><p>Learning and using asynchronous I/O is a must.</p></li></ul></div><p>These are examples of common stylistic traits (even in
+applications programming) being driven by a limitation in the OS
+environment.</p><p>A subtle but important property of pipes and the other classic
+Unix IPC methods is that they require communication between programs
+to be held down to a level of simplicity that encourages separation of
+function.  Conversely, the result of having no equivalent of the pipe
+is that programs can only be designed to cooperate by building in full
+knowledge of each others' internals.</p><p>In operating systems without flexible IPC and a strong tradition
+of using it, programs communicate by sharing elaborate data
+structures.  Because the communication problem has to be solved anew
+for all programs every time another is added to the set, the
+complexity of this solution rises as the square of the number of
+cooperating programs.  Worse than that, any change in one of the
+exposed data structures can induce subtle bugs in an arbitrarily 
+large number of other programs.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Word and Excel and PowerPoint and other Microsoft programs have
+intimate &#8212; one might say promiscuous &#8212; knowledge of each
+others' internals.  In Unix, one tries to design programs to operate
+not specifically with each other, but with programs as yet unthought
+of.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Doug McIlroy</span>
+<a id="id2888096" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>We'll return to this theme in <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a>.</p><p>To design the perfect anti-Unix, make process-spawning very
+expensive, make process control difficult and inflexible, and
+leave IPC as an unsupported or half-supported afterthought.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2888136"/>Internal Boundaries</h3></div></div><p>Unix has wired into it an assumption that the programmer knows
+best.  It doesn't stop you or request confirmation when you do
+dangerous things with your own data, like issuing <b>rm -rf
+*</b>.  On the other hand, Unix is rather careful about not
+letting you step on other people's data.  In fact, Unix encourages you
+to have multiple accounts, each with its own attached and possibly
+differing privileges, to help you protect yourself from misbehaving
+programs.<sup>[<a id="id2888159" href="#ftn.id2888159">22</a>]</sup>  System
+programs often have their own pseudo-user accounts to confer access to
+special system files without requiring unlimited
+(or <i>superuser</i>) access.</p><p>Unix has at least three levels of internal boundaries that guard
+against malicious users or buggy programs. One is memory management;
+Unix uses its hardware's memory management unit (MMU) to ensure that
+separate processes are prevented from intruding on the others'
+memory-address spaces.  A second is the presence of true privilege
+groups for multiple users &#8212; an ordinary (nonroot) user's
+processes cannot alter or read another user's files without
+permission.  A third is the confinement of security-critical functions
+to the smallest possible pieces of trusted code.  Under Unix, even the
+shell (the system command interpreter) is not a privileged
+program. </p><p>The strength of an operating system's internal boundaries
+is not merely an abstract issue of design: It has important
+practical consequences for the security of the system. </p><p>To design the perfect anti-Unix, discard or bypass memory
+management so that a runaway process can crash, subvert, or corrupt
+any running program.  Have weak or nonexistent privilege groups, so
+users can readily alter each others' files and the system's critical
+data (e.g., a macro virus, having seized control of your word
+processor, can format your hard drive).  And trust large volumes of
+code, like the entire shell and GUI, so that any bug or successful
+attack on that code becomes a threat to the entire system.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2888217"/>File Attributes and Record Structures</h3></div></div><p>Unix files have neither record structure nor attributes.  In
+some operating systems, files have an associated record structure; the
+operating system (or its service libraries) knows about files with a 
+fixed record length, or about text line termination and whether CR/LF
+is to be read as a single logical character.</p><p>In other operating systems, files and directories can have
+name/attribute pairs associated with them &#8212; out-of-band data
+used (for example) to associate a document file with an application
+that understands it.  (The classic Unix way to handle these associations is
+to have applications recognize &#8216;magic numbers&#8217;, or other
+type data within the file itself.)</p><p>OS-level record structures are generally an optimization
+hack<a id="id2888248" class="indexterm"/>, and do
+little more than complicate APIs and programmers' lives.  They
+encourage the use of opaque record-oriented file formats that generic
+tools like text editors cannot read properly.</p><p>File attributes can be useful, but (as we will see in <a href="futurechapter.html" title="Chapter 20. Futures">Chapter 20</a>) can raise some awkward semantic issues in a
+world of byte-stream-oriented tools and
+pipes<a id="id2888272" class="indexterm"/>.  When file
+attributes are supported at the operating-system level, they
+predispose programmers to use opaque formats and lean on the file
+attributes to tie them to the specific applications that interpret
+them.</p><p>To design the perfect anti-Unix, have a cumbersome set of record 
+structures that make it a hit-or-miss proposition whether any given
+tool will be able to even read a file as the writer intended it.  Add
+file attributes and have the system depend on them heavily, so that 
+the semantics of a file will not be determinable by looking at the
+data within it.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2888298"/>Binary File Formats</h3></div></div><p>If your operating system uses binary formats for critical data
+(such as user-account records) it is likely that no tradition of
+readable textual formats for applications will develop.  We explain in
+more detail why this is a problem in <a href="textualitychapter.html" title="Chapter 5. Textuality">Chapter 5</a>.  For now it's sufficient to note the
+following consequences:</p><div class="itemizedlist"><ul type="disc"><li><p>Even if a command-line interface, scripting, and
+pipes<a id="id2888330" class="indexterm"/> are supported,
+very few filters will evolve.</p></li><li><p>Data files will be accessible only through dedicated tools.
+Developers will think of the tools rather than the data files as central.
+Thus, different versions of file formats will tend to be incompatible.</p></li></ul></div><p>To design the perfect anti-Unix, make all file formats binary 
+and opaque, and require heavyweight tools to read and edit them.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2888363"/>Preferred User Interface Style</h3></div></div><p>In <a href="interfacechapter.html" title="Chapter 11. Interfaces">Chapter 11</a> we
+will develop in some detail the consequences of the differences
+between <i>command-line interfaces</i> (CLIs) and
+<i>graphical user interfaces</i> (GUIs).  Which kind
+an operating system's designers choose as its normal mode of
+presentation will affect many aspects of the design, from process
+scheduling and memory management on up to the <i>application
+programming interfaces</i> (APIs) presented for applications
+to use.</p><p>It has been enough years since the first Macintosh that very few
+people need to be convinced that weak GUI facilities in an operating
+system are a problem.  The Unix lesson is the opposite: that weak
+CLI facilities are a less obvious but equally severe deficit.</p><p>If the CLI facilities of an operating system are weak or
+nonexistent, you'll also see the following consequences:</p><div class="itemizedlist"><ul type="disc"><li><p>Programs will not be designed to cooperate with each other in
+unexpected ways &#8212; because they <span class="emphasis"><em>can't</em></span> be.  Outputs
+aren't usable as inputs.</p></li><li><p>Remote system administration will be sparsely supported, more
+difficult to use, and more network-intensive.<sup>[<a id="id2888440" href="#ftn.id2888440">23</a>]</sup></p></li><li><p>Even simple noninteractive programs will incur the overhead 
+of a GUI or elaborate scripting interface.</p></li><li><p>Servers, daemons, and background processes will probably be
+impossible or at least rather difficult, to program in any graceful
+way.</p></li></ul></div><p>To design the perfect anti-Unix, have no CLI and no 
+capability to script programs &#8212; or, important facilities that
+the CLI cannot drive.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2888484"/>Intended Audience</h3></div></div><p>The design of operating systems varies in response to the 
+expected audience for the system.  Some operating systems are
+intended for back rooms, some for desktops.  Some are designed
+for technical users, others for end users.  Some are intended to
+work standalone in real-time control applications, others for an 
+environment of timesharing and pervasive networking.</p><p>One important distinction is client
+vs. server. &#8216;Client&#8217; translates as: being lightweight,
+suppporting only a single user, able to run on small machines,
+designed to be switched on when needed and off when the user is done,
+lacking pre-emptive multitasking, optimized for low latency, and
+putting a lot of its resources into fancy user interfaces.
+&#8216;Server&#8217; translates as: being heavyweight, capable of
+running continuously, optimized for throughput, fully pre-emptively
+multitasking to handle multiple sessions.  In origin all operating
+systems were server operating systems; the concept of a client
+operating system only emerged in the late 1970s with inexpensive but
+underpowered PC hardware.  Client operating systems are more focused
+on a visually attractive user experience than on 24/7 uptime.</p><p>All these variables have an effect on development style. One of
+the most obvious is the level of interface complexity the target
+audience will tolerate, and how it tends to weight perceived
+complexity against other variables like cost and capability. Unix is
+often said to have been written by programmers for programmers &#8212;
+an audience that is notoriously tolerant of interface
+complexity.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>This is a consequence rather than a goal.  I abhor a system designed
+for the &#8220;user&#8221;, if that word is a coded pejorative
+meaning &#8220;stupid and unsophisticated&#8221;.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Ken Thompson</span>
+<a id="id2888546" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>To design the perfect anti-Unix, write an operating system that
+thinks it knows what you're doing better than you do.  And then adds
+injury to insult by getting it wrong.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2888581"/>Entry Barriers to Development</h3></div></div><p>Another important dimension along which operating systems differ
+is the height of the barrier that separates mere users from becoming
+developers.  There are two important cost drivers here.  One is the
+monetary cost of development tools, the other is the time cost of
+gaining proficiency as a developer.  Some development cultures evolve
+social barriers to entry, but these are usually an effect of the
+underlying technology costs, not a primary cause.</p><p>Expensive development tools and complex, opaque APIs produce
+small and elitist programming cultures.  In those cultures,
+programming projects are large, serious endeavors &#8212; they have to
+be in order to offer a payoff that justifies the cost of both hard and
+soft (human) capital invested.  Large, serious projects tend to
+produce large, serious programs (and, far too often, large expensive
+failures).</p><p>Inexpensive tools and simple interfaces support casual
+programming, hobbyist cultures, and exploration.  Programming projects
+can be small (often, formal project structure is plain unnecessary),
+and failure is not a catastrophe.  This changes the style in which
+people develop code; among other things, they show less tendency to
+over-commit to failed approaches.</p><p>Casual programming tends to produce lots of small programs and a
+self-reinforcing, expanding community of knowledge.  In a world of
+cheap hardware, the presence or absence of such a community is an
+increasingly important factor in whether an operating system is
+long-term viable at all.</p><p>Unix pioneered casual programming. One of the things Unix was
+first at doing was shipping with a compiler and scripting tools as
+part of the default installation available to all users, supporting a
+hobbyist software-development culture that spanned multiple
+installations.  Many people who write code under Unix do not think of
+it as writing code &#8212; they think of it as writing scripts to
+automate common tasks, or as customizing their environment.</p><p>To design the perfect anti-Unix, make casual programming
+impossible.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2892049" href="#id2892049">20</a>] </sup>For
+readers without Unix experience, a pipe is a way of connecting the
+output of one program to the input of another.  We'll explore the ways
+this idea can be used to help programs cooperate in <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2892115" href="#id2892115">21</a>] </sup>A periodic clock interrupt from the hardware
+is useful as a sort of heartbeat for a timesharing system; each time
+it fires, it tells the system that it may be time to switch to another
+task, defining the size of the unit timeslice.  In 2003 Unixes
+usually set the heartbeat to either 60 or 100 times a
+second.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2888159" href="#id2888159">22</a>] </sup>The modern buzzword for this is
+<i>role-based security</i>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2888440" href="#id2888440">23</a>] </sup>This
+problem was considered quite serious by Microsoft itself during their
+rebuild of Hotmail.  See [<a href="apb.html#BrooksD" title="[BrooksD]">BrooksD</a>].
+</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="contrastchapter.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="contrastchapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch03s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 3. Contrasts </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Operating-System Comparisons</td></tr></table></div></body></html>

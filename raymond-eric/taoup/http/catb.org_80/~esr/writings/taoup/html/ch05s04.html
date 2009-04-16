@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Application Protocol Metaformats</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="textualitychapter.html" title="Chapter 5. Textuality"/><link rel="previous" href="ch05s03.html" title="Application Protocol Design"/><link rel="next" href="transparencychapter.html" title="Chapter 6. Transparency"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Application Protocol Metaformats</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch05s03.html">Prev</a> </td><th width="60%" align="center">Chapter 5. Textuality</th><td width="20%" align="right"> <a accesskey="n" href="transparencychapter.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2908814"/>Application Protocol Metaformats</h2></div></div><p>Just as data file metaformats have evolved to simplify serialization
+for storage, application protocol metaformats have evolved to simplify
+serialization for transactions across networks.  The tradeoffs are a
+little different in this case; because network bandwidth is more expensive
+than storage, there is more of a premium on transaction economy.
+Still, the transparency and interoperability benefits of textual
+formats are sufficiently strong that most designers have resisted
+the temptation to optimize for performance at the cost of readability.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2908835"/>The Classical Internet Application Metaprotocol</h3></div></div><p>Marshall Rose's RFC 3117, <i>On the Design of
+Application Protocols</i>,<sup>[<a id="id2908849" href="#ftn.id2908849">55</a>]</sup> provides an excellent overview of the
+design issues in Internet application protocols.  It makes explicit
+several of the tropes in classical Internet application protocols that
+we observed in our examination of SMTP, POP, and IMAP, and provides an
+instructive taxonomy of such protocols.  It is recommended
+reading.</p><p><a id="byte_stuffing"/>The classical Internet metaprotocol is
+textual.  It uses single-line requests and responses, except for
+payloads which may be multiline.  Payloads are shipped either with a
+preceding length in octets or with a terminator that is the line
+<tt>&quot;.\r\n&quot;</tt>. In the latter case the payload is
+<i>byte-stuffed</i>; all lines that start with a period get
+another period prepended, and the receiver side is responsible for
+both recognizing the termination and stripping away the stuffing.
+Response lines consist of a status code followed by a human-readable
+message.</p><p>One final advantage of this classical style is that it is
+readily extensible.  The parsing and state-machine framework doesn't
+need to change much to accommodate new requests, and it is easy to
+code implementations so that they can parse unknown requests and
+return an error or simply ignore them.  SMTP, POP3, and IMAP have all
+been extended in minor ways fairly often during their lifetimes, with
+minimal interoperability problems.  Naïvely designed binary
+protocols are, by contrast, notoriously brittle.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2908915"/>HTTP as a Universal Application Protocol</h3></div></div><p>Ever since the World Wide Web reached critical mass around 1993, 
+application protocol designers have shown an increasing tendency to
+layer their special-purpose protocols on top of HTTP, using web servers
+as generic service platforms.</p><p>This is a viable option because, at the transaction layer, HTTP
+is very simple and general.  An HTTP request is a message in an
+RFC-822/MIME-like
+format<a id="id2908935" class="indexterm"/>; typically, the
+headers contain identification and authentication information, and the
+first line is a method call on some resource specified by a Universal
+Resource Indicator (URI).  The most important methods are GET (fetch
+the resource), PUT (modify the resource) and POST (ship data to a form
+or back-end process). The most important form of URI is a URL or
+Uniform Resource Locator, which identifies the resource by service
+type, host name, and a location on the host.  An HTTP response is
+simply an RFC-822/MIME message and can contain arbitrary content to be
+interpreted by the client.</p><p>Web servers handle the transport and request-multiplexing layers
+of HTTP, as well as standard service types like http and ftp.  It is
+relatively easy to write web server plugins that will handle custom
+service types, and to dispatch on other elements of the URI format.</p><p>Besides avoiding a lot of lower-level details, this method means
+the application protocol will tunnel through the standard HTTP service
+port and not need a
+TCP/IP<a id="id2908971" class="indexterm"/> service port of
+its own.  This can be a distinct advantage; most firewalls leave port 80
+open, but trying to punch another hole through can be fraught with
+both technical and political difficulties.</p><p>With this advantage comes a risk.  It means that your web server 
+and its plugins grow more complex, and cracks in any of that code can
+have large security implications.  It may become more difficult to
+isolate and shut down problem services.  The usual tradeoffs between 
+security and convenience apply.</p><p>RFC 3205, <i>On the Use of HTTP As a
+Substrate</i>,<sup>[<a id="id2909002" href="#ftn.id2909002">56</a>]</sup> has good design advice for anyone
+considering using HTTP as the underlayer of an application
+protocol, including a summary of the tradeoffs and problems involved.</p><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id2909019"/>Case Study: The <tt>CDDB/freedb.org</tt> Database</h4></div></div><p>Audio CDs consist of a sequence of music tracks in a digital
+format called CDDA-WAV.  They were designed to be played by very simple
+consumer-electronics devices a few years before general-purpose
+computers developed enough raw speed and sound capability to decode
+them on the fly.  Because of this, there is no provision in the 
+format for even simple metainformation such as the album and track
+titles.  But modern computer-hosted CD players want this information so
+the user can assemble and edit play lists.</p><p>Enter the Internet.  There are (at least two) repositories that
+provide a mapping between a hash code computed from the track-length
+table on a CD and artist/album-title/track-title records.  The
+original was <tt>cddb.org</tt>, but
+another site called <tt>freedb.org</tt> which is probably now more
+complete and widely used.  Both sites rely on their users for the
+enormous task of keeping the database current as new CDs come out;
+<tt>freedb.org</tt> arose from a
+developer revolt after CDDB elected to take all that user-contributed
+information proprietary .</p><p>Queries to these services could have been implemented as a
+custom application protocol on top of TCP/IP, but that would have
+required steps such as getting a new TCP/IP port number assigned and
+fighting to get a hole for it punched through thousands of firewalls.
+Instead, the service is implemented over HTTP as a simple CGI query
+(as if the CD's hash code had been supplied by a user filling in a Web
+form).</p><p>This choice makes all the existing infrastructure of HTTP and
+Web-access libraries in various programming languages available to
+support programs for querying and updating this database.  As a
+result, adding such support to a software CD player is nearly trivial,
+and effectively every software CD player knows how to use them.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id2909113"/>Case Study: Internet Printing Protocol</h4></div></div><p>Internet Printing Protocol (IPP) is a successful, widely implemented
+standard for the control of network-accessible printers.  Pointers to
+RFCs, implementations, and much other related material are available
+at the IETF's <a href="http://www.pwg.org/ipp/" target="_top">Printer Working
+Group</a> site.<a id="id2909134" class="indexterm"/></p><p>IPP uses HTTP 1.1 as a transport layer.  All IPP requests are
+passed via an HTTP POST method call; responses are ordinary HTTP
+responses. (Section 4.2 of RFC 2568, <i>Rationale for the Structure
+of the Model and Protocol for the Internet Printing
+Protocol</i>, does an excellent job of explaining this
+choice; it repays study by anyone considering writing a new application
+protocol.)</p><p>From the software side, HTTP 1.1 is widely deployed.  It already
+solves many of the transport-level problems that would otherwise
+distract protocol developers and implementers from concentrating on
+the domain semantics of printing.  It is cleanly extensible, so there
+is room for IPP to grow.  The CGI programming model for handling the
+POST requests is well understood and development tools are widely
+available.</p><p>Most network-aware printers already embed a web server, because
+that's the natural way to make the status of the printer remotely 
+queryable by human beings.  Thus, the incremental cost of adding IPP
+service to the printer firmware is not large.  (This is an argument
+that could be applied to a remarkably wide range of other
+network-aware hardware, including vending machines and coffee makers<sup>[<a id="id2909179" href="#ftn.id2909179">57</a>]</sup>
+and hot tubs!)</p><p>About the only serious drawback of layering IPP over HTTP is
+that the protocol is completely driven by client requests.  Thus there
+is no space in the model for printers to ship asynchronous alert
+messages back to clients.  (However, smarter clients could run a
+trivial HTTP server to receive such alerts formatted as HTTP requests
+from the printer.)</p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2909217"/>BEEP: Blocks Extensible Exchange Protocol</h3></div></div><p>BEEP (formerly BXXP) is a generic protocol machine that competes
+with HTTP for the role of universal underlayer for application
+protocols.  There is a niche open because there is not as yet
+any other more established metaprotocol that is appropriate for truly
+peer-to-peer applications, as opposed to the client-server
+applications that HTTP handles well.  A <a href="http://www.beepcore.org/beepcore/docs/sl-beep.jsp" target="_top">project
+website</a> provides access to standards and open-source
+implementations in several languages.</p><p>BEEP has features to support both client-server and peer-to-peer
+modes.  The authors designed the BEEP protocol and support library so
+that picking the right options abstracts away messy issues like data
+encoding, flow control, congestion-handling, support of end-to-end
+encryption, and assembling a large response composed of multiple
+transmissions,</p><p>Internally, BEEP peers exchange sequences of self-describing
+binary packets not unlike chunk types in
+PNG<a id="id2909259" class="indexterm"/>.  The design is tuned
+more for economy and less for
+transparency<a id="id2909268" class="indexterm"/>
+than the classical Internet protocols or HTTP, and might be a better
+choice when data volumes are large.  BEEP also avoids the HTTP problem
+that all requests have to be client-initiated; it would be better in
+situations in which a server needs to send asynchronous status messages
+back to the client.</p><p>BEEP is still new technology in mid-2003, and has only a few
+demonstration projects.  But the BEEP papers are good analytical
+surveys of best practice in protocol design; even if BEEP itself fails
+to gain widespread adoption, the papers will retain considerable tutorial
+value.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2909294"/>XML-RPC, SOAP, and Jabber</h3></div></div><p>There is a developing trend in application protocol design
+toward using XML within
+MIME<a id="id2909304" class="indexterm"/> to structure
+requests and payloads.  BEEP peers use this format for channel
+negotiations.  Three major protocols are going the XML route
+throughout: XML-RPC and SOAP (Simple Object Access Protocol) for
+remote procedure calls, and Jabber for instant messaging and presence.
+All three are XML document types.</p><p>XML-RPC is very much in the Unix spirit (its author observes
+that he learned how to program in the 1970s by reading the original
+source code for Unix). It's deliberately minimalist but nevertheless
+quite powerful, offering a way for the vast majority of RPC
+applications that can get by on passing around scalar
+boolean/integer/float/string datatypes to do their thing in a way that
+is lightweight and easy to understand and monitor. XML-RPC's type
+ontology is richer than that of a text stream, but still simple and
+portable enough to act as a valuable check on interface
+complexity. Open-source implementations are available. An excellent
+<a href="http://www.xmlrpc.com/" target="_top">XML-RPC home page</a> points to
+specifications and multiple open-source implementations.</p><p>SOAP is a more heavyweight RPC protocol with a richer type
+ontology that includes arrays and C-like structs.  It was inspired by
+XML-RPC, but has been plausibly accused of being an overdesigned
+victim of the second-system effect.  As of mid-2003 the SOAP
+standard is still a work in progress, but a trial implementation in
+Apache<a id="id2909353" class="indexterm"/> is tracking the
+drafts.  Open-source client modules in Perl<a id="id2909363" class="indexterm"/>, Python<a id="id2909371" class="indexterm"/>, Tcl<a id="id2909380" class="indexterm"/>, and Java<a id="id2909388" class="indexterm"/> are readily discoverable by a Web
+search.  The W3C draft specification is <a href="http://www.w3.org/TR/SOAP/" target="_top">available on the Web</a>.</p><p>XML-RPC and SOAP, considered as remote procedure call methods,
+have some associated risks that we discuss at the end of <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a>.</p><p>Jabber is a peer-to-peer protocol designed to support instant
+messaging and presence.  What makes it interesting as an application
+protocol is that it supports passing around XML forms and live
+documents. Specifications, documentation, and open-source
+implementations are available at the <a href="http://www.jabber.org/about/overview.html" target="_top">Jabber
+Software Foundation</a> site.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2908849" href="#id2908849">55</a>] </sup>See <a href="ftp://ftp.rfc-editor.org/in-notes/rfc3117.txt" target="_top">RFC
+3117</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2909002" href="#id2909002">56</a>] </sup>See <a href="http://www.faqs.org/rfcs/rfc3205.html" target="_top">RFC
+3205</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2909179" href="#id2909179">57</a>] </sup>See <a href="http://www.ietf.org/rfc/rfc2324.txt" target="_top">RFC 2324</a>
+and <a href="http://www.ietf.org/rfc/rfc2325.txt" target="_top">RFC 2325</a>.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch05s03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="textualitychapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="transparencychapter.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Application Protocol Design </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 6. Transparency</td></tr></table></div></body></html>

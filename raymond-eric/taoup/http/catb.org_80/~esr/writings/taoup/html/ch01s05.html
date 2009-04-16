@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>What Unix Gets Right</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="philosophychapter.html" title="Chapter 1. Philosophy"/><link rel="previous" href="ch01s04.html" title="What Unix Gets Wrong"/><link rel="next" href="ch01s06.html" title="Basics of the Unix Philosophy"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">What Unix Gets Right</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s04.html">Prev</a> </td><th width="60%" align="center">Chapter 1. Philosophy</th><td width="20%" align="right"> <a accesskey="n" href="ch01s06.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2808821"/>What Unix Gets Right</h2></div></div><p>The explosive recent growth of Linux<a id="id2808830" class="indexterm"/>, and the increasing importance
+of the Internet, give us good reasons to suppose that the skeptics'
+case is wrong. But even supposing the skeptical assessment is true,
+Unix culture is worth learning because there are some things that Unix
+and its surrounding culture clearly do better than any
+competitors.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2808846"/>Open-Source Software</h3></div></div><p>Though the term &#8220;open
+source&#8221;<a id="id2808857" class="indexterm"/>
+and the Open Source Definition were not invented until 1998,
+peer-review-intensive development of freely shared source code was a key
+feature of the Unix culture from its beginnings.</p><p>For its first ten years
+AT&amp;T's<a id="id2872763" class="indexterm"/> original
+Unix, and its primary variant Berkeley Unix, were normally distributed
+with source code.  This enabled most of the other good things that
+follow here.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2872776"/>Cross-Platform Portability and Open Standards</h3></div></div><p>Unix is still the only operating system that can present a
+consistent, documented application programming interface (API) across
+a heterogeneous mix of computers, vendors, and special-purpose
+hardware. It is the only operating system that can scale from embedded
+chips and handhelds, up through desktop machines, through servers, and
+all the way to special-purpose number-crunching behemoths and database
+back ends.</p><p>The Unix API is the closest thing to a hardware-independent
+standard for writing truly portable software that exists. It is no
+accident that what the IEEE originally called the <i>Portable
+Operating System Standard</i> quickly got a suffix added to
+its acronym and became
+POSIX<a id="id2872806" class="indexterm"/>.  A
+Unix-equivalent API was the only credible model for such a
+standard.</p><p>Binary-only applications for other operating systems die with
+their birth environments, but Unix sources are forever. Forever, at
+least, given a Unix technical culture that polishes and maintains
+them across decades.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2872827"/>The Internet and the World Wide Web</h3></div></div><p>The Defense Department's contract for the first production
+TCP/IP<a id="id2872836" class="indexterm"/> stack went to a
+Unix development group because the Unix in question was largely open
+source.  Besides
+TCP/IP<a id="id2872847" class="indexterm"/>, Unix has
+become the one indispensable core technology of the Internet Service
+Provider industry. Ever since the demise of the TOPS family of operating
+systems<a id="id2872858" class="indexterm"/> in the
+mid-1980s, most Internet server machines (and effectively all above
+the PC level) have relied on Unix.</p><p>Not even
+Microsoft's<a id="id2872873" class="indexterm"/> awesome
+marketing clout has been able to dent Unix's lock on the
+Internet. While the
+TCP/IP<a id="id2872883" class="indexterm"/> standards (on
+which the Internet is based) evolved under
+TOPS-10<a id="id2872892" class="indexterm"/> and
+are theoretically separable from Unix, attempts to make them work on
+other operating systems have been bedeviled by incompatibilities,
+instabilities, and bugs. The theory and specifications are available
+to anyone, but the engineering tradition to make them into a solid and
+working reality exists only in the Unix world.<sup>[<a id="id2872907" href="#ftn.id2872907">7</a>]</sup></p><p>The Internet technical culture<a id="id2872924" class="indexterm"/> and the Unix culture began to
+merge in the early 1980s, and are now inseparably symbiotic.  The
+design of the World Wide Web, the modern face of the Internet, owes as
+much to Unix as it does to the ancestral ARPANET.  In particular, the
+concept of the Uniform Resource Locator (URL) so central to the Web is
+a generalization of the Unix idea of one uniform file namespace
+everywhere. To function effectively as an Internet expert, an
+understanding of Unix and its culture are indispensable.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2872945"/>The Open-Source Community</h3></div></div><p>The community that originally formed around the early Unix
+source distributions never went away &#8212; after the great Internet
+explosion of the early 1990s, it recruited an entire new generation of
+eager hackers<a id="id2872957" class="indexterm"/> on home
+machines.</p><p>Today, that community is a powerful support group for all kinds
+of software development.  High-quality open-source development tools
+abound in the Unix world (we'll examine many in this
+book). Open-source Unix applications are usually equal to, and are
+often superior to, their proprietary equivalents [<a href="apb.html#Fuzz" title="[Fuzz]">Fuzz</a>]. Entire Unix operating systems, with complete
+toolkits and basic applications suites, are available for free over
+the Internet. Why code from scratch when you can adapt, reuse,
+recycle, and save yourself 90% of the work?</p><p>This tradition of code-sharing depends heavily on hard-won
+expertise about how to make programs cooperative and reusable. And
+not by abstract theory, but through a lot of engineering practice
+&#8212; unobvious design rules that allow programs to function not just
+as isolated one-shot solutions but as synergistic parts of a
+toolkit.  A major purpose of this book is to elucidate those rules.</p><p>Today, a burgeoning open-source movement is bringing new
+vitality, new technical approaches, and an entire generation of bright
+young programmers into the Unix tradition. Open-source projects
+including the Linux<a id="id2873005" class="indexterm"/> operating system and symbionts such as
+Apache<a id="id2873014" class="indexterm"/> and Mozilla
+have brought the Unix tradition an unprecedented level of mainstream
+visibility and success. The open-source movement seems on the verge of
+winning its bid to define the computing infrastructure of tomorrow
+&#8212; and the core of that infrastructure will be Unix machines
+running on the Internet.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2873031"/>Flexibility All the Way Down</h3></div></div><p>Many operating systems touted as more &#8216;modern&#8217; or
+&#8216;user friendly&#8217; than Unix achieve their surface glossiness by
+locking users and developers into one interface policy, and offer
+an application-programming interface that for all its elaborateness
+is rather narrow and rigid. On such systems, tasks the designers
+have anticipated are very easy &#8212; but tasks they have not
+anticipated are often impossible or at best extremely painful.</p><p>Unix, on the other hand, has flexibility in depth. The many ways
+Unix provides to glue together programs mean that components of its
+basic toolkit can be combined to produce useful effects that the
+designers of the individual toolkit parts never anticipated.</p><p>Unix's support of multiple styles of program interface (often
+seen as a weakness because it increases the perceived complexity of
+the system to end users) also contributes to flexibility; no
+program that wants to be a simple piece of data plumbing is forced
+to carry the complexity overhead of an elaborate GUI.</p><p>Unix tradition lays heavy emphasis on keeping programming
+interfaces relatively small, clean, and orthogonal &#8212; another trait
+that produces flexibility in depth. Throughout a Unix system, easy
+things are easy and hard things are at least possible.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2873078"/>Unix Is Fun to Hack</h3></div></div><p>People who pontificate about Unix's technical superiority often
+don't mention what may ultimately be its most important strength,
+the one that underlies all its successes. Unix is fun to hack.</p><p>Unix boosters seem almost ashamed to acknowledge this sometimes,
+as though admitting they're having fun might damage their
+legitimacy somehow. But it's true; Unix is fun to play with and
+develop for, and always has been.</p><p>There are not many operating systems that anyone has ever
+described as &#8216;fun&#8217;. Indeed, the friction and labor of
+development under most other environments has been aptly compared to
+kicking a dead whale down the beach.<sup>[<a id="id2873107" href="#ftn.id2873107">8</a>]</sup> The kindest
+adjectives one normally hears are on the order of
+&#8220;tolerable&#8221; or &#8220;not too painful&#8221;. In the Unix
+world, by contrast, the operating system rewards effort rather than
+frustrating it.  People programming under Unix usually come to see
+it not as an adversary to be clubbed into doing one's bidding by main
+effort but rather as an actual positive help.</p><p>This has real economic significance. The fun factor started a
+virtuous circle early in Unix's history. People liked Unix, so they
+built more programs for it that made it nicer to use. Today people
+build entire, production-quality open-source Unix systems as a
+hobby. To understand how remarkable this is, ask yourself when you
+last heard of anybody cloning OS/360 or VAX VMS<a id="id2873140" class="indexterm"/> or Microsoft
+Windows<a id="id2873148" class="indexterm"/> for fun.</p><p>The &#8216;fun&#8217; factor is not trivial from a design point
+of view, either. The kind of people who become programmers and
+developers have &#8216;fun&#8217; when the effort they have to put out
+to do a task challenges them, but is just within their
+capabilities. &#8216;Fun&#8217; is therefore a sign of peak
+efficiency. Painful development environments waste labor and
+creativity; they extract huge hidden costs in time, money, and
+opportunity.</p><p>If Unix were a failure in every other way, the Unix engineering
+culture would be worth studying for the ways it keeps the fun
+in development &#8212; because that fun is a sign that it makes
+developers efficient, effective, and productive.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2873180"/>The Lessons of Unix Can Be Applied Elsewhere</h3></div></div><p>Unix programmers have accumulated decades of experience
+while pioneering operating-system features we now take for granted.
+Even non-Unix programmers can benefit from studying that Unix
+experience. Because Unix makes it relatively easy to apply good design
+principles and development methods, it is an excellent place to
+learn them.</p><p>Other operating systems generally make good practice rather
+more difficult, but even so some of the Unix culture's lessons can
+transfer. Much Unix code (including all its filters, its major
+scripting languages<a id="id2873204" class="indexterm"/>, and many of its code generators) will
+port directly to any operating system supporting ANSI
+C<a id="id2873214" class="indexterm"/> (for the
+excellent reason that C<a id="id2873223" class="indexterm"/> itself was a Unix invention and the
+ANSI C library embodies a substantial chunk of Unix's
+services!).</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2872907" href="#id2872907">7</a>] </sup>Other
+operating systems have generally copied or cloned Unix TCP/IP
+implementations. It is their loss that they have not generally adopted
+the robust tradition of peer review that goes with it, exemplified by
+documents like RFC 1025 (<i>TCP and IP Bake
+Off</i>).</p></div><div class="footnote"><p><sup>[<a id="ftn.id2873107" href="#id2873107">8</a>] </sup>This was originally
+said of the IBM MVS TSO facility by Stephen C. Johnson, perhaps better
+known as the author of
+<i>yacc</i>.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s04.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="philosophychapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch01s06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">What Unix Gets Wrong </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Basics of the Unix Philosophy</td></tr></table></div></body></html>

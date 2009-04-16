@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 7. Multiprogramming</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="design.html" title="Part II. Design"/><link rel="previous" href="ch06s03.html" title="Designing for Maintainability"/><link rel="next" href="ch07s01.html" title="Separating Complexity Control from Performance Tuning"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 7. Multiprogramming</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06s03.html">Prev</a> </td><th width="60%" align="center">Part II. Design</th><td width="20%" align="right"> <a accesskey="n" href="ch07s01.html">Next</a></td></tr></table><hr/></div><div class="chapter" lang="en"><div class="titlepage"><div><h2 class="title"><a id="multiprogramchapter"/>Chapter 7. Multiprogramming</h2></div><div><h3 class="subtitle"><i>Separating Processes to Separate Function</i></h3></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><a href="ch07s01.html">Separating Complexity Control from Performance Tuning</a></dt><dt><a href="ch07s02.html">Taxonomy of Unix IPC Methods</a></dt><dd><dl><dt><a href="ch07s02.html#id2915475">Handing off Tasks to Specialist Programs</a></dt><dt><a href="ch07s02.html#plumbing">Pipes, Redirection, and Filters</a></dt><dt><a href="ch07s02.html#id2921506">Wrappers</a></dt><dt><a href="ch07s02.html#id2921634">Security Wrappers and Bernstein Chaining</a></dt><dt><a href="ch07s02.html#id2922002">Slave Processes</a></dt><dt><a href="ch07s02.html#id2922148">Peer-to-Peer Inter-Process Communication</a></dt></dl></dd><dt><a href="ch07s03.html">Problems and Methods to Avoid</a></dt><dd><dl><dt><a href="ch07s03.html#id2923376">Obsolescent Unix IPC Methods</a></dt><dt><a href="ch07s03.html#id2923675">Remote Procedure Calls</a></dt><dt><a href="ch07s03.html#id2923889">Threads &#8212; Threat or Menace?</a></dt></dl></dd><dt><a href="ch07s04.html">Process Partitioning at the Design Level</a></dt></dl></div><div xmlns="" class="epigraph"><i><p xmlns="http://www.w3.org/1999/xhtml">If we believe in data structures, we must believe in independent
+(hence simultaneous) processing. For why else would we collect items
+within a structure?  Why do we tolerate languages that give us the one
+without the other?</p></i><span>--<i><span xmlns="http://www.w3.org/1999/xhtml" class="attribution">
+<span class="author">Alan Perlis</span>
+<i>Epigrams in Programming, in ACM SIGPLAN (Vol 17 #9, 1982)</i>
+<a id="id2918338" class="indexterm"/>
+</span></i></span></div><p>The most characteristic program-modularization technique of Unix
+is splitting large programs into multiple cooperating processes.  This
+has usually been called &#8216;multiprocessing&#8217; in the Unix world,
+but in this book we revive the older term
+&#8216;multiprogramming&#8217; to avoid confusion with
+multiprocessor hardware implementations.</p><p>Multiprogramming is a particularly murky area of design, one in
+which there are few guidelines to good practice.  Many programmers
+with excellent judgment about how to break up code into subroutines
+nevertheless wind up writing whole applications as monster
+single-process monoliths that founder on their own internal
+complexity.</p><p>The Unix style of design applies the do-one-thing-well approach
+at the level of cooperating programs as well as cooperating routines
+within a program, emphasizing small programs connected by well-defined
+interprocess communication or by shared files. Accordingly, the Unix operating
+system encourages us to break our programs into simpler subprocesses,
+and to concentrate on the interfaces between these subprocesses. It
+does this in at least three fundamental ways:</p><div class="itemizedlist"><ul type="disc"><li><p>by making process-spawning cheap;</p></li><li><p>by providing methods (shellouts, I/O redirection, pipes,
+message-passing, and sockets) that make it relatively easy for
+processes to communicate;</p></li><li><p>by encouraging the use of simple, transparent, textual
+data formats<a id="id2918409" class="indexterm"/> that can be passed through
+pipes and sockets.</p></li></ul></div><p>Inexpensive process-spawning and easy process control are
+critical enablers for the Unix style of programming. On an operating
+system such as VAX VMS<a id="id2918428" class="indexterm"/>, where starting processes is expensive
+and slow and requires special privileges, one must build monster
+monoliths because one has no choice. Fortunately the trend in the Unix
+family has been toward lower
+fork(2)
+overhead rather than higher. Linux<a id="id2918448" class="indexterm"/>, in particular, is famously efficient
+this way, with a process-spawn faster than thread-spawning on many
+other operating systems.<sup>[<a id="id2918458" href="#ftn.id2918458">65</a>]</sup></p><p>Historically, many Unix programmers have been encouraged to
+think in terms of multiple cooperating processes by experience with
+shell programming.  Shell makes it relatively easy to set up groups of
+multiple processes connected by
+pipes<a id="id2918482" class="indexterm"/>, running either
+in background or foreground or a mix of the two.</p><p>In the remainder of this chapter, we'll look at the
+implications of cheap process-spawning and discuss how and when to
+apply pipes, sockets, and other interprocess communication (IPC)
+methods to partition your design into cooperating processes. (In the
+next chapter, we'll apply the same separation-of-functions philosophy
+to interface design.)</p><p>While the benefit of breaking programs up into cooperating
+processes is a reduction in global complexity, the cost is that we
+have to pay more attention to the design of the protocols which are
+used to pass information and commands between processes.  (In software
+systems of all kinds, bugs collect at interfaces.)</p><p>In <a href="textualitychapter.html" title="Chapter 5. Textuality">Chapter 5</a> we
+looked at the lower level of this design problem &#8212; how to lay
+out application protocols that are transparent, flexible and
+extensible.  But there is a second, higher level to the problem which
+we blithely ignored.  That is the problem of designing state machines
+for each side of the communication.</p><p>It is not hard to apply good style to the syntax of application
+protocols, given models like SMTP or BEEP or XML-RPC.  The real
+challenge is not protocol syntax but protocol
+<span class="emphasis"><em>logic</em></span>&#8212;designing a protocol that is both
+sufficiently expressive and deadlock-free. Almost as importantly, the
+protocol has to be <span class="emphasis"><em>seen</em></span> to be expressive and
+deadlock-free; human beings attempting to model the behavior of the
+communicating programs in their heads and verify its correctness must
+be able to do so.</p><p>In our discussion, therefore, we will focus on the kinds of
+protocol logic one naturally uses with each kind of interprocess
+communication.</p><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2918458" href="#id2918458">65</a>] </sup>See, for example, the results
+quoted in <i>Improving Context Switching Performance of Idle
+Tasks under Linux</i> [<a href="apb.html#Appleton" title="[Appleton]">Appleton</a>].</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch06s03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="design.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch07s01.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Designing for Maintainability </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Separating Complexity Control from Performance Tuning</td></tr></table></div></body></html>

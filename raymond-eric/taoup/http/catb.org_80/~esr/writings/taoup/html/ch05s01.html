@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>The Importance of Being Textual</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="textualitychapter.html" title="Chapter 5. Textuality"/><link rel="previous" href="textualitychapter.html" title="Chapter 5. Textuality"/><link rel="next" href="ch05s02.html" title="Data File Metaformats"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">The Importance of Being Textual</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="textualitychapter.html">Prev</a> </td><th width="60%" align="center">Chapter 5. Textuality</th><td width="20%" align="right"> <a accesskey="n" href="ch05s02.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2906458"/>The Importance of Being Textual</h2></div></div><p>Pipes and sockets will pass binary data as well as text. But
+there are good reasons the examples we'll see in <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a> are textual: reasons that hark back
+to Doug McIlroy's<a id="id2906475" class="indexterm"/> advice quoted in <a href="philosophychapter.html" title="Chapter 1. Philosophy">Chapter 1</a>. Text streams are a valuable universal
+format because they're easy for human beings to read, write, and edit
+without specialized tools.  These formats are (or can be designed to
+be) transparent.</p><p>Also, the very limitations of text streams help enforce
+encapsulation. By discouraging elaborate representations with rich,
+densely encoded structure, text streams also discourage programs from
+being promiscuous with each other about their internal states and help
+enforce encapsulation.  We'll return to this point at the end of <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a> when we discuss RPC.</p><p>When you feel the urge to design a complex binary file format,
+or a complex binary application protocol, it is generally wise to
+lie down until the feeling passes. If performance is what you're
+worried about, implementing compression on the text protocol stream
+either at some level below or above the application protocol will
+give you a cleaner and perhaps better-performing design than a 
+binary protocol (text compresses well, and quickly).</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>A bad example of binary formats in Unix history was the way
+device-independent <i>troff</i> read a binary file
+containing device information, supposedly for speed.  The initial
+implementation generated that binary file from a text description in a
+somewhat unportable way.  Faced with a need to port
+<i>ditroff</i> <span class="emphasis"><em>quickly</em></span> to a new
+machine, rather than reinvent the binary goo, I ripped it out and just
+had <i>ditroff</i> read the text file.  With carefully
+crafted file-reading code, the speed penalty was negligible.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Henry Spencer</span>
+<a id="id2901108" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Designing a textual protocol tends to future-proof your system.
+One specific reason is that ranges on numeric fields aren't implied by
+the format itself. Binary formats usually specify the number of bits
+allocated to a given value, and extending them is difficult.  For
+example, IPv4 only allows 32 bits for an address.  To extend address
+size to 128 bits (as done by IPv6) requires a major
+revamping.<sup>[<a id="id2901165" href="#ftn.id2901165">51</a>]</sup> In contrast, if you need a larger value
+in a text format, just write it.  It may be that a given program can't
+receive values in that range, but it's usually easier to modify the
+program than to modify all the data stored in that format.</p><p>The only good justification for a binary protocol is if you're
+going to be manipulating large enough data sets that you're genuinely
+worried about getting the most bit-density out of your media, or if
+you're very concerned about the time or instruction budget required to
+interpret the data into an in-core structure.  Formats for large
+images and multimedia are sometimes an example of the former, and
+network protocols with hard latency requirements sometimes an 
+example of the latter.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>The reciprocal problem with SMTP or HTTP-like text protocols is
+that they tend to be expensive in bandwidth and slow to parse.  The
+smallest X request is 4 bytes: the smallest HTTP request is about 100
+bytes.  X requests, including amortized overhead of transport, can be
+executed in the order of 100 instructions; at one point, an
+Apache<a id="id2901227" class="indexterm"/> [web server]
+developer proudly indicated they were down to 7000 instructions.  For
+graphics, bandwidth becomes everything on output; hardware is designed
+such that these days the graphics-card bus is <span class="emphasis"><em>the</em></span>
+bottleneck for small operations, so any protocol had better be very
+tight if it is not to be a worse bottleneck.  This is the extreme
+case.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Jim Gettys</span>
+<a id="id2901209" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>These concerns are valid in other extreme cases as well as in X
+&#8212; for example, in the design of graphics file formats intended
+to hold very large images. But they are usually just another case of
+premature-optimization<a id="id2901256" class="indexterm"/>
+fever.  Textual formats don't necessarily have much lower bit density
+than binary ones; they do after all use seven out of eight bits per
+byte. And what you gain by not having to parse text, you generally
+lose the first time you need to generate a test load, or to eyeball a
+program-generated example of your format and figure out what's in
+there.</p><p>In addition, the kind of thinking that goes into designing tight
+binary formats tends to fall down on making them cleanly extensible.
+The X designers experienced this:</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Against the current X framework is the fact we didn't design enough of
+a structure to make it easier to ignore trivial extensions to the protocol;
+we can do this some of the time, but a bit better framework would have been
+good.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Jim Gettys</span>
+<a id="id2901296" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>When you think you have an extreme case that justifies a binary
+file format or protocol, you need to think very carefully about
+extensibility<a id="id2901321" class="indexterm"/>
+and leaving room in the design for growth.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2901332"/>Case Study: Unix Password File Format</h3></div></div><p>On many operating systems, the per-user data required to
+validate logins and start a user's session is an opaque binary
+database. Under Unix, by contrast, it's a text file with records one
+per line and colon-separated fields.</p><p><a href="#passwd" title="Example 5.1. Password file example.">Example 5.1</a> consists of some randomly-chosen
+example lines:</p><div class="example"><a id="passwd"/><p class="title"><b>Example 5.1. Password file example.</b></p><pre class="programlisting">
+games:*:12:100:games:/usr/games:
+gopher:*:13:30:gopher:/usr/lib/gopher-data:
+ftp:*:14:50:FTP User:/home/ftp:
+esr:0SmFuPnH5JlNs:23:23:Eric S. Raymond:/home/esr:
+nobody:*:99:99:Nobody:/:
+</pre></div><p>Without even knowing anything about the semantics of the fields,
+we can notice that it would be hard to pack the data much tighter in
+a binary format. The colon sentinel characters would have to have
+functional equivalents taking at least as much space (usually
+either count bytes or NULs). The per-user records would either have
+to have terminators (which could hardly be shorter than a single
+newline) or else be wastefully padded out to a fixed length.</p><p>Actually the prospects for saving space through binary encoding
+pretty much vanish if you know the actual semantics of the data.  The
+numeric user ID (3rd) and group ID (4th) fields are integers, thus on
+most machines a binary representation would be at least 4 bytes, and
+longer than the text for values up to 999.  But let's agree to ignore
+this for now and suppose the best case that the numeric fields have a
+0-255 range.</p><p>We could tighten up the numeric fields (3rd and 4th) by
+collapsing the numerics to single bytes, and the password strings
+(2nd) to an 8-bit encoding. On this example, that would give about an
+8% size decrease.</p><p>That 8% of putative inefficiency buys us a lot. It avoids
+putting an arbitrary limit on the range of the numeric fields. It
+gives us the ability to modify the password file with any old text
+editor of our choice, rather than having to build a specialized tool
+to edit a binary format (though in the case of the password file
+itself, we have to be extra careful about concurrent edits). And it
+gives us the ability to do ad-hoc searches and filters and reports on
+the user account information with text-stream tools such as
+grep(1).</p><p>We do have to be a bit careful about not embedding a colon in
+any of the textual fields.  Good practice is to tell the file write
+code to precede embedded colons with an escape character, and then to
+tell the file read code to interpret it. Unix tradition favors
+backslash for this use.</p><p>The fact that structural information is conveyed by field
+position rather than an explicit tag makes this format faster 
+to read and write, but a bit rigid.  If the set of properties
+associated with a key is expected to change with any frequency, 
+one of the tagged formats described below might be a better choice.
+</p><p>Economy is not a major issue with password files to begin with,
+as they're normally read seldom<sup>[<a id="id2901458" href="#ftn.id2901458">52</a>]</sup> and infrequently modified.  Interoperability
+is not an issue, since various data in the file (notably user and
+group numbers) are not portable off the originating machine.  For
+password files, it's therefore quite clear that going where the
+transparency
+criterion<a id="id2901480" class="indexterm"/> leads was the right thing.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2901494"/>Case Study: <tt>.newsrc</tt> Format</h3></div></div><p>Usenet<a id="id2901510" class="indexterm"/> news is
+a worldwide distributed bulletin-board system that anticipated today's
+P2P networking by two decades.  It uses a message format very similar
+to that of RFC 822 electronic-mail messages, except that instead of
+being directed to personal recipients messages are sent to topic
+groups.  Articles posted at any participating site are broadcast to
+each site that it has registered as a neighbor, and eventually
+flood-fill to all news sites.</p><p>Almost all Usenet news readers understand the
+<tt>.newsrc</tt> file, which records which Usenet messages
+have been seen by the calling user.  Though it is named like a
+run-control file, it is not only read at startup but typically updated
+at the end of the newsreader run.  The <tt>.newsrc</tt>
+format has been fixed since the first newsreaders around 1980. <a href="#newsrc" title="Example 5.2. A .newsrc example.">Example 5.2</a> is a representative section from a
+<tt>.newsrc</tt> file.</p><div class="example"><a id="newsrc"/><p class="title"><b>Example 5.2. A <tt>.newsrc</tt> example.</b></p><pre class="programlisting">
+rec.arts.sf.misc! 1-14774,14786,14789
+rec.arts.sf.reviews! 1-2534
+rec.arts.sf.written: 1-876513
+news.answers! 1-199359,213516,215735
+news.announce.newusers! 1-4399
+news.newusers.questions! 1-645661
+news.groups.questions! 1-32676
+news.software.readers! 1-95504,137265,137274,140059,140091,140117
+alt.test! 1-1441498
+</pre></div><p>Each line sets properties for the newsgroup named in the first
+field. The name is immediately followed by a character that indicates 
+whether the owning user is currently subscribed to the group or not; a colon
+indicates subscription, and an exclamation mark indicates
+nonsubscription. The remainder of the line is a sequence of
+comma-separated article numbers or ranges of article numbers,
+indicating which articles the user has seen.</p><p> Non-Unix programmers might have automatically tried to design a
+fast binary format in which each newsgroup status was described by
+either a long but fixed-length binary record, or a sequence of
+self-describing binary packets with internal length fields.  The main
+point of such a binary representation would be to express ranges with
+binary data in paired word-length fields, in order to avoid the
+overhead of parsing all the range expressions at startup.</p><p>Such a layout could be read and written faster than a textual
+format, but it would have other problems.  A naïve implementation
+in fixed-length records would have placed artificial length limits on
+newsgroup names and (more seriously) on the maximum number of ranges
+of seen-article numbers.  A more sophisticated binary-packet format
+would avoid the length limits, but could not be edited with the user's
+eyeballs and fingers &#8212; a capability that can be quite useful
+when you want to reset just some of the read bits in an individual
+newsgroup.  Also, it would not necessarily be portable to different
+machine types.</p><p>The designers of the original newsreader chose
+transparency<a id="id2901641" class="indexterm"/> and interoperability over
+economy.  The case for going in the other direction was not completely
+ridiculous; <tt>.newsrc</tt> files can get very large, and
+one modern reader (GNOME's Pan) uses a speed-optimized private format
+to avoid startup lag.  But to other implementers, textual
+representation looked like a good tradeoff in 1980, and has looked
+better as machines increased in speed and storage dropped in
+price.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="png"/>Case Study: The PNG Graphics File Format</h3></div></div><a id="id2901678" class="indexterm"/><p>PNG (Portable Network Graphics) is a file format for bitmap
+graphics.<a id="id2901693" class="indexterm"/> It is like GIF,
+and unlike JPEG, in that it uses lossless compression and is optimized
+for applications such as line art and icons rather than photographic
+images.  Documentation and open-source reference libraries of high
+quality are available at the <a href="http://www.libpng.org/pub/png/" target="_top">Portable Network Graphics
+website</a>.</p><p>PNG is an excellent example of a thoughtfully designed binary
+format.  A binary format is appropriate since graphics files may
+contain very large amounts of data, such that storage size and
+Internet download time would go up significantly if the pixel data
+were stored textually.  Transaction economy was the prime
+consideration, with
+transparency<a id="id2901724" class="indexterm"/>
+sacrificed.<sup>[<a id="id2901736" href="#ftn.id2901736">53</a>]</sup>  The designers were, however, careful about
+interoperability; PNG specifies byte orders, integer word lengths,
+endianness, and (lack of) padding between fields.</p><p>A PNG file consists of a sequence of chunks, each in a
+self-describing format beginning with the chunk type name and the
+chunk length.  Because of this organization, PNG does not need a
+release number.  New chunk types can be added at any time; the case of
+the first letter in the chunk
+type name informs PNG-using software whether or not each chunk can be
+safely ignored.</p><p>The PNG file header also repays study.  It has been 
+cleverly designed to make various common kinds of file corruption
+(e.g., by 7-bit transmission links, or mangling of CR and LF
+characters) easy to detect.</p><p>The PNG standard is precise, comprehensive, and well written. It
+could serve as a model for how to write file format standards.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2901165" href="#id2901165">51</a>] </sup>There is a legend that some early airline
+reservation systems allocated exactly one byte for a plane's passenger
+count.  Supposedly they became very confused by the arrival of the
+Boeing 747, the first plane that could carry more than 255
+passengers.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2901458" href="#id2901458">52</a>] </sup>Password files are
+normally read once per user session at login time, and after that
+occasionally by file-system utilities like
+ls(1)
+that must map from numeric user and group IDs to
+names.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2901736" href="#id2901736">53</a>] </sup>Confusingly, PNG supports a different kind
+of transparency &#8212; transparent pixels in the
+PNG image.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="textualitychapter.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="textualitychapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch05s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 5. Textuality </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Data File Metaformats</td></tr></table></div></body></html>

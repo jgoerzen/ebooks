@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Appendix A. Glossary of Abbreviations</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="index.html" title="The Art of Unix Programming"/><link rel="previous" href="ch20s06.html" title="Reasons to Believe"/><link rel="next" href="apb.html" title="Appendix B. References"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Appendix A. Glossary of Abbreviations</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch20s06.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="apb.html">Next</a></td></tr></table><hr/></div><div class="appendix" lang="en"><div class="titlepage"><div><h2 class="title"><a id="id3021172"/>Appendix A. Glossary of Abbreviations</h2></div></div><p>The most important abbreviations and acronyms used in the main
+text are defined here.</p><div class="glosslist"><dl><dt>API</dt><dd><p><span class="emphasis"><em>Application Programming Interface.</em></span> The
+   set of procedure calls that communicates with a linkable procedure
+   library or an operating-system kernel or the combination of
+   both.</p></dd><dt>BSD</dt><dd><p><span class="emphasis"><em>Berkeley System Distribution</em></span>; also
+   <span class="emphasis"><em>Berkeley Software Distribution</em></span>; sources are
+   ambiguous.<a id="id3021215" class="indexterm"/> The generic name of the Unix
+   distributions issued by the Computer Science Research Group at the
+   University of California at
+   Berkeley<a id="id3021225" class="indexterm"/> between
+   1976 and 1994, and of the open-source Unixes genetically descended
+   from them.</p></dd><dt>CLI</dt><dd><p><span class="emphasis"><em>Command Line Interface.</em></span> Considered
+   archaic by some, but still very useful in the Unix world.</p></dd><dt>CPAN</dt><dd><p><span class="emphasis"><em>Comprehensive Perl<a id="id3021270" class="indexterm"/> Archive Network.</em></span> The
+   central <a href="http://cpan.org/" target="_top">Web repository</a> for
+   Perl modules and extensions.</p></dd><dt><a id="gnu_project"/>GNU</dt><dd><a id="id3021299" class="indexterm"/><p><span class="emphasis"><em>GNU's Not
+   Unix!</em></span> The recursive acronym for the Free Software
+   Foundation's project to produce an entire free-software clone of
+   Unix.  This effort didn't completely succeed, but did produce many of
+   the essential tools of modern Unix development including Emacs and
+   the GNU Compiler Collection.</p></dd><dt>GUI</dt><dd><p><span class="emphasis"><em>Graphical User Interface.</em></span> The modern
+   style of application interface using mice, windows, and icons
+   invented at Xerox PARC during the 1970s, as opposed to the older
+   CLI or roguelike styles.</p></dd><dt>IDE</dt><dd><p><span class="emphasis"><em>Integrated Development Environment.</em></span> 
+   A GUI workbench for developing code, featuring facilities like
+   symbolic debugging, version control, and data-structure browsing.
+   These are not commonly used under Unix, for reasons discussed in
+   <a href="toolschapter.html" title="Chapter 15. Tools">Chapter 15</a>.</p></dd><dt><a id="ietf"/>IETF</dt><dd><a id="id3019971" class="indexterm"/><p><span class="emphasis"><em>Internet Engineering Task Force.</em></span> The
+   entity responsible for defining Internet protocols such as
+   TCP/IP. A loose, collegial organization mainly of technical
+   people.</p></dd><dt>IPC</dt><dd><p><span class="emphasis"><em>Inter-Process Communication.</em></span> Any
+   method of passing data between processes running in separate
+   address spaces.</p></dd><dt><a id="mime"/>MIME</dt><dd><a id="id3020025" class="indexterm"/><p><span class="emphasis"><em>Multipurpose Internet Mail Extensions.</em></span> A
+   series of RFCs that describe standards for embedding binary and
+   multipart messages within RFC-822 mail.  Besides being used for
+   mail transport, MIME is used as an underlevel by important
+   application protocols including HTTP and BEEP.</p></dd><dt><a id="oo"/>OO</dt><dd><a id="id3020062" class="indexterm"/><p><span class="emphasis"><em>Object Oriented.</em></span> A style of programming
+   that tries to encapsulate data to be manipulated and the code that
+   manipulates it in (theoretically) sealed containers called objects.
+   By contrast, non-object-oriented programming is more casual about
+   exposing the internals of the data structure and code.</p></dd><dt>OS</dt><dd><p><span class="emphasis"><em>Operating System.</em></span> The foundation software of a
+   machine; that which schedules tasks, allocates storage, and presents a
+   default interface to the user between applications.  The facilities an
+   operating system provides and its general design philosophy exert an
+   extremely strong influence on programming style and on the technical
+   cultures that grow up around its host machines.</p></dd><dt><a id="pdf"/>PDF</dt><dd><a id="id3020124" class="indexterm"/><p><span class="emphasis"><em>Portable Document Format.</em></span> The
+   PostScript language for control of printers and other imaging
+   devices is designed to be streamed to printers.  PDF is a sequence
+   of PostScript pages, packaged with annotations so it can
+   conveniently be used as a display format.</p></dd><dt><a id="pdp11"/>PDP-11</dt><dd><a id="id3020161" class="indexterm"/><p><span class="emphasis"><em>Programmable Data Processor 11.</em></span> Possibly
+   the single most successful minicomputer design in history; first
+   shipped in 1970, last shipped in 1990, and the immediate ancestor
+   of the VAX.  The PDP-11 was the first major Unix platform.</p></dd><dt><a id="png_def"/>PNG</dt><dd><a id="id3020200" class="indexterm"/><p><span class="emphasis"><em>Portable Network Graphics.</em></span> The World
+   Wide Web Consortium's standard and recommended format for bitmap
+   graphics images. An elegantly designed binary graphics format
+   described in <a href="textualitychapter.html" title="Chapter 5. Textuality">Chapter 5</a>.</p></dd><dt>RFC</dt><dd><p><span class="emphasis"><em>Request For Comment.</em></span> An Internet
+   standard.  The name arose at a time when the documents were
+   regarded as proposals to be submitted to a then-nonexistent 
+   but anticipated formal approval process of some sort.  The
+   formal approval process never materialized.</p></dd><dt>RPC</dt><dd><p><span class="emphasis"><em>Remote Procedure Call.</em></span> Use of
+   IPC methods that attempt to create the illusion that the 
+   processes exchanging them are running in the same address 
+   space, so they can cheaply (a) share complex structures, and (b)
+   call each other like function libraries, ignoring latency and other
+   performance considerations.  This illusion is notoriously
+   difficult to sustain.</p></dd><dt><a id="tcpip"/>TCP/IP</dt><dd><a id="id3020293" class="indexterm"/><p><span class="emphasis"><em>Transmission Control Protocol/Internet
+   Protocol.</em></span> The basic protocol of the Internet since the
+   conversion from NCP (Network Control Protocol) in 1983. Provides 
+   reliable transport of data streams.</p></dd><dt>UDP/IP</dt><dd><p><span class="emphasis"><em>Universal Datagram Protocol/Internet
+   Protocol.</em></span> Provides unreliable but low-latency transport
+   for small data packets.</p></dd><dt>UI</dt><dd><p><span class="emphasis"><em>User Interface.</em></span></p></dd><dt>VAX</dt><dd><p>Formally, <span class="emphasis"><em>Virtual Address Extension</em></span>:
+   the name of a classic minicomputer design developed by Digital
+   Equipment Corporation (later merged with Compaq, later merged with
+   Hewlett-Packard) from the PDP-11<a id="id3020372" class="indexterm"/>. The
+   first VAX shipped in 1977.  For ten years after 1980 VAXen were
+   among the most important Unix platforms.  Microprocessor
+   reimplementations are still shipping today.
+   </p></dd></dl></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch20s06.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="index.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="apb.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Reasons to Believe </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Appendix B. References</td></tr></table></div></body></html>

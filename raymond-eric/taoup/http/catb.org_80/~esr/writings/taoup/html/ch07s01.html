@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Separating Complexity Control from Performance Tuning</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="multiprogramchapter.html" title="Chapter 7. Multiprogramming"/><link rel="previous" href="multiprogramchapter.html" title="Chapter 7. Multiprogramming"/><link rel="next" href="ch07s02.html" title="Taxonomy of Unix IPC Methods"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Separating Complexity Control from Performance Tuning</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="multiprogramchapter.html">Prev</a> </td><th width="60%" align="center">Chapter 7. Multiprogramming</th><td width="20%" align="right"> <a accesskey="n" href="ch07s02.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2918559"/>Separating Complexity Control from Performance Tuning</h2></div></div><p>First, though, we need to dispose of a few red herrings. Our
+discussion is <span class="emphasis"><em>not</em></span> going to be about using
+concurrency to improve performance. Putting that concern before
+developing a clean architecture that minimizes global complexity is
+premature optimization<a id="id2918577" class="indexterm"/>,
+the root of all evil (see <a href="optimizationchapter.html" title="Chapter 12. Optimization">Chapter 12</a> for further discussion).</p><p>A closely related red herring is threads (that is, multiple
+concurrent processes sharing the same memory-address space). Threading is a
+performance hack.  To avoid a long diversion here, we'll
+examine threads in more detail at the end of this chapter; the
+summary is that they do not reduce global complexity but rather
+<span class="emphasis"><em>increase</em></span> it, and should therefore be avoided 
+save under dire necessity.</p><p>Respecting the Rule of Modularity, on the other hand, is
+<span class="emphasis"><em>not</em></span> a red herring; doing so can make your
+programs &#8212; and your life &#8212; simpler. All the reasons for
+process partitioning are continuous with the reasons for module
+partitioning that we developed in <a href="modularitychapter.html" title="Chapter 4. Modularity">Chapter 4</a>.</p><p>Another important reason for breaking up programs into
+cooperating processes is for better security.  Under Unix, programs
+that must be run by ordinary users, but must have write access to
+security-critical system resources, get that access through a feature
+called the <i>setuid bit</i>.<sup>[<a id="id2915417" href="#ftn.id2915417">66</a>]</sup>  Executable files are the smallest unit
+of code that can hold a setuid bit; thus, every line of code in a
+setuid executable must be trusted.  (Well-written setuid programs,
+however, take all necessary privileged actions first and then drop
+their privileges back to user level for the remainder of their
+existence.)</p><p>Usually a setuid program only needs its privileges for one or a
+small handful of operations.  It is often possible to break up such a
+program into cooperating processes, a smaller one that needs setuid
+and a larger one that does not.  When we can do this, only the code in
+the smaller program has to be trusted.  It is in significant part
+because this kind of partitioning and delegation is possible that Unix
+has a better security track record<sup>[<a id="id2915447" href="#ftn.id2915447">67</a>]</sup> than its competitors.</p><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2915417" href="#id2915417">66</a>] </sup>A setuid
+program runs not with the privileges of the user calling it, but with
+the privileges of the owner of the executable. This feature can be
+used to give restricted, program-controlled access to things like the
+password file that nonadministrators should not be allowed to modify
+directly.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2915447" href="#id2915447">67</a>] </sup>That is, a better
+record measured in security breaches per total machine hours of
+Internet exposure.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="multiprogramchapter.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="multiprogramchapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch07s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 7. Multiprogramming </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Taxonomy of Unix IPC Methods</td></tr></table></div></body></html>

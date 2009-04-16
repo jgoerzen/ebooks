@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Software Is a Many-Layered Thing</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="modularitychapter.html" title="Chapter 4. Modularity"/><link rel="previous" href="ch04s02.html" title="Compactness and Orthogonality"/><link rel="next" href="ch04s04.html" title="Libraries"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Software Is a Many-Layered Thing</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch04s02.html">Prev</a> </td><th width="60%" align="center">Chapter 4. Modularity</th><td width="20%" align="right"> <a accesskey="n" href="ch04s04.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2899538"/>Software Is a Many-Layered Thing</h2></div></div><p>Broadly speaking, there are two directions one can go in
+designing a hierarchy of functions or objects.  Which direction you
+choose, and when, has a profound effect on the layering of your code.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2899552"/>Top-Down versus Bottom-Up</h3></div></div><p>One direction is bottom-up, from concrete to abstract &#8212;
+working up from the specific operations in the problem domain that you
+know you will need to perform.  For example, if one is designing
+firmware for a disk drive, some of the bottom-level primitives might
+be &#8216;seek head to physical block&#8217;, &#8216;read physical
+block&#8217;, &#8216;write physical block&#8217;, &#8216;toggle drive
+LED&#8217;, etc.</p><p>The other direction is top-down, abstract to concrete &#8212; from the
+highest-level specification describing the project as a whole, or the
+application logic, downwards to individual operations.  Thus, if one is
+designing software for a mass-storage controller that might drive
+several different sorts of media, one might start with abstract
+operations like &#8216;seek logical block&#8217;, &#8216;read logical
+block&#8217;, &#8216;write logical block&#8217;, &#8216;toggle
+activity indication&#8217;.  These would differ from the similarly named
+hardware-level operations above in that they're intended to be 
+generic across different kinds of physical devices.</p><p>These two examples could be two ways of approaching design for
+the same collection of hardware.  Your choice, in cases like this, is
+one of these: either abstract the hardware (so the objects encapsulate the real
+things out there and the program is merely a list of manipulations on
+those things), or organize around some behavioral model (and
+then embed the actual hardware manipulations that carry it out in the
+flow of the behavioral logic).</p><p>An analogous choice shows up in a lot of different contexts.
+Suppose you're writing MIDI sequencer software.  You could organize
+that code around its top level (sequencing tracks) or around its
+bottom level (switching patches or samples and driving wave
+generators).</p><p>A very concrete way to think about this difference is to ask
+whether the design is organized around its main event loop (which
+tends to have the high-level application logic close to it) or around
+a service library of all the operations that the main loop can invoke.  A
+designer working from the top down will start by thinking about the
+program's main event loop, and plug in specific events later.  A
+designer working from the bottom up will start by thinking about
+encapsulating specific tasks and glue them together into some kind of
+coherent order later on.</p><p>For a larger example, consider the design of a Web browser.  The
+top-level design of a Web browser is a specification of the expected
+behavior of the browser: what types of URL (like <tt>http:</tt> or
+<tt>ftp:</tt> or <tt>file:</tt>) it interprets, what kinds of images it is expected to be
+able to render, whether and with what limitations it will accept
+Java<a id="id2899651" class="indexterm"/> or
+JavaScript<a id="id2899659" class="indexterm"/>, etc.  The layer of the implementation
+that corresponds to this top-level view is its main event loop; each
+time around, the loop waits for, collects, and dispatches on a user
+action (such as clicking a Web link or typing a character into a
+field).</p><p>But the Web browser has to call a large set of domain
+primitives to do its job.  One group of these is concerned with
+establishing network connections, sending data over them, and
+receiving responses.  Another set is the operations of the GUI 
+toolkit the browser will use.  Yet a third set might be concerned
+with the mechanics of parsing retrieved HTML from text into a 
+document object tree.</p><p>Which end of the stack you start with matters a lot, because the
+layer at the other end is quite likely to be constrained by your
+initial choices.  In particular, if you program purely from the top
+down, you may find yourself in the uncomfortable position that the
+domain primitives your application logic wants don't match the ones
+you can actually implement.  On the other hand, if you program purely
+from the bottom up, you may find yourself doing a lot of work that is
+irrelevant to the application logic &#8212; or merely designing a pile
+of bricks when you were trying to build a house.</p><p>Ever since the structured-programming controversies of the
+1960s, novice programmers have generally been taught that the correct
+approach is the top-down one: stepwise refinement, where you specify
+what your program is to do at an abstract level and gradually fill in
+the blanks of implementation until you have concrete working code.
+Top-down tends to be good practice when three preconditions are true:
+(a) you can specify in advance precisely what the program is to do,
+(b) the specification is unlikely to change significantly during
+implementation, and (c) you have a lot of freedom in choosing, at
+a low level, how the program is to get that job done.</p><p>These conditions tend to be fulfilled most often in programs
+relatively close to the user and high in the software stack &#8212;
+applications programming.  But even there those preconditions often
+fail.  You can't count on knowing what the &#8216;right&#8217; way for
+a word processor or a drawing program to behave is until the user
+interface has had end-user testing.  Purely top-down programming often
+has the effect of overinvesting effort in code that has to be scrapped
+and rebuilt because the interface doesn't pass a reality check.</p><p>In self-defense against this, programmers try to do both things
+&#8212; express the abstract specification as top-down application
+logic, <span class="emphasis"><em>and</em></span> capture a lot of low-level domain
+primitives in functions or libraries, so they can be reused when the
+high-level design changes.</p><p>Unix programmers inherit a tradition that is centered in systems
+programming, where the low-level primitives are hardware-level
+operations that are fixed in character and extremely important.  They
+therefore lean, by learned instinct, more toward bottom-up
+programming.</p><p>Whether you're a systems programmer or not, bottom-up can also
+look more attractive when you are programming in an exploratory way,
+trying to get a grasp on hardware or software or real-world phenomena
+you don't yet completely understand.  Bottom-up programming gives you
+time and room to refine a vague specification.  Bottom-up also appeals to
+programmers' natural human laziness &#8212; when you have to scrap and
+rebuild code, you tend to have to throw away larger pieces if you're
+working top-down than you do if you're working bottom-up.</p><p>Real code, therefore tends to be programmed both top-down and
+bottom-up.  Often, top-down and bottom-up code will be part of the
+same project.  That's where &#8216;glue&#8217; enters the
+picture.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2899777"/>Glue Layers</h3></div></div><p>When the top-down and bottom-up drives collide, the result
+is often a mess.  The top layer of application logic and the bottom
+layer of domain primitives have to be impedance-matched by a layer of
+glue logic.</p><p>One of the lessons Unix programmers have learned over decades is
+that glue is nasty stuff and that it is vitally important to keep glue
+layers as thin as possible.  Glue should stick things together, but
+should not be used to hide cracks and unevenness in the layers.</p><p>In the Web-browser example, the glue would include the rendering
+code that maps a document object parsed from incoming HTML into a
+flattened visual representation as a bitmap in a display buffer, using
+GUI domain primitives to do the painting.  This rendering code is
+notoriously the most bug-prone part of a browser.  It attracts into
+itself kluges to address problems that originate both in the HTML
+parsing (because there is a lot of ill-formed markup out there) and
+the GUI toolkit (which may not have quite the primitives that are
+really needed).</p><p>A Web browser's glue layer has to mediate not merely between
+specification and domain primitives, but between several different
+external specifications: the network behavior standardized in
+HTTP, HTML document structure, and various graphics and multimedia
+formats as well as the users' behavioral expectations from the
+GUI.</p><p>And one single bug-prone glue layer is not the worst fate that can
+befall a design.  A designer who is aware that the glue layer exists,
+and tries to organize it into a middle layer around its own set of
+data structures or objects, can end up with <span class="emphasis"><em>two</em></span>
+layers of glue &#8212; one above the midlayer and one below.
+Programmers who are bright but unseasoned are particularly apt to fall
+into this trap; they'll get each fundamental set of classes
+(application logic, midlayer, and domain primitives) right and make
+them look like the textbook examples, only to flounder as the multiple
+layers of glue needed to integrate all that pretty code get thicker
+and thicker.</p><p>The thin-glue principle can be viewed as a refinement of the
+Rule of Separation.  Policy (the application logic) should be cleanly
+separated from mechanism (the domain primitives), but if there is a
+lot of code that is neither policy nor mechanism, chances are that it
+is accomplishing very little besides adding global complexity to the
+system.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="c_thin_glue"/>Case Study: C Considered as Thin Glue</h3></div></div><a id="id2899866" class="indexterm"/><a id="id2899877" class="indexterm"/><a id="id2899888" class="indexterm"/><p>The C language itself is a good example of the effectiveness 
+of thin glue.</p><p>In the late 1990s, Gerrit Blaauw and Fred Brooks observed in
+<i>Computer Architecture: Concepts and Evolution</i>
+[<a href="apb.html#BlaauwBrooks" title="[BlaauwBrooks]">BlaauwBrooks</a>] that the
+architectures in every generation of computers, from early mainframes
+through minicomputers through workstations through PCs, had tended to
+converge.  The later a design was in its technology generation, the
+more closely it approximated what Blaauw &amp; Brooks called the
+&#8220;classical architecture&#8221;: binary representation, flat
+address space, a distinction between memory and working store
+(registers), general-purpose registers, address resolution to
+fixed-length bytes, two-address instructions,
+big-endianness,<sup>[<a id="id2899932" href="#ftn.id2899932">46</a>]</sup> and data types
+a consistent set with sizes a multiple of either 4 or 6 bits (the
+6-bit families are now extinct).</p><p>Thompson<a id="id2899961" class="indexterm"/>
+and Ritchie<a id="id2899970" class="indexterm"/>
+designed C to be a sort of structured assembler for an idealized
+processor and memory architecture that they expected could be
+efficiently modeled on most conventional computers.  By happy
+accident, their model for the idealized processor was the
+PDP-11<a id="id2899983" class="indexterm"/>, a
+particularly mature and elegant minicomputer design that closely
+approximated Blaauw &amp; Brooks's classical architecture.  By good
+judgment, Thompson and Ritchie declined to wire into their language
+most of the few traits (such as little-endian byte order) where the
+PDP-11 didn't match it.<sup>[<a id="id2900000" href="#ftn.id2900000">47</a>]</sup></p><p>The PDP-11 became an important model for the following
+generations of microprocessor architectures.  The basic abstractions
+of C turned out to capture the classical architecture rather neatly.
+Thus, C started out as a good fit for microprocessors and, rather than
+becoming irrelevant as its assumptions fell out of date, actually
+became a <span class="emphasis"><em>better</em></span> fit as hardware converged more
+closely on the classical architecture. One notable example of this
+convergence was when Intel's 386, with its large flat memory-address
+space, replaced the 286's awkward segmented-memory addressing after
+1985; pure C was actually a better fit for the 386 than it had been
+for the 286.</p><p>It is not a coincidence that the experimental era in computer
+architectures ended in the mid-1980s at the same time that C (and its
+close descendant C++<a id="id2900036" class="indexterm"/>) were sweeping all before them as
+general-purpose programming languages.  C, designed as a thin but
+flexible layer over the classical architecture, looks with two
+decades' additional perspective like almost the best possible design
+for the structured-assembler niche it was intended to fill.  In
+addition to
+compactness<a id="id2900051" class="indexterm"/>,
+orthogonality<a id="id2900059" class="indexterm"/>,
+and detachment (from the machine architecture on which it was
+originally designed), it also has the important quality of
+transparency<a id="id2900070" class="indexterm"/> that we will discuss in <a href="transparencychapter.html" title="Chapter 6. Transparency">Chapter 6</a>. The few language designs since that
+are arguably better have needed to make large changes (like
+introducing garbage collection) in order to get enough functional
+distance from C not to be swamped by it.</p><p>This history is worth recalling and understanding because C
+shows us how powerful a clean, minimalist design can be.  If
+Thompson<a id="id2900098" class="indexterm"/> and
+Ritchie<a id="id2900106" class="indexterm"/> had
+been less wise, they would have designed a language that did much
+more, relied on stronger assumptions, never ported satisfactorily off
+its original hardware platform, and withered away as the world changed
+out from under it.  Instead, C has flourished &#8212; and the example
+Thompson and Ritchie set has influenced the style of Unix development
+ever since.  As the writer, adventurer, artist, and aeronautical
+engineer Antoine de Saint-Exupéry once put
+it<a id="id2900123" class="indexterm"/>, writing about the
+design of airplanes:
+<span class="foreignphrase" lang="fr"><i>«La perfection est atteinte non quand
+il ne reste rien à ajouter, mais quand il ne reste rien
+à enlever».</i></span> (&#8220;Perfection is
+attained not when there is nothing more to add, but when there is
+nothing more to remove&#8221;.)</p><p>Ritchie and Thompson lived by this maxim.  Long after the
+resource constraints on early Unix software had eased, they worked at
+keeping C as thin a layer over the hardware as possible.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Dennis used to say to me, when I would ask for some
+particularly extravagant feature in C, &#8220;If you want PL/1, you know
+where to get it&#8221;.  He didn't have to deal with some marketer saying
+&#8220;But we need a check in the box on the sales viewgraph!&#8221;</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+<span class="author">Mike Lesk</span>
+<a id="id2900173" class="indexterm"/>
+</span></td><td width="10%" valign="top"> </td></tr></table></div><p>The history of C is also a lesson in the value of having a
+working reference implementation <span class="emphasis"><em>before</em></span> you
+standardize.  We'll return to this point in <a href="portabilitychapter.html" title="Chapter 17. Portability">Chapter 17</a> when we discuss the evolution of C and
+Unix standards.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2899932" href="#id2899932">46</a>] </sup>The terms
+<i>big-endian</i> and
+<i>little-endian</i> refer to architectural choices about
+the order in which bits are interpreted within a machine word.  Though
+it has no canonical location, a Web search for <i>On Holy Wars
+and a Plea for Peace</i> should turn up a classic and
+entertaining paper on this subject.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2900000" href="#id2900000">47</a>] </sup>The widespread belief that the
+autoincrement and autodecrement features entered C because they
+represented PDP-11 machine instructions is a myth.  According to
+Dennis Ritchie, these operations were present in the ancestral B
+language before the PDP-11 existed.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch04s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="modularitychapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch04s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Compactness and Orthogonality </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Libraries</td></tr></table></div></body></html>

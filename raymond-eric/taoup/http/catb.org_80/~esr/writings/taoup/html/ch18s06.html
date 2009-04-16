@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Best Practices for Writing Unix Documentation</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="documentationchapter.html" title="Chapter 18. Documentation"/><link rel="previous" href="ch18s05.html" title="DocBook"/><link rel="next" href="opensourcechapter.html" title="Chapter 19. Open Source"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Best Practices for Writing Unix Documentation</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch18s05.html">Prev</a> </td><th width="60%" align="center">Chapter 18. Documentation</th><td width="20%" align="right"> <a accesskey="n" href="opensourcechapter.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3007396"/>Best Practices for Writing Unix Documentation</h2></div></div><p>The advice we gave earlier in the chapter about reading Unix
+documentation can be turned around.  When you write documentation for
+people within the Unix culture, <span class="emphasis"><em>don't dumb it
+down</em></span>.  If you write as if for idiots, you will be
+written off as an idiot yourself.  Dumbing documentation down
+is very different from making it accessible; the former is
+lazy and omits important things, whereas the latter requires
+careful thought and ruthless editing.</p><p>Don't think for a moment that volume will be mistaken for
+quality.  And especially, never <span class="emphasis"><em>ever</em></span> omit
+functional details because you fear they might be confusing, nor
+warnings about problems because you don't want to look bad.  It is
+<span class="emphasis"><em>unanticipated</em></span> problems that will cost you
+credibility and users, not the problems you were honest about.</p><p>Try to hit a happy medium in information density. Too low
+is as bad as too high.  Use screen shots sparingly; they tend
+to convey little information beyond the style and feel of the
+interface.  They are never a good substitute for clear textual
+description.</p><p>If your project is of any significant size, you should probably
+be shipping three different kinds of documentation: man pages as
+reference material, a tutorial manual, and a FAQ (Frequently Asked
+Questions) list.  You should have a website as well, to serve as a
+central point of distribution (see the guidelines on communication 
+in <a href="opensourcechapter.html" title="Chapter 19. Open Source">Chapter 19</a>).</p><p>Huge man pages are viewed with some disfavor; navigation within
+them can be difficult. If yours are getting large, consider writing a
+reference manual, with the man page(s) giving a quick summary,
+pointers into the reference manual, and details of how the program(s)
+are invoked.</p><p>In your source code, include the standard metainformation files
+described in the <a href="opensourcechapter.html" title="Chapter 19. Open Source">Chapter 19</a> section on open-source release
+practices, such as <tt>README</tt>.  Even if your code is
+going to be proprietary, these are Unix conventions and future
+maintainers coming from a Unix background will come up to speed faster
+if the conventions are followed.</p><p>Your man pages should be command references in the traditional
+Unix style for the traditional Unix audience.  The tutorial manual
+should be long-form documentation for nontechnical users.  And the
+FAQ should be an evolving resource that grows as your software support
+group learns what the frequent questions are and how to answer
+them.</p><p>There are more specific habits you should adopt if
+you want to get a little ahead of mid-2003's practice:</p><div class="orderedlist"><ol type="1"><li><p>Maintain your document masters in XML-DocBook.  Even your man pages
+can be DocBook <tt class="sgmltag-element">RefEntry</tt> documents.  There is a very good
+<a href="http://www.tldp.org/HOWTO/mini/Man-Page.html" target="_top">HOWTO</a> on writing manual pages
+that explains the sections and organization your users will expect to
+see.</p></li><li><p>Ship the XML masters.  Also, in case your users' systems don't
+have
+xmlto(1)
+ship the <i>troff</i> sources that you get by running <b>xmlto
+man</b> on your masters. Your software distribution's
+installation procedure should install those in the normal way, but
+direct people to the XML files if they want to write or edit
+documentation.</p></li><li><p>Make your project's installation package ScrollKeeper-ready.</p></li><li><p>Generate XHTML from your masters (with <b>xmlto xhtml</b>)
+<a id="id3007604" class="indexterm"/>
+and make it available from your project's Web page.</p></li></ol></div><p>Whether or not you're using XML-DocBook as a master format,
+you'll want to find a way to convert your documentation to HTML.
+Whether your software is open-source or proprietary, users are
+increasingly likely to find it via the Web.  Putting your
+documentation on-line has the direct effect of making it easier for
+potential users and customers who know your software exists to read it
+and learn about it.  It has the indirect effect that your software
+will become more likely to turn up in a Web search.</p></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch18s05.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="documentationchapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="opensourcechapter.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">DocBook </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 19. Open Source</td></tr></table></div></body></html>

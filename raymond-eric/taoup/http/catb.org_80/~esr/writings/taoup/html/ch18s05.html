@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>DocBook</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="documentationchapter.html" title="Chapter 18. Documentation"/><link rel="previous" href="ch18s04.html" title="The Present Chaos and a Possible Way Out"/><link rel="next" href="ch18s06.html" title="Best Practices for Writing Unix Documentation"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">DocBook</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch18s04.html">Prev</a> </td><th width="60%" align="center">Chapter 18. Documentation</th><td width="20%" align="right"> <a accesskey="n" href="ch18s06.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3002482"/>DocBook</h2></div></div><p>A great many major open-source projects are converging on
+DocBook as a standard format for their documentation.  The advocates
+of XML-based markup seem to have won the theoretical argument against
+presentation-level and for structural-level markup, and an effective
+XML-DocBook toolchain is available in open source.</p><p>Nevertheless, a lot of confusion still surrounds DocBook and the
+programs that support it.  Its devotees speak an argot that is dense
+and forbidding even by computer-science standards, slinging around
+acronyms that have no obvious relationship to the things you need to
+do to write markup and make HTML or PostScript from it.  XML standards
+and technical papers are notoriously obscure. In the rest of this
+section, we'll try to dispel the fog of jargon.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3006015"/>Document Type Definitions</h3></div></div><p>(Note: to keep the explanation simple, most of this section
+tells some lies, mainly by omitting a lot of history.  Truthfulness
+will be fully restored in a following section.)</p><p>DocBook is a structural-level markup language.  Specifically, it
+is a dialect of XML.  A DocBook document is a piece of XML that uses
+XML tags for structural markup.</p><p>For a document formatter to apply a stylesheet to your document
+and make it look good, it needs to know things about the overall
+structure of your document.  For example, in order to physically
+format chapter headers properly, it needs to know that a book
+manuscript normally consists of front matter, a sequence of chapters,
+and back matter.  In order for it to know this sort of thing, you
+need to give it a <i>Document Type
+Definition</i><a id="id3006049" class="indexterm"/> or DTD. The
+DTD tells your formatter what sorts of elements can be in the document
+structure, and in what order they can appear.</p><p>What we mean by calling DocBook a &#8216;dialect&#8217; of XML
+is actually that DocBook is a DTD &#8212; a rather large DTD, with
+somewhere around 400 tags in it.<sup>[<a id="id3006067" href="#ftn.id3006067">152</a>]</sup></p><p>Lurking behind DocBook is a kind of program called a
+<i>validating parser</i><a id="id3006082" class="indexterm"/>. When you format a DocBook document, the
+first step is to pass it through a validating parser (the front end of
+the DocBook formatter).  This program checks your document against the
+DocBook DTD to make sure you aren't breaking any of the DTD's
+structural rules (otherwise the back end of the formatter, the part
+that applies your stylesheet, might become quite confused).</p><p>The validating parser will either throw an error, giving you messages
+about places where the document structure is broken, or translate the
+document into a stream of XML elements and text that the parser back
+end combines with the information in your stylesheet to produce
+formatted output.</p><p><a href="#docfig1" title="Figure 18.1. Processing structural documents.">Figure 18.1</a> diagrams the whole process.</p><div class="figure"><a id="docfig1"/><p class="title"><b>Figure 18.1. Processing structural documents.</b></p><div class="mediaobject"><img src="graphics/docflow1.png" alt="Processing structural documents."/></div></div><p>The part of the diagram inside the dotted box is your formatting
+software, or <i>toolchain</i>. Besides the obvious and
+visible input to the formatter (the document source) you'll need to
+keep the two hidden inputs of the formatter (DTD and stylesheet) in
+mind to understand what follows.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3006182"/>Other DTDs</h3></div></div><p>A brief digression into other DTDs may help clarify what parts of
+the previous section are specific to DocBook and what parts are general to
+all structural-markup languages.</p><p><a href="http://www.tei-c.org/" target="_top">TEI</a> (Text Encoding
+Initiative) is a large, elaborate DTD used primarily in academia for
+computer transcription of literary texts.  TEI's Unix-based toolchains
+use many of the same tools that are involved with DocBook, but with
+different stylesheets and (of course) a different DTD.</p><p>XHTML, the latest version of HTML, is also an XML application
+described by a DTD, which explains the family resemblance between
+XHTML and DocBook tags. The XHTML toolchain consists of Web browsers
+that can format HTML as flat ASCII, together with any of a number of
+ad-hoc HTML-to-print utilities.</p><p>Many other XML DTDs are maintained to help people exchange
+structured information in fields as diverse as bioinformatics and
+banking.  You can look at a <a href="http://www.xml.com/pub/rg/DTD_Repositories" target="_top">list of
+repositories</a> to get some idea of the variety available.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="db_toolchain"/>The DocBook Toolchain</h3></div></div><a id="id3006245" class="indexterm"/><p>Normally, what you'll do to make XHTML from your DocBook sources
+is use the
+xmlto(1)
+front end.  Your commands will look like this:</p><pre class="screen">
+bash$ xmlto xhtml foo.xml
+bash$ ls *.html
+ar01s02.html ar01s03.html ar01s04.html index.html
+</pre><p>In this example, you converted an XML-DocBook  document named 
+<tt>foo.xml</tt> with three top-level sections into an
+index page and two parts.  Making one big page is just as easy:</p><pre class="screen">
+bash$ xmlto xhtml-nochunks foo.xml
+bash$ ls *.html
+foo.html
+</pre><p>Finally, here is how you make PostScript for printing:</p><pre class="screen">
+bash$ xmlto ps foo.xml       # To make PostScript
+bash$ ls *.ps
+foo.ps
+</pre><p>To turn your documents into HTML or PostScript, you need an
+engine that can apply the combination of DocBook DTD and a suitable
+stylesheet to your document.  <a href="#docfig2" title="Figure 18.2. Present-day XML-DocBook toolchain.">Figure 18.2</a> illustrates how
+the open-source tools for doing this fit together.</p><div class="figure"><a id="docfig2"/><p class="title"><b>Figure 18.2. Present-day XML-DocBook toolchain.</b></p><div class="mediaobject"><img src="graphics/docflow2.png" alt="Present-day XML-DocBook toolchain."/></div></div><p>Parsing your document and applying the stylesheet transformation
+will be handled by one of three programs.  The most likely one is
+<i>xsltproc</i><a id="id3006388" class="indexterm"/>,
+the parser that ships with Red Hat Linux<a id="id3006397" class="indexterm"/>.  The other possibilities are two
+Java<a id="id3006409" class="indexterm"/> programs,
+<i>Saxon</i> and
+<i>Xalan</i>.</p><p>It is relatively easy to generate high-quality XHTML from either
+DocBook; the fact that XHTML is simply another XML DTD helps a lot.
+Translation to HTML is done by applying a rather simple stylesheet,
+and that's the end of the story.  RTF is also simple to generate in
+this way, and from XHTML or RTF it's easy to generate a flat ASCII
+text approximation in a pinch.</p><p>The awkward case is print.  Generating high-quality printed
+output &#8212; which means, in practice, Adobe's
+PDF<a id="id3006449" class="indexterm"/>
+(Portable Document Format) &#8212; is difficult.  Doing it right requires
+algorithmically duplicating the delicate judgments of a human
+typesetter moving from content to presentation level.</p><p>So, first, a stylesheet translates DocBook's structural markup
+into another dialect of XML &#8212; FO<a id="id3006466" class="indexterm"/> (Formatting Objects).  FO
+markup is very much presentation-level; you can think of it as a sort
+of XML functional equivalent of <i>troff</i>.  It
+has to be translated to PostScript for packaging in a PDF.</p><p>In the toolchain shipped with Red Hat
+Linux<a id="id3006490" class="indexterm"/>, this job
+is handled by a <i>TeX</i> macro package called
+<i>PassiveTeX</i><a id="id3006519" class="indexterm"/>. It
+translates the formatting objects generated by
+<b>xsltproc</b> into Donald
+Knuth's<a id="id3006535" class="indexterm"/>
+<i>TeX</i> language.
+<i>TeX</i>'s output, known as
+DVI<a id="id3006563" class="indexterm"/> (DeVice Independent) format, is then
+massaged into PDF<a id="id3006573" class="indexterm"/>.</p><p>If you think this bucket chain of XML to <i>TeX</i> macros to DVI to
+PDF sounds like an awkward kludge, you're right.  It clanks, it
+wheezes, and it has ugly warts.  Fonts are a significant problem,
+since XML and <i>TeX</i> and PDF have very
+different models of how fonts work; also, handling
+internationalization and localization is a nightmare. About the only
+thing this code path has going for it is that it works.</p><p>The elegant way will be
+FOP<a id="id3006615" class="indexterm"/>, a direct
+FO-to-PostScript translator being developed by the
+Apache<a id="id3006625" class="indexterm"/> project.  With
+FOP, the internationalization problem is, if not solved, at least well
+confined; XML tools handle Unicode all the way through to FOP.  The
+mapping from Unicode glyphs to Postscript font is also strictly FOP's
+problem.  The only trouble with this approach is that it doesn't work
+&#8212; yet.  As of mid-2003, FOP is in an unfinished alpha state
+&#8212; usable, but with rough edges and missing features.</p><p><a href="#docfig3" title="Figure 18.3. Future XML-DocBook toolchain with FOP.">Figure 18.3</a> illustrates what the FOP toolchain looks
+like.</p><div class="figure"><a id="docfig3"/><p class="title"><b>Figure 18.3. Future XML-DocBook toolchain with FOP.</b></p><div class="mediaobject"><img src="graphics/docflow3.png" alt="Future XML-DocBook toolchain with FOP."/></div></div><p>FOP has competition.  Another project called
+<i>xsl-fo-proc</i> aims to do the same
+things as FOP, but in C++<a id="id3006712" class="indexterm"/> (and therefore both faster than
+Java<a id="id3006722" class="indexterm"/> and not
+relying on the Java environment).  As of mid-2003,
+<i>xsl-fo-proc</i> is in an unfinished alpha
+state, not as far along as FOP.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3006742"/>Migration Tools</h3></div></div><p>The second biggest problem with DocBook is the effort needed to
+convert old-style presentation markup to DocBook markup.  Human beings
+can usually parse the presentation of a document into logical
+structure automatically, because (for example) they can tell from 
+context when an italic font means &#8216;emphasis&#8217; and when it means
+something else such as &#8216;this is a foreign phrase&#8217;.</p><p>Somehow, in converting documents to DocBook, those
+sorts of distinctions need to be made explicit.  Sometimes
+they're present in the old markup; often they are not, and the
+missing  structural information has to be either deduced by 
+clever heuristics or added by a human.</p><p>Here is a summary of the state of conversion tools from
+various other formats.  None of these do a completely perfect job;
+inspection and perhaps a bit of hand-editing by a human being
+will be needed after conversion.</p><div class="variablelist"><dl><dt><span class="term">GNU Texinfo</span></dt><dd><p>The Free Software Foundation<a id="id3006792" class="indexterm"/> intends to support DocBook as an
+interchange format.  Texinfo has enough structure to make reasonably
+good automatic conversion possible (human editing is still needed
+afterwards, but not much of it), and the 4.x versions of
+<i>makeinfo</i> feature a
+<tt>--docbook</tt> switch that generates DocBook.  More at the
+<a href="http://www.gnu.org/directory/texinfo.html" target="_top"><i>makeinfo</i>
+project page</a>.</p></dd><dt><span class="term">POD</span></dt><dd><p>A <a href="http://www.cpan.org/modules/by-module/Pod/" target="_top">POD::DocBook</a>
+module translates Plain Old Documentation markup to DocBook.  It
+claims to translate every POD tag except the L&lt;&gt; italic tag.
+The man page also says &#8220;Nested =over/=back lists are not supported
+within DocBook&#8221;, but notes that the module has been heavily
+tested.</p></dd><dt><span class="term"><i>LaTeX</i></span></dt><dd><p>A project called <a href="http://www.lrz-muenchen.de/services/software/sonstiges/tex4ht/mn.html" target="_top">
+TeX4ht</a> can, according to the author of Passive<i>TeX</i>, 
+generate DocBook from <i>LaTeX</i>.</p></dd><dt><span class="term">man pages and other <i>troff</i>-based markups</span></dt><dd><p>These are generally considered the biggest and nastiest conversion
+problems.  And indeed, the basic
+troff(1) markup is at too low a presentation
+level for automatic conversion tools to do much of any good.  However,
+the gloom in the picture lightens significantly if we consider
+translation from sources of documents written in macro packages like
+man(7).  These have enough structural
+features for automatic translation to get some traction.</p><p>I wrote a tool to do troff-to-DocBook
+myself, because I couldn't find anything else that did a tolerable
+job of it.  It's called <a href="http://www.catb.org/~esr/doclifter/" target="_top">doclifter</a>.  It
+will translate to either SGML or XML DocBook from
+man(7),
+mdoc(7),
+ms(7), or
+me(7) macros.  See the documentation
+for details.</p></dd></dl></div></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3007022"/>Editing Tools</h3></div></div><p>One thing we do not have in mid-2003 is a good
+open-source structure editor for SGML/XML documents.</p><p><a href="http://www.lyx.org/" target="_top">LyX</a> is a GUI word processor
+that uses <i>LaTeX</i> for printing and supports structural editing of <i>LaTeX</i>
+markup.  There is a <i>LaTeX</i> package that generates DocBook, and a
+<a href="http://bgu.chez.tiscali.fr/doc/db4lyx/" target="_top">how-to document</a>
+describing how to write SGML and XML in the LyX GUI.</p><p><a href="http://www.math.u-psud.fr/~anh/TeXmacs/TeXmacs.html" target="_top"> GNU
+<i>TeX</i>Macs</a> is a project aimed at producing an editor that is good
+for technical and mathematical material, including displayed formulas.
+1.0 was released in April 2002.  The developers plan XML support in
+the future, but it's not there yet.</p><p>Most people still hack DocBook tags by hand using either
+<i>vi</i> or
+<i>emacs</i>.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3007143"/>Related Standards and Practices</h3></div></div><p>The tools are coming together, if slowly, to edit and format
+DocBook markup. But DocBook itself is a means, not an end.  We'll need
+other standards besides DocBook itself to accomplish the
+searchable-documentation-database objective. There are two big issues:
+document cataloging and metadata.</p><p>The <a href="http://scrollkeeper.sourceforge.net/" target="_top">ScrollKeeper</a>
+project aims directly to meet this need. It provides a simple set of
+script hooks that can be used by package install and uninstall
+productions to register and unregister their documentation.</p><p>ScrollKeeper uses the <a href="http://www.ibiblio.org/osrt/omf/" target="_top">Open Metadata Format</a>.
+This is a standard for indexing open-source documentation analogous to
+a library card-catalog system.  The idea is to support rich search
+facilities that use the card-catalog metadata as well as the source 
+text of the documentation itself.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3007192"/>SGML</h3></div></div><p>In previous sections, we have deliberately omitted a lot of
+DocBook's history.  XML has an older brother,
+Standard Generalized Markup Language (SGML<a id="id3007203" class="indexterm"/>).</p><p>Until mid-2002, no discussion of DocBook would have been
+complete without a long excursion into SGML, the differences between
+SGML and XML, and detailed descriptions of the SGML DocBook toolchain.
+Life can be simpler now; an XML DocBook toolchain is available in open
+source, works as well as the SGML toolchain ever did, and is easier to
+use.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3007297"/>XML-DocBook References</h3></div></div><p>One of the things that makes learning DocBook difficult is that
+the sites related to it tend to overwhelm the newbie with long lists
+of W3C standards, massive exercises in SGML theology, and dense
+thickets of abstract terminology.  See <i>XML in a
+Nutshell</i> [<a href="apb.html#Harold-Means" title="[Harold-Means]">Harold-Means</a>] for a good
+book-length general introduction.</p><p>Norman Walsh's <i>DocBook: The Definitive
+Guide</i> is available <a href="http://www.oreilly.com/catalog/docbook/" target="_top">in print</a> and
+<a href="http://www.docbook.org/tdg/en/html/docbook.html" target="_top">on the
+Web</a>.  This is indeed the definitive reference, but as an
+introduction or tutorial it's a disaster.  Instead, read this:</p><p><a href="http://xml.web.cern.ch/XML/goossens/dbatcern/" target="_top">Writing
+Documents Using DocBook</a>.  This is an
+excellent tutorial.</p><p>There is an equally excellent <a href="http://www.dpawson.co.uk/docbook/" target="_top">DocBook FAQ</a> with a lot
+of material on styling HTML output.  There is also a DocBook <a href="http://docbook.org/wiki/moin.cgi" target="_top">wiki</a>.</p><p>Finally, the <a href="http://xml.coverpages.org/" target="_top">The XML
+Cover Pages</a> will take you into the jungle of XML standards
+if you really want to go there.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id3006067" href="#id3006067">152</a>] </sup>In XML-speak, what we
+have been calling a &#8216;dialect&#8217; is called an
+&#8216;application&#8217;; we've avoided that usage, since it collides
+with another more common sense of the word.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch18s04.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="documentationchapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch18s06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">The Present Chaos and a Possible Way Out </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Best Practices for Writing Unix Documentation</td></tr></table></div></body></html>

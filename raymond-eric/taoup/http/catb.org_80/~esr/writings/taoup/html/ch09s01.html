@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Data-Driven Programming</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="generationchapter.html" title="Chapter 9. Generation"/><link rel="previous" href="generationchapter.html" title="Chapter 9. Generation"/><link rel="next" href="ch09s02.html" title="Ad-hoc Code Generation"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Data-Driven Programming</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="generationchapter.html">Prev</a> </td><th width="60%" align="center">Chapter 9. Generation</th><td width="20%" align="right"> <a accesskey="n" href="ch09s02.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2939658"/>Data-Driven Programming</h2></div></div><p>When doing <i>data-driven programming</i>, one
+clearly distinguishes code from the data structures on which it acts,
+and designs both so that one can make changes to the logic of the program 
+by editing not the code but the data structure.</p><p>Data-driven programming is sometimes confused with object
+orientation<a id="id2939680" class="indexterm"/>, another style in which data
+organization is supposed to be central.  There are at least two
+differences.  One is that in data-driven programming, the data is not
+merely the state of some object, but actually defines the control flow
+of the program.  Where the primary concern in
+OO<a id="id2939694" class="indexterm"/> is
+encapsulation, the primary concern in data-driven programming is
+writing as little fixed code as possible.  Unix has a stronger
+tradition of data-driven programming than of OO.</p><p>Programming data-driven style is also sometimes confused with
+writing state machines.  It is in fact possible to express the logic
+of a state machine as a table or data structure, but hand-coded state
+machines are usually rigid blocks of code that are far harder to
+modify than a table.</p><p>An important rule when doing any kind of code generation or
+data-driven programming is this: always push problems upstream.  Don't
+hack the generated code or any intermediate representations by hand
+&#8212; instead, think of a way to improve or replace your translation
+tool.  Otherwise you're likely to find that hand-patching bits which
+should have been generated correctly by machine will have turned into
+an infinite time sink.</p><p>At the upper end of its complexity scale, data-driven
+programming merges into writing interpreters for p-code or simple
+minilanguages of the kind we surveyed in <a href="minilanguageschapter.html" title="Chapter 8. Minilanguages">Chapter 8</a>.  At other edges, it merges into code
+generation and state-machine programming.  The distinctions are not
+actually that important; the important part is moving program logic
+away from hardwired control structures and into data.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2939746"/>Case Study: <i>ascii</i></h3></div></div><p>I maintain a program called <i>ascii</i>, a
+very simple little utility that tries to interpret its command-line
+arguments as names of ASCII (American Standard Code for Information
+Interchange) characters and report all the equivalent names.  Code and
+documentation for the tool are available from the <a href="http://www.catb.org/~esr/ascii" target="_top">project page</a>. Here is an illustrative
+screenshot:</p><pre class="screen">
+esr@snark:~/WWW/writings/taoup$ ascii 10
+ASCII 1/0 is decimal 016, hex 10, octal 020, bits 00010000: called ^P, DLE
+Official name: Data Link Escape
+
+ASCII 0/10 is decimal 010, hex 0a, octal 012, bits 00001010: called ^J, LF, NL
+Official name: Line Feed
+C escape: '\n'
+Other names: Newline
+
+ASCII 0/8 is decimal 008, hex 08, octal 010, bits 00001000: called ^H, BS
+Official name: Backspace
+C escape: '\b'
+Other names:
+
+ASCII 0/2 is decimal 002, hex 02, octal 002, bits 00000010: called ^B, STX
+Official name: Start of Text
+</pre><p>One indication that this program was a good idea is the fact
+that it has an unexpected use &#8212; as a quick CLI aid to converting
+between decimal, hex, octal, and binary representations of bytes.</p><p>The main logic of this program could have been coded as a 
+128-branch case statement.  This would, however, have made the code
+bulky and difficult to maintain.  It would also have tangled parts
+that change relatively rapidly (like the list of slang names for
+characters) with parts that change slowly or not at all (like
+the official names), putting them both in the same legend string and
+making errors during editing much more likely to touch data that
+ought to be stable.</p><p>Instead, we apply data-driven programming.  All the character
+name strings live in a table structure that is quite a bit larger than
+any of the functions in the code (indeed, counted in lines it is
+larger than any <span class="emphasis"><em>three</em></span> of the functions in the
+program).  The code merely navigates the table and does low-level
+tasks like radix conversions.  The initializer actually lives in the
+file <tt>nametable.h</tt>, which is generated in a way
+we'll describe later in this chapter.</p><p>This organization makes it easy to add new character names,
+change existing ones, or delete old names by simply editing the table,
+without disturbing the code.</p><p>(The way the program is built is good Unix style, but the
+output format is questionable.  It's hard to see how the output could
+usefully become the input of any other program, so it does not play
+well with others.)</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="bayes_spam"/>Case Study: Statistical Spam Filtering</h3></div></div><p>One interesting case of data-driven programming is statistical
+learning algorithms for detecting spam (unsolicited bulk email).
+A whole class of mail filter programs (those easily findable
+by Web search include <i>popfile</i>,
+<i>spambayes</i>, and
+<i>bogofilter</i>) use a database of word
+correlations to replace the elaborate pattern-matching conditional
+logic of pattern-matching spam filters.</p><p>Programs like these became common on the Internet very rapidly
+following Paul Graham's landmark paper <i>A Plan for
+Spam</i> [<a href="apb.html#Graham" title="[Graham]">Graham</a>] in 2002.  While the
+explosion was triggered by the increasing cost of the pattern-matching
+arms race, the statistical-filtering idea was adopted first and
+fastest by Unix shops.  In part, this was certainly because almost all
+the Internet service providers (who are most burdened by spam, and
+thus had most incentive to adopt effective new techniques) are Unix
+shops &#8212; but undoubtedly the harmony with some traditional themes
+in Unix software design helped as well.</p><p>Conventional spam filters require that a system administrator,
+or some other responsible party, maintain information on patterns of
+text found in spam &#8212; names of sites that emit nothing but spam,
+come-on phrases often used by pornography sites or Internet scam
+artists, and the like.  In his paper, Graham noted accurately that
+computer programmers like the idea of pattern-matching filters, and
+sometimes have difficulty seeing past that approach, because it offers
+them so many opportunities to be clever.</p><p>Statistical spam filters, on the other hand, work by collecting
+feedback about what the user judges to be spam versus nonspam.  That
+feedback is processed into databases of statistical correlation
+coefficients or <i>weights</i> connecting words or phrases
+to the user's spam/nonspam classification.  The most popular
+algorithms use minor variants of Bayes's Theorem on conditional
+probabilities, but other techniques (including various sorts of
+polynomial hashing) are also employed.</p><p>In all these programs, the correlation check is a relatively
+trivial mathematical formula.  The weights fed into the formula along
+with the message being checked serve as implicit control
+structure for the filtering algorithm.</p><p>The problem with conventional pattern-matching spam filters is 
+that they are brittle.  Spammers are constantly gaming against the
+filter-rule databases, forcing the filter maintainers to constantly
+reprogram their filters to stay ahead in the arms race.  Statistical
+spam filters generate their own filter rules from the user feedback.</p><p>In fact, experience with statistical filters seems to show that the 
+particular learning algorithm used is far less important than the
+quality of the spam and nonspam data sets from which the learning algorithm
+computes its weights.  So the results of statistical filters really
+are driven more by the shape of the data than by the algorithm.</p><p><i>A Plan for Spam</i> was something of a
+bombshell because its author argued convincingly that a simple, even
+crude, statistical approach gave a lower rate of nonspam being
+erroneously classified as spam than either elaborate pattern-matching
+techniques or the human eyeball could manage.  For Unix programmers,
+seeing past the lure of clever pattern-matching was far easier than in
+other programming cultures without as strong an attachment to
+&#8220;Keep It Simple, Stupid!&#8221;</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="fetchmailconf"/>Case Study: Metaclass Hacking in <i>fetchmailconf</i></h3></div></div><a id="id2937830" class="indexterm"/><p>The
+fetchmailconf(1)
+dotfile configurator shipped with
+fetchmail(1)<a id="id2937860" class="indexterm"/>
+contains an instructive example of advanced data-driven programming in
+a very high-level, object-oriented <a id="id2937871" class="indexterm"/> language.</p><p>In October 1997 a series of questions on the fetchmail-friends
+mailing list made it clear that end-users were having increasing
+troubles generating configuration files for
+<i>fetchmail</i>.  The file uses a simple,
+classically-Unixy free-format syntax, but can become forbiddingly
+complicated when a user has POP3 and IMAP accounts at multiple sites.
+See <a href="#fetchmail_example" title="Example 9.1. Example of fetchmailrc syntax.">Example 9.1</a> for a somewhat simplified
+version of the <i>fetchmail</i> author's
+configuration file.</p><div class="example"><a id="fetchmail_example"/><p class="title"><b>Example 9.1. Example of fetchmailrc syntax.</b></p><pre class="programlisting">
+set postmaster &quot;esr&quot;
+set daemon 300
+
+poll imap.ccil.org with proto IMAP and options no dns
+    aka snark.thyrsus.com locke.ccil.org ccil.org
+       user esr there is esr here 
+            options fetchall dropstatus warnings 3600
+
+poll imap.netaxs.com with proto IMAP
+       user &quot;esr&quot; there is esr here options dropstatus warnings 3600
+</pre></div><p>The design objective of <i>fetchmailconf</i>
+was to completely hide the control file syntax behind a fashionable,
+ergonomically-correct GUI replete with selection buttons,
+slider bars and fill-out forms.  But the beta design had a problem: it
+could easily generate configuration files from the user's GUI actions,
+but could not read and edit existing ones.</p><p>The parser for
+<i>fetchmail</i>'s<a id="id2937966" class="indexterm"/>
+configuration file syntax is rather elaborate.  It's actually written
+in <i>yacc</i> and <i>lex</i>,
+the two classic Unix tools for generating language-parsing code in C.
+For <i>fetchmailconf</i> to be able to edit
+existing configuration files, it at first appeared that it would be
+necessary to replicate that elaborate parser in fetchmailconf's
+implementation language &#8212; Python.</p><p>This tactic seemed doomed.  Even leaving aside the amount of
+duplicative work implied, it is notoriously hard to be certain that
+two parsers in two different languages accept the same grammar.
+Keeping them synchronized as the configuration language evolved bid
+fair to be a maintenance nightmare.  It would have violated the SPOT
+rule<a id="id2938011" class="indexterm"/> we discussed
+in <a href="modularitychapter.html" title="Chapter 4. Modularity">Chapter 4</a>
+wholesale.</p><p>This problem stumped me for a while.  The insight that cracked
+it was that <i>fetchmailconf</i> could use
+<i>fetchmail</i>'s own parser as a filter!  I
+added a <tt>--configdump</tt> option to
+<i>fetchmail</i> that would parse
+<tt>.fetchmailrc</tt> and dump the result to standard
+output in the format of a Python initializer.  For the file above, the
+result would look roughly like <a href="#conf_dump" title="Example 9.2. Python structure dump of a fetchmail configuration.">Example 9.2</a> (to save
+space, some data not relevant to the example is omitted).</p><div class="example"><a id="conf_dump"/><p class="title"><b>Example 9.2. Python structure dump of a <i>fetchmail</i> configuration.</b></p><pre class="programlisting">
+fetchmailrc = {
+    'poll_interval':300,
+    &quot;logfile&quot;:None,
+    &quot;postmaster&quot;:&quot;esr&quot;,
+    'bouncemail':TRUE,
+    &quot;properties&quot;:None,
+    'invisible':FALSE,
+    'syslog':FALSE,
+    # List of server entries begins here
+    'servers': [
+        # Entry for site `imap.ccil.org' begins:
+        {
+            &quot;pollname&quot;:&quot;imap.ccil.org&quot;,
+            'active':TRUE,
+            &quot;via&quot;:None,
+            &quot;protocol&quot;:&quot;IMAP&quot;,
+            'port':0,
+            'timeout':300,
+            'dns':FALSE,
+            &quot;aka&quot;:[&quot;snark.thyrsus.com&quot;,&quot;locke.ccil.org&quot;,&quot;ccil.org&quot;],
+            'users': [
+                {
+                    &quot;remote&quot;:&quot;esr&quot;,
+                    &quot;password&quot;:&quot;masked_one&quot;,
+                    'localnames':[&quot;esr&quot;],
+                    'fetchall':TRUE,
+                    'keep':FALSE,
+                    'flush':FALSE,
+                    &quot;mda&quot;:None,
+                    'limit':0,
+                    'warnings':3600,
+                }
+                ,            ]
+        }
+        ,
+        # Entry for site `imap.netaxs.com' begins:
+        {
+            &quot;pollname&quot;:&quot;imap.netaxs.com&quot;,
+            'active':TRUE,
+            &quot;via&quot;:None,
+            &quot;protocol&quot;:&quot;IMAP&quot;,
+            'port':0,
+            'timeout':300,
+            'dns':TRUE,
+            &quot;aka&quot;:None,
+            'users': [
+                {
+                    &quot;remote&quot;:&quot;esr&quot;,
+                    &quot;password&quot;:&quot;masked_two&quot;,
+                    'localnames':[&quot;esr&quot;],
+                    'fetchall':FALSE,
+                    'keep':FALSE,
+                    'flush':FALSE,
+                    &quot;mda&quot;:None,
+                    'limit':0,
+                    'warnings':3600,
+                }
+                ,            ]
+        }
+        ,
+    ]
+}
+</pre></div><p>The major hurdle had been leapt.  The Python interpreter could
+then evaluate the <i>fetchmail</i>
+<tt>--configdump</tt> output and read the configuration
+available to <i>fetchmailconf</i> as the value of
+the variable &#8216;fetchmail&#8217;.</p><p>But this wasn't quite the last obstacle in the race.  What was
+really needed wasn't just for <i>fetchmailconf</i>
+to have the existing configuration, but to turn it into a linked tree
+of live objects.  There would be three kinds of objects in this tree:
+<tt>Configuration</tt> (the top-level object representing the
+entire configuration), <tt>Site</tt> (representing one of the
+servers to be polled), and <tt>User</tt> (representing user data
+attached to a site).  The example file describes three site objects, each
+with one user object attached to it.</p><p>The three object classes already existed in
+<i>fetchmailconf</i>.  Each had a method that
+caused it to pop up a GUI edit panel to modify its instance data.  The
+last remaining problem was to somehow transform the static data in this
+Python initializer into live objects.</p><p>I considered writing a glue layer that would explicitly
+know about the structure of all three classes and use that knowledge
+to grovel through the initializer creating matching objects, but
+rejected that idea because new class members were likely to be added
+over time as the configuration language grew new features.  If the
+object-creation code were written in the obvious way, it would once
+again be fragile and tend to fall out of synchronization when either
+the class definitions or the initializer structure dumped by the
+<tt>--configdump</tt> report generator changed.  Again, a
+recipe for endless bugs.</p><p>The better way would be data-driven programming &#8212; code
+that would analyze the shape and members of the initializer, query the
+class definitions themselves about their members, and then
+impedance-match the two sets.</p><p>Lisp<a id="id2938241" class="indexterm"/> and
+Java<a id="id2938249" class="indexterm"/>
+programmers call this <i>introspection</i>; in
+some other object-oriented languages it's called <span class="emphasis"><em>metaclass
+hacking</em></span> and is generally considered fearsomely esoteric,
+deep black magic.  Most object-oriented languages don't support it at
+all; in those that do (Perl<a id="id2938270" class="indexterm"/> and Java among them), it tends to be a
+complicated and fragile undertaking.  But Python's facilities for
+introspection and metaclass hacking are unusually accessible.</p><p>See <a href="#solution_code" title="Example 9.3. copy_instance metaclass code.">Example 9.3</a> for the solution code, from
+near line 1895 of the 1.43 version.</p><div class="example"><a id="solution_code"/><p class="title"><b>Example 9.3. <tt>copy_instance</tt> metaclass code.</b></p><pre class="programlisting">
+def copy_instance(toclass, fromdict):
+# Make a class object of given type from a conformant dictionary.
+    class_sig = toclass.__dict__.keys(); class_sig.sort()
+    dict_keys = fromdict.keys(); dict_keys.sort()
+    common = set_intersection(class_sig, dict_keys)
+    if 'typemap' in class_sig: 
+        class_sig.remove('typemap')
+    if tuple(class_sig) != tuple(dict_keys):
+        print &quot;Conformability error&quot;
+#        print &quot;Class signature: &quot; + `class_sig`
+#        print &quot;Dictionary keys: &quot; + `dict_keys`
+        print &quot;Not matched in class signature: &quot;+ \
+                                        `set_diff(class_sig, common)`
+        print &quot;Not matched in dictionary keys: &quot;+ \
+                                        `set_diff(dict_keys, common)`
+        sys.exit(1)
+    else:
+        for x in dict_keys:
+            setattr(toclass, x, fromdict[x])
+</pre></div><p>Most of this code is error-checking against the possibility that
+the class members and <tt>--configdump</tt> report generation
+have drifted out of synchronization.  It ensures that if the code
+breaks, the breakage will be detected early &#8212; an implementation
+of the Rule of Repair.  The heart of this function is the last
+two lines, which set attributes in the class from corresponding
+members in the dictionary.  They're equivalent to this:</p><pre class="programlisting">
+def copy_instance(toclass, fromdict):
+        for x in fromdict.keys():
+                setattr(toclass, x, fromdict[x])
+</pre><p>When your code is this simple, it is far more likely to be right.
+See <a href="#solution_caller" title="Example 9.4. Calling context for&#10;copy_instance.">Example 9.4</a> for the code that calls it.</p><div class="example"><a id="solution_caller"/><p class="title"><b>Example 9.4. Calling context for
+<tt>copy_instance</tt>.</b></p><pre class="programlisting">
+    # The tricky part - initializing objects from the `configuration' 
+    # global.  `Configuration' is the top level of the object tree 
+    # we're going to mung 
+    Configuration = Controls()
+    copy_instance(Configuration, configuration)
+    Configuration.servers = [];
+    for server in configuration['servers']:
+        Newsite = Server()
+        copy_instance(Newsite, server)
+        Configuration.servers.append(Newsite)
+        Newsite.users = [];
+        for user in server['users']:
+            Newuser = User()
+            copy_instance(Newuser, user)
+            Newsite.users.append(Newuser)
+</pre></div><p>The key point to extract from this code is that it traverses the
+three levels of the initializer (configuration/server/user),
+instantiating the correct objects at each level into lists contained
+in the next object up.  Because <tt>copy_instance</tt> is
+data-driven and completely generic, it can be used on all three levels
+for three different object types.</p><p>This is a new-school sort of example; Python was not even
+invented until 1990.  But it reflects themes that go back to 1969 in
+the Unix tradition.  If meditating on Unix programming as practiced by
+his predecessors had not taught me constructive laziness
+&#8212; insisting on reuse, and refusing to write duplicative glue
+code in accordance with the SPOT rule<a id="id2938448" class="indexterm"/>&#8212;I might have rushed into coding a
+parser in Python.  The first key insight that
+<i>fetchmail</i> itself could be made into
+<i>fetchmailconf</i>'s configuration parser might
+never have happened.</p><p>The second insight (that <tt>copy_instance</tt> could be generic) proceeded from
+the Unix tradition of looking assiduously for ways to avoid
+hand-hacking. But more specifically, Unix programmers are very used to
+writing parser specifications to generate parsers for processing
+language-like markups; from there it was a short step to believing
+that the rest of the job could be done by some kind of generic
+tree-walk of the configuration structure. Two separate stages of
+data-driven programming, one building on the other, were needed to
+solve the design problem cleanly.</p><p>Insights like this can be extraordinarily powerful.  The code we
+have been looking at was written in about ninety minutes, worked the
+first time it was run, and has been stable in the years since (the
+only time it has ever broken is when it threw an exception in the
+presence of genuine version skew).  It's less than forty lines and
+beautifully simple.  There is no way that the naïve approach of
+building an entire second parser could possibly have produced this
+kind of maintainability, reliability or
+compactness<a id="id2938510" class="indexterm"/>.
+Reuse, simplification, generalization,
+orthogonality<a id="id2938519" class="indexterm"/>:
+this is the <a id="id2938528" class="indexterm"/> Zen of Unix
+in action.
+</p><p>In <a href="configurationchapter.html" title="Chapter 10. Configuration">Chapter 10</a>,
+we'll examine the run-control syntax of
+<i>fetchmail</i><a id="id2938555" class="indexterm"/>
+as an example of the standard shell-like metaformat for run-control
+files.  In <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a>
+we'll use <i>fetchmailconf</i> as an example of
+Python's strength in rapidly building GUIs.</p></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="generationchapter.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="generationchapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch09s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 9. Generation </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Ad-hoc Code Generation</td></tr></table></div></body></html>

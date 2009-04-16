@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Combining Tools with Emacs</title><link rel="stylesheet" href="taoup.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="toolschapter.html" title="Chapter 15. Tools"/><link rel="previous" href="ch15s07.html" title="Profiling"/><link rel="next" href="reusechapter.html" title="Chapter 16. Reuse"/></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Combining Tools with Emacs</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch15s07.html">Prev</a> </td><th width="60%" align="center">Chapter 15. Tools</th><td width="20%" align="right"> <a accesskey="n" href="reusechapter.html">Next</a></td></tr></table><hr/></div><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2989520"/>Combining Tools with Emacs</h2></div></div><p>One of the things the Emacs editor is
+very good at is acting as a front end for other development tools (we
+discussed this from a philosophical angle in <a href="complexitychapter.html" title="Chapter 13. Complexity">Chapter 13</a>).  In fact, nearly every tool we've
+discussed in this chapter can be driven from within an
+Emacs editor session through front ends
+that give them greater utility than they would have running
+standalone.</p><p>To illustrate this, we'll walk you through the use of these
+tools with Emacs in a typical
+build/test/debug cycle. For details on them, see
+Emacs's own on-line help system; this
+section just gives you an overview, to motivate you to learn
+more.</p><p>Read and learn &#8212; not just about
+Emacs, but about the mental habit of
+looking for synergies between programs, and creating them. Try to read
+this section as instruction in philosophy, not just technique.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2989559"/>Emacs and <i>make</i></h3></div></div><p><i>Make</i>, for example, can be started
+with the Emacs command <b>ESC-x
+compile</b> followed by an Enter. This command will run
+make(1)
+in the current directory, capturing the output in an
+Emacs buffer.</p><p>This by itself wouldn't be very useful. But
+Emacs's <i>make</i>
+mode knows about the error message format (featuring a source file and
+line number) emitted by Unix C<a id="id2989610" class="indexterm"/> compilers and many other tools.</p><p>If anything run by <i>make</i> issues error
+messages, the command <b>Ctl-X `</b> (control-X-backquote)
+will try to parse them and take you to each error location in turn,
+popping open a window on the appropriate file and taking the cursor to
+the error line.<sup>[<a id="id2989640" href="#ftn.id2989640">138</a>]</sup></p><p>This makes it extremely easy to step through an entire build,
+fixing any syntax that has been broken since the last compile.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2989677"/>Emacs and Runtime Debugging</h3></div></div><p>For catching runtime errors, Emacs
+offers similar integration with your symbolic debugger &#8212; that
+is, you can use an Emacs mode to set
+breakpoints in your programs and examine their runtime state. You run
+the debugger by sending it commands through an
+Emacs window. Whenever the debugger stops
+on a breakpoint, the message the debugger ships back about the source
+location is parsed and used to pop up a window on the source around the
+breakpoint.</p><p>Emacs's Grand Unified Debugger mode
+supports all the major C debuggers:
+gdb(1),
+sdb(1),
+dbx(1),
+and
+xdb(1). It
+also supports Perl<a id="id2989734" class="indexterm"/> symbolic debugging using the perldb
+module, and the standard debuggers for both
+Java<a id="id2989744" class="indexterm"/> and
+Python<a id="id2989753" class="indexterm"/>. Facilities built into Emacs Lisp
+itself support interactive debugging of Emacs Lisp
+code.</p><p>At time of writing (mid-2003) there is not yet support for
+Tcl<a id="id2989768" class="indexterm"/> debugging
+from within Emacs. The design of Tcl is
+such that it seems unlikely to be added.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2989781"/>Emacs and Version Control</h3></div></div><p>Once you've corrected your program's syntax and fixed its
+runtime bugs, you may want to save the changes into a
+version-controlled archive. If you've only tried running
+version-control tools from the shell, it's hard to blame you for
+sloughing off this important step. Who wants to have to remember to
+run checkout/checkin commands around every edit operation?</p><p>Fortunately, Emacs offers help here
+too. Code built into Emacs implements a
+simple-to-use front end for <i>SCCS</i>,
+<i>RCS</i>, <i>CVS</i>, or
+Subversion. The single command <b>Ctl-x v v</b> tries to
+deduce the next logical version-control operation to do on the file
+you are visiting. The operations this includes are registering a file,
+checking out and locking it, and checking it back in (accepting a
+change comment in a pop-up buffer).<sup>[<a id="id2989834" href="#ftn.id2989834">139</a>]</sup></p><p>Emacs also helps you view the change
+history of version-controlled files, and helps you back out changes
+you don't want. It makes it easy to apply version-control operations
+to whole sets or project directory trees of files. In general, it does
+a pretty good job of making version-control operations painless.</p><p>The implications of these features are larger than you might
+guess before you've gotten used to it. You'll find, once you get used
+to fast and easy version control, that it's extremely
+liberating. Because you know you can always revert to a known-good
+state, you'll find you feel more free to develop in a fluid and
+exploratory way, trying lots of changes out to see their
+effects.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2989869"/>Emacs and Profiling</h3></div></div><p>Surprise...this is perhaps the only phase of the development
+cycle in which Emacs front-ending does
+<span class="emphasis"><em>not</em></span> offer substantial help. Profiling is an
+intrinsically batchy operation &#8212; instrument your program, run
+it, view the statistics, speed-tune the code with an editor,
+repeat. There isn't much room for Emacs
+leverage in the profiling-specific parts of this cycle.</p><p>Nevertheless, there's a good tutorial reason for us to think
+about Emacs and profiling. If you found
+yourself analyzing a <span class="emphasis"><em>lot</em></span> of profiling reports, it
+might pay you to write a mode in which a mouse click or keystroke on a
+profile report line visited the source of the relevant function. This
+actually would be fairly easy to do using the
+Emacs &#8216;tags&#8217; code. In fact, by
+the time you read this, some other reader may already have written
+such a mode and contributed it to the public
+Emacs code base.</p><p>The real point here is again a philosophical one. Don't drudge
+&#8212; drudging wastes your time and productivity! If you find yourself
+spending a lot of time on the low-level mechanical parts of
+development, step back. Apply the Unix philosophy. Use your toolkit
+to automate or semi-automate the task.</p><p>Then give back something in return for all you've inherited, by
+posting your solution as open-source software to the Internet. Help
+liberate your fellow programmers from drudgery, too.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2989926"/>Like an IDE, Only Better</h3></div></div><p>Earlier in this chapter we asserted that
+Emacs can give you capabilities resembling
+those of a conventional integrated development environment, only
+better. By now you should have enough facts in hand to see how that
+can be true. You can run entire development projects from inside
+Emacs, driving the low-level mechanics with
+a few keystrokes and saving yourself the mental effort and disruption
+of constantly switching contexts.</p><p>The Emacs-enabled development style
+trades away some capabilities of advanced IDEs, like graphical views
+of program structure. But those are frills. What
+Emacs gives you in return is flexibility
+and control. You're not limited by the imagination of the IDE designer:
+you can tweak, customize, and add task-related intelligence
+using Emacs Lisp. Also, Emacs is better at
+supporting mixed-language development than conventional IDEs.</p><p>Finally, you're not limited to accepting what one small group of
+IDE developers sees fit to support. By keeping an eye on the
+open-source community, you can benefit from the work of thousands of your
+peers, Emacs-using developers facing
+challenges much like yours. This is much more effective &#8212; and
+much more fun.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2989640" href="#id2989640">138</a>] </sup>Look at
+p+processes-&gt;compile
+under the Emacs help menu for more
+information on these and related compilation-control
+commands.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2989834" href="#id2989834">139</a>] </sup>See the subsection
+of the Emacs on-line documentation titled <i>Version
+Control</i> for more details on these and related
+commands.</p></div></div></div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch15s07.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="toolschapter.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="reusechapter.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Profiling </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 16. Reuse</td></tr></table></div></body></html>
