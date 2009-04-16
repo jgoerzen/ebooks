@@ -383,12 +383,10 @@
  <itemref idref="s/unix-nature.html" />
  <itemref idref="s/end-user.html" />
 
-
- <itemref idref="s/index.html" />
 </spine>
 <guide>
- <reference type="toc" title="Table of Contents" href="index.html" />
- <reference type="text" title="Start of Text" href="ch00.html" />
- <reference type="title-page" title="Title Page" href="index.html#about" />
+ <reference type="toc" title="Table of Contents" href="s/index.html#opf_toc" />
+ <reference type="text" title="Start of Text" href="s/preface.html" />
+ <reference type="title-page" title="Title Page" href="s/index.html" />
 </guide>
 </package>
