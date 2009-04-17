@@ -220,7 +220,7 @@ The Art of UNIX Programming poses the belief that understanding the
  <itemref idref="s/pr01s05.html" />
  <itemref idref="s/pr01s06.html" />
 
- <itemref idref="s/context.html" />  <!-- part heading -- omit? -->
+ <itemref idref="s/context.html" />  
 
  <itemref idref="s/philosophychapter.html" />
  <itemref idref="s/ch01s01.html" />
@@ -244,7 +244,7 @@ The Art of UNIX Programming poses the belief that understanding the
  <itemref idref="s/ch03s02.html" />
  <itemref idref="s/ch03s03.html" />
 
- <itemref idref="s/design.html" /> <!-- part heading -->
+ <itemref idref="s/design.html" /> 
 
  <itemref idref="s/modularitychapter.html" />
  <itemref idref="s/ch04s01.html" />
@@ -312,7 +312,7 @@ The Art of UNIX Programming poses the belief that understanding the
  <itemref idref="s/ch13s03.html" />
  <itemref idref="s/ch13s04.html" />
 
- <itemref idref="s/implementation.html" /> <!-- part heading -->
+ <itemref idref="s/implementation.html" /> 
 
  <itemref idref="s/languageschapter.html" />
  <itemref idref="s/ch14s01.html" />
@@ -341,7 +341,7 @@ The Art of UNIX Programming poses the belief that understanding the
  <itemref idref="s/ch16s06.html" />
  <itemref idref="s/ch16s07.html" />
 
- <itemref idref="s/community.html" />  <!-- part heading -->
+ <itemref idref="s/community.html" />  
 
  <itemref idref="s/portabilitychapter.html" />
  <itemref idref="s/c_evolution.html" />
