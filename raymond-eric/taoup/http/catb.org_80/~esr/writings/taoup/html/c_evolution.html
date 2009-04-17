@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Evolution of C</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="portabilitychapter.html" title="Chapter 17. Portability"/><link rel="previous" href="portabilitychapter.html" title="Chapter 17. Portability"/><link rel="next" href="ch17s02.html" title="Unix Standards"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="c_evolution"/>Evolution of C</h2></div></div><a id="id2998161" class="indexterm"/><p>The central fact of the Unix programming experience has always
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Evolution of C</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="portabilitychapter.html" title="Chapter&#160;17.&#160;Portability"/><link rel="previous" href="portabilitychapter.html" title="Chapter&#160;17.&#160;Portability"/><link rel="next" href="ch17s02.html" title="Unix Standards"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="c_evolution"/>Evolution of C</h2></div></div><a id="id2998161" class="indexterm"/><p>The central fact of the Unix programming experience has always
 been the stability of the C language and the handful of service
 interfaces that always travel with it (notably, the standard I/O
 library and friends).  The fact that a language originated in 1973 has
 required as little change as this one has in thirty years of heavy use
 is truly remarkable, and without parallels anywhere else in computer
-science or engineering.</p><p>In <a href="modularitychapter.html" title="Chapter 4. Modularity">Chapter 4</a>, we
+science or engineering.</p><p>In <a href="modularitychapter.html" title="Chapter&#160;4.&#160;Modularity">Chapter&#160;4</a>, we
 argued that C has been successful because it acts as a layer of thin
 glue over computer hardware approximating the &#8220;standard
 architecture&#8221; of [<a href="apb.html#BlaauwBrooks" title="[BlaauwBrooks]">BlaauwBrooks</a>].  There is, of course, more to the story than
@@ -52,14 +52,14 @@ rules in 1988.  Common-block public storage is still admitted as an
 acceptable variation by the standard.</p><p>V7 C introduced <tt>enum</tt> and
 treated <tt>struct</tt> and <tt>union</tt> values as first-class objects that
 could be assigned, passed as arguments, and returned from functions
-(rather than being passed around by address).</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Another major change in V7 was that Unix data structure declarations
+(rather than being passed around by address).</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>Another major change in V7 was that Unix data structure declarations
 were now documented on header files, and included.  Previous Unixes
 had actually printed the data structures (e.g., for directories) in
 the manual, from which people would copy it into their code.  Needless
-to say, this was a major portability problem.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+to say, this was a major portability problem.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Steve Johnson</span>
 <a id="id2994167" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>The System III<a id="id2994191" class="indexterm"/> C version of the PCC compiler (which also
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>The System III<a id="id2994191" class="indexterm"/> C version of the PCC compiler (which also
 shipped with BSD 4.1c<a id="id2994201" class="indexterm"/>) changed the handling of struct
 declarations so that members with the same names in different structs
 would not clash.  It also introduced <tt>void</tt> and
@@ -87,7 +87,7 @@ of this mission.</p><p>Work on the first official C standard began in 1983 under
 auspices of the X3J11 ANSI committee. The major functional additions
 to the language were settled by the end of 1986, at which point it
 became common for programmers to distinguish between &#8220;K&amp;R
-C&#8221; and &#8220;ANSI C&#8221;.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Many people don't realize how <span class="emphasis"><em>unusual</em></span> the C
+C&#8221; and &#8220;ANSI C&#8221;.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>Many people don't realize how <span class="emphasis"><em>unusual</em></span> the C
 standardization effort, especially the original ANSI C work, was in
 its insistence on standardizing only tested features.  Most language
 standard committees spend much of their time inventing new features,
@@ -95,14 +95,14 @@ often with little consideration of how they might be implemented.
 Indeed, the few ANSI C features that <span class="emphasis"><em>were</em></span>
 invented from scratch &#8212; e.g., the notorious
 &#8220;trigraphs&#8221;&#8212;were the most disliked and least
-successful features of C89.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+successful features of C89.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Henry Spencer</span>
 <a id="id2994392" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Void pointers were invented as part of the standards effort, and have
-been a winner.  But Henry's point is still well taken.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>Void pointers were invented as part of the standards effort, and have
+been a winner.  But Henry's point is still well taken.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Steve Johnson</span>
 <a id="id2994442" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>While the core of ANSI C was settled early, arguments over the
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>While the core of ANSI C was settled early, arguments over the
 contents of the standard libraries dragged on for years. The formal
 standard was not issued until the end of 1989, well after most
 compilers had implemented the 1985 recommendations.  The standard was

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Internationalization</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="portabilitychapter.html" title="Chapter 17. Portability"/><link rel="previous" href="ch17s05.html" title="Programming for Portability"/><link rel="next" href="ch17s07.html" title="Portability, Open Standards, and Open Source"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3001081"/>Internationalization</h2></div></div><p>An in-depth discussion of code internationalization &#8212;
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Internationalization</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="portabilitychapter.html" title="Chapter&#160;17.&#160;Portability"/><link rel="previous" href="ch17s05.html" title="Programming for Portability"/><link rel="next" href="ch17s07.html" title="Portability, Open Standards, and Open Source"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3001081"/>Internationalization</h2></div></div><p>An in-depth discussion of code internationalization &#8212;
 designing software so the interface readily incorporates multiple
 languages and the vagaries of different character sets &#8212; would be
 out of scope for this book.  However, a few lessons for good practice 
@@ -28,7 +28,7 @@ fact that XML and Java have made this choice helps, but the momentum
 is present even where XML and Java are not.</p><p>Third, beware of character ranges in regular expressions.  The
 element <b>[a-z]</b> will not necessarily catch all
 lower-case letters if the script or program it's in is applied to
-(say) German, where the sharp-s or ß character is considered
+(say) German, where the sharp-s or &#223; character is considered
 lower-case but does not fall in that range; similar problems arise
 with French accented letters. Its safer to use
 <b>[[:lower:]]</b>. and other symbolic ranges described in

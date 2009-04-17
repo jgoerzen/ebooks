@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Run-Control Files</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="configurationchapter.html" title="Chapter 10. Configuration"/><link rel="previous" href="ch10s02.html" title="Where Configurations Live"/><link rel="next" href="ch10s04.html" title="Environment Variables"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2941824"/>Run-Control Files</h2></div></div><p>A run-control file is a file of declarations or commands
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Run-Control Files</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="configurationchapter.html" title="Chapter&#160;10.&#160;Configuration"/><link rel="previous" href="ch10s02.html" title="Where Configurations Live"/><link rel="next" href="ch10s04.html" title="Environment Variables"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2941824"/>Run-Control Files</h2></div></div><p>A run-control file is a file of declarations or commands
 associated with a program that it interprets on startup. If a program
 has site-specific configuration shared by all users at a site, it will
 often have a run-control file under the <tt>/etc</tt>
@@ -24,7 +24,7 @@ at <tt>.seekstuff</tt> in the user's home directory; but
 it would be unsurprising if the locations were
 <tt>/etc/seekstuffrc</tt> and
 <tt>.seekstuffrc</tt>, especially if seekstuff were a
-system utility of some sort.</p><p>In <a href="textualitychapter.html" title="Chapter 5. Textuality">Chapter 5</a> we
+system utility of some sort.</p><p>In <a href="textualitychapter.html" title="Chapter&#160;5.&#160;Textuality">Chapter&#160;5</a> we
 described a somewhat different set of design rules for textual data-file 
 formats, and discussed how to optimize for different weightings
 of interoperability,
@@ -100,7 +100,7 @@ users have to cope with.</p><p>Of these, probably the best established is the
 track host/password pairs for a user can usually get them from
 the <tt>.netrc</tt> file, if it exists.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2942210"/>Case Study: The <tt>.netrc</tt> File</h3></div></div><p>The <tt>.netrc</tt> file is a good example of the
 standard rules in action.  An example, with the passwords changed to
-protect the innocent, is in <a href="#netrc" title="Example 10.1. A .netrc example.">Example 10.1</a>.</p><div class="example"><a id="netrc"/><p class="title"><b>Example 10.1. A <tt>.netrc</tt> example.</b></p><pre class="programlisting">
+protect the innocent, is in <a href="#netrc" title="Example&#160;10.1.&#160;A .netrc example.">Example&#160;10.1</a>.</p><div class="example"><a id="netrc"/><p class="title"><b>Example&#160;10.1.&#160;A <tt>.netrc</tt> example.</b></p><pre class="programlisting">
 # FTP access to my Web host
 machine unix1.netaxs.com
         login esr

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Applying Minilanguages</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="minilanguageschapter.html" title="Chapter 8. Minilanguages"/><link rel="previous" href="ch08s01.html" title="Understanding the Taxonomy of Languages"/><link rel="next" href="ch08s03.html" title="Designing Minilanguages"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2924730"/>Applying Minilanguages</h2></div></div><p>Designing with minilanguages involves two distinct challenges.
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Applying Minilanguages</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="minilanguageschapter.html" title="Chapter&#160;8.&#160;Minilanguages"/><link rel="previous" href="ch08s01.html" title="Understanding the Taxonomy of Languages"/><link rel="next" href="ch08s03.html" title="Designing Minilanguages"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2924730"/>Applying Minilanguages</h2></div></div><p>Designing with minilanguages involves two distinct challenges.
 One is having existing minilanguages handy in your toolkit, and
 recognizing when they can be applied as-is.  The other is knowing when
 it is appropriate to design a custom minilanguage for an application.
 To help you develop both aspects of your design sense, about half of 
-this chapter will consist of case studies.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2924747"/>Case Study: <i>sng</i></h3></div></div><p>In <a href="transparencychapter.html" title="Chapter 6. Transparency">Chapter 6</a> we
+this chapter will consist of case studies.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2924747"/>Case Study: <i>sng</i></h3></div></div><p>In <a href="transparencychapter.html" title="Chapter&#160;6.&#160;Transparency">Chapter&#160;6</a> we
 looked at
 sng(1),
 which translates between
@@ -35,7 +35,7 @@ Expressions</i> [<a href="apb.html#Friedl" title="[Friedl]">Friedl</a>].</p><p>R
 fail to match against strings.  The simplest regular-expression tool
 is grep(1), a filter that passes through to its output every 
 line in its input matching a specified regexp.
-Regexp notation is summarized in <a href="#regexp_table" title="Table 8.1. Regular-expression examples.">Table 8.1</a>.</p><div class="table"><a id="regexp_table"/><p class="title"><b>Table 8.1. Regular-expression examples.</b></p><table summary="Regular-expression examples." width="100%" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Regexp</th><th>Matches</th></tr></thead><tbody><tr><td><tt>&quot;x.y&quot;</tt></td><td><tt>x</tt> followed by any character followed by <tt>y</tt>.</td></tr><tr><td><tt>&quot;x\.y&quot;</tt></td><td><tt>x</tt> followed by a literal period followed by <tt>y</tt>.</td></tr><tr><td><tt>&quot;xz?y&quot;</tt></td><td><tt>x</tt> followed by at most one <tt>z</tt> followed by <tt>y</tt>; thus, <tt>&quot;xy&quot;</tt> or
+Regexp notation is summarized in <a href="#regexp_table" title="Table&#160;8.1.&#160;Regular-expression examples.">Table&#160;8.1</a>.</p><div class="table"><a id="regexp_table"/><p class="title"><b>Table&#160;8.1.&#160;Regular-expression examples.</b></p><table summary="Regular-expression examples." width="100%" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Regexp</th><th>Matches</th></tr></thead><tbody><tr><td><tt>&quot;x.y&quot;</tt></td><td><tt>x</tt> followed by any character followed by <tt>y</tt>.</td></tr><tr><td><tt>&quot;x\.y&quot;</tt></td><td><tt>x</tt> followed by a literal period followed by <tt>y</tt>.</td></tr><tr><td><tt>&quot;xz?y&quot;</tt></td><td><tt>x</tt> followed by at most one <tt>z</tt> followed by <tt>y</tt>; thus, <tt>&quot;xy&quot;</tt> or
   <tt>&quot;xzy&quot;</tt> but not <tt>&quot;xz&quot;</tt> or <tt>&quot;xdy&quot;</tt>.</td></tr><tr><td><tt>&quot;xz*y&quot;</tt></td><td><tt>x</tt> followed by any number of instances of <tt>z</tt>, followed by <tt>y</tt>;
    thus, <tt>&quot;xy&quot;</tt> or <tt>&quot;xzy&quot;</tt> or <tt>&quot;xzzzy&quot;</tt> but not <tt>&quot;xz&quot;</tt> or <tt>&quot;xdy&quot;</tt>.</td></tr><tr><td><tt>&quot;xz+y&quot;</tt></td><td><tt>x</tt> followed by one or more instances of <tt>z</tt>, followed by <tt>y</tt>;
    thus, <tt>&quot;xzy&quot;</tt> or <tt>&quot;xzzy&quot;</tt> but not <tt>&quot;xy&quot;</tt> or <tt>&quot;xz&quot;</tt> or <tt>&quot;xdy&quot;</tt>.</td></tr><tr><td><tt>&quot;s[xyz]t&quot;</tt></td><td><tt>s</tt> followed by any of the characters <tt>x</tt> or <tt>y</tt> or <tt>z</tt>, followed by <tt>t</tt>;
@@ -71,17 +71,17 @@ for extracting lines matching a given regexp from a file.  Regular
 expressions in Lex and the <i>Emacs</i> editor are
 very close to the <i>egrep</i> flavor.  </p></li><li><p><span class="emphasis"><em>Perl regular expressions.</em></span> This is the notation
 accepted by Perl<a id="id2932932" class="indexterm"/> and Python<a id="id2932940" class="indexterm"/> regexp functions.  These are quite a bit more
-powerful than the <i>egrep</i> flavor.</p></li></ol></div><p>Now that we've looked at some motivating examples, <a href="#regexp_intro" title="Table 8.2. Introduction to regular-expression operations.">Table 8.2</a> is a summary of the standard regular-expression
+powerful than the <i>egrep</i> flavor.</p></li></ol></div><p>Now that we've looked at some motivating examples, <a href="#regexp_intro" title="Table&#160;8.2.&#160;Introduction to regular-expression operations.">Table&#160;8.2</a> is a summary of the standard regular-expression
 wildcards.  Note: we're not including the glob variant in this table,
 so a value of &#8220;All&#8221; implies only all three of the basic,
-extended/Emacs, and Perl/Python variants.<sup>[<a id="id2932978" href="#ftn.id2932978">81</a>]</sup></p><div class="table"><a id="regexp_intro"/><p class="title"><b>Table 8.2. Introduction to regular-expression operations.</b></p><table summary="Introduction to regular-expression operations." width="100%" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th>Wildcard</th><th>Supported in</th><th>Matches</th></tr></thead><tbody><tr><td><tt>\</tt></td><td>All</td><td>Escape next character.  Toggles whether following punctuation
+extended/Emacs, and Perl/Python variants.<sup>[<a id="id2932978" href="#ftn.id2932978">81</a>]</sup></p><div class="table"><a id="regexp_intro"/><p class="title"><b>Table&#160;8.2.&#160;Introduction to regular-expression operations.</b></p><table summary="Introduction to regular-expression operations." width="100%" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th>Wildcard</th><th>Supported in</th><th>Matches</th></tr></thead><tbody><tr><td><tt>\</tt></td><td>All</td><td>Escape next character.  Toggles whether following punctuation
   is treated as a wildcard or not. Following letters or digits are interpreted
   in various different ways depending on the program.</td></tr><tr><td><tt>.</tt></td><td>All</td><td>Any character.</td></tr><tr><td><tt>^</tt></td><td>All</td><td>Beginning of line</td></tr><tr><td><tt>$</tt></td><td>All</td><td>End of line</td></tr><tr><td><tt>[...]</tt></td><td>All</td><td>Any of the characters between the brackets</td></tr><tr><td><tt>[^...]</tt></td><td>All</td><td>Any characters <span class="emphasis"><em>except those</em></span> 
-  between the brackets.</td></tr><tr><td><tt>*</tt></td><td>All</td><td>Accept any number of instances of the previous element.</td></tr><tr><td><tt>?</tt></td><td>egrep/Emacs, Perl/Python</td><td>Accept zero or one instances of the previous element.</td></tr><tr><td><tt>+</tt></td><td>egrep/Emacs, Perl/Python</td><td>Accept one or more instances of the previous element.</td></tr><tr><td><tt>{n}</tt></td><td>egrep, Perl/Python; as <tt>\{n\}</tt> in Emacs</td><td>Accept exactly <tt>n</tt> repetitions of the previous element.
-  Not supported by some older regexp engines.</td></tr><tr><td><tt>{n,}</tt></td><td>egrep, Perl/Python; as <tt>\{n,\}</tt> in Emacs</td><td>Accept <tt>n</tt> or more repetitions of the previous element.
-  Not supported by some older regexp engines.</td></tr><tr><td><tt>{m,n}</tt></td><td>egrep, Perl/Python; as <tt>\{m,n\}</tt> in Emacs</td><td>Accept at least <tt>m</tt> and at most <tt>n</tt> repetitions of the previous 
-  element. Not supported by some older regexp engines.</td></tr><tr><td><tt>|</tt></td><td>egrep, Perl/Python; as <tt>\|</tt> in Emacs</td><td>Accept the element to the left or the element to the right.
-  This is usually used with some form of pattern-grouping delimiters.</td></tr><tr><td><tt>(...)</tt></td><td>Perl/Python; as <tt>\(...\)</tt> in older versions.</td><td>Treat this pattern as a group (in newer regexp engines like
+  between the brackets.</td></tr><tr><td><tt>*</tt></td><td>All</td><td>Accept any number of instances of the previous element.</td></tr><tr><td><tt>?</tt></td><td>egrep/Emacs, Perl/Python</td><td>Accept zero or one instances of the previous element.</td></tr><tr><td><tt>+</tt></td><td>egrep/Emacs, Perl/Python</td><td>Accept one or more instances of the previous element.</td></tr><tr><td><tt>{n}</tt></td><td>egrep, Perl/Python; as&#160;<tt>\{n\}</tt> in Emacs</td><td>Accept exactly <tt>n</tt> repetitions of the previous element.
+  Not supported by some older regexp engines.</td></tr><tr><td><tt>{n,}</tt></td><td>egrep, Perl/Python; as&#160;<tt>\{n,\}</tt> in Emacs</td><td>Accept <tt>n</tt> or more repetitions of the previous element.
+  Not supported by some older regexp engines.</td></tr><tr><td><tt>{m,n}</tt></td><td>egrep, Perl/Python; as&#160;<tt>\{m,n\}</tt> in Emacs</td><td>Accept at least <tt>m</tt> and at most <tt>n</tt> repetitions of the previous 
+  element. Not supported by some older regexp engines.</td></tr><tr><td><tt>|</tt></td><td>egrep, Perl/Python; as&#160;<tt>\|</tt> in Emacs</td><td>Accept the element to the left or the element to the right.
+  This is usually used with some form of pattern-grouping delimiters.</td></tr><tr><td><tt>(...)</tt></td><td>Perl/Python; as&#160;<tt>\(...\)</tt> in older versions.</td><td>Treat this pattern as a group (in newer regexp engines like
   Perl and Python's). Older regexp engines such as those in Emacs and grep
   require <tt>\(...\)</tt>.</td></tr></tbody></table></div><p>Design practice in new languages with regexp support has
 stabilized on the Perl/Python variant. It is more transparent than the
@@ -104,8 +104,8 @@ Perl<a id="id2933534" class="indexterm"/> code for
 the interface.  The generated code then calls functions you write to
 supply behavior to the interface.</p><p> <i>Glade</i>'s XML format for
 describing GUIs is a good example of a simple domain-specific
-minilanguage.  See <a href="#glade_example" title="Example 8.1. Glade Hello, World.">Example 8.1</a> for a &#8220;Hello,
-world!&#8221; GUI in Glade format.</p><div class="example"><a id="glade_example"/><p class="title"><b>Example 8.1. Glade &#8220;Hello, World&#8221;.</b></p><pre class="programlisting">
+minilanguage.  See <a href="#glade_example" title="Example&#160;8.1.&#160;Glade Hello, World.">Example&#160;8.1</a> for a &#8220;Hello,
+world!&#8221; GUI in Glade format.</p><div class="example"><a id="glade_example"/><p class="title"><b>Example&#160;8.1.&#160;Glade &#8220;Hello, World&#8221;.</b></p><pre class="programlisting">
 
 &lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;GTK-Interface&gt;
@@ -184,7 +184,7 @@ strings.  Applying those declarations to an input text with <i>m4</i>
 performs macro expansion and yields an output text.  (The
 C<a id="id2933817" class="indexterm"/>
 preprocessor performs similar services for C compilers,
-though in a rather different style.)</p><p><a href="#m4_macro" title="Example 8.2. A sample m4 macro.">Example 8.2</a> shows an
+though in a rather different style.)</p><p><a href="#m4_macro" title="Example&#160;8.2.&#160;A sample m4 macro.">Example&#160;8.2</a> shows an
 <i>m4</i> macro that directs
 <i>m4</i> to expand each occurrence of the string
 &quot;OS&quot; in its input into the string &quot;operating system&quot; on output.  This
@@ -192,7 +192,7 @@ is a trivial example; <i>m4</i> supports macros
 with arguments that can be used to do more than transform one fixed
 string into another.  Typing <b>info m4</b> at your shell
 prompt will probably display on-line documentation for this
-language.</p><div class="example"><a id="m4_macro"/><p class="title"><b>Example 8.2. A sample <i>m4</i> macro.</b></p><pre class="programlisting">
+language.</p><div class="example"><a id="m4_macro"/><p class="title"><b>Example&#160;8.2.&#160;A sample <i>m4</i> macro.</b></p><pre class="programlisting">
 define(`OS', `operating system')
 </pre></div><p>The <i>m4</i> macro language supports
 conditionals and recursion.  The combination can be used to implement
@@ -220,7 +220,7 @@ language for describing transformations of a text stream.  But it does
 much more than simple macro substitution; it describes transformations
 of XML data, including query and report generation.  It is the
 language used to write XML stylesheets.  For practical applications,
-see the description of XML document processing in <a href="documentationchapter.html" title="Chapter 18. Documentation">Chapter 18</a>.  XSLT is described by a World Wide
+see the description of XML document processing in <a href="documentationchapter.html" title="Chapter&#160;18.&#160;Documentation">Chapter&#160;18</a>.  XSLT is described by a World Wide
 Web Consortium standard and has several open-source
 implementations.</p><p>XSLT and <i>m4</i> macros are both purely
 declarative and Turing-complete, but XSLT supports only recursions and
@@ -232,7 +232,7 @@ shares important (though not universal) characteristics of the breed:</p><div cl
 of record structures or arrays.</p></li><li><p>Restricted interface to the rest of the world.  XSLT processors are
 designed to filter standard input to standard output, with a
 limited ability to read and write files.  They can't open sockets
-or run subcommands.</p></li></ul></div><div class="example"><a id="xslt_example"/><p class="title"><b>Example 8.3. A sample XSLT program.</b></p><pre class="programlisting">
+or run subcommands.</p></li></ul></div><div class="example"><a id="xslt_example"/><p class="title"><b>Example&#160;8.3.&#160;A sample XSLT program.</b></p><pre class="programlisting">
 
 &lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; 
@@ -250,7 +250,7 @@ or run subcommands.</p></li></ul></div><div class="example"><a id="xslt_example"
   &lt;/xsl:template&gt; 
 &lt;/xsl:stylesheet&gt;
 
-</pre></div><p>The program in <a href="#xslt_example" title="Example 8.3. A sample XSLT program.">Example 8.3</a> transforms an XML
+</pre></div><p>The program in <a href="#xslt_example" title="Example&#160;8.3.&#160;A sample XSLT program.">Example&#160;8.3</a> transforms an XML
 document so that each attribute of every element is transformed into a new
 tag pair directly enclosed by that element, with the attribute
 value as the tag pair's content.</p><p>We've included a glance at XSLT here partly to illustrate the
@@ -261,7 +261,7 @@ to face the challenge that is XSLT.</p><p><i>XSLT: Mastering XML Transformations
 language.  A brief tutorial with examples is available on the
 Web.<sup>[<a id="id2934184" href="#ftn.id2934184">85</a>]</sup></p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2934197"/>Case Study: The Documenter's Workbench Tools</h3></div></div><p>The
 troff(1)
-typesetting formatter was, as we noted in <a href="historychapter.html" title="Chapter 2. History">Chapter 2</a>, Unix's original killer application.
+typesetting formatter was, as we noted in <a href="historychapter.html" title="Chapter&#160;2.&#160;History">Chapter&#160;2</a>, Unix's original killer application.
 <i>troff</i> is the center of a suite of
 formatting tools (collectively called Documenter's Workbench or DWB),
 all of which are domain-specific minilanguages of various kinds.  Most
@@ -270,7 +270,7 @@ troff markup.  Open-source Unixes host an
 enhanced implementation of Documenter's Workbench called
 groff(1),
 from the Free Software Foundation<a id="id2934244" class="indexterm"/>.</p><p>We'll examine <i>troff</i> in more detail in
-<a href="documentationchapter.html" title="Chapter 18. Documentation">Chapter 18</a>; for now,
+<a href="documentationchapter.html" title="Chapter&#160;18.&#160;Documentation">Chapter&#160;18</a>; for now,
 it's sufficient to note that it is a good example of an imperative
 minilanguage that borders on being a full-fledged interpreter (it has
 conditionals and recursion but not loops; it is accidentally
@@ -346,7 +346,7 @@ would be extremely difficult to embed equivalent knowledge into a
 WYSIWYG word processor.  There are some ways in which modern XML-based
 document markups and toolchains are still, in 2003, playing
 catch-up with capabilities that Documenter's Workbench had in 1979.
-We'll discuss these issues in more detail in <a href="documentationchapter.html" title="Chapter 18. Documentation">Chapter 18</a>.</p><p>The design themes that gave Documenter's Workbench so much power
+We'll discuss these issues in more detail in <a href="documentationchapter.html" title="Chapter&#160;18.&#160;Documentation">Chapter&#160;18</a>.</p><p>The design themes that gave Documenter's Workbench so much power
 should by now be familiar ones; all the tools share a common
 text-stream representation of documents, and the formatting system is
 broken up into independent components that can be debugged and
@@ -370,7 +370,7 @@ snippets of in-line assembler.  It might have been better to separate
 the language layers more completely, if that were possible.
 Minilanguage designers should take note of this.</p><p>All the preprocessor languages (though not troff markup itself)
 have relatively clean, shell-like syntaxes that follow many of the
-conventions we described in <a href="textualitychapter.html" title="Chapter 5. Textuality">Chapter 5</a> for the design of data-file formats.
+conventions we described in <a href="textualitychapter.html" title="Chapter&#160;5.&#160;Textuality">Chapter&#160;5</a> for the design of data-file formats.
 There are a few embarrassing exceptions; notably,
 tbl(1)
 defaults to using a tab as a field separator between table columns,
@@ -388,8 +388,8 @@ to the left of widget C&#8221;) and have your software compute a
 best-fit layout for A, B, and C according to those constraints.</p><p>The
 pic(1)
 program uses this approach to lay out elements for diagrams.  The
-language taxonomy diagram at <a href="ch08s01.html#taxonomy" title="Figure 8.1. Taxonomy of languages.">Figure 8.1</a> was produced with
-the <i>pic</i> source code in <a href="#pic_source" title="Example 8.4. Taxonomy of languages &#8212; the pic source.">Example 8.4</a><sup>[<a id="id2934708" href="#ftn.id2934708">87</a>]</sup> run through <i>pic2graph</i>, one of our case studies in <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a>.</p><div class="example"><a id="pic_source"/><p class="title"><b>Example 8.4. Taxonomy of languages &#8212; the <i>pic</i> source.</b></p><pre class="programlisting">
+language taxonomy diagram at <a href="ch08s01.html#taxonomy" title="Figure&#160;8.1.&#160;Taxonomy of languages.">Figure&#160;8.1</a> was produced with
+the <i>pic</i> source code in <a href="#pic_source" title="Example&#160;8.4.&#160;Taxonomy of languages &#8212; the pic source.">Example&#160;8.4</a><sup>[<a id="id2934708" href="#ftn.id2934708">87</a>]</sup> run through <i>pic2graph</i>, one of our case studies in <a href="multiprogramchapter.html" title="Chapter&#160;7.&#160;Multiprogramming">Chapter&#160;7</a>.</p><div class="example"><a id="pic_source"/><p class="title"><b>Example&#160;8.4.&#160;Taxonomy of languages &#8212; the <i>pic</i> source.</b></p><pre class="programlisting">
 # Minilanguage taxonomy
 #
 # Base ellipses
@@ -476,7 +476,7 @@ fortunate that one effect of the Documenter's Workbench design is to
 make it relatively easy to keep
 pic(1)
 useful outside the DWB context.  The <i>pic2graph</i> script we used as a case study in
-<a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a> was an
+<a href="multiprogramchapter.html" title="Chapter&#160;7.&#160;Multiprogramming">Chapter&#160;7</a> was an
 ad-hoc way to accomplish this, using the retrofitted PostScript
 capability of
 groff(1)
@@ -497,7 +497,7 @@ drawing primitives using a modern plotting library.  Their solution
 has the disadvantage, however, that text in the output is generated
 with fonts built into <i>pic2plot</i> that won't
 match those of troff.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="fetchmailrc"/>Case Study:
-<i>fetchmail</i> Run-Control Syntax</h3></div></div><a id="id2935090" class="indexterm"/><p>  See <a href="#hogwarts" title="Example 8.5. Synthetic example of a fetchmailrc.">Example 8.5</a> for an example.</p><div class="example"><a id="hogwarts"/><p class="title"><b>Example 8.5. Synthetic example of a <tt>fetchmailrc</tt>.</b></p><pre class="programlisting">
+<i>fetchmail</i> Run-Control Syntax</h3></div></div><a id="id2935090" class="indexterm"/><p>  See <a href="#hogwarts" title="Example&#160;8.5.&#160;Synthetic example of a fetchmailrc.">Example&#160;8.5</a> for an example.</p><div class="example"><a id="hogwarts"/><p class="title"><b>Example&#160;8.5.&#160;Synthetic example of a <tt>fetchmailrc</tt>.</b></p><pre class="programlisting">
 # Poll this site first each cycle.
 poll pop.provider.net proto pop3
     user &quot;jsmith&quot; with pass &quot;secret1&quot; is &quot;smith&quot; here
@@ -537,7 +537,7 @@ they help make the declarations easier to read at a glance.</p><p>The traditiona
 <i>syntactic sugar</i>; the maxim that goes with this
 is a famous quip that &#8220;syntactic sugar causes cancer of the
 semicolon&#8221;.<sup>[<a id="id2935218" href="#ftn.id2935218">88</a>]</sup>  Indeed, syntactic sugar needs to be used
-sparingly lest it obscure more than help.</p><p>In <a href="generationchapter.html" title="Chapter 9. Generation">Chapter 9</a>
+sparingly lest it obscure more than help.</p><p>In <a href="generationchapter.html" title="Chapter&#160;9.&#160;Generation">Chapter&#160;9</a>
 we'll see how data-driven programming helps provide an elegant
 solution to the problem of editing
 <i>fetchmail</i> run-control files through a
@@ -549,7 +549,7 @@ Versions ship with all Unixes, several in open source; the command
 <b>info gawk</b> at your Unix shell prompt is quite likely
 to take you to on-line documentation.</p><p>Programs in <i>awk</i> consist of
 pattern/action pairs.  Each pattern is a <i>regular
-expression</i>, a concept we'll describe in detail in <a href="generationchapter.html" title="Chapter 9. Generation">Chapter 9</a>.  When an <i>awk</i>
+expression</i>, a concept we'll describe in detail in <a href="generationchapter.html" title="Chapter&#160;9.&#160;Generation">Chapter&#160;9</a>.  When an <i>awk</i>
 program is run, it steps through each line of the input file.  Each
 line is checked against every pattern/action pair in order.  If the
 pattern matches the line, the associated action is performed.</p><p>Each action is coded in a language resembling a subset of C, with
@@ -562,7 +562,7 @@ primarily seen use as a report generator, especially for interpreting
 and reducing tabular data.  It is seldom used standalone, but rather
 embedded in scripts.  There is an example
 <i>awk</i> program in the <a href="ch09s02.html#htmlgen" title="Case Study: Generating HTML Code for a Tabular List">case study on HTML generation</a> included in
-<a href="generationchapter.html" title="Chapter 9. Generation">Chapter 9</a>.</p><p>A case study of <i>awk</i> is included to
+<a href="generationchapter.html" title="Chapter&#160;9.&#160;Generation">Chapter&#160;9</a>.</p><p>A case study of <i>awk</i> is included to
 point out that it is <span class="emphasis"><em>not</em></span> a model for emulation;
 in fact, since 1990 it has largely fallen out of use. It has been
 superseded by new-school scripting
@@ -579,13 +579,13 @@ the pattern-driven framework it sits inside keeps it from being
 generally applicable &#8212; that's the worst of both worlds.  And the
 new-school scripting languages can do anything
 <i>awk</i> can; their equivalent programs are
-usually just as readable, if not more so.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Awk has also fallen out of use because more modern shells have
+usually just as readable, if not more so.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>Awk has also fallen out of use because more modern shells have
 floating point arithmetic, associative arrays, RE pattern matching,
 and substring capabilities, so that equivalents of small awk scripts
-can be done without the overhead of process creation.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+can be done without the overhead of process creation.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">David Korn</span>
 <a id="id2935496" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>For a few years after the release of Perl in 1987,
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>For a few years after the release of Perl in 1987,
 <i>awk</i> remained competitive simply because it
 had a smaller, faster implementation.  But as the cost of compute
 cycles and memory dropped, the economic reasons for favoring a
@@ -666,26 +666,26 @@ standards such as PDF, the Portable Document Format.</p></div><div class="sect2"
 bc(1)
 and
 dc(1)
-in <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a> as a case
+in <a href="multiprogramchapter.html" title="Chapter&#160;7.&#160;Multiprogramming">Chapter&#160;7</a> as a case
 study in shellouts.  They are examples of domain-specific
-minilanguages of the imperative type.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p><i>dc</i> is the oldest language on Unix; it
+minilanguages of the imperative type.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p><i>dc</i> is the oldest language on Unix; it
 was written on the PDP-7 and ported to the PDP-11 before Unix [itself]
-was ported.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+was ported.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Ken Thompson</span>
-<a id="id2935842" class="indexterm"/></span></td><td width="10%" valign="top"> </td></tr></table></div><p>The domain of these two languages is unlimited-precision
+<a id="id2935842" class="indexterm"/></span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>The domain of these two languages is unlimited-precision
 arithmetic.  Other programs can use them to do such calculations
 without having to worry about the special techniques needed to do
-those calculations.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>In fact, the original motivation for dc had nothing to do with
+those calculations.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>In fact, the original motivation for dc had nothing to do with
 providing a general-purpose interactive calculator, which could have
 been done with a simple floating-point program.  The motivation was
 Bell Labs' long interest in numerical analysis: calculating constants
 for numerical algorithms, <span class="emphasis"><em>accurately</em></span> is greatly
 aided by being able to work to much higher precision than the
 algorithm itself will use.  Hence dc's arbitrary-precision
-arithmetic.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+arithmetic.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Henry Spencer</span>
 <a id="id2935886" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Like SNG and <i>Glade</i> markup, one of the
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>Like SNG and <i>Glade</i> markup, one of the
 strengths of both of these languages is their simplicity.  Once you
 know that
 dc(1)
@@ -693,7 +693,7 @@ is a reverse-Polish-notation calculator and
 bc(1)
 an algebraic-notation calculator, very little about interactive use of
 either of these languages is going to be novel.  We'll return to the
-importance of the Rule of Least Surprise in interfaces in <a href="interfacechapter.html" title="Chapter 11. Interfaces">Chapter 11</a>.</p><p>These minilanguages have both conditionals and loops; they are
+importance of the Rule of Least Surprise in interfaces in <a href="interfacechapter.html" title="Chapter&#160;11.&#160;Interfaces">Chapter&#160;11</a>.</p><p>These minilanguages have both conditionals and loops; they are
 Turing-complete, but have a very restricted ontology of types
 including only unlimited-precision integers and strings.  This puts
 them in the borderland between interpreted minilanguages and full
@@ -713,20 +713,20 @@ high-level programs that embody task-specific intelligence.</p><p>Because the in
 simple (send a line containing an expression, get back a line
 containing a value) other programs and scripts can easily get access
 to all these capabilities by calling these programs as slave
-processes.  <a href="#rsa" title="Example 8.6. RSA implementation using dc.">Example 8.6</a> is one famous example, an implementation of the
+processes.  <a href="#rsa" title="Example&#160;8.6.&#160;RSA implementation using dc.">Example&#160;8.6</a> is one famous example, an implementation of the
 Rivest-Shamir-Adelman public-key cipher in
 Perl<a id="id2936041" class="indexterm"/> that
 was widely published in signature blocks and on T-shirts as a protest
 against U.S. export retrictions on cryptography, c. 1995; it shells
 out to <i>dc</i> to do the unlimited-precision
-arithmetic required.</p><div class="example"><a id="rsa"/><p class="title"><b>Example 8.6. RSA implementation using <i>dc</i>.</b></p><pre class="programlisting">
+arithmetic required.</p><div class="example"><a id="rsa"/><p class="title"><b>Example&#160;8.6.&#160;RSA implementation using <i>dc</i>.</b></p><pre class="programlisting">
 print pack&quot;C*&quot;,split/\D+/,`echo &quot;16iII*o\U@{$/=$z;[(pop,pop,unpack
 &quot;H*&quot;,&lt;&gt;)]}\EsMsKsN0[lN*1lK[d2%Sa2/d0&lt;X+d*lMLa^*lN%0]dsXx++\
 lMlN/dsM0&lt;J]dsJxp&quot;|dc`
 </pre></div></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="emacs_lisp_study"/>Case Study: Emacs Lisp</h3></div></div><a id="id2936099" class="indexterm"/><p>Rather than merely being run as a slave process to accomplish
 specific tasks, a special-purpose interpreted language can become the
 core of an entire architecture; we'll consider the advantages and
-disadvantages of this approach in <a href="complexitychapter.html" title="Chapter 13. Complexity">Chapter 13</a>.  troff requests were an early example;
+disadvantages of this approach in <a href="complexitychapter.html" title="Chapter&#160;13.&#160;Complexity">Chapter&#160;13</a>.  troff requests were an early example;
 today, the <i>Emacs</i> editor is one of the
 best-known and most powerful modern ones.  It's built around a dialect
 of Lisp<a id="id2936135" class="indexterm"/> with
@@ -736,7 +736,7 @@ describing editing actions or front ends for other programs means that
 it can be used for many other things besides ordinary editing.  We'll
 examine the applications of Emacs's task-specific intelligence for
 day-to-day program development (compilation, debugging, version
-control) in <a href="toolschapter.html" title="Chapter 15. Tools">Chapter 15</a>. Emacs &#8216;modes&#8217;
+control) in <a href="toolschapter.html" title="Chapter&#160;15.&#160;Tools">Chapter&#160;15</a>. Emacs &#8216;modes&#8217;
 are user-defined libraries &#8212; programs written in Emacs Lisp that
 specialize the editor for a particular job &#8212; usually, but not
 necessarily, one related to editing.</p><p>Thus there are specialized modes that know the syntax of a large
@@ -795,7 +795,7 @@ menus) to the programs that link to it.  Under most other graphical
 operating systems, the OS supplies one toolkit that everyone uses.
 Unix and X support multiple toolkits; this is part of the separation
 of policy from mechanism that we called out as a design goal of X in
-<a href="philosophychapter.html" title="Chapter 1. Philosophy">Chapter 1</a>. GTK and Qt
+<a href="philosophychapter.html" title="Chapter&#160;1.&#160;Philosophy">Chapter&#160;1</a>. GTK and Qt
 are the two most popular open-source X toolkits.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2934007" href="#id2934007">83</a>] </sup>Whether or not &#8220;macro expansion&#8221;
 should be spelled &#8220;macroexpansion&#8221; is a matter for some
 dispute.  The latter is found mainly among Lisp

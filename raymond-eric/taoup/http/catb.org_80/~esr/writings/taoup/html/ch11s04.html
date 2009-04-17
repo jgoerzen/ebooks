@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Tradeoffs between CLI and Visual Interfaces</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="interfacechapter.html" title="Chapter 11. Interfaces"/><link rel="previous" href="ch11s03.html" title="Evaluating Interface Designs"/><link rel="next" href="ch11s05.html" title="Transparency, Expressiveness, and Configurability"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2951318"/>Tradeoffs between CLI and Visual Interfaces</h2></div></div><p>The CLI style of early Unix has retained its utility long after
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Tradeoffs between CLI and Visual Interfaces</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="interfacechapter.html" title="Chapter&#160;11.&#160;Interfaces"/><link rel="previous" href="ch11s03.html" title="Evaluating Interface Designs"/><link rel="next" href="ch11s05.html" title="Transparency, Expressiveness, and Configurability"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2951318"/>Tradeoffs between CLI and Visual Interfaces</h2></div></div><p>The CLI style of early Unix has retained its utility long after
 the demise of teletypes for two reasons. One is that command-line and
 command-language interfaces are more expressive than visual
 interfaces, especially for complex tasks. The other is that CLI
 interfaces are highly scriptable &#8212; they readily support the
-combining of programs, as we discussed in detail in <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a>.  Usually (though not always) CLIs
+combining of programs, as we discussed in detail in <a href="multiprogramchapter.html" title="Chapter&#160;7.&#160;Multiprogramming">Chapter&#160;7</a>.  Usually (though not always) CLIs
 have an advantage in concision as well.</p><p>The disadvantage of the CLI style, of course, is that it almost
 always has high mnemonic load (low ease), and usually has low
 transparency<a id="id2951348" class="indexterm"/>. Most people (especially
 non-technical end users) find such interfaces relatively cryptic and
-difficult to learn.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>On the other hand, the &#8216;user-friendly&#8217; GUIs of other
+difficult to learn.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>On the other hand, the &#8216;user-friendly&#8217; GUIs of other
 operating systems have their own problems.  Finding the right buttons
 to push is like playing Adventure: the interfaces are just as
 burdensome as any Unix command line interface, save that one can in
 theory find the treasure by sufficient exploration.  In Unix, one
-needs the manual.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+needs the manual.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Brian Kernighan</span>
 <a id="id2951376" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Database queries are a good example of the kind of interface for
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>Database queries are a good example of the kind of interface for
 which pushing buttons is not just burdensome but extremely limiting.
 Neither keystroke commands to a full-screen character interface nor
 GUI gestures on a graphic display can express typical actions in
@@ -28,7 +28,7 @@ user clicking a GUI!</p><p>On the other hand, many non-technical database users 
 resistant to having to remember SQL syntax that they prefer a less
 concise and less expressive full-screen or GUI interface.</p><p>SQL is a good example for illustrating another point.  The most
 powerful CLIs are not ad-hoc collections of commands, but imperative
-minilanguages designed along the lines we described in <a href="minilanguageschapter.html" title="Chapter 8. Minilanguages">Chapter 8</a>. These minilanguages are the
+minilanguages designed along the lines we described in <a href="minilanguageschapter.html" title="Chapter&#160;8.&#160;Minilanguages">Chapter&#160;8</a>. These minilanguages are the
 highest-power, highest-complexity end of the CLI spectrum; they
 maximize expressiveness, but minimize ease.  They are difficult to use
 and generally need to be discreetly veiled from ordinary end-users,
@@ -44,7 +44,7 @@ this here&#8221;.</p><p>The flip side of paint programs is that it is
 difficult to capture relationships within the pictures they are 
 manipulating. It takes careful, thoughtful design to give the user any
 handle on the structure of images with repeated elements, for
-example. This is a general design problem with visual interfaces.</p><p>In <a href="transparencychapter.html" title="Chapter 6. Transparency">Chapter 6</a> we
+example. This is a general design problem with visual interfaces.</p><p>In <a href="transparencychapter.html" title="Chapter&#160;6.&#160;Transparency">Chapter&#160;6</a> we
 looked at the Audacity sound file editor.  Its interface design
 succeeds because it does a particularly clean job of mapping its audio
 application domain onto a simple set of visual representations
@@ -71,7 +71,7 @@ or structural manipulation during composition, a minilanguage
 formatter such as <i>troff</i>,
 <i>Tex</i>, or some XML-markup
 processor<a id="id2951536" class="indexterm"/> is usually a
-more effective choice (see <a href="documentationchapter.html" title="Chapter 18. Documentation">Chapter 18</a> for more discussion of this
+more effective choice (see <a href="documentationchapter.html" title="Chapter&#160;18.&#160;Documentation">Chapter&#160;18</a> for more discussion of this
 tradeoff).</p><p>Even in domains that are naturally visual, scaling up the
 problem size tends to tilt the tradeoff toward a CLI. If you need to
 fetch and save one Web page from a given URL, point and click (or type
@@ -116,17 +116,17 @@ science-fiction writer Neal Stephenson made the same point, less
 directly but more entertainingly, in his brilliant and discursive
 essay <i>In the Beginning Was the Command Line</i>
 [<a href="apb.html#Stephenson" title="[Stephenson]">Stephenson</a>].</p><p>A typical Unix old hand's take on this problem is rather less
-theoretical:</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>The commercial world generally goes for the novice mode because 
+theoretical:</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>The commercial world generally goes for the novice mode because 
 (a) purchase decisions are often made on the basis of 30 seconds trial, 
 and (b) it minimizes the demands on customer support to have only a 
 dumbed-down GUI.  I find many non-Unix systems very frustrating because,
 for example, they will provide no way to do something on a hundred or a
 thousand files; I want to write a script, and there's no support for it.  The
 basic problem is that they've assumed all users are novices all the
-time, and then they bash Unix because it doesn't cater to that model.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+time, and then they bash Unix because it doesn't cater to that model.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Mike Lesk</span>
 <a id="id2951692" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>For the long haul, then &#8212; for serving both casual and expert
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>For the long haul, then &#8212; for serving both casual and expert
 users, for cooperating with other computer programs, and whether
 the problem domain is naturally visual or not &#8212; support for
 <span class="emphasis"><em>both</em></span> CLI and visual interfaces is important. Unix's
@@ -145,12 +145,12 @@ unlimited-precision arithmetic. Later, an algebraic (infix notation)
 calculator language,
 bc(1),
 was implemented on top of dc (we used the relationship between these
-programs as a case study in <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a>, and again in <a href="minilanguageschapter.html" title="Chapter 8. Minilanguages">Chapter 8</a>). Both of these programs use a
+programs as a case study in <a href="multiprogramchapter.html" title="Chapter&#160;7.&#160;Multiprogramming">Chapter&#160;7</a>, and again in <a href="minilanguageschapter.html" title="Chapter&#160;8.&#160;Minilanguages">Chapter&#160;8</a>). Both of these programs use a
 CLI. You type an expression on standard input, you press enter, and
 the value of the expression is printed on standard output.</p><p>The
 xcalc(1)
 program, on the other hand, visually simulates a simple calculator,
-with clickable buttons and a calculator-style display.</p><div class="figure"><a id="xcalc"/><p class="title"><b>Figure 11.1. The xcalc GUI.</b></p><div class="mediaobject"><img src="graphics/xcalc.png" alt="The xcalc GUI."/></div></div><p>The
+with clickable buttons and a calculator-style display.</p><div class="figure"><a id="xcalc"/><p class="title"><b>Figure&#160;11.1.&#160;The xcalc GUI.</b></p><div class="mediaobject"><img src="graphics/xcalc.png" alt="The xcalc GUI."/></div></div><p>The
 xcalc(1)
 approach is simpler to describe because it mimics an interface with
 which novice users will be familiar; the man page says, in fact,

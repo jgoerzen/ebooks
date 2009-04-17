@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Measure before Optimizing</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="optimizationchapter.html" title="Chapter 12. Optimization"/><link rel="previous" href="ch12s01.html" title="Don't Just Do Something, Stand There!"/><link rel="next" href="ch12s03.html" title="Nonlocality Considered Harmful"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2960884"/>Measure before Optimizing</h2></div></div><p>When you have real-world evidence that your application is too
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Measure before Optimizing</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="optimizationchapter.html" title="Chapter&#160;12.&#160;Optimization"/><link rel="previous" href="ch12s01.html" title="Don't Just Do Something, Stand There!"/><link rel="next" href="ch12s03.html" title="Nonlocality Considered Harmful"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2960884"/>Measure before Optimizing</h2></div></div><p>When you have real-world evidence that your application is too
 slow, then (and <span class="emphasis"><em>only</em></span> then) is the time to think
 about optimizing the code.  But before you do more than think about
-optimizing, measure.</p><p>Recall Rob Pike's six rules in <a href="philosophychapter.html" title="Chapter 1. Philosophy">Chapter 1</a>.  One of the lessons that the original
+optimizing, measure.</p><p>Recall Rob Pike's six rules in <a href="philosophychapter.html" title="Chapter&#160;1.&#160;Philosophy">Chapter&#160;1</a>.  One of the lessons that the original
 Unix programmers learned early is that intuition is a poor guide to
 where the bottlenecks are, even for one who knows the code in question
 intimately. Unixes, unlike most other operating systems, usually come with
@@ -49,7 +49,7 @@ charged to the calling function.</p><p>More importantly, many time-reporting too
 which time spent in subroutines is charged to the caller. (The
 gprof(1)
 profiler distributed with open-source Unixes has this trait.)
-Naïvely subtracting callee time from caller time won't give you a
+Na&#239;vely subtracting callee time from caller time won't give you a
 useful result if the same routine can have more than one caller
 &#8212; the effect would be to artificially deflate both callers'
 times. Especially nasty is the common case of a utility function with
@@ -65,15 +65,15 @@ learn how performance varies as a function of interesting parameters
 (e.g., problem size, CPU speed, disc speed, memory size, compiler
 optimization, or whatever else is relevant).  Try fitting those
 numbers to a model, using open-source software like R or a good-quality
-proprietary tool like MATLAB.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>The natural smoothing of the data that results from model
+proprietary tool like MATLAB.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>The natural smoothing of the data that results from model
 fitting tends to focus on the big effects and cover up the small,
 noisy ones.  For example, by fitting a cubic to the matrix inversion
-routine in MATLAB on random matrices from 10 × 10 to 1000 × 1000, it is
+routine in MATLAB on random matrices from 10 &#215; 10 to 1000 &#215; 1000, it is
 clear that we actually have three cubics, with clearly defined
 boundaries, that correspond roughly to &#8220;in cache&#8221;,
 &#8220;in memory but out of cache&#8221;, and &#8220;out of
 memory&#8221;.  The data shows us this effect even if weren't looking
-for it, just by looking at the deviations from the best fit.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+for it, just by looking at the deviations from the best fit.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Steve Johnson</span>
 <a id="id2961055" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div></div></body></html>
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div></div></body></html>

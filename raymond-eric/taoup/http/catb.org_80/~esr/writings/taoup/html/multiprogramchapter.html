@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 7. Multiprogramming</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="design.html" title="Part II. Design"/><link rel="previous" href="ch06s03.html" title="Designing for Maintainability"/><link rel="next" href="ch07s01.html" title="Separating Complexity Control from Performance Tuning"/></head><body><mbp:pagebreak /><div class="chapter" lang="en"><div class="titlepage"><div><h2 class="title"><a id="multiprogramchapter"/>Chapter 7. Multiprogramming</h2></div><div><h3 class="subtitle"><i>Separating Processes to Separate Function</i></h3></div></div><mbp:pagebreak /><div xmlns="" class="epigraph"><i><p xmlns="http://www.w3.org/1999/xhtml">If we believe in data structures, we must believe in independent
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter&#160;7.&#160;Multiprogramming</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="design.html" title="Part&#160;II.&#160;Design"/><link rel="previous" href="ch06s03.html" title="Designing for Maintainability"/><link rel="next" href="ch07s01.html" title="Separating Complexity Control from Performance Tuning"/></head><body><mbp:pagebreak /><div class="chapter" lang="en"><div class="titlepage"><div><h2 class="title"><a id="multiprogramchapter"/>Chapter&#160;7.&#160;Multiprogramming</h2></div><div><h3 class="subtitle"><i>Separating Processes to&#160;Separate Function</i></h3></div></div><mbp:pagebreak /><div xmlns="" class="epigraph"><i><p xmlns="http://www.w3.org/1999/xhtml">If we believe in data structures, we must believe in independent
 (hence simultaneous) processing. For why else would we collect items
 within a structure?  Why do we tolerate languages that give us the one
 without the other?</p></i><span>--<i><span xmlns="http://www.w3.org/1999/xhtml" class="attribution">
@@ -49,7 +49,7 @@ to interface design.)</p><p>While the benefit of breaking programs up into coope
 processes is a reduction in global complexity, the cost is that we
 have to pay more attention to the design of the protocols which are
 used to pass information and commands between processes.  (In software
-systems of all kinds, bugs collect at interfaces.)</p><p>In <a href="textualitychapter.html" title="Chapter 5. Textuality">Chapter 5</a> we
+systems of all kinds, bugs collect at interfaces.)</p><p>In <a href="textualitychapter.html" title="Chapter&#160;5.&#160;Textuality">Chapter&#160;5</a> we
 looked at the lower level of this design problem &#8212; how to lay
 out application protocols that are transparent, flexible and
 extensible.  But there is a second, higher level to the problem which

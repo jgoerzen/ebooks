@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>The Zoo of Unix Documentation Formats</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="documentationchapter.html" title="Chapter 18. Documentation"/><link rel="previous" href="ch18s02.html" title="The Unix Style"/><link rel="next" href="ch18s04.html" title="The Present Chaos and a Possible Way Out"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3001590"/>The Zoo of Unix Documentation Formats</h2></div></div><p>All the major Unix documentation formats except the very newest
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>The Zoo of Unix Documentation Formats</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="documentationchapter.html" title="Chapter&#160;18.&#160;Documentation"/><link rel="previous" href="ch18s02.html" title="The Unix Style"/><link rel="next" href="ch18s04.html" title="The Present Chaos and a Possible Way Out"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3001590"/>The Zoo of Unix Documentation Formats</h2></div></div><p>All the major Unix documentation formats except the very newest
 one are presentation-level markups assisted by macro packages.  We
 examine them here from oldest to newest.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3001604"/><i>troff</i> and the Documenter's
 Workbench Tools</h3></div></div><p>We discussed the Documenter's Workbench architecture and tools
-in <a href="minilanguageschapter.html" title="Chapter 8. Minilanguages">Chapter 8</a> as an
+in <a href="minilanguageschapter.html" title="Chapter&#160;8.&#160;Minilanguages">Chapter&#160;8</a> as an
 example of how to integrate a system of multiple minilanguages.  Now
 we return to these tools in their functional role as a typesetting
 system.</p><p>The <i>troff</i> formatter interprets a
@@ -11,9 +11,9 @@ presentation-level markup language.  Recent implementations like the
 GNU project's<a id="id3001643" class="indexterm"/>
 groff(1)
 emit PostScript by default, though it is possible to get other forms
-of output by selecting a suitable driver.  See <a href="#troffexample1" title="Example 18.1. groff1 markup example.">Example 18.1</a> for several of the
+of output by selecting a suitable driver.  See <a href="#troffexample1" title="Example&#160;18.1.&#160;groff1 markup example.">Example&#160;18.1</a> for several of the
 <i>troff</i> codes you might encounter in document
-sources.</p><div class="example"><a id="troffexample1"/><p class="title"><b>Example 18.1. groff(1) markup example.</b></p><pre class="programlisting">
+sources.</p><div class="example"><a id="troffexample1"/><p class="title"><b>Example&#160;18.1.&#160;groff(1) markup example.</b></p><pre class="programlisting">
 This is running text.
 .\&quot; Comments begin with a backslash and double quote.
 .ft B
@@ -43,7 +43,7 @@ directly.  Very few documents are written in bare
 half a dozen macro packages are in more or less general use.  Of
 these, the overwhelmingly most common is the
 man(7)
-macro package used to write Unix manual pages.  See <a href="#man_example" title="Example 18.2. man markup example.">Example 18.2</a> for a sample.</p><div class="example"><a id="man_example"/><p class="title"><b>Example 18.2. <i>man</i> markup example.</b></p><pre class="programlisting">
+macro package used to write Unix manual pages.  See <a href="#man_example" title="Example&#160;18.2.&#160;man markup example.">Example&#160;18.2</a> for a sample.</p><div class="example"><a id="man_example"/><p class="title"><b>Example&#160;18.2.&#160;<i>man</i> markup example.</b></p><pre class="programlisting">
 .SH SAMPLE SECTION
 The SH macro starts a section, boldfacing the section title.  
 .P
@@ -126,7 +126,7 @@ often generate <i>LaTeX</i> to be turned into PostScript, rather than
 attempting the much more difficult job of generating PostScript
 themselves.  The
 xmlto(1)
-front end that we discussed as a shell-programming case study in <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a> uses this tactic; so does the XML-DocBook
+front end that we discussed as a shell-programming case study in <a href="languageschapter.html" title="Chapter&#160;14.&#160;Languages">Chapter&#160;14</a> uses this tactic; so does the XML-DocBook
 toolchain we'll examine later in this chapter.</p><p><i>TeX</i> has a wider application range
 than
 troff(1)
@@ -172,7 +172,7 @@ HTML.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 clas
 large, complex technical documents.  It is alone among the markup
 formats used in the Unix community in being purely structural.  The
 xmlto(1)
-tool discussed in <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a> supports rendering to HTML, XHTML,
+tool discussed in <a href="languageschapter.html" title="Chapter&#160;14.&#160;Languages">Chapter&#160;14</a> supports rendering to HTML, XHTML,
 PostScript, PDF<a id="id3002339" class="indexterm"/>, Windows
 Help markup, and several less important formats.</p><p>Several major open-source projects (including the Linux
 Documentation Project, FreeBSD,

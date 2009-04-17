@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Problems and Methods to Avoid</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="multiprogramchapter.html" title="Chapter 7. Multiprogramming"/><link rel="previous" href="ch07s02.html" title="Taxonomy of Unix IPC Methods"/><link rel="next" href="ch07s04.html" title="Process Partitioning at the Design Level"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2923342"/>Problems and Methods to Avoid</h2></div></div><p>While BSD-style sockets<a id="id2923351" class="indexterm"/> over
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Problems and Methods to Avoid</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="multiprogramchapter.html" title="Chapter&#160;7.&#160;Multiprogramming"/><link rel="previous" href="ch07s02.html" title="Taxonomy of Unix IPC Methods"/><link rel="next" href="ch07s04.html" title="Process Partitioning at the Design Level"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2923342"/>Problems and Methods to Avoid</h2></div></div><p>While BSD-style sockets<a id="id2923351" class="indexterm"/> over
 TCP/IP<a id="id2923359" class="indexterm"/> have become the
 dominant IPC method under Unix, there are still live controversies
 over the right way to partition by multiprogramming.  Some obsolete
@@ -18,15 +18,15 @@ experimentation that left a number of relics behind.  It's useful to
 know about these because there are likely to be references to them in
 your Unix documentation that might give the misleading impression that
 they're still in use. These obsolete methods are described in more detail
-in <i>Unix Network Programming</i> [<a href="apb.html#Stevens90" title="[Stevens90]">Stevens90</a>].</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>The real explanation for all the dead IPC facilities in old AT&amp;T
+in <i>Unix Network Programming</i> [<a href="apb.html#Stevens90" title="[Stevens90]">Stevens90</a>].</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>The real explanation for all the dead IPC facilities in old AT&amp;T
 Unixes was politics.  The Unix Support Group was headed by a low-level
 manager, while some projects that used Unix were headed by vice
 presidents.  They had ways to make irresistible requests, and would
 not brook the objection that most IPC mechanisms are
-interchangeable.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+interchangeable.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Doug McIlroy</span>
 <a id="id2923455" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="messages"/>System V IPC</h4></div></div><p>The System V IPC facilities are message-passing facilities based
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="messages"/>System V IPC</h4></div></div><p>The System V IPC facilities are message-passing facilities based
 on the System V shared memory facility we described earlier.</p><p>Programs that cooperate using System V IPC usually define
 shared protocols based on exchanging short (up to 8K) binary messages.
 The relevant manual pages are
@@ -80,7 +80,7 @@ discoverable<a id="id2923695" class="indexterm"/>;
 that is, it is difficult to query these interfaces for their
 capabilities, and difficult to monitor them in action without building
 single-use tools as complex as the programs being monitored (we
-examined some of the reasons for this in <a href="transparencychapter.html" title="Chapter 6. Transparency">Chapter 6</a>). They have the same version skew
+examined some of the reasons for this in <a href="transparencychapter.html" title="Chapter&#160;6.&#160;Transparency">Chapter&#160;6</a>). They have the same version skew
 problems as libraries, but those problems are harder to track because
 they're distributed and not generally obvious at link time.</p><p>As a related issue, interfaces that have richer type signatures
 also tend to be more complex, therefore more brittle. Over time, they
@@ -96,7 +96,7 @@ few simple data types.</p><p>The usual argument for RPC is that it permits
 &#8220;richer&#8221; interfaces than methods like text streams
 &#8212; that is, interfaces with a more elaborate and
 application-specific ontology of data types. But the Rule of
-Simplicity applies!  We observed in <a href="modularitychapter.html" title="Chapter 4. Modularity">Chapter 4</a> that one of the functions of interfaces
+Simplicity applies!  We observed in <a href="modularitychapter.html" title="Chapter&#160;4.&#160;Modularity">Chapter&#160;4</a> that one of the functions of interfaces
 is as choke points that prevent the implementation details of modules
 from leaking into each other.  Therefore, the main argument in favor
 of RPC is also an argument that it increases global complexity rather
@@ -168,25 +168,25 @@ thread implementations and standards show an increasing concern with
 providing thread-local storage, which is intended to limit problems
 arising from the shared global address space.  As threading APIs move
 in this direction, thread programming starts to look more and more
-like a controlled use of shared memory.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Threads often prevent abstraction.  In order to prevent
+like a controlled use of shared memory.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>Threads often prevent abstraction.  In order to prevent
 deadlock, you often need to know how and if the library you are using
 uses threads in order to avoid deadlock problems.  Similarly, the use
 of threads in a library could be affected by the use of threads at the
-application layer.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+application layer.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">David Korn</span>
 <a id="id2923965" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>To add insult to injury, threading has performance costs that
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>To add insult to injury, threading has performance costs that
 erode its advantages over conventional process partitioning.  While
 threading can get rid of some of the overhead of rapidly switching
 process contexts, locking shared data structures so threads won't step
-on each other can be just as expensive.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>The X server, able to execute literally millions of ops/second,
+on each other can be just as expensive.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>The X server, able to execute literally millions of ops/second,
 is <span class="emphasis"><em>not</em></span> threaded; it uses a poll/select loop.
 Various efforts to make a multithreaded implementation have come to no
 good result.  The costs of locking and unlocking get too high for
-something as performance-sensitive as graphics servers.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+something as performance-sensitive as graphics servers.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Jim Gettys</span>
 <a id="id2924009" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>This problem is fundamental, and has also been a continuing issue
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>This problem is fundamental, and has also been a continuing issue
 in the design of Unix kernels for symmetric multiprocessing.
 As your resource-locking gets finer-grained, latency due to locking
 overhead can increase fast enough to swamp the gains from locking

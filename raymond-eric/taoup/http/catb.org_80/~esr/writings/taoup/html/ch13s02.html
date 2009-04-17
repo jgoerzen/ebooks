@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>A Tale of Five Editors</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="complexitychapter.html" title="Chapter 13. Complexity"/><link rel="previous" href="ch13s01.html" title="Speaking of Complexity"/><link rel="next" href="ch13s03.html" title="The Right Size for an Editor"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2963292"/>A Tale of Five Editors</h2></div></div><p>Now we're going to use five different Unix editors as case 
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>A Tale of Five Editors</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="complexitychapter.html" title="Chapter&#160;13.&#160;Complexity"/><link rel="previous" href="ch13s01.html" title="Speaking of Complexity"/><link rel="next" href="ch13s03.html" title="The Right Size for an Editor"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2963292"/>A Tale of Five Editors</h2></div></div><p>Now we're going to use five different Unix editors as case 
 studies.  It will be helpful to bear in mind a set of benchmark
 tasks as we examine these designs:</p><div class="itemizedlist"><ul type="disc"><li><p><span class="emphasis"><em>Plain-text editing.</em></span> Manipulating
 plain ASCII (or, in this internationalized age, perhaps Unicode) files
@@ -104,7 +104,7 @@ not accessible.  For these reasons, every Unix includes an
 <i>ed</i> implementation and most include
 <i>ex</i> as well.</p><p>The
 sed(1)
-stream editor mentioned in <a href="generationchapter.html" title="Chapter 9. Generation">Chapter 9</a> is also closely related to ed; many
+stream editor mentioned in <a href="generationchapter.html" title="Chapter&#160;9.&#160;Generation">Chapter&#160;9</a> is also closely related to ed; many
 of the basic commands are the same, though designed to be invoked
 through command-line switches rather than from standard input.</p><p>Almost all Unix programmers have strayed from the path of
 austerity and minimalist virtue enough to normally use editors that at
@@ -149,7 +149,7 @@ syntax awareness of C code and output parsing of C compiler error
 messages, by adding C code to vi itself.
 Subprocess interaction is not supported.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2963798"/><i>Sam</i></h3></div></div><p>The <i>Sam</i> editor<sup>[<a id="id2963818" href="#ftn.id2963818">118</a>]</sup>
 was written by Rob Pike at Bell Labs in the mid-1980s.  Sam was
-designed for the Plan 9 operating system<a id="id2963830" class="indexterm"/>, which we'll survey in <a href="futurechapter.html" title="Chapter 20. Futures">Chapter 20</a>.  While the Sam editor is not widely known
+designed for the Plan 9 operating system<a id="id2963830" class="indexterm"/>, which we'll survey in <a href="futurechapter.html" title="Chapter&#160;20.&#160;Futures">Chapter&#160;20</a>.  While the Sam editor is not widely known
 outside the Labs, it's favored by many of the original Unix developers
 who went on to work on Plan 9, including Ken Thompson himself.</p><p>Sam is a fairly straightforward descendant of ed, remaining much
 closer to its parent than vi.  Sam incorporates only two new concepts:
@@ -188,7 +188,7 @@ it supports neither rich-text editing, nor output parsing, nor
 subprocess interaction.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="emacs_editing"/>Emacs</h3></div></div><a id="id2963947" class="indexterm"/><p><i>Emacs</i> is undoubtedly the most
 powerful programmer's editor in existence. It's a big, feature-laden
 program with a great deal of flexibility and customizability. As we
-observed in the <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a>
+observed in the <a href="languageschapter.html" title="Chapter&#160;14.&#160;Languages">Chapter&#160;14</a>
 section on Emacs Lisp, Emacs has an entire programming language inside
 it that can be used to write arbitrarily powerful editor
 functions.</p><p>Unlike
@@ -219,7 +219,7 @@ Emacs, to describe it as an operating
 system masquerading as an editor.  That overstates the case, but
 Emacs certainly does fulfill the role
 occupied by integrated development environments (IDEs) under non-Unix
-operating systems (a theme to which we shall return in <a href="toolschapter.html" title="Chapter 15. Tools">Chapter 15</a>).</p><p>This power comes at a price in complexity. To use a customized
+operating systems (a theme to which we shall return in <a href="toolschapter.html" title="Chapter&#160;15.&#160;Tools">Chapter&#160;15</a>).</p><p>This power comes at a price in complexity. To use a customized
 Emacs you have to carry around the Lisp
 files that define your personal Emacs
 preferences. Learning how to customize
@@ -272,7 +272,7 @@ editor&#8221;.  While it is clearly intended as parody, it is by no
 means clear that the author was entirely joking.  Most Unix hackers
 would read it as an example of &#8220;Ha ha, only
 serious&#8221;.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2963818" href="#id2963818">118</a>] </sup><a href="http://plan9.bell-labs.com/sys/doc/sam/sam.html" target="_top">http://plan9.bell-labs.com/sys/doc/sam/sam.html</a></p></div><div class="footnote"><p><sup>[<a id="ftn.id2967056" href="#id2967056">119</a>] </sup>The designers of Emacs were
-Richard M. Stallman, Bernie Greenberg, and Richard M. Stallman.  The
+Richard M. Stallman, Bernie Greenberg, and Richard&#160;M.&#160;Stallman.  The
 original Emacs was Stallman's invention, the first version with an
 embedded Lisp was Greenberg's, and the now-definitive version is
 Stallman's derived from Greenberg's.  No complete account of the

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Unix and Object-Oriented Languages</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="modularitychapter.html" title="Chapter 4. Modularity"/><link rel="previous" href="ch04s04.html" title="Libraries"/><link rel="next" href="ch04s06.html" title="Coding for Modularity"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="unix_and_oo"/>Unix and Object-Oriented Languages</h2></div></div><a id="id2900532" class="indexterm"/><p>Since the mid-1980s most new language designs have included
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Unix and Object-Oriented Languages</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="modularitychapter.html" title="Chapter&#160;4.&#160;Modularity"/><link rel="previous" href="ch04s04.html" title="Libraries"/><link rel="next" href="ch04s06.html" title="Coding for Modularity"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="unix_and_oo"/>Unix and Object-Oriented Languages</h2></div></div><a id="id2900532" class="indexterm"/><p>Since the mid-1980s most new language designs have included
 native support for <i>object-oriented programming</i>
 (OO).  Recall that in object-oriented programming, the functions that
 act on a particular data structure are encapsulated with the data in
@@ -18,7 +18,7 @@ because of the Rule of Diversity; OO has far too often been promoted
 as the One True Solution to the software-complexity problem.  But
 there is something else behind it as well, an issue which is worth
 exploring as background before we evaluate specific OO
-(object-oriented) languages in <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a>.  It will also help throw some
+(object-oriented) languages in <a href="languageschapter.html" title="Chapter&#160;14.&#160;Languages">Chapter&#160;14</a>.  It will also help throw some
 characteristics of the Unix style of non-OO programming into sharper
 relief.</p><p>We observed above that the Unix tradition of modularity is one
 of thin glue, a minimalist approach with few layers of abstraction
@@ -52,8 +52,8 @@ manipulating &#8212; it's just about being glue. (One sure sign of
 this is a proliferation of abstract subclasses or
 &#8216;mixins&#8217;.)</p><p>Another side effect of OO abstraction is that opportunities for
 optimization<a id="id2900675" class="indexterm"/>
-tend to disappear.  For example, <span class="emphasis"><em>a</em></span> + <span class="emphasis"><em>a</em></span> + <span class="emphasis"><em>a</em></span> + <span class="emphasis"><em>a</em></span> can become <span class="emphasis"><em>a</em></span> * 4 and even
-<span class="emphasis"><em>a</em></span> &lt;&lt; 2 if a is an integer.  But if one creates a class with
+tend to disappear.  For example, <span class="emphasis"><em>a</em></span>&#160;+&#160;<span class="emphasis"><em>a</em></span>&#160;+&#160;<span class="emphasis"><em>a</em></span>&#160;+&#160;<span class="emphasis"><em>a</em></span> can become <span class="emphasis"><em>a</em></span>&#160;*&#160;4 and even
+<span class="emphasis"><em>a</em></span>&#160;&lt;&lt;&#160;2 if a is an integer.  But if one creates a class with
 operators, there is nothing to indicate if they are commutative,
 distributive, or associative.  Since one isn't supposed to look inside
 the object, it's not possible to know which of two equivalent
@@ -87,4 +87,4 @@ to combine the virtue of detachment (simplifying and generalizing
 problems from their original context) with the virtue of thin glue and
 shallow, flat, transparent hierarchies of code and
 design<a id="id2900812" class="indexterm"/>.</p><p>We'll return to some of these points and apply them when we
-discuss object-oriented languages in <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a>.</p></div></body></html>
+discuss object-oriented languages in <a href="languageschapter.html" title="Chapter&#160;14.&#160;Languages">Chapter&#160;14</a>.</p></div></body></html>

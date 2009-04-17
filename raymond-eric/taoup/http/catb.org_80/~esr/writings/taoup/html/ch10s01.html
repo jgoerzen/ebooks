@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>What Should Be Configurable?</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="configurationchapter.html" title="Chapter 10. Configuration"/><link rel="previous" href="configurationchapter.html" title="Chapter 10. Configuration"/><link rel="next" href="ch10s02.html" title="Where Configurations Live"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2943724"/>What Should Be Configurable?</h2></div></div><p>Before plunging into the details of different kinds of program
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>What Should Be Configurable?</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="configurationchapter.html" title="Chapter&#160;10.&#160;Configuration"/><link rel="previous" href="configurationchapter.html" title="Chapter&#160;10.&#160;Configuration"/><link rel="next" href="ch10s02.html" title="Where Configurations Live"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2943724"/>What Should Be Configurable?</h2></div></div><p>Before plunging into the details of different kinds of program
 configuration, we should ask a high-level question: What things should 
 be configurable?</p><p>The gut-level Unix answer is &#8220;everything&#8221;.  The
-Rule of Separation that we discussed in <a href="philosophychapter.html" title="Chapter 1. Philosophy">Chapter 1</a> encourages Unix programmers to build
+Rule of Separation that we discussed in <a href="philosophychapter.html" title="Chapter&#160;1.&#160;Philosophy">Chapter&#160;1</a> encourages Unix programmers to build
 mechanism and defer policy decisions outward toward the user wherever
 possible.  While this tends to produce programs that are powerful and
 rewarding for expert users, it also tends to produce interfaces that
@@ -10,7 +10,7 @@ overwhelm novices and casual users with a surfeit of choices, and with
 configuration files sprouting like weeds.</p><p>Unix programmers aren't going to be cured of their tendency to
 design for their peers and the most sophisticated users any time soon
 (we'll grapple a bit with the question of whether such a change would
-actually be desirable in <a href="futurechapter.html" title="Chapter 20. Futures">Chapter 20</a>).  So it's perhaps more useful to invert the
+actually be desirable in <a href="futurechapter.html" title="Chapter&#160;20.&#160;Futures">Chapter&#160;20</a>).  So it's perhaps more useful to invert the
 question and ask &#8220;What things should <span class="emphasis"><em>not</em></span> be
 configurable?&#8221; Unix practice does offer some guidelines on
 this.</p><p>First, <span class="emphasis"><em>don't provide configuration switches for what
@@ -19,7 +19,7 @@ surprisingly common mistake.  Instead, look for ways to eliminate
 configuration switches by autodetection, or by trying alternative
 methods at runtime until one succeeds. If this strikes you as
 inelegant or too expensive, ask yourself if you haven't fallen into
-premature optimization.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>One of the nicest examples of autodetection I experienced was
+premature optimization.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>One of the nicest examples of autodetection I experienced was
 when Dennis Ritchie and I were porting Unix to the Interdata 8/32.
 This was a big-endian machine, and we had to generate data for that
 machine on a PDP-11, write a magnetic tape, and then load the magnetic
@@ -31,10 +31,10 @@ so that if it got a checksum error it rewound the tape, toggled
 &#8216;byte flip&#8217; switch and reread it.  A second checksum error
 would kill the load, but 99% of the time it just read the tape and did
 the right thing.  Our productivity shot up, and we pretty much ignored
-tape byte order from that point on.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+tape byte order from that point on.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Steve Johnson</span>
 <a id="id2943810" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>A good rule of thumb is this: Be adaptive unless doing so costs
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>A good rule of thumb is this: Be adaptive unless doing so costs
 you 0.7 seconds or more of latency.  0.7 seconds is a magic number
 because, as Jef Raskin discovered while designing the Canon Cat,
 humans are almost incapable of noticing startup latency shorter than
@@ -44,16 +44,16 @@ switches</em></span>.  As a designer, it's <span class="emphasis"><em>your</em><
 job to make the program run economically, not the user's.  The
 marginal gains in performance that a user might collect from
 optimization switches are usually not worth the interface-complexity
-cost.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>File-format nonsense (record length, blocking factor, etc)
+cost.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>File-format nonsense (record length, blocking factor, etc)
 was blessedly eschewed by Unix, but the same kind of
 thing has roared back in excess configuration goo.  KISS became
-MICAHI: make it complicated and hide it.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+MICAHI: make it complicated and hide it.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Doug McIlroy</span>
 <a id="id2943882" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Finally, <span class="emphasis"><em>don't do with a configuration switch what can
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>Finally, <span class="emphasis"><em>don't do with a configuration switch what can
 be done with a script wrapper or a trivial pipeline</em></span>.  Don't
 put complexity inside your program when you can easily enlist other
-programs to help get the work done. (Recall our discussion in <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a> of why
+programs to help get the work done. (Recall our discussion in <a href="multiprogramchapter.html" title="Chapter&#160;7.&#160;Multiprogramming">Chapter&#160;7</a> of why
 ls(1)
 does not have a built-in pager, or an option to invoke it).</p><p>Here are some more general questions to consider whenever you
 find yourself thinking about adding a configuration option:</p><div class="itemizedlist"><ul type="disc"><li><p>Can I leave this feature out?  Why am I
@@ -64,13 +64,13 @@ about how to make it right?
 </p></li><li><p>Should the behavior enabled by this option be
 a separate program instead?</p></li></ul></div><p>Proliferating unnecessary options has many bad effects.  One of
 the subtlest but most serious is what it will do to your test
-coverage.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Unless it is done very carefully, the addition of an on/off
+coverage.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>Unless it is done very carefully, the addition of an on/off
 configuration option can lead to a need to double the amount of
 testing.  Since in practice one never does double the amount of
 testing, the practical effect is to reduce the amount of testing that
 any given configuration receives.  Ten options leads to 1024 times as
 much testing, and pretty soon you are talking real reliability
-problems.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+problems.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Steve Johnson</span>
 <a id="id2943989" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div></div></body></html>
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div></div></body></html>

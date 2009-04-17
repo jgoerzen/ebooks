@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Process Partitioning at the Design Level</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="multiprogramchapter.html" title="Chapter 7. Multiprogramming"/><link rel="previous" href="ch07s03.html" title="Problems and Methods to Avoid"/><link rel="next" href="minilanguageschapter.html" title="Chapter 8. Minilanguages"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2924086"/>Process Partitioning at the Design Level</h2></div></div><p>Now that we have all these methods, what should we do with them?</p><p>The first thing to notice is that tempfiles, the more
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Process Partitioning at the Design Level</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="multiprogramchapter.html" title="Chapter&#160;7.&#160;Multiprogramming"/><link rel="previous" href="ch07s03.html" title="Problems and Methods to Avoid"/><link rel="next" href="minilanguageschapter.html" title="Chapter&#160;8.&#160;Minilanguages"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2924086"/>Process Partitioning at the Design Level</h2></div></div><p>Now that we have all these methods, what should we do with them?</p><p>The first thing to notice is that tempfiles, the more
 interactive sort of master/slave process relationship, sockets, RPC,
 and all other methods of bidirectional IPC are at some level
 equivalent &#8212; they're all just ways for programs to exchange data
@@ -22,7 +22,7 @@ may manage all resource contention, or cooperating peers may each take
 responsibility for some critical resource.</p><p>Client-server partitioning can also help distribute cycle-hungry
 applications across multiple hosts.  Or it may make them suitable for
 distributed computing across the Internet (as with Freeciv). We'll
-discuss the related <i>CLI server</i> pattern in <a href="interfacechapter.html" title="Chapter 11. Interfaces">Chapter 11</a>.</p><p>Because all these peer-to-peer IPC techniques are alike at some
+discuss the related <i>CLI server</i> pattern in <a href="interfacechapter.html" title="Chapter&#160;11.&#160;Interfaces">Chapter&#160;11</a>.</p><p>Because all these peer-to-peer IPC techniques are alike at some
 level, we should evaluate them mainly on the amount of
 program-complexity overhead they incur, and how much opacity they
 introduce into our designs.  This, ultimately, is why BSD sockets have

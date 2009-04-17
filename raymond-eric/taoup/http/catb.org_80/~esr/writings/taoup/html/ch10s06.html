@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>How to Choose among the Methods</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="configurationchapter.html" title="Chapter 10. Configuration"/><link rel="previous" href="ch10s05.html" title="Command-Line Options"/><link rel="next" href="ch10s07.html" title="On Breaking These Rules"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2950195"/>How to Choose among the Methods</h2></div></div><p>We've looked in turn at system and user run-control files, at
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>How to Choose among the Methods</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="configurationchapter.html" title="Chapter&#160;10.&#160;Configuration"/><link rel="previous" href="ch10s05.html" title="Command-Line Options"/><link rel="next" href="ch10s07.html" title="On Breaking These Rules"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2950195"/>How to Choose among the Methods</h2></div></div><p>We've looked in turn at system and user run-control files, at
 environment variables, and at command-line arguments. Observe the
 progression from least easily changed to most easily changed. There is
 a strong convention that well-behaved Unix programs that use more than
@@ -75,16 +75,16 @@ then feeds it to fetchmail using the
 <tt>-f</tt> option.</p><p>Thus, most of the command-line options are never used, and in
 retrospect including them was probably a mistake; they bulk up the
 fetchmail code a bit without accomplishing
-anything very useful.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>If bulking up the code were the only problem, nobody would care,
+anything very useful.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>If bulking up the code were the only problem, nobody would care,
 except for a couple of maintainers.  However, options increase the
 chances of error in code, particularly due to unforeseen interactions
 among rarely used options.  Worse, they bulk up the manual, which is a
-burden on everybody.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+burden on everybody.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Doug McIlroy</span>
 <a id="id2950474" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>There is a lesson here; had I thought carefully enough about
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>There is a lesson here; had I thought carefully enough about
 fetchmail's usage pattern and been a little less ad-hoc about adding
-features, the extra complexity might have been avoided.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>An alternative way of dealing with such situations, which
+features, the extra complexity might have been avoided.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>An alternative way of dealing with such situations, which
 doesn't clutter up either the code or the manual much, is to have a
 &#8220;set option variable&#8221; option, such as the
 <tt>-O</tt> option of <i>sendmail</i>,
@@ -97,10 +97,10 @@ line appended to the configuration file, with the full config-file
 syntax available.  Either of these approaches gives people with
 unusual requirements a way to override configuration from the command
 line, without requiring you to provide a separate option for each bit
-of configuration that might be overridden.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+of configuration that might be overridden.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Henry Spencer</span>
 <a id="id2950516" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2950578"/>Case Study: The XFree86 Server</h3></div></div><p>The X windowing system is the engine that supports bitmapped 
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2950578"/>Case Study: The XFree86 Server</h3></div></div><p>The X windowing system is the engine that supports bitmapped 
 displays on Unix machines. Unix applications running through a client machine
 with a bitmapped display get their input events through X and 
 send screen-painting requests to it.  Confusingly, X &#8216;servers&#8217;
@@ -122,7 +122,7 @@ Linux<a id="id2950627" class="indexterm"/>
 and several other open-source Unixes.</p><p>At startup, the XFree86 server examines a systemwide
 run-control file; the exact pathname varies between X builds on
 different platforms, but the basename is XF86Config. The XF86Config
-file has a shell-like syntax as described above. <a href="#X_config" title="Example 10.2. X configuration example.">Example 10.2</a> is a sample section of an XF86Config file.</p><div class="example"><a id="X_config"/><p class="title"><b>Example 10.2. X configuration example.</b></p><pre class="programlisting">
+file has a shell-like syntax as described above. <a href="#X_config" title="Example&#160;10.2.&#160;X configuration example.">Example&#160;10.2</a> is a sample section of an XF86Config file.</p><div class="example"><a id="X_config"/><p class="title"><b>Example&#160;10.2.&#160;X configuration example.</b></p><pre class="programlisting">
 # The 16-color VGA server
 
 Section &quot;Screen&quot;

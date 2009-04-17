@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <html xmlns="http://www.w3.org/1999/xhtml"><head><title>The Art of Unix Programming</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="next" href="preface.html" title="Preface"/></head><body><mbp:pagebreak /><div class="book" lang="en"><div class="titlepage"><div><h1 class="title"><a id="id2805785"/>The Art of Unix Programming</h1></div><div><div class="author"><h3 class="author">Eric Steven Raymond</h3><div class="affiliation"><span class="orgname"><a href="http://www.catb.org/~esr/" target="_top">
     Thyrsus Enterprises</a><br/></span><div class="address"><p><br/>
-    <tt>&lt;<a href="mailto:esr@thyrsus.com">esr@thyrsus.com</a>&gt;</tt><br/>
-    </p></div></div></div></div><div><p class="copyright">Copyright © 2003 Eric S. Raymond</p></div><div><div class="legalnotice"><p>
+&#160;&#160;&#160;&#160;<tt>&lt;<a href="mailto:esr@thyrsus.com">esr@thyrsus.com</a>&gt;</tt><br/>
+&#160;&#160;&#160;&#160;</p></div></div></div></div><div><p class="copyright">Copyright &#169; 2003 Eric S. Raymond</p></div><div><div class="legalnotice"><p>
 This book and its on-line version are distributed under the terms of
 the Creative Commons Attribution-NoDerivs 1.0 license, with the
 additional proviso that the right to publish it on paper for sale 
@@ -28,7 +28,7 @@ Itanium is a trademark of Intel.
 Linux is a trademark of Linus Torvalds.
 Netscape is a trademark of AOL.
 PDF and PostScript are trademarks of Adobe, Inc.
-UNIX is a trademark of The Open Group.</p><p>The photograph of Ken and Dennis in <a href="historychapter.html" title="Chapter 2. History">Chapter 2</a> appears courtesy of Bell Labs/Lucent
+UNIX is a trademark of The Open Group.</p><p>The photograph of Ken and Dennis in <a href="historychapter.html" title="Chapter&#160;2.&#160;History">Chapter&#160;2</a> appears courtesy of Bell Labs/Lucent
 Technologies.</p><p>The epigraph on the Portability chapter is from the
 Bell System Technical Journal, v57 #6 part 2 (July-Aug. 1978)
 pp. 2021-2048 and is reproduced with the permission of Bell
@@ -53,9 +53,9 @@ Labs/Lucent Technologies.</p></div></div><div><div class="revhistory"><table bor
        </td></tr></table></div></div><hr/></div><div class="dedication" lang="en"><div class="titlepage"><div><h2 class="title"><a id="id2807216"/>Dedication</h2></div></div><p>To Ken Thompson and Dennis Ritchie, because you inspired me.</p></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><a href="preface.html">Preface</a></dt><dd><dl><dt><a href="pr01s01.html">Who Should Read This Book</a></dt><dt><a href="pr01s02.html">How to Use This Book</a></dt><dt><a href="pr01s03.html">Related References</a></dt><dt><a href="pr01s04.html">Conventions Used in This Book</a></dt><dt><a href="pr01s05.html">Our Case Studies</a></dt><dt><a href="pr01s06.html">Author's Acknowledgements</a></dt></dl></dd><dt>I. <a href="context.html">Context</a></dt><dd><dl><dt>1. <a href="philosophychapter.html">Philosophy</a></dt><dd><dl><dt><a href="ch01s01.html">Culture? What Culture?</a></dt><dt><a href="ch01s02.html">The Durability of Unix</a></dt><dt><a href="ch01s03.html">The Case against Learning Unix Culture</a></dt><dt><a href="ch01s04.html">What Unix Gets Wrong</a></dt><dt><a href="ch01s05.html">What Unix Gets Right</a></dt><dd><dl><dt><a href="ch01s05.html#id2808846">Open-Source Software</a></dt><dt><a href="ch01s05.html#id2872776">Cross-Platform Portability and Open Standards</a></dt><dt><a href="ch01s05.html#id2872827">The Internet and the World Wide Web</a></dt><dt><a href="ch01s05.html#id2872945">The Open-Source Community</a></dt><dt><a href="ch01s05.html#id2873031">Flexibility All the Way Down</a></dt><dt><a href="ch01s05.html#id2873078">Unix Is Fun to Hack</a></dt><dt><a href="ch01s05.html#id2873180">The Lessons of Unix Can Be Applied Elsewhere</a></dt></dl></dd><dt><a href="ch01s06.html">Basics of the Unix Philosophy</a></dt><dd><dl><dt><a href="ch01s06.html#id2877537">Rule of Modularity: Write simple parts connected by clean interfaces.</a></dt><dt><a href="ch01s06.html#id2877610">Rule of Clarity: Clarity is better than cleverness.</a></dt><dt><a href="ch01s06.html#id2877684">Rule of Composition: Design programs to be connected with other programs.</a></dt><dt><a href="ch01s06.html#id2877777">Rule of Separation: Separate policy from mechanism;
 separate interfaces from engines.</a></dt><dt><a href="ch01s06.html#id2877917">Rule of Simplicity: Design for simplicity; add complexity only where you must.</a></dt><dt><a href="ch01s06.html#id2878022">Rule of Parsimony: Write a big program only when it is
 clear by demonstration that nothing else will do.</a></dt><dt><a href="ch01s06.html#id2878054">Rule of Transparency: Design for visibility to make
-inspection and debugging easier.</a></dt><dt><a href="ch01s06.html#id2878145">Rule of Robustness: Robustness is the child of transparency and simplicity.</a></dt><dt><a href="ch01s06.html#id2878263">Rule of Representation: Fold knowledge into data, 
-so program logic can be stupid and robust.</a></dt><dt><a href="ch01s06.html#id2878339">Rule of Least Surprise: In interface design, always do
-the least surprising thing.</a></dt><dt><a href="ch01s06.html#id2878450">Rule of Silence: When a program has nothing surprising
+inspection and debugging easier.</a></dt><dt><a href="ch01s06.html#id2878145">Rule of Robustness: Robustness is the child of&#160;transparency and simplicity.</a></dt><dt><a href="ch01s06.html#id2878263">Rule of Representation: Fold knowledge into data, 
+so&#160;program logic can be stupid and robust.</a></dt><dt><a href="ch01s06.html#id2878339">Rule of Least Surprise: In interface design, always do
+the&#160;least surprising thing.</a></dt><dt><a href="ch01s06.html#id2878450">Rule of Silence: When a program has nothing surprising
 to say, it should say nothing.</a></dt><dt><a href="ch01s06.html#id2878538">Rule of Repair: Repair what you can &#8212; but when you
 must fail, fail noisily and as soon as possible.</a></dt><dt><a href="ch01s06.html#id2878666">Rule of Economy: Programmer time is expensive; conserve it in 
 preference to machine time.</a></dt><dt><a href="ch01s06.html#id2878742">Rule of Generation: Avoid hand-hacking; write programs to write

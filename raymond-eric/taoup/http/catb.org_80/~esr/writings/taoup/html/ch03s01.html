@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>The Elements of Operating-System Style</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="contrastchapter.html" title="Chapter 3. Contrasts"/><link rel="previous" href="contrastchapter.html" title="Chapter 3. Contrasts"/><link rel="next" href="ch03s02.html" title="Operating-System Comparisons"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2891992"/>The Elements of Operating-System Style</h2></div></div><p>Before we can start discussing specific operating systems, we'll
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>The Elements of Operating-System Style</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="contrastchapter.html" title="Chapter&#160;3.&#160;Contrasts"/><link rel="previous" href="contrastchapter.html" title="Chapter&#160;3.&#160;Contrasts"/><link rel="next" href="ch03s02.html" title="Operating-System Comparisons"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2891992"/>The Elements of Operating-System Style</h2></div></div><p>Before we can start discussing specific operating systems, we'll
 need an organizing framework for the ways that operating-system
 design can affect programming style for good or ill.</p><p>Overall, the design and programming styles associated with
 different operating systems seem to derive from three different
@@ -53,16 +53,16 @@ special cases that mean it's quite difficult to get any actual use out
 of multitasking.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2892171"/>Cooperating Processes</h3></div></div><p>In the Unix experience, inexpensive process-spawning and easy
 inter-process communication (IPC) makes a whole ecology of small
 tools, pipes<a id="id2892182" class="indexterm"/>, and
-filters possible.  We'll explore this ecology in <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a>; here, we need to point out some
-consequences of expensive process-spawning and IPC.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>The pipe was technically trivial, but profound in its effect.
+filters possible.  We'll explore this ecology in <a href="multiprogramchapter.html" title="Chapter&#160;7.&#160;Multiprogramming">Chapter&#160;7</a>; here, we need to point out some
+consequences of expensive process-spawning and IPC.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>The pipe was technically trivial, but profound in its effect.
 However, it would not have been trivial without the fundamental
 unifying notion of the process as an autonomous unit of computation,
 with process control being programmable.  As in Multics, a shell was
 just another process; process control did not come from God inscribed
-in JCL.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+in JCL.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Doug McIlroy</span>
 <a id="id2892213" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>If an operating system makes spawning new processes expensive
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>If an operating system makes spawning new processes expensive
 and/or process control is difficult and inflexible, you'll usually see
 all of the following consequences:</p><div class="itemizedlist"><ul type="disc"><li><p>Monster monoliths become a more natural way of programming.</p></li><li><p>Lots of policy has to be expressed within those monoliths. This
 encourages C++<a id="id2888005" class="indexterm"/> and
@@ -85,14 +85,14 @@ for all programs every time another is added to the set, the
 complexity of this solution rises as the square of the number of
 cooperating programs.  Worse than that, any change in one of the
 exposed data structures can induce subtle bugs in an arbitrarily 
-large number of other programs.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Word and Excel and PowerPoint and other Microsoft programs have
+large number of other programs.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>Word and Excel and PowerPoint and other Microsoft programs have
 intimate &#8212; one might say promiscuous &#8212; knowledge of each
 others' internals.  In Unix, one tries to design programs to operate
 not specifically with each other, but with programs as yet unthought
-of.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+of.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Doug McIlroy</span>
 <a id="id2888096" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>We'll return to this theme in <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a>.</p><p>To design the perfect anti-Unix, make process-spawning very
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>We'll return to this theme in <a href="multiprogramchapter.html" title="Chapter&#160;7.&#160;Multiprogramming">Chapter&#160;7</a>.</p><p>To design the perfect anti-Unix, make process-spawning very
 expensive, make process control difficult and inflexible, and
 leave IPC as an unsupported or half-supported afterthought.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2888136"/>Internal Boundaries</h3></div></div><p>Unix has wired into it an assumption that the programmer knows
 best.  It doesn't stop you or request confirmation when you do
@@ -136,7 +136,7 @@ type data within the file itself.)</p><p>OS-level record structures are generall
 hack<a id="id2888248" class="indexterm"/>, and do
 little more than complicate APIs and programmers' lives.  They
 encourage the use of opaque record-oriented file formats that generic
-tools like text editors cannot read properly.</p><p>File attributes can be useful, but (as we will see in <a href="futurechapter.html" title="Chapter 20. Futures">Chapter 20</a>) can raise some awkward semantic issues in a
+tools like text editors cannot read properly.</p><p>File attributes can be useful, but (as we will see in <a href="futurechapter.html" title="Chapter&#160;20.&#160;Futures">Chapter&#160;20</a>) can raise some awkward semantic issues in a
 world of byte-stream-oriented tools and
 pipes<a id="id2888272" class="indexterm"/>.  When file
 attributes are supported at the operating-system level, they
@@ -150,13 +150,13 @@ the semantics of a file will not be determinable by looking at the
 data within it.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2888298"/>Binary File Formats</h3></div></div><p>If your operating system uses binary formats for critical data
 (such as user-account records) it is likely that no tradition of
 readable textual formats for applications will develop.  We explain in
-more detail why this is a problem in <a href="textualitychapter.html" title="Chapter 5. Textuality">Chapter 5</a>.  For now it's sufficient to note the
+more detail why this is a problem in <a href="textualitychapter.html" title="Chapter&#160;5.&#160;Textuality">Chapter&#160;5</a>.  For now it's sufficient to note the
 following consequences:</p><div class="itemizedlist"><ul type="disc"><li><p>Even if a command-line interface, scripting, and
 pipes<a id="id2888330" class="indexterm"/> are supported,
 very few filters will evolve.</p></li><li><p>Data files will be accessible only through dedicated tools.
 Developers will think of the tools rather than the data files as central.
 Thus, different versions of file formats will tend to be incompatible.</p></li></ul></div><p>To design the perfect anti-Unix, make all file formats binary 
-and opaque, and require heavyweight tools to read and edit them.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2888363"/>Preferred User Interface Style</h3></div></div><p>In <a href="interfacechapter.html" title="Chapter 11. Interfaces">Chapter 11</a> we
+and opaque, and require heavyweight tools to read and edit them.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2888363"/>Preferred User Interface Style</h3></div></div><p>In <a href="interfacechapter.html" title="Chapter&#160;11.&#160;Interfaces">Chapter&#160;11</a> we
 will develop in some detail the consequences of the differences
 between <i>command-line interfaces</i> (CLIs) and
 <i>graphical user interfaces</i> (GUIs).  Which kind
@@ -199,12 +199,12 @@ audience will tolerate, and how it tends to weight perceived
 complexity against other variables like cost and capability. Unix is
 often said to have been written by programmers for programmers &#8212;
 an audience that is notoriously tolerant of interface
-complexity.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>This is a consequence rather than a goal.  I abhor a system designed
+complexity.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>This is a consequence rather than a goal.  I abhor a system designed
 for the &#8220;user&#8221;, if that word is a coded pejorative
-meaning &#8220;stupid and unsophisticated&#8221;.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+meaning &#8220;stupid and unsophisticated&#8221;.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Ken Thompson</span>
 <a id="id2888546" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>To design the perfect anti-Unix, write an operating system that
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>To design the perfect anti-Unix, write an operating system that
 thinks it knows what you're doing better than you do.  And then adds
 injury to insult by getting it wrong.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2888581"/>Entry Barriers to Development</h3></div></div><p>Another important dimension along which operating systems differ
 is the height of the barrier that separates mere users from becoming
@@ -237,7 +237,7 @@ automate common tasks, or as customizing their environment.</p><p>To design the 
 impossible.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2892049" href="#id2892049">20</a>] </sup>For
 readers without Unix experience, a pipe is a way of connecting the
 output of one program to the input of another.  We'll explore the ways
-this idea can be used to help programs cooperate in <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2892115" href="#id2892115">21</a>] </sup>A periodic clock interrupt from the hardware
+this idea can be used to help programs cooperate in <a href="multiprogramchapter.html" title="Chapter&#160;7.&#160;Multiprogramming">Chapter&#160;7</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2892115" href="#id2892115">21</a>] </sup>A periodic clock interrupt from the hardware
 is useful as a sort of heartbeat for a timesharing system; each time
 it fires, it tells the system that it may be time to switch to another
 task, defining the size of the unit timeslice.  In 2003 Unixes

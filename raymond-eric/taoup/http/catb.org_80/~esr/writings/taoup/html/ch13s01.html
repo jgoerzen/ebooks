@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Speaking of Complexity</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="complexitychapter.html" title="Chapter 13. Complexity"/><link rel="previous" href="complexitychapter.html" title="Chapter 13. Complexity"/><link rel="next" href="ch13s02.html" title="A Tale of Five Editors"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2964620"/>Speaking of Complexity</h2></div></div><p>As with previous issues about modularity and interface design,
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Speaking of Complexity</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="complexitychapter.html" title="Chapter&#160;13.&#160;Complexity"/><link rel="previous" href="complexitychapter.html" title="Chapter&#160;13.&#160;Complexity"/><link rel="next" href="ch13s02.html" title="A Tale of Five Editors"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2964620"/>Speaking of Complexity</h2></div></div><p>As with previous issues about modularity and interface design,
 Unix programmers react to a set of distinctions they have often 
 learned from experience without knowing how to articulate.  Therefore
 we'll need to start by developing some terminology.</p><p>We will start by defining what software complexity is.  We will
@@ -30,7 +30,7 @@ the degree of difficulty a programmer will experience in attempting to
 understand a program so he or she can mentally model or debug
 it.</p><p>Customers and users, on the other hand, tend to see complexity
 in terms of the program's <i>interface complexity</i>.
-In <a href="interfacechapter.html" title="Chapter 11. Interfaces">Chapter 11</a> we discussed
+In <a href="interfacechapter.html" title="Chapter&#160;11.&#160;Interfaces">Chapter&#160;11</a> we discussed
 the quality of ease and its inverse, mnemonic load.  To a user,
 complexity correlates closely with mnemonic load.  Poor expressiveness
 and concision can matter too, if a weak interface forces the user to
@@ -192,10 +192,10 @@ what a project's objectives are get confused with questions about the
 aesthetics of simplicity, and whether people have been sufficiently
 clever.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2961870"/>Mapping Complexity</h3></div></div><p>So far, we've developed two different scales for thinking about
 complexity.  These scales are actually orthogonal to each other.
-<a href="#complexity-sources" title="Figure 13.1. Sources and kinds of complexity.">Figure 13.1</a> may help clarify the
+<a href="#complexity-sources" title="Figure&#160;13.1.&#160;Sources and kinds of complexity.">Figure&#160;13.1</a> may help clarify the
 relationships.  Each of the nine boxes of the figure lists a common
-source of a particular kind of complexity. </p><div class="figure"><a id="complexity-sources"/><p class="title"><b>Figure 13.1. Sources and kinds of complexity.</b></p><div class="mediaobject"><img src="graphics/complexity.png" alt="Sources and kinds of complexity."/></div></div><p>We've touched on some of these varieties of complexity earlier
-in this book, especially the accidental ones. In <a href="modularitychapter.html" title="Chapter 4. Modularity">Chapter 4</a> we saw that accidental interface
+source of a particular kind of complexity. </p><div class="figure"><a id="complexity-sources"/><p class="title"><b>Figure&#160;13.1.&#160;Sources and kinds of complexity.</b></p><div class="mediaobject"><img src="graphics/complexity.png" alt="Sources and kinds of complexity."/></div></div><p>We've touched on some of these varieties of complexity earlier
+in this book, especially the accidental ones. In <a href="modularitychapter.html" title="Chapter&#160;4.&#160;Modularity">Chapter&#160;4</a> we saw that accidental interface
 complexity often comes from non-orthogonality in the interface design
 &#8212; that is, failing to carefully factor the interface operations
 so that each does exactly one thing.  Accidental code complexity
@@ -209,7 +209,7 @@ we'll develop further in this chapter's case studies).  Essential
 codebase size is related to choice of development tools because, if
 the feature list is held constant, the most important factor in
 codebase size is probably the choice of implementation language (as we
-implied in <a href="minilanguageschapter.html" title="Chapter 8. Minilanguages">Chapter 8</a>).</p><p>Sources of optional complexity are the most difficult to make
+implied in <a href="minilanguageschapter.html" title="Chapter&#160;8.&#160;Minilanguages">Chapter&#160;8</a>).</p><p>Sources of optional complexity are the most difficult to make
 useful generalizations about, because they so often depend on
 delicate judgments about which features it is worth paying the
 complexity cost for.  Optional interface complexity often comes from

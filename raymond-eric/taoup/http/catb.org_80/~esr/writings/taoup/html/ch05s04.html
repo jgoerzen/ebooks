@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Application Protocol Metaformats</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="textualitychapter.html" title="Chapter 5. Textuality"/><link rel="previous" href="ch05s03.html" title="Application Protocol Design"/><link rel="next" href="transparencychapter.html" title="Chapter 6. Transparency"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2908814"/>Application Protocol Metaformats</h2></div></div><p>Just as data file metaformats have evolved to simplify serialization
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Application Protocol Metaformats</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="textualitychapter.html" title="Chapter&#160;5.&#160;Textuality"/><link rel="previous" href="ch05s03.html" title="Application Protocol Design"/><link rel="next" href="transparencychapter.html" title="Chapter&#160;6.&#160;Transparency"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2908814"/>Application Protocol Metaformats</h2></div></div><p>Just as data file metaformats have evolved to simplify serialization
 for storage, application protocol metaformats have evolved to simplify
 serialization for transactions across networks.  The tradeoffs are a
 little different in this case; because network bandwidth is more expensive
@@ -27,8 +27,8 @@ need to change much to accommodate new requests, and it is easy to
 code implementations so that they can parse unknown requests and
 return an error or simply ignore them.  SMTP, POP3, and IMAP have all
 been extended in minor ways fairly often during their lifetimes, with
-minimal interoperability problems.  Naïvely designed binary
-protocols are, by contrast, notoriously brittle.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2908915"/>HTTP as a Universal Application Protocol</h3></div></div><p>Ever since the World Wide Web reached critical mass around 1993, 
+minimal interoperability problems.  Na&#239;vely designed binary
+protocols are, by contrast, notoriously&#160;brittle.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2908915"/>HTTP as a Universal Application Protocol</h3></div></div><p>Ever since the World Wide Web reached critical mass around 1993, 
 application protocol designers have shown an increasing tendency to
 layer their special-purpose protocols on top of HTTP, using web servers
 as generic service platforms.</p><p>This is a viable option because, at the transaction layer, HTTP
@@ -91,7 +91,7 @@ RFCs, implementations, and much other related material are available
 at the IETF's <a href="http://www.pwg.org/ipp/" target="_top">Printer Working
 Group</a> site.<a id="id2909134" class="indexterm"/></p><p>IPP uses HTTP 1.1 as a transport layer.  All IPP requests are
 passed via an HTTP POST method call; responses are ordinary HTTP
-responses. (Section 4.2 of RFC 2568, <i>Rationale for the Structure
+responses. (Section 4.2 of RFC&#160;2568, <i>Rationale for the Structure
 of the Model and Protocol for the Internet Printing
 Protocol</i>, does an excellent job of explaining this
 choice; it repays study by anyone considering writing a new application
@@ -163,7 +163,7 @@ standard is still a work in progress, but a trial implementation in
 Apache<a id="id2909353" class="indexterm"/> is tracking the
 drafts.  Open-source client modules in Perl<a id="id2909363" class="indexterm"/>, Python<a id="id2909371" class="indexterm"/>, Tcl<a id="id2909380" class="indexterm"/>, and Java<a id="id2909388" class="indexterm"/> are readily discoverable by a Web
 search.  The W3C draft specification is <a href="http://www.w3.org/TR/SOAP/" target="_top">available on the Web</a>.</p><p>XML-RPC and SOAP, considered as remote procedure call methods,
-have some associated risks that we discuss at the end of <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a>.</p><p>Jabber is a peer-to-peer protocol designed to support instant
+have some associated risks that we discuss at the end of <a href="multiprogramchapter.html" title="Chapter&#160;7.&#160;Multiprogramming">Chapter&#160;7</a>.</p><p>Jabber is a peer-to-peer protocol designed to support instant
 messaging and presence.  What makes it interesting as an application
 protocol is that it supports passing around XML forms and live
 documents. Specifications, documentation, and open-source

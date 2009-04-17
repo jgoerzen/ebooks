@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Data File Metaformats</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="textualitychapter.html" title="Chapter 5. Textuality"/><link rel="previous" href="ch05s01.html" title="The Importance of Being Textual"/><link rel="next" href="ch05s03.html" title="Application Protocol Design"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2901776"/>Data File Metaformats</h2></div></div><p>A data file metaformat is a set of syntactic and lexical
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Data File Metaformats</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="textualitychapter.html" title="Chapter&#160;5.&#160;Textuality"/><link rel="previous" href="ch05s01.html" title="The Importance of Being Textual"/><link rel="next" href="ch05s03.html" title="Application Protocol Design"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2901776"/>Data File Metaformats</h2></div></div><p>A data file metaformat is a set of syntactic and lexical
 conventions that is either formally standardized or sufficiently well
 established by practice that there are standard service libraries to
 handle marshaling and unmarshaling it.</p><p>Unix has evolved or adopted metaformats suitable for a wide range
@@ -118,8 +118,8 @@ fortune(1)
 program for its database of random quotes.  It is appropriate for
 records that are just bags of unstructured text.  It simply uses newline
 followed by <tt>%%</tt> (or sometimes newline followed by <tt>%</tt>) as a record
-separator.  <a href="#fortune" title="Example 5.3. A fortune file example.">Example 5.3</a> is an example section from a
-file of email signature quotes:</p><div class="example"><a id="fortune"/><p class="title"><b>Example 5.3. A fortune file example.</b></p><pre class="programlisting">
+separator.  <a href="#fortune" title="Example&#160;5.3.&#160;A fortune file example.">Example&#160;5.3</a> is an example section from a
+file of email signature quotes:</p><div class="example"><a id="fortune"/><p class="title"><b>Example&#160;5.3.&#160;A fortune file example.</b></p><pre class="programlisting">
 &quot;Among the many misdeeds of British rule in India, history will look
 upon the Act depriving a whole nation of arms as the blackest.&quot;
         -- Mohandas Gandhi, &quot;An Autobiography&quot;, pg 446
@@ -138,20 +138,20 @@ it an offense to keep arms.&quot;
 </pre></div><p>It is good practice to accept whitespace after <tt>%</tt> when looking
 for record delimiters.  This helps cope with human editing mistakes.
 It's even better practice to use <tt>%%</tt>, and ignore all text from <tt>%%</tt> to
-end-of-line.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>The cookie-jar separator was originally <tt>%%\n</tt>.  I wanted
+end-of-line.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>The cookie-jar separator was originally <tt>%%\n</tt>.  I wanted
 something a bit more visible than <tt>%</tt> would have been.  In fact, any
 stuff after the <tt>%%</tt> is treated as a comment (or at least that's how I
-wrote it).</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+wrote it).</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Ken Arnold</span>
 <a id="id2906876" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Simple cookie-jar format is appropriate for pieces of
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>Simple cookie-jar format is appropriate for pieces of
 text that have no natural ordering, distinguishable structure above
 word level, or search keys other than their text context.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2906931"/>Record-Jar Format</h3></div></div><p>Cookie-jar record separators combine well with the RFC 822
 metaformat for records, yielding a format we'll call
 &#8216;record-jar&#8217;. If you need a textual format that will
 support multiple records with a variable repertoire of explicit
 fieldnames, one of the least surprising and human-friendliest ways to
-do it would look like <a href="#planets" title="Example 5.4. Basic data for three planets in a record-jar format.">Example 5.4</a>.</p><div class="example"><a id="planets"/><p class="title"><b>Example 5.4. Basic data for three planets in a record-jar format.</b></p><pre class="programlisting">
+do it would look like <a href="#planets" title="Example&#160;5.4.&#160;Basic data for three planets in a record-jar format.">Example&#160;5.4</a>.</p><div class="example"><a id="planets"/><p class="title"><b>Example&#160;5.4.&#160;Basic data for three planets in a record-jar format.</b></p><pre class="programlisting">
 Planet: Mercury
 Orbital-Radius: 57,910,000 km
 Diameter: 4,880 km
@@ -191,21 +191,21 @@ format) though overkill for simpler ones.  It is especially
 appropriate for formats that have a complex nested or recursive
 structure of the sort that the RFC 822 metaformat does not handle well.
 For a good introduction to the format, see <i>XML in a
-Nutshell</i> [<a href="apb.html#Harold-Means" title="[Harold-Means]">Harold-Means</a>].</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Among the hardest things to get right in designing any text file
+Nutshell</i> [<a href="apb.html#Harold-Means" title="[Harold-Means]">Harold-Means</a>].</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>Among the hardest things to get right in designing any text file
 format are issues of quoting, whitespace and other low-level syntax
 details.  Custom file formats often suffer from slightly broken syntax
 that doesn't quite match other similar formats.  Using a standard format
 such as XML, which is verifiable and parsed by a standard library,
-eliminates most of these issues.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+eliminates most of these issues.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Keith Packard</span>
 <a id="id2907069" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p><a href="#xml_example" title="Example 5.5. An XML example.">Example 5.5</a> is a simple example of an
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p><a href="#xml_example" title="Example&#160;5.5.&#160;An XML example.">Example&#160;5.5</a> is a simple example of an
 XML-based configuration file.  It is part of the
 <i>kdeprint</i> tool shipped with the open-source
 KDE office suite hosted under Linux<a id="id2907108" class="indexterm"/>.  It describes options for an
 image-to-PostScript filtering operation, and how to map them into
 arguments for a filter command.  For another instructive example, see
-the discussion of <i>Glade</i> in <a href="minilanguageschapter.html" title="Chapter 8. Minilanguages">Chapter 8</a>.</p><div class="example"><a id="xml_example"/><p class="title"><b>Example 5.5. An XML example.</b></p><pre class="programlisting">
+the discussion of <i>Glade</i> in <a href="minilanguageschapter.html" title="Chapter&#160;8.&#160;Minilanguages">Chapter&#160;8</a>.</p><div class="example"><a id="xml_example"/><p class="title"><b>Example&#160;5.5.&#160;An XML example.</b></p><pre class="programlisting">
 
 &lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;kprintfilter name=&quot;imagetops&quot;&gt;
@@ -253,7 +253,7 @@ format needs an XML parser; this means bulky, complicated programs.
 Also, XML is itself rather bulky; it can be difficult to see the
 data amidst all the markup.</p><p>One application area in which XML is clearly winning is in
 markup formats for document files (we'll have more to say about this
-in <a href="documentationchapter.html" title="Chapter 18. Documentation">Chapter 18</a>).
+in <a href="documentationchapter.html" title="Chapter&#160;18.&#160;Documentation">Chapter&#160;18</a>).
 Tagging in such documents tends to be relatively sparse among large
 blocks of plain text; thus, traditional Unix tools still work fairly
 well for simple text searches and transformations.</p><p>One interesting bridge between these worlds is PYX format
@@ -270,10 +270,10 @@ for filtering XML documents; Web search for
 a lot of hype surrounding it, but don't become a fashion victim by either
 adopting or rejecting it uncritically. Choose carefully and bear the KISS
 principle in mind.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2907263"/>Windows INI Format</h3></div></div><p>Many Microsoft Windows<a id="id2907272" class="indexterm"/> programs use a textual data format that
-looks like <a href="#ini_example" title="Example 5.6. A .INI file example.">Example 5.6</a>. This example associates
+looks like <a href="#ini_example" title="Example&#160;5.6.&#160;A .INI file example.">Example&#160;5.6</a>. This example associates
 optional resources named <tt>account</tt>,
 <tt>directory</tt>, <tt>numeric_id</tt>, and <tt>developer</tt> with named projects <tt>python</tt>, <tt>sng</tt>, <tt>fetchmail</tt>, and <tt>py-howto</tt>.  The DEFAULT entry supplies values
-that will be used when a named entry fails to supply them.</p><div class="example"><a id="ini_example"/><p class="title"><b>Example 5.6. A <tt>.INI</tt> file example.</b></p><pre class="programlisting">
+that will be used when a named entry fails to supply them.</p><div class="example"><a id="ini_example"/><p class="title"><b>Example&#160;5.6.&#160;A <tt>.INI</tt> file example.</b></p><pre class="programlisting">
 [DEFAULT]
 account = esr
 
@@ -307,7 +307,7 @@ and it would be overkill for a simple list of name-value
 associations (use DSV format for that).</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2907428"/>Unix Textual File Format Conventions</h3></div></div><p>There are long-standing Unix traditions about how textual data
 formats ought to look.  Most of these derive from one or more of the
 standard Unix metaformats we've just described.  It is wise to follow these
-conventions unless you have strong and specific reasons to do otherwise.</p><p>In <a href="configurationchapter.html" title="Chapter 10. Configuration">Chapter 10</a> we
+conventions unless you have strong and specific reasons to do otherwise.</p><p>In <a href="configurationchapter.html" title="Chapter&#160;10.&#160;Configuration">Chapter&#160;10</a> we
 will discuss a different set of conventions used for program
 run-control files, but you should notice that it will share some of
 these same rules (especially about the lexical level, the rules by

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Separating Complexity Control from Performance Tuning</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="multiprogramchapter.html" title="Chapter 7. Multiprogramming"/><link rel="previous" href="multiprogramchapter.html" title="Chapter 7. Multiprogramming"/><link rel="next" href="ch07s02.html" title="Taxonomy of Unix IPC Methods"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2918559"/>Separating Complexity Control from Performance Tuning</h2></div></div><p>First, though, we need to dispose of a few red herrings. Our
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Separating Complexity Control from Performance Tuning</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="multiprogramchapter.html" title="Chapter&#160;7.&#160;Multiprogramming"/><link rel="previous" href="multiprogramchapter.html" title="Chapter&#160;7.&#160;Multiprogramming"/><link rel="next" href="ch07s02.html" title="Taxonomy of Unix IPC Methods"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2918559"/>Separating Complexity Control from Performance Tuning</h2></div></div><p>First, though, we need to dispose of a few red herrings. Our
 discussion is <span class="emphasis"><em>not</em></span> going to be about using
 concurrency to improve performance. Putting that concern before
 developing a clean architecture that minimizes global complexity is
 premature optimization<a id="id2918577" class="indexterm"/>,
-the root of all evil (see <a href="optimizationchapter.html" title="Chapter 12. Optimization">Chapter 12</a> for further discussion).</p><p>A closely related red herring is threads (that is, multiple
+the root of all evil (see <a href="optimizationchapter.html" title="Chapter&#160;12.&#160;Optimization">Chapter&#160;12</a> for further discussion).</p><p>A closely related red herring is threads (that is, multiple
 concurrent processes sharing the same memory-address space). Threading is a
 performance hack.  To avoid a long diversion here, we'll
 examine threads in more detail at the end of this chapter; the
@@ -14,7 +14,7 @@ save under dire necessity.</p><p>Respecting the Rule of Modularity, on the other
 <span class="emphasis"><em>not</em></span> a red herring; doing so can make your
 programs &#8212; and your life &#8212; simpler. All the reasons for
 process partitioning are continuous with the reasons for module
-partitioning that we developed in <a href="modularitychapter.html" title="Chapter 4. Modularity">Chapter 4</a>.</p><p>Another important reason for breaking up programs into
+partitioning that we developed in <a href="modularitychapter.html" title="Chapter&#160;4.&#160;Modularity">Chapter&#160;4</a>.</p><p>Another important reason for breaking up programs into
 cooperating processes is for better security.  Under Unix, programs
 that must be run by ordinary users, but must have write access to
 security-critical system resources, get that access through a feature

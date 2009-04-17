@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Compactness and Orthogonality</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="modularitychapter.html" title="Chapter 4. Modularity"/><link rel="previous" href="ch04s01.html" title="Encapsulation and Optimal Module Size"/><link rel="next" href="ch04s03.html" title="Software Is a Many-Layered Thing"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2894547"/>Compactness and Orthogonality</h2></div></div><p>Code is not the only sort of thing with an optimal chunk size.
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Compactness and Orthogonality</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="modularitychapter.html" title="Chapter&#160;4.&#160;Modularity"/><link rel="previous" href="ch04s01.html" title="Encapsulation and Optimal Module Size"/><link rel="next" href="ch04s03.html" title="Software Is a Many-Layered Thing"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2894547"/>Compactness and Orthogonality</h2></div></div><p>Code is not the only sort of thing with an optimal chunk size.
 Languages and APIs (such as sets of library or system calls) run up
 against the same sorts of human cognitive constraints that produce
 Hatton's U-curve.</p><p>Accordingly, Unix programmers have learned to think very hard
@@ -22,12 +22,12 @@ compact designs are quite difficult to understand until you have
 mastered an underlying conceptual model that is tricky, at which point
 your view of the world changes and compact
 <span class="emphasis"><em>becomes</em></span> simple.  For a lot of people, the Lisp
-language is a classic example of this<a id="id2894640" class="indexterm"/>.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Nor does compact mean &#8216;small&#8217;.  If a well-designed 
+language is a classic example of this<a id="id2894640" class="indexterm"/>.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>Nor does compact mean &#8216;small&#8217;.  If a well-designed 
 system is predictable and &#8216;obvious&#8217; to the experienced
-user, it might have quite a few pieces.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+user, it might have quite a few pieces.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Ken Arnold</span>
 <a id="id2894663" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Very few software designs are compact in an absolute sense, but
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>Very few software designs are compact in an absolute sense, but
 many are compact in a slightly looser sense of the term.  They have a
 compact working set, a subset of capabilities that suffices for 80% or
 more of what expert users normally do with them.  Practically
@@ -57,7 +57,7 @@ autoconf(1)
 and
 automake(1)
 are not.  Among markup languages, HTML is semi-compact, but DocBook (a
-documentation markup language we shall discuss in <a href="documentationchapter.html" title="Chapter 18. Documentation">Chapter 18</a>) is not.  The
+documentation markup language we shall discuss in <a href="documentationchapter.html" title="Chapter&#160;18.&#160;Documentation">Chapter&#160;18</a>) is not.  The
 man(7)
 macros are compact, but
 troff(1)
@@ -124,7 +124,7 @@ is usually interpreted as being about simplicity.  But it's also,
 implicitly and at least as importantly, about orthogonality.</p><p>It's not a problem for a program to do one thing well and
 other things as side effects, provided supporting those other things
 doesn't raise the complexity of the program and its vulnerability
-to bugs.  In <a href="generationchapter.html" title="Chapter 9. Generation">Chapter 9</a> we'll
+to bugs.  In <a href="generationchapter.html" title="Chapter&#160;9.&#160;Generation">Chapter&#160;9</a> we'll
 examine a program called <i>ascii</i> that prints
 synonyms for the names of ASCII characters, including hex, octal, and
 binary values; as a side effect, it can serve as a quick base
@@ -213,10 +213,10 @@ generate all of it from a single higher-level representation,
 twiddling a few knobs to generate the different cases?</p></li></ul></div><p>The reader should begin to see a pattern emerging here.</p><p>In the Unix world, the SPOT Rule as a unifying idea has seldom
 been explicit &#8212; but heavy use of code generators to implement
 particular <span class="emphasis"><em>kinds</em></span> of SPOT are very much part of the
-tradition.  We'll survey these techniques in <a href="generationchapter.html" title="Chapter 9. Generation">Chapter 9</a>.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2895445"/>Compactness and the Strong Single Center</h3></div></div><p>One subtle but powerful way to promote compactness in a
+tradition.  We'll survey these techniques in <a href="generationchapter.html" title="Chapter&#160;9.&#160;Generation">Chapter&#160;9</a>.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2895445"/>Compactness and the Strong Single Center</h3></div></div><p>One subtle but powerful way to promote compactness in a
 design is to organize it around a strong core algorithm addressing a
 clear formal definition of the problem, avoiding heuristics and
-fudging.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Formalization often clarifies a task spectacularly.  It is not
+fudging.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>Formalization often clarifies a task spectacularly.  It is not
 enough for a programmer to recognize that bits of his task fall within
 standard computer-science categories &#8212; a little depth-first
 search here and a quicksort there.  The best results occur when the
@@ -225,10 +225,10 @@ hand can be constructed.  It is not necessary that ultimate users
 comprehend the model.  The very existence of a unifying core will
 provide a comfortable feel, unencumbered with the
 why-in-hell-did-they-do-that moments that are so prevalent in using
-Swiss-army-knife programs.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+Swiss-army-knife programs.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Doug McIlroy</span>
 <a id="id2895473" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>This is an often-overlooked strength of the Unix
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>This is an often-overlooked strength of the Unix
 tradition.  Many of its most effective tools are thin wrappers around
 a direct translation of some single powerful algorithm.</p><p>Perhaps the clearest example of this is
 diff(1),
@@ -239,15 +239,15 @@ have become central to the network-distributed development style of
 modern Unix.  A valuable property of diff is that it seldom surprises
 anyone.  It doesn't have special cases or painful edge conditions,
 because it uses a simple, mathematically sound method of sequence
-comparison.  This has consequences:</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>By virtue of a mathematical model and a solid
+comparison.  This has consequences:</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>By virtue of a mathematical model and a solid
 algorithm, Unix diff contrasts markedly with its
 imitators.  First, the central engine is solid, small, and
 has never needed one line of maintenance.  Second, the
 results are clear and consistent, unmarred by surprises
-where heuristics fail.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+where heuristics fail.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Doug McIlroy</span>
 <a id="id2895550" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>Thus, people who use diff can develop an intuitive feel for what
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>Thus, people who use diff can develop an intuitive feel for what
 it will do in any given situation without necessarily understanding
 the central algorithm perfectly.  Other well-known examples of
 this special kind of clarity achieved through a strong central
@@ -332,4 +332,4 @@ archetypal example of bad caching is the <b>rehash</b>
 directive in
 csh(1);
 type <b>man 1 csh</b> for details.  See <a href="ch12s04.html#binary_caches" title="Caching Operation Results">the section called &#8220;Caching Operation Results&#8221;</a> for another example.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2899522" href="#id2899522">45</a>] </sup>For a recent example
-of Unix/Zen crossover, see <a href="unix_koans.html" title="Appendix D. Rootless Root">Appendix D</a>.</p></div></div></div></body></html>
+of Unix/Zen crossover, see <a href="unix_koans.html" title="Appendix&#160;D.&#160;Rootless Root">Appendix&#160;D</a>.</p></div></div></div></body></html>

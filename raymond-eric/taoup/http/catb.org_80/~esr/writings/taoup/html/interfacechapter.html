@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 11. Interfaces</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="design.html" title="Part II. Design"/><link rel="previous" href="ch10s07.html" title="On Breaking These Rules"/><link rel="next" href="ch11s01.html" title="Applying the Rule of Least Surprise"/></head><body><mbp:pagebreak /><div class="chapter" lang="en"><div class="titlepage"><div><h2 class="title"><a id="interfacechapter"/>Chapter 11. Interfaces</h2></div><div><h3 class="subtitle"><i>User-Interface Design Patterns in the Unix Environment</i></h3></div></div><mbp:pagebreak /><div xmlns="" class="epigraph"><i><p xmlns="http://www.w3.org/1999/xhtml">All our knowledge has its origins in our perceptions.</p></i><span>--<i><span xmlns="http://www.w3.org/1999/xhtml" class="attribution">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter&#160;11.&#160;Interfaces</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="design.html" title="Part&#160;II.&#160;Design"/><link rel="previous" href="ch10s07.html" title="On Breaking These Rules"/><link rel="next" href="ch11s01.html" title="Applying the Rule of Least Surprise"/></head><body><mbp:pagebreak /><div class="chapter" lang="en"><div class="titlepage"><div><h2 class="title"><a id="interfacechapter"/>Chapter&#160;11.&#160;Interfaces</h2></div><div><h3 class="subtitle"><i>User-Interface Design Patterns in&#160;the&#160;Unix Environment</i></h3></div></div><mbp:pagebreak /><div xmlns="" class="epigraph"><i><p xmlns="http://www.w3.org/1999/xhtml">All our knowledge has its origins in our perceptions.</p></i><span>--<i><span xmlns="http://www.w3.org/1999/xhtml" class="attribution">
 <span class="author">Leonardo Da Vinci</span>
 </span></i></span></div><p>The interface of a program is the sum of all the ways that it
-communicates with human users and other programs.  In <a href="configurationchapter.html" title="Chapter 10. Configuration">Chapter 10</a>, we discussed the use of environment
+communicates with human users and other programs.  In <a href="configurationchapter.html" title="Chapter&#160;10.&#160;Configuration">Chapter&#160;10</a>, we discussed the use of environment
 variables, switches, run-control files and other parts of
 start-up-time interfaces. In this chapter, we'll untangle the history
 and explain the pragmatics of Unix interfaces after startup time.
@@ -14,7 +14,7 @@ themes over and over again. One is anticipatory design for
 communication with other programs; the other is the Rule of Least
 Surprise.</p><p>Unix programs can give you extra power from being used in
 synergistic combinations; we discussed various methods for hooking
-together such combinations in <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a>. The &#8216;other programs&#8217; part
+together such combinations in <a href="multiprogramchapter.html" title="Chapter&#160;7.&#160;Multiprogramming">Chapter&#160;7</a>. The &#8216;other programs&#8217; part
 of Unix interface design is not an afterthought or a marginal case as
 it is under many other operating systems. Rather, it is a central
 challenge that has to be balanced and integrated carefully with the
@@ -33,7 +33,7 @@ following sources:</p><div class="itemizedlist"><ul type="disc"><li><p>Data and 
 input.</p></li><li><p>Inputs passed through IPC, such as X server events and
 network messages.</p></li><li><p>Files and devices in known locations (such as a data file name
 passed to or computed by the program).</p></li></ul></div><p>Programs can emit results in all the same ways (with output
-going to standard output).</p><p>Some Unix programs are graphical, some have screen-oriented
+going to standard&#160;output).</p><p>Some Unix programs are graphical, some have screen-oriented
 character interfaces, and some use a starkly simple text-filter
 design unchanged from the days of mechanical teletypes. To the
 uninitiated, it is often far from obvious why any given program

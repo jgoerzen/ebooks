@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Designing for Transparency and Discoverability</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="transparencychapter.html" title="Chapter 6. Transparency"/><link rel="previous" href="ch06s01.html" title="Studying Cases"/><link rel="next" href="ch06s03.html" title="Designing for Maintainability"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2914317"/>Designing for Transparency and Discoverability</h2></div></div><p>To design for transparency and discoverability, you need to
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Designing for Transparency and Discoverability</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="transparencychapter.html" title="Chapter&#160;6.&#160;Transparency"/><link rel="previous" href="ch06s01.html" title="Studying Cases"/><link rel="next" href="ch06s03.html" title="Designing for Maintainability"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2914317"/>Designing for Transparency and Discoverability</h2></div></div><p>To design for transparency and discoverability, you need to
 apply every tactic for keeping your code simple, and also concentrate
 on the ways in which your code is a communication to other human
 beings.  The first questions to ask, after &#8220;Will this design
@@ -11,7 +11,7 @@ and increasing its long-term maintainability.</p><div class="sect2" lang="en"><d
 pattern that emerges from the examples we've examined so far in this
 chapter is this: If you want transparent code, the most effective
 route is simply not to layer too much abstraction over what you
-are manipulating with the code.</p><p>In <a href="modularitychapter.html" title="Chapter 4. Modularity">Chapter 4</a>'s
+are manipulating with the code.</p><p>In <a href="modularitychapter.html" title="Chapter&#160;4.&#160;Modularity">Chapter&#160;4</a>'s
 section on the value of detachment, our advice was to abstract and
 simplify and generalize, to try and detach from the particular,
 accidental conditions under which a design problem was posed.  The
@@ -35,7 +35,7 @@ is actually going on.</p><p>Any Zen master would recognize this problem instantl
 &#8220;Three pounds of flax!&#8221;, and probably clout the student a
 good one.<sup>[<a id="id2914429" href="#ftn.id2914429">63</a>]</sup>  Consciously
 designing for transparency is a slightly less mystical way of
-addressing it.</p><p>In <a href="modularitychapter.html" title="Chapter 4. Modularity">Chapter 4</a> we
+addressing it.</p><p>In <a href="modularitychapter.html" title="Chapter&#160;4.&#160;Modularity">Chapter&#160;4</a> we
 criticized object-oriented programming in terms likely to prove a bit
 shocking to programmers who were raised on the 1990s gospel of
 OO<a id="id2914465" class="indexterm"/>. Object-oriented design doesn't have
@@ -88,7 +88,7 @@ it?  Is it easy to discover the implementation's limits (such as
 critical buffer sizes) by inspection?</p></li></ul></div><p>It's best for code to be simple.  But if it answers these sorts
 of questions well, it can be very complex without putting an
 impossible cognitive burden on a human maintainer.</p><p>The reader might find it instructive to compare these with our
-checklist questions about modularity in <a href="modularitychapter.html" title="Chapter 4. Modularity">Chapter 4</a>.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2914680"/>Transparency and Avoiding Overprotectiveness</h3></div></div><p>Close kin to the programmer tendency to build overelaborate
+checklist questions about modularity in <a href="modularitychapter.html" title="Chapter&#160;4.&#160;Modularity">Chapter&#160;4</a>.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2914680"/>Transparency and Avoiding Overprotectiveness</h3></div></div><p>Close kin to the programmer tendency to build overelaborate
 castles of abstractions is a tendency to overprotect others from the
 low-level details.  While it's not bad practice to hide those details
 in the program's normal mode of operation
@@ -134,7 +134,7 @@ it reversibly and losslessly.  This property is very important, and
 worth implementing even if there is no obvious application demand for
 that kind of 100% fidelity.  It gives potential users confidence that
 they can experiment without degrading their data.</p><p>All the advantages of textual data-file formats that we
-discussed in <a href="textualitychapter.html" title="Chapter 5. Textuality">Chapter 5</a>
+discussed in <a href="textualitychapter.html" title="Chapter&#160;5.&#160;Textuality">Chapter&#160;5</a>
 also apply to the textual formats that
 sng(1),
 infocmp(1)
@@ -189,9 +189,9 @@ you may find you have code that can be reused for your actual
 application.
 </p></li></ul></div><p>After you've done this, you may well discover that it's possible
 to apply the &#8220;separated engine and interface&#8221; pattern
-(see <a href="interfacechapter.html" title="Chapter 11. Interfaces">Chapter 11</a>) using
+(see <a href="interfacechapter.html" title="Chapter&#160;11.&#160;Interfaces">Chapter&#160;11</a>) using
 your textualizer/debugger as the engine.  All the usual benefits of
-this pattern will apply.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>It is desirable, although often difficult, for a textualizer to
+this pattern will apply.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>It is desirable, although often difficult, for a textualizer to
 be able to read and write even a damaged binary object.  For one
 thing, it lets you generate damaged test cases to stress-test
 software; for another, it can make emergency repairs a whole lot
@@ -199,10 +199,10 @@ easier.  It may be hard to handle cases in which the
 <span class="emphasis"><em>structure</em></span> of the object is messed up, but at
 least you should handle cases in which the <span class="emphasis"><em>content</em></span>
 of the structure is nonsense, e.g., by showing nonsense values in hex
-and converting the hex back to the values.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+and converting the hex back to the values.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Henry Spencer</span>
 <a id="id2915073" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2915107"/>Transparency, Fault Diagnosis, and Fault Recovery</h3></div></div><p>Yet another benefit of transparency, related to ease of
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2915107"/>Transparency, Fault Diagnosis, and Fault Recovery</h3></div></div><p>Yet another benefit of transparency, related to ease of
 debugging, is that transparent systems are easier to perform recovery
 actions on after a bug bites &#8212; and, often, more resistant to
 damage from bugs in the first place.</p><p>In comparing the terminfo database with Windows registries

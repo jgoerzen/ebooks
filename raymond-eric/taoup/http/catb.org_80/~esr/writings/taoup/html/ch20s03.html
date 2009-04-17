@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Problems in the Design of Unix</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="futurechapter.html" title="Chapter 20. Futures"/><link rel="previous" href="plan9.html" title="Plan 9: The Way the Future Was"/><link rel="next" href="ch20s04.html" title="Problems in the Environment of Unix"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3015510"/>Problems in the Design of Unix</h2></div></div><p>Plan 9 cleans up Unix, but only really adds one new concept
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Problems in the Design of Unix</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="futurechapter.html" title="Chapter&#160;20.&#160;Futures"/><link rel="previous" href="plan9.html" title="Plan 9: The Way the Future Was"/><link rel="next" href="ch20s04.html" title="Problems in the Environment of Unix"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3015510"/>Problems in the Design of Unix</h2></div></div><p>Plan 9 cleans up Unix, but only really adds one new concept
 (private namespaces) to its basic set of design ideas.  But are there
-serious problems with those basic design ideas? In <a href="philosophychapter.html" title="Chapter 1. Philosophy">Chapter 1</a> we touched on
+serious problems with those basic design ideas? In <a href="philosophychapter.html" title="Chapter&#160;1.&#160;Philosophy">Chapter&#160;1</a> we touched on
 several issues that Unix arguably got wrong.  Now that the open-source
 movement has put the design future of Unix back in the hands of
 programmers and technical people, these are no longer decisions we
@@ -59,7 +59,7 @@ name/value pairs as properties of a filename, but at time of writing
 applications.  Recent versions of Solaris have a roughly equivalent
 feature.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3015724"/>Unix Support for GUIs Is Weak</h3></div></div><p>The Unix experience proves that using a handful of metaphors as
 the basis for a framework is a powerful strategy (recall the
-discussion of frameworks and shared context in <a href="complexitychapter.html" title="Chapter 13. Complexity">Chapter 13</a>).  The visual metaphor at the heart of
+discussion of frameworks and shared context in <a href="complexitychapter.html" title="Chapter&#160;13.&#160;Complexity">Chapter&#160;13</a>).  The visual metaphor at the heart of
 modern GUIs (files represented by icons, and opened by clicking which
 invokes some designated handler program, typically able to create and
 edit these files) has proven both successful and long-lived, exerting
@@ -69,17 +69,17 @@ in the 1970s.</p><p>Despite considerable recent effort, in 2003 Unix still
 supports this metaphor only poorly and grudgingly &#8212; there are
 lots of layers, few conventions, and only weak construction utilities.
 A typical reaction from a Unix old hand is to suspect that this
-reflects deeper problems with the GUI metaphor itself.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>I think part of the problem is that we still don't have the
+reflects deeper problems with the GUI metaphor itself.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>I think part of the problem is that we still don't have the
 metaphor right.  For example, on the Mac I drag a file to the
 trashcan to delete it, but when I drag it to a disc it gets copied,
 and can't drag it to a printer icon to print it because that's done
 through the menus.  I could go on and on.  It's like files were in
 OS/360, before Unix came along with its simple (but not too simple),
-file idea.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+file idea.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Steve Johnson</span>
 <a id="id3015781" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>We quoted Brian Kernighan and Mike Lesk to similar effect in
-<a href="interfacechapter.html" title="Chapter 11. Interfaces">Chapter 11</a>.  But the inquiry can't stop with
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>We quoted Brian Kernighan and Mike Lesk to similar effect in
+<a href="interfacechapter.html" title="Chapter&#160;11.&#160;Interfaces">Chapter&#160;11</a>.  But the inquiry can't stop with
 indicting the GUI, because with all its flaws there is tremendous
 demand for GUIs from end users.  Supposing we could get the metaphor
 right at the level of the design of user interactions, would Unix be
@@ -218,11 +218,11 @@ performance.  It must be noted, however, that if this is a failure of Unix,
 it is equally a failure of all of its competitors; no major
 production operating system has yet followed EROS's
 lead.<sup>[<a id="id3019184" href="#ftn.id3019184">161</a>]</sup></p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id3019193"/>Towards a Global Internet Address Space</h3></div></div><p>Perhaps URLs don't go far enough.  We'll leave the last word
-on possible future directions of Unix to Unix's inventor:</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>My ideal for the future is to develop a file system remote interface
+on possible future directions of Unix to Unix's inventor:</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>My ideal for the future is to develop a file system remote interface
 (a la Plan 9) and then have it implemented across the Internet as the
-standard rather than HTML.  That would be ultimate cool.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+standard rather than HTML.  That would be ultimate cool.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Ken Thompson</span>
-<a id="id3019220" class="indexterm"/></span></td><td width="10%" valign="top"> </td></tr></table></div></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id3015918" href="#id3015918">156</a>] </sup>Look for <tt>F_NOTIFY</tt> under
+<a id="id3019220" class="indexterm"/></span></td><td width="10%" valign="top">&#160;</td></tr></table></div></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id3015918" href="#id3015918">156</a>] </sup>Look for <tt>F_NOTIFY</tt> under
 fcntl(2).
 </p></div><div class="footnote"><p><sup>[<a id="ftn.id3015976" href="#id3015976">157</a>] </sup> This
 paragraph is based on a 1984 analysis by Henry Spencer.  He went on to

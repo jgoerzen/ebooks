@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 13. Complexity</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="design.html" title="Part II. Design"/><link rel="previous" href="ch12s04.html" title="Throughput vs. Latency"/><link rel="next" href="ch13s01.html" title="Speaking of Complexity"/></head><body><mbp:pagebreak /><div class="chapter" lang="en"><div class="titlepage"><div><h2 class="title"><a id="complexitychapter"/>Chapter 13. Complexity</h2></div><div><h3 class="subtitle"><i>As Simple As Possible, but No Simpler</i></h3></div></div><mbp:pagebreak /><div xmlns="" class="epigraph"><i><p xmlns="http://www.w3.org/1999/xhtml">Everything should be made as simple as possible, but no simpler.</p></i><span>--<i><span xmlns="http://www.w3.org/1999/xhtml" class="attribution">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter&#160;13.&#160;Complexity</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="design.html" title="Part&#160;II.&#160;Design"/><link rel="previous" href="ch12s04.html" title="Throughput vs. Latency"/><link rel="next" href="ch13s01.html" title="Speaking of Complexity"/></head><body><mbp:pagebreak /><div class="chapter" lang="en"><div class="titlepage"><div><h2 class="title"><a id="complexitychapter"/>Chapter&#160;13.&#160;Complexity</h2></div><div><h3 class="subtitle"><i>As Simple As Possible, but&#160;No&#160;Simpler</i></h3></div></div><mbp:pagebreak /><div xmlns="" class="epigraph"><i><p xmlns="http://www.w3.org/1999/xhtml">Everything should be made as simple as possible, but no simpler.</p></i><span>--<i><span xmlns="http://www.w3.org/1999/xhtml" class="attribution">
 <span class="author">Albert Einstein</span>
 <a id="id2964548" class="indexterm"/>
-</span></i></span></div><p>At the end of <a href="philosophychapter.html" title="Chapter 1. Philosophy">Chapter 1</a>, we summarized the Unix philosophy as
+</span></i></span></div><p>At the end of <a href="philosophychapter.html" title="Chapter&#160;1.&#160;Philosophy">Chapter&#160;1</a>, we summarized the Unix philosophy as
 &#8220;Keep It Simple, Stupid!&#8221;  Throughout the Design
 section, one of the continuing themes has been the importance of
 keeping designs and implementations as simple as possible.  But what
 <span class="emphasis"><em>is</em></span> &#8220;as simple as possible&#8221;?  How do
 you tell?</p><p>We've held off on addressing this question until now because
 understanding simplicity is complicated.  It needs some of the ideas
-we developed earlier in the Design section, especially in <a href="modularitychapter.html" title="Chapter 4. Modularity">Chapter 4</a> and <a href="interfacechapter.html" title="Chapter 11. Interfaces">Chapter 11</a>, as background.</p><p>The large questions in this chapter are central preoccupations
+we developed earlier in the Design section, especially in <a href="modularitychapter.html" title="Chapter&#160;4.&#160;Modularity">Chapter&#160;4</a> and <a href="interfacechapter.html" title="Chapter&#160;11.&#160;Interfaces">Chapter&#160;11</a>, as background.</p><p>The large questions in this chapter are central preoccupations
 of the Unix tradition, some of them motivating holy wars that have
 simmered for decades.  This chapter starts from established Unix
 practice and vocabulary, then goes a bit further beyond it than we do in

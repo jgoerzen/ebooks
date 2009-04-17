@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 16. Reuse</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="implementation.html" title="Part III. Implementation"/><link rel="previous" href="ch15s08.html" title="Combining Tools with Emacs"/><link rel="next" href="ch16s01.html" title="The Tale of J. Random Newbie"/></head><body><mbp:pagebreak /><div class="chapter" lang="en"><div class="titlepage"><div><h2 class="title"><a id="reusechapter"/>Chapter 16. Reuse</h2></div><div><h3 class="subtitle"><i>On Not Reinventing the Wheel</i></h3></div></div><mbp:pagebreak /><div xmlns="" class="epigraph"><i><p xmlns="http://www.w3.org/1999/xhtml">When the superior man refrains from acting, his force is felt
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter&#160;16.&#160;Reuse</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="implementation.html" title="Part&#160;III.&#160;Implementation"/><link rel="previous" href="ch15s08.html" title="Combining Tools with Emacs"/><link rel="next" href="ch16s01.html" title="The Tale of J. Random Newbie"/></head><body><mbp:pagebreak /><div class="chapter" lang="en"><div class="titlepage"><div><h2 class="title"><a id="reusechapter"/>Chapter&#160;16.&#160;Reuse</h2></div><div><h3 class="subtitle"><i>On Not Reinventing the Wheel</i></h3></div></div><mbp:pagebreak /><div xmlns="" class="epigraph"><i><p xmlns="http://www.w3.org/1999/xhtml">When the superior man refrains from acting, his force is felt
 for a thousand miles.</p></i><span>--<i><span xmlns="http://www.w3.org/1999/xhtml" class="attribution">
 <i>Tao Te Ching (as popularly mistranslated)</i>
 </span></i></span></div><p>Reluctance to do unnecessary work is a great virtue in
@@ -20,14 +20,14 @@ problems rather than rehashing old ones for which known solutions
 already exist. This attitude gives the best return both in the
 &#8220;soft&#8221; terms of developing human capital and in the
 &#8220;hard&#8221; terms of economic return on development
-investment.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Reinventing the wheel is bad not only because it
+investment.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>Reinventing the wheel is bad not only because it
 wastes time, but because reinvented wheels are often square.  There is an
 almost irresistible temptation to economize on reinvention time by
 taking a shortcut to a crude and poorly-thought-out version, which
-in the long run often turns out to be false economy.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+in the long run often turns out to be false economy.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Henry Spencer</span>
 <a id="id2992698" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>The most effective way to avoid reinventing the wheel is to
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>The most effective way to avoid reinventing the wheel is to
 borrow someone else's design and implementation of it. In other
 words, to reuse code.</p><p>Unix supports reuse at every level from individual library
 modules up to entire programs, which Unix helps you script and

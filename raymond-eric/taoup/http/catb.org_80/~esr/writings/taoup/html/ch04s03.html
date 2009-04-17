@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Software Is a Many-Layered Thing</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="modularitychapter.html" title="Chapter 4. Modularity"/><link rel="previous" href="ch04s02.html" title="Compactness and Orthogonality"/><link rel="next" href="ch04s04.html" title="Libraries"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2899538"/>Software Is a Many-Layered Thing</h2></div></div><p>Broadly speaking, there are two directions one can go in
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Software Is a Many-Layered Thing</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="modularitychapter.html" title="Chapter&#160;4.&#160;Modularity"/><link rel="previous" href="ch04s02.html" title="Compactness and Orthogonality"/><link rel="next" href="ch04s04.html" title="Libraries"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2899538"/>Software Is a Many-Layered Thing</h2></div></div><p>Broadly speaking, there are two directions one can go in
 designing a hierarchy of functions or objects.  Which direction you
 choose, and when, has a profound effect on the layering of your code.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2899552"/>Top-Down versus Bottom-Up</h3></div></div><p>One direction is bottom-up, from concrete to abstract &#8212;
 working up from the specific operations in the problem domain that you
@@ -173,7 +173,7 @@ compactness<a id="id2900051" class="indexterm"/>,
 orthogonality<a id="id2900059" class="indexterm"/>,
 and detachment (from the machine architecture on which it was
 originally designed), it also has the important quality of
-transparency<a id="id2900070" class="indexterm"/> that we will discuss in <a href="transparencychapter.html" title="Chapter 6. Transparency">Chapter 6</a>. The few language designs since that
+transparency<a id="id2900070" class="indexterm"/> that we will discuss in <a href="transparencychapter.html" title="Chapter&#160;6.&#160;Transparency">Chapter&#160;6</a>. The few language designs since that
 are arguably better have needed to make large changes (like
 introducing garbage collection) in order to get enough functional
 distance from C not to be swamped by it.</p><p>This history is worth recalling and understanding because C
@@ -186,24 +186,24 @@ its original hardware platform, and withered away as the world changed
 out from under it.  Instead, C has flourished &#8212; and the example
 Thompson and Ritchie set has influenced the style of Unix development
 ever since.  As the writer, adventurer, artist, and aeronautical
-engineer Antoine de Saint-Exupéry once put
+engineer Antoine de Saint-Exup&#233;ry once put
 it<a id="id2900123" class="indexterm"/>, writing about the
 design of airplanes:
-<span class="foreignphrase" lang="fr"><i>«La perfection est atteinte non quand
-il ne reste rien à ajouter, mais quand il ne reste rien
-à enlever».</i></span> (&#8220;Perfection is
+<span class="foreignphrase" lang="fr"><i>&#171;La perfection est atteinte non quand
+il ne reste rien &#224; ajouter, mais quand il ne reste rien
+&#224; enlever&#187;.</i></span> (&#8220;Perfection is
 attained not when there is nothing more to add, but when there is
 nothing more to remove&#8221;.)</p><p>Ritchie and Thompson lived by this maxim.  Long after the
 resource constraints on early Unix software had eased, they worked at
-keeping C as thin a layer over the hardware as possible.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Dennis used to say to me, when I would ask for some
+keeping C as thin a layer over the hardware as possible.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>Dennis used to say to me, when I would ask for some
 particularly extravagant feature in C, &#8220;If you want PL/1, you know
 where to get it&#8221;.  He didn't have to deal with some marketer saying
-&#8220;But we need a check in the box on the sales viewgraph!&#8221;</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+&#8220;But we need a check in the box on the sales viewgraph!&#8221;</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Mike Lesk</span>
 <a id="id2900173" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>The history of C is also a lesson in the value of having a
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>The history of C is also a lesson in the value of having a
 working reference implementation <span class="emphasis"><em>before</em></span> you
-standardize.  We'll return to this point in <a href="portabilitychapter.html" title="Chapter 17. Portability">Chapter 17</a> when we discuss the evolution of C and
+standardize.  We'll return to this point in <a href="portabilitychapter.html" title="Chapter&#160;17.&#160;Portability">Chapter&#160;17</a> when we discuss the evolution of C and
 Unix standards.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2899932" href="#id2899932">46</a>] </sup>The terms
 <i>big-endian</i> and
 <i>little-endian</i> refer to architectural choices about

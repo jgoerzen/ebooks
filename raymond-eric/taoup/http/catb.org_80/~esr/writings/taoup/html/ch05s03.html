@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Application Protocol Design</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="textualitychapter.html" title="Chapter 5. Textuality"/><link rel="previous" href="ch05s02.html" title="Data File Metaformats"/><link rel="next" href="ch05s04.html" title="Application Protocol Metaformats"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2908069"/>Application Protocol Design</h2></div></div><p>In <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a>,
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Application Protocol Design</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="textualitychapter.html" title="Chapter&#160;5.&#160;Textuality"/><link rel="previous" href="ch05s02.html" title="Data File Metaformats"/><link rel="next" href="ch05s04.html" title="Application Protocol Metaformats"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2908069"/>Application Protocol Design</h2></div></div><p>In <a href="multiprogramchapter.html" title="Chapter&#160;7.&#160;Multiprogramming">Chapter&#160;7</a>,
 we'll discuss the advantages of breaking complicated applications up
 into cooperating processes speaking an application-specific command
 set or protocol with each other.  All the good reasons for data file
@@ -10,7 +10,7 @@ much easier to interpret. Test loads become easier to write.</p><p>Server proces
 inetd(8)
 in such a way that the server sees commands on standard input and
 ships responses to standard output.  We describe this &#8220;CLI
-server&#8221; pattern in more detail in <a href="interfacechapter.html" title="Chapter 11. Interfaces">Chapter 11</a>.</p><p>A CLI server with a command set that is designed for simplicity has
+server&#8221; pattern in more detail in <a href="interfacechapter.html" title="Chapter&#160;11.&#160;Interfaces">Chapter&#160;11</a>.</p><p>A CLI server with a command set that is designed for simplicity has
 the valuable property that a human tester will be able to type
 commands direct to the server process to probe the software's
 behavior.</p><p>Another issue to bear in mind is the end-to-end design
@@ -20,7 +20,7 @@ level of the protocol stack should handle features like security and
 authentication; this paper provides some good conceptual tools for
 thinking about them. Yet a third issue is designing application
 protocols for good performance.  We'll cover that issue in more detail
-in <a href="optimizationchapter.html" title="Chapter 12. Optimization">Chapter 12</a>.</p><p>The traditions of Internet application protocol design evolved
+in <a href="optimizationchapter.html" title="Chapter&#160;12.&#160;Optimization">Chapter&#160;12</a>.</p><p>The traditions of Internet application protocol design evolved
 separately from Unix before 1980.<sup>[<a id="id2908167" href="#ftn.id2908167">54</a>]</sup>
 But since the 1980s these traditions have become thoroughly
 naturalized into Unix practice.</p><p>We'll illustrate the Internet style by looking at three
@@ -31,13 +31,13 @@ POP3, and IMAP.  All three address different aspects of mail transport
 World Wide Web), but the problems they address (passing messages,
 setting remote state, indicating error conditions) are generic to
 non-email application protocols as well and are normally addressed
-using similar techniques.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2908194"/>Case Study: SMTP, the Simple Mail Transfer Protocol</h3></div></div><p><a href="#smtp_example" title="Example 5.7. An SMTP session example.">Example 5.7</a> is an example transaction in SMTP
+using similar techniques.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2908194"/>Case Study: SMTP, the Simple Mail Transfer Protocol</h3></div></div><p><a href="#smtp_example" title="Example&#160;5.7.&#160;An SMTP session example.">Example&#160;5.7</a> is an example transaction in SMTP
 (Simple Mail Transfer Protocol), which is described by RFC 2821. In
 the example, <span class="emphasis"><em>C:</em></span> lines are sent by a mail
 transport agent (MTA) sending mail, and <span class="emphasis"><em>S:</em></span> lines
 are returned by the MTA receiving it. Text <span class="emphasis"><em>emphasized like
 this</em></span> is comments, not part of the actual
-transaction.</p><div class="example"><a id="smtp_example"/><p class="title"><b>Example 5.7. An SMTP session example.</b></p><pre class="programlisting">
+transaction.</p><div class="example"><a id="smtp_example"/><p class="title"><b>Example&#160;5.7.&#160;An SMTP session example.</b></p><pre class="programlisting">
 <span class="emphasis"><em>C: &lt;client connects to service port 25&gt;</em></span>
 <span class="emphasis"><em>C:</em></span> HELO snark.thyrsus.com               <span class="emphasis"><em>sending host identifies self</em></span>
 <span class="emphasis"><em>S:</em></span> 250 OK Hello snark, glad to meet you  <span class="emphasis"><em>receiver acknowledges</em></span>
@@ -70,7 +70,7 @@ mail sender, POP3 is a &#8216;pull&#8217; protocol with transactions
 initiated by the mail receiver.  Internet users with intermittent
 access (like dial-up connections) can let their mail pile up on 
 a mail-drop machine, then use a POP3 connection to pull mail
-up the wire to their personal machines.</p><p><a href="#pop_example" title="Example 5.8. A POP3 example session.">Example 5.8</a> is an example POP3 session. In the
+up the wire to their personal machines.</p><p><a href="#pop_example" title="Example&#160;5.8.&#160;A POP3 example session.">Example&#160;5.8</a> is an example POP3 session. In the
 example, <span class="emphasis"><em>C:</em></span> lines are sent by the client,
 and <span class="emphasis"><em>S:</em></span> lines by the mail server. Observe the many
 similarities with SMTP.  This protocol is also textual and
@@ -78,7 +78,7 @@ line-oriented, sends payload message sections terminated by a line
 consisting of a single dot followed by line terminator, and even uses
 the same exit command, QUIT. Like SMTP, each client operation is
 acknowledged by a reply line that begins with a status code and
-includes an informational message meant for human eyes.</p><div class="example"><a id="pop_example"/><p class="title"><b>Example 5.8. A POP3 example session.</b></p><pre class="programlisting">
+includes an informational message meant for human eyes.</p><div class="example"><a id="pop_example"/><p class="title"><b>Example&#160;5.8.&#160;A POP3 example session.</b></p><pre class="programlisting">
 <span class="emphasis"><em>C: &lt;client connects to service port 110&gt; </em></span>
 <span class="emphasis"><em>S:</em></span> +OK POP3 server ready &lt;1896.6971@mailgate.dobbs.org&gt;
 <span class="emphasis"><em>C:</em></span> USER bob
@@ -113,10 +113,10 @@ the requests have different semantics.  But the family resemblance
 (one we'll have more to say about when we discuss the generic Internet
 metaprotocol later in this chapter) is clear.</p></div><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2908582"/>Case Study: IMAP, the Internet Message Access Protocol</h3></div></div><p>To complete our triptych of Internet application protocol
 examples, we'll look at IMAP, another post office protocol designed in
-a slightly different style.  See <a href="#imap_example" title="Example 5.9. An IMAP session example.">Example 5.9</a>; as
+a slightly different style.  See <a href="#imap_example" title="Example&#160;5.9.&#160;An IMAP session example.">Example&#160;5.9</a>; as
 before, <span class="emphasis"><em>C:</em></span> lines are sent by the client, and <span class="emphasis"><em>S:</em></span> lines by the
 mail server.  Text <span class="emphasis"><em>emphasized like this</em></span> is
-comments, not part of the actual transaction.</p><div class="example"><a id="imap_example"/><p class="title"><b>Example 5.9. An IMAP session example.</b></p><pre class="programlisting">
+comments, not part of the actual transaction.</p><div class="example"><a id="imap_example"/><p class="title"><b>Example&#160;5.9.&#160;An IMAP session example.</b></p><pre class="programlisting">
 <span class="emphasis"><em>C: &lt;client connects to service port 143&gt;</em></span>
 <span class="emphasis"><em>S:</em></span> * OK example.com IMAP4rev1 v12.264 server ready
 <span class="emphasis"><em>C:</em></span> A0001 USER &quot;frobozz&quot; &quot;xyzzy&quot;

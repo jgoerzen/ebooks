@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>DocBook</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="documentationchapter.html" title="Chapter 18. Documentation"/><link rel="previous" href="ch18s04.html" title="The Present Chaos and a Possible Way Out"/><link rel="next" href="ch18s06.html" title="Best Practices for Writing Unix Documentation"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3002482"/>DocBook</h2></div></div><p>A great many major open-source projects are converging on
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>DocBook</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="documentationchapter.html" title="Chapter&#160;18.&#160;Documentation"/><link rel="previous" href="ch18s04.html" title="The Present Chaos and a Possible Way Out"/><link rel="next" href="ch18s06.html" title="Best Practices for Writing Unix Documentation"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id3002482"/>DocBook</h2></div></div><p>A great many major open-source projects are converging on
 DocBook as a standard format for their documentation.  The advocates
 of XML-based markup seem to have won the theoretical argument against
 presentation-level and for structural-level markup, and an effective
@@ -34,7 +34,7 @@ that applies your stylesheet, might become quite confused).</p><p>The validating
 about places where the document structure is broken, or translate the
 document into a stream of XML elements and text that the parser back
 end combines with the information in your stylesheet to produce
-formatted output.</p><p><a href="#docfig1" title="Figure 18.1. Processing structural documents.">Figure 18.1</a> diagrams the whole process.</p><div class="figure"><a id="docfig1"/><p class="title"><b>Figure 18.1. Processing structural documents.</b></p><div class="mediaobject"><img src="graphics/docflow1.png" alt="Processing structural documents."/></div></div><p>The part of the diagram inside the dotted box is your formatting
+formatted output.</p><p><a href="#docfig1" title="Figure&#160;18.1.&#160;Processing structural documents.">Figure&#160;18.1</a> diagrams the whole process.</p><div class="figure"><a id="docfig1"/><p class="title"><b>Figure&#160;18.1.&#160;Processing structural documents.</b></p><div class="mediaobject"><img src="graphics/docflow1.png" alt="Processing structural documents."/></div></div><p>The part of the diagram inside the dotted box is your formatting
 software, or <i>toolchain</i>. Besides the obvious and
 visible input to the formatter (the document source) you'll need to
 keep the two hidden inputs of the formatter (DTD and stylesheet) in
@@ -70,8 +70,8 @@ bash$ ls *.ps
 foo.ps
 </pre><p>To turn your documents into HTML or PostScript, you need an
 engine that can apply the combination of DocBook DTD and a suitable
-stylesheet to your document.  <a href="#docfig2" title="Figure 18.2. Present-day XML-DocBook toolchain.">Figure 18.2</a> illustrates how
-the open-source tools for doing this fit together.</p><div class="figure"><a id="docfig2"/><p class="title"><b>Figure 18.2. Present-day XML-DocBook toolchain.</b></p><div class="mediaobject"><img src="graphics/docflow2.png" alt="Present-day XML-DocBook toolchain."/></div></div><p>Parsing your document and applying the stylesheet transformation
+stylesheet to your document.  <a href="#docfig2" title="Figure&#160;18.2.&#160;Present-day XML-DocBook toolchain.">Figure&#160;18.2</a> illustrates how
+the open-source tools for doing this fit together.</p><div class="figure"><a id="docfig2"/><p class="title"><b>Figure&#160;18.2.&#160;Present-day XML-DocBook toolchain.</b></p><div class="mediaobject"><img src="graphics/docflow2.png" alt="Present-day XML-DocBook toolchain."/></div></div><p>Parsing your document and applying the stylesheet transformation
 will be handled by one of three programs.  The most likely one is
 <i>xsltproc</i><a id="id3006388" class="indexterm"/>,
 the parser that ships with Red Hat Linux<a id="id3006397" class="indexterm"/>.  The other possibilities are two
@@ -116,8 +116,8 @@ confined; XML tools handle Unicode all the way through to FOP.  The
 mapping from Unicode glyphs to Postscript font is also strictly FOP's
 problem.  The only trouble with this approach is that it doesn't work
 &#8212; yet.  As of mid-2003, FOP is in an unfinished alpha state
-&#8212; usable, but with rough edges and missing features.</p><p><a href="#docfig3" title="Figure 18.3. Future XML-DocBook toolchain with FOP.">Figure 18.3</a> illustrates what the FOP toolchain looks
-like.</p><div class="figure"><a id="docfig3"/><p class="title"><b>Figure 18.3. Future XML-DocBook toolchain with FOP.</b></p><div class="mediaobject"><img src="graphics/docflow3.png" alt="Future XML-DocBook toolchain with FOP."/></div></div><p>FOP has competition.  Another project called
+&#8212; usable, but with rough edges and missing features.</p><p><a href="#docfig3" title="Figure&#160;18.3.&#160;Future XML-DocBook toolchain with FOP.">Figure&#160;18.3</a> illustrates what the FOP toolchain looks
+like.</p><div class="figure"><a id="docfig3"/><p class="title"><b>Figure&#160;18.3.&#160;Future XML-DocBook toolchain with FOP.</b></p><div class="mediaobject"><img src="graphics/docflow3.png" alt="Future XML-DocBook toolchain with FOP."/></div></div><p>FOP has competition.  Another project called
 <i>xsl-fo-proc</i> aims to do the same
 things as FOP, but in C++<a id="id3006712" class="indexterm"/> (and therefore both faster than
 Java<a id="id3006722" class="indexterm"/> and not

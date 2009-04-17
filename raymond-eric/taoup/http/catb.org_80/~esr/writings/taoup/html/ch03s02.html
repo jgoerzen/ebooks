@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Operating-System Comparisons</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="contrastchapter.html" title="Chapter 3. Contrasts"/><link rel="previous" href="ch03s01.html" title="The Elements of Operating-System Style"/><link rel="next" href="ch03s03.html" title="What Goes Around, Comes Around"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2888653"/>Operating-System Comparisons</h2></div></div><p>The logic of Unix's design choice stands out more clearly when
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Operating-System Comparisons</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="contrastchapter.html" title="Chapter&#160;3.&#160;Contrasts"/><link rel="previous" href="ch03s01.html" title="The Elements of Operating-System Style"/><link rel="next" href="ch03s03.html" title="What Goes Around, Comes Around"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2888653"/>Operating-System Comparisons</h2></div></div><p>The logic of Unix's design choice stands out more clearly when
 we contrast it with other operating systems.  Here we will attempt
 only a design overview; for detailed discussion of the technical
-features of different operating systems.<sup>[<a id="id2888666" href="#ftn.id2888666">24</a>]</sup></p><div class="figure"><a id="os-history"/><p class="title"><b>Figure 3.1. Schematic history of timesharing.</b></p><div class="mediaobject"><img src="graphics/os-history.png" alt="Schematic history of timesharing."/></div></div><p><a href="#os-history" title="Figure 3.1. Schematic history of timesharing.">Figure 3.1</a> indicates the genetic relationships
+features of different operating systems.<sup>[<a id="id2888666" href="#ftn.id2888666">24</a>]</sup></p><div class="figure"><a id="os-history"/><p class="title"><b>Figure&#160;3.1.&#160;Schematic history of timesharing.</b></p><div class="mediaobject"><img src="graphics/os-history.png" alt="Schematic history of timesharing."/></div></div><p><a href="#os-history" title="Figure&#160;3.1.&#160;Schematic history of timesharing.">Figure&#160;3.1</a> indicates the genetic relationships
 among the timesharing operating systems we'll survey.  A few other
 operating systems (marked in gray, and not necessarily timesharing)
 are included for context.  Sytems in solid boxes are still live.  The
@@ -116,7 +116,7 @@ machines are very easy to write; the OS has been spared an epidemic
 mainly because very few people are motivated to crack it.</p><p>Mac programmers tend to design in the opposite direction from
 Unix programmers; that is, they work from the interface inward, rather
 than from the engine outward (we'll discuss some of the implications
-of this choice in <a href="futurechapter.html" title="Chapter 20. Futures">Chapter 20</a>).
+of this choice in <a href="futurechapter.html" title="Chapter&#160;20.&#160;Futures">Chapter&#160;20</a>).
 Everything in the design of the MacOS conspires to encourage
 this.</p><p>The intended role for the Macintosh was as a client operating
 system for nontechnical end users, implying a very low tolerance for
@@ -144,7 +144,7 @@ unsuccessful.  The 2.0 version for the 386 came out in 1992, but by
 that time the
 IBM/Microsoft<a id="id2889175" class="indexterm"/> alliance had already fractured.
 Microsoft went in a different (and more lucrative) direction with
-Windows 3.0. OS/2 attracted a loyal minority following, but never
+Windows&#160;3.0. OS/2 attracted a loyal minority following, but never
 attracted a critical mass of developers and users.  It remained third
 in the desktop market, behind the Macintosh, until being subsumed into
 IBM's Java<a id="id2892763" class="indexterm"/>
@@ -266,7 +266,7 @@ reinstall.</p></li><li><p>The <i>registry creep</i> phenomenon: as the
 registry grows, rising access costs slow down all programs.</p></li></ul></div><p>NT systems on the Internet are notoriously vulnerable to worms,
 viruses, defacements, and cracks of all kinds.  There are many reasons
 for this, some more fundamental than others.  The most fundamental is
-that NT's internal boundaries are extremely porous.</p><p>NT has access control lists that can be used to implement
+that NT's internal boundaries are extremely&#160;porous.</p><p>NT has access control lists that can be used to implement
 per-user privilege groups, but a great deal of legacy code
 ignores them, and the operating system permits this in order not to
 break backward compatibility.  There are no security controls on
@@ -596,16 +596,16 @@ to reach the end-user, has motivated Linux developers to adopt design
 ideas from non-Unix operating systems to a degree that makes
 traditional Unixes look rather insular.  Linux applications using
 Windows .INI format files for configuration is a minor example we'll
-cover in <a href="configurationchapter.html" title="Chapter 10. Configuration">Chapter 10</a>;
+cover in <a href="configurationchapter.html" title="Chapter&#160;10.&#160;Configuration">Chapter&#160;10</a>;
 Linux 2.5's incorporation of extended file attributes, which among
 other things can be used to emulate the semantics of the Macintosh
 resource fork, is a recent major one at time of writing. 
-</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>But the day Linux gives the Mac diagnostic that you can't open a
+</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>But the day Linux gives the Mac diagnostic that you can't open a
 file because you don't have the application is the day Linux becomes
-non-Unix.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+non-Unix.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Doug McIlroy</span>
 <a id="id2894104" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>The remaining proprietary Unixes (such as Solaris, HP-UX, AIX,
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>The remaining proprietary Unixes (such as Solaris, HP-UX, AIX,
 etc.) are designed to be big products for big IT budgets.  Their
 economic niche encourages designs optimized for maximum power on
 high-end, leading-edge hardware.  Because Linux has part of its roots
@@ -619,7 +619,7 @@ understood to be wringing usefulness out of hardware as technically
 obsolete today as Ken Thompson's PDP-7 was in 1969. As a consequence,
 Linux applications are under pressure to stay lean and mean that their
 counterparts under proprietary Unix do not experience.</p><p>These trends have implications for the future of Unix as a
-whole, a topic we'll return to in <a href="futurechapter.html" title="Chapter 20. Futures">Chapter 20</a>.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2888666" href="#id2888666">24</a>] </sup>See the <a href="http://www.osdata.com/" target="_top">OSData website</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2888745" href="#id2888745">25</a>] </sup>Except
+whole, a topic we'll return to in <a href="futurechapter.html" title="Chapter&#160;20.&#160;Futures">Chapter&#160;20</a>.</p></div><div class="footnotes"><br/><hr width="100" align="left"/><div class="footnote"><p><sup>[<a id="ftn.id2888666" href="#id2888666">24</a>] </sup>See the <a href="http://www.osdata.com/" target="_top">OSData website</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2888745" href="#id2888745">25</a>] </sup>Except
 for Multics which exerted most of its influence between the time its
 specifications were published in 1965 and when it actually shipped in
 1969.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2888778" href="#id2888778">26</a>] </sup>For details on the
@@ -633,7 +633,7 @@ GEM Operating System</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2
 </p></div><div class="footnote"><p><sup>[<a id="ftn.id2893067" href="#id2893067">33</a>] </sup>Perhaps. It has been argued that the unifying
 metaphor of all Microsoft operating systems is &#8220;the customer
 must be locked in&#8221;.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2893243" href="#id2893243">34</a>] </sup><a href="http://security.tombom.co.uk/shatter.html" target="_top">http://security.tombom.co.uk/shatter.html</a></p></div><div class="footnote"><p><sup>[<a id="ftn.id2893270" href="#id2893270">35</a>] </sup>Microsoft actually admitted publicly that NT
-security is impossible in March 2003. See <a href="http://www.microsoft.com/technet/treeview/default.asp?url=/technet/security/bulletin/MS03-010.asp" target="_top">http://www.microsoft.com/technet/treeview/default.asp?url=/technet/security/bulletin/MS03-010.asp</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2893313" href="#id2893313">36</a>] </sup>The DLL hell problem is
+security is impossible in March 2003. See&#160;<a href="http://www.microsoft.com/technet/treeview/default.asp?url=/technet/security/bulletin/MS03-010.asp" target="_top">http://www.microsoft.com/technet/treeview/default.asp?url=/technet/security/bulletin/MS03-010.asp</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2893313" href="#id2893313">36</a>] </sup>The DLL hell problem is
 somewhat mitigated by the .NET development framework, which handles
 library versioning &#8212; but as of 2003 .NET only ships on the
 highest-end server versions of NT.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2893328" href="#id2893328">37</a>] </sup>Cygwin is largely compliant with the

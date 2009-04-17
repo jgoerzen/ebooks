@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Designing for Maintainability</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="transparencychapter.html" title="Chapter 6. Transparency"/><link rel="previous" href="ch06s02.html" title="Designing for Transparency and Discoverability"/><link rel="next" href="multiprogramchapter.html" title="Chapter 7. Multiprogramming"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2915209"/>Designing for Maintainability</h2></div></div><p>Software is maintainable to the extent that people who are not
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Designing for Maintainability</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="transparencychapter.html" title="Chapter&#160;6.&#160;Transparency"/><link rel="previous" href="ch06s02.html" title="Designing for Transparency and Discoverability"/><link rel="next" href="multiprogramchapter.html" title="Chapter&#160;7.&#160;Multiprogramming"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2915209"/>Designing for Maintainability</h2></div></div><p>Software is maintainable to the extent that people who are not
 its author can successfully understand and modify it. Maintainability
 demands more than code that works; it demands code that follows
 the Rule of Clarity and communicates successfully to human beings
 as well as the computer.</p><p>Unix programmers have a lot of implicit knowledge available to
 them about what makes for maintainable code, because Unix hosts source
-code that goes back decades.  For reasons we'll discuss in <a href="portabilitychapter.html" title="Chapter 17. Portability">Chapter 17</a>, Unix programmers learn a tendency to
+code that goes back decades.  For reasons we'll discuss in <a href="portabilitychapter.html" title="Chapter&#160;17.&#160;Portability">Chapter&#160;17</a>, Unix programmers learn a tendency to
 scrap and rebuild rather than patching grubby code (see Rob Pike's
-meditation on this subject in <a href="philosophychapter.html" title="Chapter 1. Philosophy">Chapter 1</a>).  Thus, any sources that have survived
+meditation on this subject in <a href="philosophychapter.html" title="Chapter&#160;1.&#160;Philosophy">Chapter&#160;1</a>).  Thus, any sources that have survived
 more than a decade of evolutionary pressure have been selected for
 maintainability. These old, successful, well-established projects with
 maintainable code are the community's models for practice.</p><p>A question Unix programmers &#8212; and especially Unix
@@ -25,7 +25,7 @@ discoverable<a id="id2915277" class="indexterm"/>
 has gone a long way toward being maintainable.  But there are other
 practices we can observe in the model projects in this chapter that
 are worth emulating.</p><p>One very important practice is an application of the Rule of
-Clarity: choosing simple algorithms.  In <a href="philosophychapter.html" title="Chapter 1. Philosophy">Chapter 1</a> we quoted Ken Thompson: &#8220;When in
+Clarity: choosing simple algorithms.  In <a href="philosophychapter.html" title="Chapter&#160;1.&#160;Philosophy">Chapter&#160;1</a> we quoted Ken Thompson: &#8220;When in
 doubt, use brute force&#8221;.  Thompson<a id="id2915308" class="indexterm"/> understood the full cost of complicated
 algorithms &#8212; not just that they're more bug-prone when initially
 implemented, but that they're harder for maintainers down the line to
@@ -41,7 +41,7 @@ contributors to add features or fix bugs.  The Design Notes file
 shipped with
 <i>fetchmail</i><a id="id2915346" class="indexterm"/>
 is representative.  The Linux<a id="id2915354" class="indexterm"/> kernel sources include literally dozens
-of these.</p><p>In <a href="opensourcechapter.html" title="Chapter 19. Open Source">Chapter 19</a> we'll
+of these.</p><p>In <a href="opensourcechapter.html" title="Chapter&#160;19.&#160;Open Source">Chapter&#160;19</a> we'll
 describe conventions that Unix developers have evolved for making
 source code distributions easy to examine and easy to build running
 code from. These practices, too, promote maintainability.</p></div></body></html>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Taxonomy of Unix IPC Methods</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="multiprogramchapter.html" title="Chapter 7. Multiprogramming"/><link rel="previous" href="ch07s01.html" title="Separating Complexity Control from Performance Tuning"/><link rel="next" href="ch07s03.html" title="Problems and Methods to Avoid"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2915457"/>Taxonomy of Unix IPC Methods</h2></div></div><p>As in single-process program architectures, the simplest
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Taxonomy of Unix IPC Methods</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="multiprogramchapter.html" title="Chapter&#160;7.&#160;Multiprogramming"/><link rel="previous" href="ch07s01.html" title="Separating Complexity Control from Performance Tuning"/><link rel="next" href="ch07s03.html" title="Problems and Methods to Avoid"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2915457"/>Taxonomy of Unix IPC Methods</h2></div></div><p>As in single-process program architectures, the simplest
 organization is the best.  The remainder of this chapter will present
 IPC techniques roughly in order of escalating complexity of
 programming them.  Before using a later, more complex technique, you
@@ -97,12 +97,12 @@ this way is called a <span class="emphasis"><em>pipeline</em></span>. If we writ
 ls | wc
 </pre><p>we'll see a character/word/line count for the current directory
 listing. (In this case, only the line count is really likely to be
-useful.)</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>One favorite pipeline was &#8220;<b>bc | speak</b>&#8221;&#8212;a 
+useful.)</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>One favorite pipeline was &#8220;<b>bc | speak</b>&#8221;&#8212;a 
 talking desk calculator.  It knew number names up to a
-vigintillion.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+vigintillion.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Doug McIlroy</span>
 <a id="id2915947" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>It's important to note that all the stages in a pipeline run
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>It's important to note that all the stages in a pipeline run
 concurrently.  Each stage waits for input on the output of the
 previous one, but no stage has to exit before the next can run.  This
 property will be important later on when we look at interactive uses
@@ -162,7 +162,7 @@ less(1)
 is decoupled from the programs that use it, it's possible to simply
 alias &#8216;more&#8217; to &#8216;less&#8217; in your shell, set the
 environment variable <tt>PAGER</tt> to &#8216;less&#8217; (see
-<a href="configurationchapter.html" title="Chapter 10. Configuration">Chapter 10</a>), and get
+<a href="configurationchapter.html" title="Chapter&#160;10.&#160;Configuration">Chapter&#160;10</a>), and get
 all the benefits of a better pager with all properly-written Unix
 programs.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id2916247"/>Case Study: Making Word Lists</h4></div></div><p>A more interesting example is one in which pipelined programs
 cooperate to do some kind of data transformation for which, in less
@@ -179,7 +179,7 @@ pic2graph(1)
 ships with the <i>groff</i> suite of
 text-formatting tools from the Free Software
 Foundation<a id="id2916320" class="indexterm"/>.  It translates diagrams
-written in the PIC language to bitmap images. <a href="#pic2graph" title="Example 7.1. The pic2graph pipeline.">Example 7.1</a> shows the pipeline at the heart of this code.</p><div class="example"><a id="pic2graph"/><p class="title"><b>Example 7.1. The <i>pic2graph</i> pipeline.</b></p><pre class="programlisting">
+written in the PIC language to bitmap images. <a href="#pic2graph" title="Example&#160;7.1.&#160;The pic2graph pipeline.">Example&#160;7.1</a> shows the pipeline at the heart of this code.</p><div class="example"><a id="pic2graph"/><p class="title"><b>Example&#160;7.1.&#160;The <i>pic2graph</i> pipeline.</b></p><pre class="programlisting">
 
 (echo &quot;.EQ&quot;; echo $eqndelim; echo &quot;.EN&quot;; echo &quot;.PS&quot;;cat;echo &quot;.PE&quot;)|\
      groff -e -p $groffpic_opts -Tps &gt;${tmp}.ps \
@@ -209,7 +209,7 @@ can bundle together all the machinery needed to convert the output of
 pic(1)
 into a more modern format.</p><p>We'll examine
 pic(1)
-more closely, as a minilanguage design, in <a href="minilanguageschapter.html" title="Chapter 8. Minilanguages">Chapter 8</a>.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id2916464"/>Case Study:
+more closely, as a minilanguage design, in <a href="minilanguageschapter.html" title="Chapter&#160;8.&#160;Minilanguages">Chapter&#160;8</a>.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id2916464"/>Case Study:
 bc(1)
 and
 dc(1)</h4></div></div><p>Part of the classic Unix toolkit dating back to Version 7 is a
@@ -238,7 +238,7 @@ for arbitrary-precision numeric calculation (which is moderately
 tricky) does not have to be duplicated. Each of the pair of programs
 can be less complex than one calculator with a choice of notations
 would be. The two components can be debugged and mentally modeled
-independently of each other.</p><p>In <a href="minilanguageschapter.html" title="Chapter 8. Minilanguages">Chapter 8</a> we
+independently of each other.</p><p>In <a href="minilanguageschapter.html" title="Chapter&#160;8.&#160;Minilanguages">Chapter&#160;8</a> we
 will reexamine these programs from a slightly different example, as
 examples of domain-specific minilanguages.</p></div><div class="sect3" lang="en"><div class="titlepage"><div><h4 class="title"><a id="id2921380"/>Anti-Case Study: Why Isn't <i>fetchmail</i> a Pipeline?</h4></div></div><p>In Unix terms, <i>fetchmail</i> is an
 uncomfortably large program that bristles with options.  Thinking
@@ -276,7 +276,7 @@ monolithic program.</p><p>Pipelines are a marvelous tool, but not a universal on
 wrapper creates a new interface for a called program, or specializes
 it.  Often, wrappers are used to hide the details of elaborate shell
 pipelines<a id="id2921522" class="indexterm"/>.  We'll
-discuss interface wrappers in <a href="interfacechapter.html" title="Chapter 11. Interfaces">Chapter 11</a>. Most specialization wrappers are quite
+discuss interface wrappers in <a href="interfacechapter.html" title="Chapter&#160;11.&#160;Interfaces">Chapter&#160;11</a>. Most specialization wrappers are quite
 simple, but nevertheless very useful.</p><p>As with shellouts, there is no associated protocol because the
 programs do not communicate during the execution of the callee; but
 the wrapper usually exists to specify arguments that modify the
@@ -385,8 +385,8 @@ encourage simpler programming. And, in fact, interactive master-slave
 communication is tricky enough that it is normally only used when
 either (a) the implied protocol is utterly trivial, or (b) the slave
 process has been designed to speak an application protocol along the
-lines we discussed in <a href="textualitychapter.html" title="Chapter 5. Textuality">Chapter 5</a>.  We'll return to this issue, and ways
-to cope with it, in <a href="minilanguageschapter.html" title="Chapter 8. Minilanguages">Chapter 8</a>.</p><p>When writing a master/slave pair, it is good practice for the
+lines we discussed in <a href="textualitychapter.html" title="Chapter&#160;5.&#160;Textuality">Chapter&#160;5</a>.  We'll return to this issue, and ways
+to cope with it, in <a href="minilanguageschapter.html" title="Chapter&#160;8.&#160;Minilanguages">Chapter&#160;8</a>.</p><p>When writing a master/slave pair, it is good practice for the
 master to support a command-line switch or environment variable that
 allows callers to set their own slave command.  Among other things,
 this is useful for debugging; you will often find it handy during 
@@ -457,17 +457,17 @@ employed as a control channel for <span class="emphasis"><em>daemons</em></span>
 (programs that run constantly, invisibly, in background), a way for an
 operator or another program to tell a daemon that it needs to either
 reinitialize itself, wake up to do work, or write
-internal-state/debugging information to a known location.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>I insisted <tt>SIGUSR1</tt> and <tt>SIGUSR2</tt> be invented for BSD. People
+internal-state/debugging information to a known location.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>I insisted <tt>SIGUSR1</tt> and <tt>SIGUSR2</tt> be invented for BSD. People
 were grabbing system signals to mean what they needed them to mean for IPC,
 so that (for example) some programs that segfaulted would not coredump
 because <tt>SIGSEGV</tt> had been hijacked.</p><p>This is a general principle &#8212; people will want to hijack
 any tools you build, so you have to design them to either be
 un-hijackable or to be hijacked cleanly.  Those are your only choices.
 Except, of course, for being ignored&#8212;a highly reliable way to
-remain unsullied, but less satisfying than might at first appear.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+remain unsullied, but less satisfying than might at first appear.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Ken Arnold</span>
 <a id="id2922338" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>A technique often used with signal IPC is the so-called
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>A technique often used with signal IPC is the so-called
 <span class="emphasis"><em>pidfile</em></span>. Programs that will need to be signaled
 will write a small file to a known location (often in
 <tt>/var/run</tt> or the invoking user's home directory)
@@ -551,7 +551,7 @@ of only minor importance). The byte stream is both sequenced (that is,
 even single bytes will be received in the same order sent) and
 reliable (socket users are guaranteed that the underlying network will
 do error detection and retry to ensure delivery). Socket descriptors,
-once obtained, behave essentially like file descriptors.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>Sockets differ from read/write in one important case.  If
+once obtained, behave essentially like file descriptors.</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top">&#160;</td><td width="80%" valign="top"><p>Sockets differ from read/write in one important case.  If
 the bytes you send arrive, but the receiving machine fails to ACK, the
 sending machine's TCP/IP stack will time out.  So getting an error does
 <span class="emphasis"><em>not</em></span> necessarily mean that the bytes didn't
@@ -560,10 +560,10 @@ consequences for the design of reliable protocols, because you have to be
 able to work properly when you don't know what was received in the 
 past.  Local I/O is &#8216;yes/no&#8217;.  Socket I/O is &#8216;yes/no/maybe&#8217;.
 And nothing can ensure delivery &#8212; the remote machine
-might have been destroyed by a comet.</p></td><td width="10%" valign="top"> </td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
+might have been destroyed by a comet.</p></td><td width="10%" valign="top">&#160;</td></tr><tr><td colspan="2" align="right" valign="top">--<span class="attribution">
 <span class="author">Ken Arnold</span>
 <a id="id2922838" class="indexterm"/>
-</span></td><td width="10%" valign="top"> </td></tr></table></div><p>At the time a socket is created, you specify a
+</span></td><td width="10%" valign="top">&#160;</td></tr></table></div><p>At the time a socket is created, you specify a
 <span class="emphasis"><em>protocol family</em></span> which tells the network layer how
 the name of the socket is interpreted. Sockets are usually thought of
 in connection with the Internet, as a way of passing data between
@@ -591,7 +591,7 @@ designing an <span class="emphasis"><em>application protocol</em></span> for use
 them &#8212; a set of requests and responses which expresses the
 semantics of what your programs will be communicating about in a
 succinct way.  We've already discussed the some major issues in the
-design of application protocols in <a href="textualitychapter.html" title="Chapter 5. Textuality">Chapter 5</a>.</p><p>Sockets are supported in all recent Unixes, under Windows, and
+design of application protocols in <a href="textualitychapter.html" title="Chapter&#160;5.&#160;Textuality">Chapter&#160;5</a>.</p><p>Sockets are supported in all recent Unixes, under Windows, and
 under classic MacOS as well.</p><div class="sect4" lang="en"><div class="titlepage"><div><h5 class="title"><a id="id2922950"/>Case Study: PostgreSQL</h5></div></div><p>PostgreSQL is an open-source database program.  Had it been
 implemented as a monster monolith, it would be a single program with
 an interactive interface that manipulates database files on disk
@@ -617,7 +617,7 @@ different user interfaces.</p><p>This organization is quite typical for Unix dat
 much so that it is often possible to mix and match SQL clients and SQL
 servers. The interoperability issues are the SQL server's
 TCP/IP<a id="id2923028" class="indexterm"/> port number,
-and whether client and server support the same dialect of SQL.</p></div><div class="sect4" lang="en"><div class="titlepage"><div><h5 class="title"><a id="id2923040"/>Case Study: Freeciv</h5></div></div><p>In <a href="transparencychapter.html" title="Chapter 6. Transparency">Chapter 6</a>, we
+and whether client and server support the same dialect of SQL.</p></div><div class="sect4" lang="en"><div class="titlepage"><div><h5 class="title"><a id="id2923040"/>Case Study: Freeciv</h5></div></div><p>In <a href="transparencychapter.html" title="Chapter&#160;6.&#160;Transparency">Chapter&#160;6</a>, we
 introduced Freeciv as an example of transparent data formats.  But
 more critical to the way it supports multiplayer gaming is the
 client/server partitioning of the code.  This is a representative
@@ -711,7 +711,7 @@ Without this precaution, an interrupt typed to the subprocess can have
 unwanted side effects on the parent
 process.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2915659" href="#id2915659">69</a>] </sup>Actually, the above
 is a slight oversimplification.  See the discussion of
-<tt>EDITOR</tt> and <tt>VISUAL</tt> in <a href="configurationchapter.html" title="Chapter 10. Configuration">Chapter 10</a> for the rest of the
+<tt>EDITOR</tt> and <tt>VISUAL</tt> in <a href="configurationchapter.html" title="Chapter&#160;10.&#160;Configuration">Chapter&#160;10</a> for the rest of the
 story.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2916197" href="#id2916197">70</a>] </sup>The
 less(1)
 man page explains the name by observing &#8220;Less is
@@ -721,7 +721,7 @@ embedded spaces.</p></div><div class="footnote"><p><sup>[<a id="ftn.id2921897" h
 input and standard output are the socket, and standard error (which
 will be file descriptor 2) goes to a log file.  File descriptor 3 is
 guaranteed to be the next to be allocated. As an infamous kernel comment
-once observed: &#8220;You are not expected to understand this&#8221;.
+once observed: &#8220;You are not expected to understand&#160;this&#8221;.
 </p></div><div class="footnote"><p><sup>[<a id="ftn.id2922127" href="#id2922127">73</a>] </sup>The friend who suggested this case study comments: &#8220;Yes,
 you can get away with this technique...if there are just a few
 easily-recognizable nuggets of information coming back from the slave

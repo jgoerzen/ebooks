@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Encapsulation and Optimal Module Size</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="modularitychapter.html" title="Chapter 4. Modularity"/><link rel="previous" href="modularitychapter.html" title="Chapter 4. Modularity"/><link rel="next" href="ch04s02.html" title="Compactness and Orthogonality"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2896174"/>Encapsulation and Optimal Module Size</h2></div></div><p>The first and most important quality of modular code is
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Encapsulation and Optimal Module Size</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="modularitychapter.html" title="Chapter&#160;4.&#160;Modularity"/><link rel="previous" href="modularitychapter.html" title="Chapter&#160;4.&#160;Modularity"/><link rel="next" href="ch04s02.html" title="Compactness and Orthogonality"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2896174"/>Encapsulation and Optimal Module Size</h2></div></div><p>The first and most important quality of modular code is
 <i>encapsulation</i>.  Well-encapsulated modules don't
 expose their internals to each other.  They don't call into the middle
 of each others' implementations, and they don't promiscuously share
@@ -28,7 +28,7 @@ as [<a href="apb.html#Parnas" title="[Parnas]">Parnas</a>]) that you ought to de
 your software systems as hierarchies of nested modules, with the grain
 size of the modules at each level held to a minimum.</p><p>It is possible, however, to push this kind of decomposition too
 hard and make your modules too small.  There is evidence [<a href="apb.html#Hatton97" title="[Hatton97]">Hatton97</a>] that when one plots defect density versus module
-size, the curve is U-shaped and concave upwards (see <a href="#hatton" title="Figure 4.1. Qualitative plot of defect count and&#10;density vs. module size.">Figure 4.1</a>).  Very small and very large modules are associated
+size, the curve is U-shaped and concave upwards (see <a href="#hatton" title="Figure&#160;4.1.&#160;Qualitative plot of defect count and&#10;density vs. module size.">Figure&#160;4.1</a>).  Very small and very large modules are associated
 with more bugs than those of intermediate size. A different way of
 viewing the same data is to plot lines of code per module versus total
 bugs.  The curve looks roughly logarithmic up to a &#8216;sweet
@@ -36,7 +36,7 @@ spot&#8217; where it flattens (corresponding to the minimum in the
 defect density curve), after which it goes up as the square of the
 number of the lines of code (which is what one might intuitively
 expect for the whole curve, following Brooks's
-Law<sup>[<a id="id2894437" href="#ftn.id2894437">41</a>]</sup>).</p><div class="figure"><a id="hatton"/><p class="title"><b>Figure 4.1. Qualitative plot of defect count and
+Law<sup>[<a id="id2894437" href="#ftn.id2894437">41</a>]</sup>).</p><div class="figure"><a id="hatton"/><p class="title"><b>Figure&#160;4.1.&#160;Qualitative plot of defect count and
 density vs. module size.</b></p><div class="mediaobject"><img src="graphics/hatton.png" alt="Qualitative plot of defect count and density vs. module size."/></div></div><p>This unexpectedly increasing incidence of bugs at small module
 sizes holds across a wide variety of systems implemented in different
 languages.  Hatton has proposed a model relating this nonlinearity to
@@ -44,7 +44,7 @@ the chunk size of human short-term memory.<sup>[<a id="id2894501" href="#ftn.id2
 the nonlinearity is that at small module grain sizes, the increasing
 complexity of the interfaces becomes the dominating term; it's
 difficult to read the code because you have to understand everything
-before you can understand anything.  In <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a> we'll examine more advanced forms of
+before you can understand anything.  In <a href="multiprogramchapter.html" title="Chapter&#160;7.&#160;Multiprogramming">Chapter&#160;7</a> we'll examine more advanced forms of
 program partitioning; there, too, the complexity of interface
 protocols comes to dominate the total complexity of the system as the
 component processes get smaller.</p><p>In nonmathematical terms, Hatton's empirical results imply a sweet spot

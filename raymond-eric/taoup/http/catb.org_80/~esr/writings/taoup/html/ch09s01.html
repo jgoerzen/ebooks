@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Data-Driven Programming</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="generationchapter.html" title="Chapter 9. Generation"/><link rel="previous" href="generationchapter.html" title="Chapter 9. Generation"/><link rel="next" href="ch09s02.html" title="Ad-hoc Code Generation"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2939658"/>Data-Driven Programming</h2></div></div><p>When doing <i>data-driven programming</i>, one
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Data-Driven Programming</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="generationchapter.html" title="Chapter&#160;9.&#160;Generation"/><link rel="previous" href="generationchapter.html" title="Chapter&#160;9.&#160;Generation"/><link rel="next" href="ch09s02.html" title="Ad-hoc Code Generation"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2939658"/>Data-Driven Programming</h2></div></div><p>When doing <i>data-driven programming</i>, one
 clearly distinguishes code from the data structures on which it acts,
 and designs both so that one can make changes to the logic of the program 
 by editing not the code but the data structure.</p><p>Data-driven programming is sometimes confused with object
@@ -23,7 +23,7 @@ tool.  Otherwise you're likely to find that hand-patching bits which
 should have been generated correctly by machine will have turned into
 an infinite time sink.</p><p>At the upper end of its complexity scale, data-driven
 programming merges into writing interpreters for p-code or simple
-minilanguages of the kind we surveyed in <a href="minilanguageschapter.html" title="Chapter 8. Minilanguages">Chapter 8</a>.  At other edges, it merges into code
+minilanguages of the kind we surveyed in <a href="minilanguageschapter.html" title="Chapter&#160;8.&#160;Minilanguages">Chapter&#160;8</a>.  At other edges, it merges into code
 generation and state-machine programming.  The distinctions are not
 actually that important; the important part is moving program logic
 away from hardwired control structures and into data.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2939746"/>Case Study: <i>ascii</i></h3></div></div><p>I maintain a program called <i>ascii</i>, a
@@ -128,9 +128,9 @@ troubles generating configuration files for
 <i>fetchmail</i>.  The file uses a simple,
 classically-Unixy free-format syntax, but can become forbiddingly
 complicated when a user has POP3 and IMAP accounts at multiple sites.
-See <a href="#fetchmail_example" title="Example 9.1. Example of fetchmailrc syntax.">Example 9.1</a> for a somewhat simplified
+See <a href="#fetchmail_example" title="Example&#160;9.1.&#160;Example of fetchmailrc syntax.">Example&#160;9.1</a> for a somewhat simplified
 version of the <i>fetchmail</i> author's
-configuration file.</p><div class="example"><a id="fetchmail_example"/><p class="title"><b>Example 9.1. Example of fetchmailrc syntax.</b></p><pre class="programlisting">
+configuration file.</p><div class="example"><a id="fetchmail_example"/><p class="title"><b>Example&#160;9.1.&#160;Example of fetchmailrc syntax.</b></p><pre class="programlisting">
 set postmaster &quot;esr&quot;
 set daemon 300
 
@@ -160,7 +160,7 @@ two parsers in two different languages accept the same grammar.
 Keeping them synchronized as the configuration language evolved bid
 fair to be a maintenance nightmare.  It would have violated the SPOT
 rule<a id="id2938011" class="indexterm"/> we discussed
-in <a href="modularitychapter.html" title="Chapter 4. Modularity">Chapter 4</a>
+in <a href="modularitychapter.html" title="Chapter&#160;4.&#160;Modularity">Chapter&#160;4</a>
 wholesale.</p><p>This problem stumped me for a while.  The insight that cracked
 it was that <i>fetchmailconf</i> could use
 <i>fetchmail</i>'s own parser as a filter!  I
@@ -168,8 +168,8 @@ added a <tt>--configdump</tt> option to
 <i>fetchmail</i> that would parse
 <tt>.fetchmailrc</tt> and dump the result to standard
 output in the format of a Python initializer.  For the file above, the
-result would look roughly like <a href="#conf_dump" title="Example 9.2. Python structure dump of a fetchmail configuration.">Example 9.2</a> (to save
-space, some data not relevant to the example is omitted).</p><div class="example"><a id="conf_dump"/><p class="title"><b>Example 9.2. Python structure dump of a <i>fetchmail</i> configuration.</b></p><pre class="programlisting">
+result would look roughly like <a href="#conf_dump" title="Example&#160;9.2.&#160;Python structure dump of a fetchmail configuration.">Example&#160;9.2</a> (to save
+space, some data not relevant to the example is omitted).</p><div class="example"><a id="conf_dump"/><p class="title"><b>Example&#160;9.2.&#160;Python structure dump of a <i>fetchmail</i> configuration.</b></p><pre class="programlisting">
 fetchmailrc = {
     'poll_interval':300,
     &quot;logfile&quot;:None,
@@ -268,8 +268,8 @@ hacking</em></span> and is generally considered fearsomely esoteric,
 deep black magic.  Most object-oriented languages don't support it at
 all; in those that do (Perl<a id="id2938270" class="indexterm"/> and Java among them), it tends to be a
 complicated and fragile undertaking.  But Python's facilities for
-introspection and metaclass hacking are unusually accessible.</p><p>See <a href="#solution_code" title="Example 9.3. copy_instance metaclass code.">Example 9.3</a> for the solution code, from
-near line 1895 of the 1.43 version.</p><div class="example"><a id="solution_code"/><p class="title"><b>Example 9.3. <tt>copy_instance</tt> metaclass code.</b></p><pre class="programlisting">
+introspection and metaclass hacking are unusually accessible.</p><p>See <a href="#solution_code" title="Example&#160;9.3.&#160;copy_instance metaclass code.">Example&#160;9.3</a> for the solution code, from
+near line 1895 of the 1.43 version.</p><div class="example"><a id="solution_code"/><p class="title"><b>Example&#160;9.3.&#160;<tt>copy_instance</tt> metaclass code.</b></p><pre class="programlisting">
 def copy_instance(toclass, fromdict):
 # Make a class object of given type from a conformant dictionary.
     class_sig = toclass.__dict__.keys(); class_sig.sort()
@@ -300,7 +300,7 @@ def copy_instance(toclass, fromdict):
         for x in fromdict.keys():
                 setattr(toclass, x, fromdict[x])
 </pre><p>When your code is this simple, it is far more likely to be right.
-See <a href="#solution_caller" title="Example 9.4. Calling context for&#10;copy_instance.">Example 9.4</a> for the code that calls it.</p><div class="example"><a id="solution_caller"/><p class="title"><b>Example 9.4. Calling context for
+See <a href="#solution_caller" title="Example&#160;9.4.&#160;Calling context for&#10;copy_instance.">Example&#160;9.4</a> for the code that calls it.</p><div class="example"><a id="solution_caller"/><p class="title"><b>Example&#160;9.4.&#160;Calling context for
 <tt>copy_instance</tt>.</b></p><pre class="programlisting">
     # The tricky part - initializing objects from the `configuration' 
     # global.  `Configuration' is the top level of the object tree 
@@ -344,7 +344,7 @@ have been looking at was written in about ninety minutes, worked the
 first time it was run, and has been stable in the years since (the
 only time it has ever broken is when it threw an exception in the
 presence of genuine version skew).  It's less than forty lines and
-beautifully simple.  There is no way that the naïve approach of
+beautifully simple.  There is no way that the na&#239;ve approach of
 building an entire second parser could possibly have produced this
 kind of maintainability, reliability or
 compactness<a id="id2938510" class="indexterm"/>.
@@ -352,10 +352,10 @@ Reuse, simplification, generalization,
 orthogonality<a id="id2938519" class="indexterm"/>:
 this is the <a id="id2938528" class="indexterm"/> Zen of Unix
 in action.
-</p><p>In <a href="configurationchapter.html" title="Chapter 10. Configuration">Chapter 10</a>,
+</p><p>In <a href="configurationchapter.html" title="Chapter&#160;10.&#160;Configuration">Chapter&#160;10</a>,
 we'll examine the run-control syntax of
 <i>fetchmail</i><a id="id2938555" class="indexterm"/>
 as an example of the standard shell-like metaformat for run-control
-files.  In <a href="languageschapter.html" title="Chapter 14. Languages">Chapter 14</a>
+files.  In <a href="languageschapter.html" title="Chapter&#160;14.&#160;Languages">Chapter&#160;14</a>
 we'll use <i>fetchmailconf</i> as an example of
 Python's strength in rapidly building GUIs.</p></div></div></body></html>

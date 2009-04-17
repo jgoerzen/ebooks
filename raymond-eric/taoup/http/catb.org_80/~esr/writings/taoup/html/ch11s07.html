@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Applying Unix Interface-Design Patterns</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="interfacechapter.html" title="Chapter 11. Interfaces"/><link rel="previous" href="ch11s06.html" title="Unix Interface Design Patterns"/><link rel="next" href="ch11s08.html" title="The Web Browser as a Universal Front End"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2960113"/>Applying Unix Interface-Design Patterns</h2></div></div><p>To facilitate scripting and pipelining (see <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a>) it is wise to choose the
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Applying Unix Interface-Design Patterns</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1"/><link rel="home" href="index.html" title="The Art of Unix Programming"/><link rel="up" href="interfacechapter.html" title="Chapter&#160;11.&#160;Interfaces"/><link rel="previous" href="ch11s06.html" title="Unix Interface Design Patterns"/><link rel="next" href="ch11s08.html" title="The Web Browser as a Universal Front End"/></head><body><mbp:pagebreak /><div class="sect1" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a id="id2960113"/>Applying Unix Interface-Design Patterns</h2></div></div><p>To facilitate scripting and pipelining (see <a href="multiprogramchapter.html" title="Chapter&#160;7.&#160;Multiprogramming">Chapter&#160;7</a>) it is wise to choose the
 simplest interface pattern possible &#8212; that is, the pattern with the
 fewest channels to the environment and the least
 interactivity.</p><p>In many of the single-component patterns described above, it is
@@ -29,7 +29,7 @@ all that implies in the way of code bloat and potential
 inconsistencies.</p><p>Thus, when &#8220;choose the simplest pattern&#8221; conflicts
 with a requirement to produce a GUI, the Unix way is to split the
 program in two, applying the &#8216;separated engine and
-interface&#8217; design pattern.</p><p>In fact, by combining a theme from <a href="multiprogramchapter.html" title="Chapter 7. Multiprogramming">Chapter 7</a> with this idea, we can perhaps name a
+interface&#8217; design pattern.</p><p>In fact, by combining a theme from <a href="multiprogramchapter.html" title="Chapter&#160;7.&#160;Multiprogramming">Chapter&#160;7</a> with this idea, we can perhaps name a
 new design pattern emerging under Linux<a id="id2960215" class="indexterm"/> and other modern, open-source
 Unixes where GUIs are not merely a reluctant add-on but an active
 focus of lots of development effort.</p><div class="sect2" lang="en"><div class="titlepage"><div><h3 class="title"><a id="id2960228"/>The Polyvalent-Program Pattern</h3></div></div><p>A polyvalent program has the following traits:</p><div class="orderedlist"><ol type="1"><li><p>
@@ -51,5 +51,5 @@ Tcl<a id="id2960296" class="indexterm"/>.
 </p></li><li><p> Optional extra: One UI mode is a roguelike interface
 using
 curses(3).
-</p></li></ol></div><div class="figure"><a id="id2960323"/><p class="title"><b>Figure 11.4. Caller/callee relationships in a polyvalent program.</b></p><div class="mediaobject"><img src="graphics/polyvalent.png" alt="Caller/callee relationships in a polyvalent program."/></div></div><p>Notably, the GIMP<a id="id2960378" class="indexterm"/>
+</p></li></ol></div><div class="figure"><a id="id2960323"/><p class="title"><b>Figure&#160;11.4.&#160;Caller/callee relationships in a polyvalent program.</b></p><div class="mediaobject"><img src="graphics/polyvalent.png" alt="Caller/callee relationships in a polyvalent program."/></div></div><p>Notably, the GIMP<a id="id2960378" class="indexterm"/>
 actually fulfills this pattern.</p></div></div></body></html>
